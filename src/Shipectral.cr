@@ -1,4 +1,4 @@
-require "./SDCLib.cr"
+require "./SPTLib.cr"
 
 mode = SF::VideoMode.new(800, 600)
 SPT.window = SF::RenderWindow.new(mode, "Shipectral")
@@ -11,7 +11,6 @@ limiter.set_draw_routine do
     SPT.window.display()
 end
 
-c = 0
 limiter.set_update_routine do
     while event = SPT.window.poll_event()
         case event
@@ -20,8 +19,6 @@ limiter.set_update_routine do
         else
         end
     end
-    puts c
-    c += 1
 end
 
 while SPT.window.open?()

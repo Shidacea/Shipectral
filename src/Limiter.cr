@@ -1,17 +1,3 @@
-require "crsfml"
-
-module SPT
-	@@window = uninitialized SF::RenderWindow
-
-	def self.window
-		return @@window
-	end
-
-	def self.window=(value)
-		@@window = value
-	end
-end
-
 # Framerate limiter
 
 module SPT
@@ -116,5 +102,4 @@ module SPT
 		end
 
 	end
-
 end
