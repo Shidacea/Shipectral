@@ -4,13 +4,16 @@ Shipectral aims to be a Crystal variant of the Shidacea framework.
 
 In the future, Shipectral will take the place of the previous Shidacea C++ backend, which will allow for easier bindings and simplify the process of converting a Shidacea project to much more performant code.
 
+# Features
+
+* Full mruby interpreter included
+* Anyolite support allowing simple mruby bindings of Crystal and C methods
+* Support for Windows and Ubuntu with easy build routine
+
 # Roadmap
 
 ## Structure
 
-* [ ] Include submodules properly
-* [ ] Linux support
-* [ ] Consider Rake as build system
 * [ ] Port of Collishi library as one shard
 * [ ] CI and automatically generated binaries
 
@@ -25,15 +28,15 @@ In the future, Shipectral will take the place of the previous Shidacea C++ backe
 
 # Installation
 
-Note that this current version does only run on Windows 64bit.
-You need to provide a folder third_party with the subfolders crystal, crSFML, anyolite and SFML.
+## Prerequisites
 
-crystal needs to contain the crystal source code and a working Windows executable.
+* Crystal (needs to be in the path environment variable for Windows)
+* Ruby
+* Rake
+* Bison
+* Libraries needed for SFML (mostly Ubuntu, see the SFML documentation for more information)
 
-crSFML needs to contain the crSFML source code.
+## Building
 
-SFML needs to contain a recent Visual Studio 64bit SFML release with folders bin, lib and include in it.
-
-anyolite needs to contain the full anyolite shard including submodules.
-
-Then run cmake using Visual Studio.
+Note that this current version does only run on Windows 64bit and Ubuntu.
+You need to run `rake` in either a terminal (Ubuntu) or the 64bit Visual Studio Command Prompt (Windows).
