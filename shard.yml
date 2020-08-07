@@ -1,0 +1,15 @@
+name: Shipectral
+version: 0.0.1
+
+authors:
+  - Hadeweka
+
+dependencies:
+  crsfml:
+    github: oprypin/crsfml
+    branch: master
+  anyolite:
+    github: Anyolite/anyolite
+    branch: master
+
+license: MIT

@@ -2,5 +2,7 @@
 .crystal
 bin
 out
-third_party
+build
 CMakeSettings.json
+shard.lock
+lib
