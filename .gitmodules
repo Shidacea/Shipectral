@@ -1,0 +1,9 @@
+[submodule "third_party/anyolite"]
+	path = third_party/anyolite
+	url = https://github.com/Anyolite/anyolite
+[submodule "third_party/SFML"]
+	path = third_party/SFML
+	url = https://github.com/SFML/SFML
+[submodule "third_party/crSFML"]
+	path = third_party/crSFML
+	url = https://github.com/oprypin/crSFML
