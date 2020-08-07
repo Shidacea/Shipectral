@@ -10,6 +10,7 @@ add_custom_target(SFML_BINDINGS
 
 add_custom_target(ShipectralReal ALL
 	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+	COMMAND cd third_party/anyolite && rake build_shard && cd ../..
 	COMMAND utility/Compile_Shipectral_Windows.bat
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/third_party/SFML/bin/sfml-audio-2.dll ${CMAKE_BINARY_DIR}/sfml-audio-2.dll
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/third_party/SFML/bin/sfml-graphics-2.dll ${CMAKE_BINARY_DIR}/sfml-graphics-2.dll
