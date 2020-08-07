@@ -1,25 +1,23 @@
 # Shipectral
 
-Shipectral is planned to be a port of the Shidacea core library SDCLib to the Crystal language.
-This project is highly experimental and might not be completed at all.
+Shipectral aims to be a Crystal variant of the Shidacea framework.
+
+In the future, Shipectral will take the place of the previous Shidacea C++ backend, which will allow for easier bindings and simplify the process of converting a Shidacea project to much more performant code.
 
 # Roadmap
 
 ## Structure
 
-* [ ] Literally split this repository into shards
+* [ ] Include submodules properly
+* [ ] Linux support
+* [ ] Consider Rake as build system
 * [ ] Port of Collishi library as one shard
-* [ ] SPTLib as one shard
-* [ ] Launcher as separate project, maybe still with CMake?
+* [ ] CI and automatically generated binaries
 
 ## Features
 
-* [ ] CrystalCollishi as port of Collishi
-* [ ] SPTLib as port of SDCLib
-* [ ] Port all Shidacea engine and core methods
-* [ ] Port entity-component system of Shidacea
-* [ ] Port demo projects
-* [ ] Try to implement ImGui
+* [ ] Reproduce Shidacea bindings
+* [ ] Reproduce SDCLib as good as possible in Crystal
 
 # Differences from Shidacea
 
