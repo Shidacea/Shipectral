@@ -1,4 +1,11 @@
+require "anyolite"
 require "./SPTLib.cr"
+
+MrbState.create do |mrb|
+	mrb.execute_script_line("puts 21233")
+end
+
+puts "FIN"
 
 mode = SF::VideoMode.new(800, 600)
 SPT.window = SF::RenderWindow.new(mode, "Shipectral")
