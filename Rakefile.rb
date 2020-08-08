@@ -85,3 +85,19 @@ task :build_shards => [:generate_build_dir, :build_sfml] do
         system "SFML_INCLUDE_DIR=#{Dir.pwd}/third_party/sfml/include shards install"
     end
 end
+
+task :recompile do
+    if SHIPECTRAL_COMPILER == :msvc
+        system "utility/compile_Shipectral.bat #{SHIPECTRAL_BUILD_PATH}"
+    elsif SHIPECTRAL_COMPILER == :gcc
+        system "utility/compile_Shipectral.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH}"
+    end
+end
+
+task :test do
+    if SHIPECTRAL_COMPILER == :msvc
+        system "\"#{SHIPECTRAL_BUILD_PATH}/shipectral/Shipectral.exe\""
+    elsif SHIPECTRAL_COMPILER == :gcc
+        system "LD_LIBRARY_PATH=\"#{SHIPECTRAL_BUILD_PATH}/sfml/lib\"#{SHIPECTRAL_BUILD_PATH}/shipectral/Shipectral"
+    end
+end
