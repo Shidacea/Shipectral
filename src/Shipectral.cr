@@ -1,7 +1,10 @@
 require "anyolite"
 require "./SPTLib.cr"
 
+require "./mruby_bindings/Window.cr"
+
 MrbState.create do |mrb|
+    setup_ruby_window_class(mrb)
 	mrb.execute_script_line("puts 21233")
 end
 
