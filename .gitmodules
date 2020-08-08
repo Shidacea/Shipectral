@@ -7,3 +7,6 @@
 [submodule "third_party/crSFML"]
 	path = third_party/crSFML
 	url = https://github.com/oprypin/crSFML
+[submodule "third_party/crystal"]
+	path = third_party/crystal
+	url = https://github.com/crystal-lang/crystal
