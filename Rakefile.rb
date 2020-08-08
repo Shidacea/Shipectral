@@ -24,8 +24,8 @@ task :default => [:install_shipectral] do
 end
 
 task :clean do
-    FileUtils.rm_r "#{SHIPECTRAL_BUILD_PATH}"
-    FileUtils.rm_r "lib"
+    FileUtils.rm_r "#{SHIPECTRAL_BUILD_PATH}" if Dir.exist?("#{SHIPECTRAL_BUILD_PATH}")
+    FileUtils.rm_r "lib" if Dir.exist?("lib")
 end
 
 task :generate_build_dir do
@@ -37,8 +37,8 @@ task :build_crsfml => [:generate_build_dir] do
         FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml")
         FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml/src")
         FileUtils.cp_r "third_party/crsfml/src/.", "#{SHIPECTRAL_BUILD_PATH}/crsfml/src", :verbose => true
-        FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml/spec")
-        FileUtils.cp_r "third_party/crsfml/spec/.", "#{SHIPECTRAL_BUILD_PATH}/crsfml/spec", :verbose => true
+        #FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml/spec")
+        #FileUtils.cp_r "third_party/crsfml/spec/.", "#{SHIPECTRAL_BUILD_PATH}/crsfml/spec", :verbose => true
         FileUtils.cp "third_party/crsfml/make.cmd", "#{SHIPECTRAL_BUILD_PATH}/crsfml/make.cmd", :verbose => true
         system "utility/compile_crSFML.bat #{SHIPECTRAL_BUILD_PATH}"
     end
