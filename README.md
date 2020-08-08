@@ -30,11 +30,14 @@ In the future, Shipectral will take the place of the previous Shidacea C++ backe
 
 ## Prerequisites
 
-* Crystal (needs to be in the path environment variable for Windows)
+* Crystal
 * Ruby
 * Rake
 * Bison
+* Git
 * Libraries needed for SFML (mostly Ubuntu, see the SFML documentation for more information)
+
+All of these programs need to be in the path environment variable for Windows to work properly.
 
 ## Building
 
