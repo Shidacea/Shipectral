@@ -1,4 +1,4 @@
-a = SDC::RenderWindow.new("hi")
+a = SDC::RenderWindow.new("Test window", 800, 600)
 
 puts "Created a #{a.class}."
 
