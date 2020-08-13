@@ -16,6 +16,11 @@ sound.play
 
 puts "Sound played."
 
+# Ensure sound playing
+100000.times do |i|
+    puts i
+end
+
 window.close
 
 puts "Closed it."

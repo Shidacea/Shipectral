@@ -4,6 +4,10 @@ Shipectral aims to be a Crystal variant of the Shidacea framework.
 
 In the future, Shipectral will take the place of the previous Shidacea C++ backend, which will allow for easier bindings and simplify the process of converting a Shidacea project to much more performant code.
 
+NOTE: Windows is currently not working properly, most likely due to https://github.com/crystal-lang/crystal/issues/9533 .
+
+Windows support will resume once this issue is properly patched out.
+
 # Features
 
 * Full mruby interpreter included

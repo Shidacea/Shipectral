@@ -98,6 +98,7 @@ task :test do
     if SHIPECTRAL_COMPILER == :msvc
         system "\"#{SHIPECTRAL_BUILD_PATH}/shipectral/Shipectral.exe\""
     elsif SHIPECTRAL_COMPILER == :gcc
+        # Currently not working for some reason
         system "LD_LIBRARY_PATH=\"#{SHIPECTRAL_BUILD_PATH}/sfml/lib\"#{SHIPECTRAL_BUILD_PATH}/shipectral/Shipectral"
     end
 end
