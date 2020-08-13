@@ -1,5 +1,5 @@
 module ScriptHelper
-    @@path : String = ""
+    @@path : String = "test"
     
     def self.path
         @@path
