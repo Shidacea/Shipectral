@@ -11,5 +11,8 @@ dependencies:
   anyolite:
     github: Anyolite/anyolite
     branch: master
+    version: 0.2.1
 
 license: MIT
+
+crystal: '>= 0.34.0'
