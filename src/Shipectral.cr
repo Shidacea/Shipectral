@@ -4,7 +4,8 @@ require "./ScriptHelper.cr"
 
 require "../engine/Engine.cr"
 
-GC.disable
+MrbRefTable.logging = true
+
 MrbState.create do |mrb|
     module_sdc = MrbModule.new(mrb, "SDC")
 
@@ -13,4 +14,5 @@ MrbState.create do |mrb|
     mrb.load_script_from_file("test/Test.rb")
     MrbInternal.mrb_print_error(mrb)
 end
-GC.enable
+
+puts MrbRefTable.inspect

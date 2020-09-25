@@ -18,7 +18,7 @@ puts "Sound played."
 
 # Ensure sound playing
 100000.times do |i|
-    puts i
+    #puts i
 end
 
 window.close
