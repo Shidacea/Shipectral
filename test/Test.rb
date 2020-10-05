@@ -1,10 +1,5 @@
 window = SDC::RenderWindow.new("Test window", 800, 600)
 
-a = SDC::Coordinates.new(1.1234, 1)
-puts a
-puts a.to_s
-puts a.inspect
-
 puts "Created a #{window.class}."
 
 sound = SDC::Sound.new
@@ -38,3 +33,13 @@ end
 window.close
 
 puts "Closed it."
+
+a = SDC::Coordinates.new(3, 4)
+
+puts a
+
+a.x += 5
+
+puts a
+
+puts a + SDC::Coordinates.new(3, 8)
