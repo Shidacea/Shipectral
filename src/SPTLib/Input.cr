@@ -1,5 +1,4 @@
 module SPT
-
-# TODO
+  # TODO
 
 end

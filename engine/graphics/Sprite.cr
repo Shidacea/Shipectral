@@ -1,7 +1,7 @@
 module SF
     class Sprite
         def link_texture(new_texture)
-            texture = new_texture
+            self.texture = new_texture
         end
     end
 end
