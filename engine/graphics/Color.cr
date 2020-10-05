@@ -11,11 +11,6 @@ module SF
         def sdc_multiply(other)
             self * other
         end
-
-        # TODO: Find a better way to do this
-        def object_id
-            0.to_u64
-        end
     end
 end
 

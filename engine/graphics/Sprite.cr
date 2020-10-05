@@ -1,16 +1,4 @@
 module SF
-    struct Vector2(T)
-        def object_id
-            0.to_u64
-        end
-    end
-
-    struct Rect(T)
-        def object_id
-            0.to_u64
-        end
-    end
-
     class Sprite
         def link_texture(new_texture)
             texture = new_texture

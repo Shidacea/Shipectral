@@ -4,7 +4,7 @@ require "./ScriptHelper.cr"
 
 require "../engine/Engine.cr"
 
-MrbRefTable.logging = true
+#MrbRefTable.logging = true
 
 MrbState.create do |mrb|
     module_sdc = MrbModule.new(mrb, "SDC")
@@ -15,4 +15,4 @@ MrbState.create do |mrb|
     MrbInternal.mrb_print_error(mrb)
 end
 
-puts MrbRefTable.inspect
+#puts MrbRefTable.inspect

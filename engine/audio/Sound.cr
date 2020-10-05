@@ -1,7 +1,7 @@
 module SF
     class Sound
         def link_sound_buffer(new_buffer)
-            buffer = new_buffer
+            self.buffer = new_buffer
         end
     end
 end

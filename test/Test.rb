@@ -17,8 +17,8 @@ sound.play
 puts "Sound played."
 
 # Ensure sound playing
-100000.times do |i|
-    #puts i
+10000.times do |i|
+    window.display
 end
 
 window.close
