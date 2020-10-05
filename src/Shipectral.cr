@@ -4,7 +4,8 @@ require "./ScriptHelper.cr"
 
 require "../engine/Engine.cr"
 
-# MrbRefTable.logging = true
+# TODO: Structs are still weird, find out optimization in Anyolite
+MrbRefTable.warnings = false
 
 MrbState.create do |mrb|
   module_sdc = MrbModule.new(mrb, "SDC")
@@ -15,4 +16,4 @@ MrbState.create do |mrb|
   MrbInternal.mrb_print_error(mrb)
 end
 
-# puts MrbRefTable.inspect
+#puts MrbRefTable.inspect

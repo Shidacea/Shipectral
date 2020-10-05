@@ -19,4 +19,18 @@ def setup_ruby_window_class(mrb, module_sdc)
   MrbWrap.wrap_instance_method(mrb, SF::RenderWindow, "display", display)
   MrbWrap.wrap_getter(mrb, SF::RenderWindow, "is_open?", open?)
   MrbWrap.wrap_instance_method(mrb, SF::RenderWindow, "close", close)
+
+  # TODO: Wait until Anyolite supports functions of this kind
+  mrb.define_method("poll_event", MrbClassCache.get(SF::RenderWindow), 
+    MrbFunc.new do |mrb, obj|
+      converted_obj = MrbMacro.convert_from_ruby_object(mrb, obj, SF::RenderWindow).value
+      polled_event = converted_obj.poll_event
+      if polled_event
+        MrbCast.return_value(mrb, polled_event)
+      else 
+        MrbCast.return_nil
+      end
+    end
+  )
+
 end
