@@ -4,9 +4,6 @@ require "./ScriptHelper.cr"
 
 require "../engine/Engine.cr"
 
-# TODO: Structs are still weird, find out optimization in Anyolite
-MrbRefTable.warnings = false
-
 MrbState.create do |mrb|
   module_sdc = MrbModule.new(mrb, "SDC")
 
