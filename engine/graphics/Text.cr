@@ -1,6 +1,6 @@
 module SF
 
-  @[MrbWrap::SpecializeInstanceMethod("initialize", [string : String, font : Font, character_size : Int = 30], [string : String, font : Font, character_size : Int32 = 30])]
+  @[MrbWrap::SpecializeInstanceMethod("initialize", [string : String, font : Font, character_size : Int = 30])]
   @[MrbWrap::ExcludeInstanceMethod("scale")]
   @[MrbWrap::ExcludeInstanceMethod("move")]
   @[MrbWrap::ExcludeInstanceMethod("draw")]
