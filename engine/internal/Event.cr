@@ -30,7 +30,7 @@ module SF
 end
 
 def setup_ruby_event_class(mrb, module_sdc)
-    MrbWrap.wrap_class(mrb, SF::Event, "Event", under: module_sdc)
+    MrbWrap.wrap_class(mrb, SF::Event, "Event", under: SF)
     MrbWrap.wrap_instance_method(mrb, SF::Event, "type", sdc_type)
     MrbWrap.wrap_instance_method(mrb, SF::Event, "key_code", sdc_key_code)
     MrbWrap.wrap_instance_method(mrb, SF::Event, "key_alt?", sdc_key_alt)

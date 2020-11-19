@@ -25,7 +25,7 @@ def load_wrappers(mrb, module_sdc)
   setup_ruby_font_class(mrb, module_sdc)
   setup_ruby_render_states_class(mrb, module_sdc)
   setup_ruby_sprite_class(mrb, module_sdc)
-  setup_ruby_text_class(mrb, module_sdc)
+  setup_ruby_text_class(mrb)
   setup_ruby_texture_class(mrb, module_sdc)
   setup_ruby_window_class(mrb, module_sdc)
 

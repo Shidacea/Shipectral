@@ -7,7 +7,7 @@ module SF
 end
 
 def setup_ruby_sound_class(mrb, module_sdc)
-  MrbWrap.wrap_class(mrb, SF::Sound, "Sound", under: module_sdc)
+  MrbWrap.wrap_class(mrb, SF::Sound, "Sound", under: SF)
   MrbWrap.wrap_constructor(mrb, SF::Sound)
 
   MrbWrap.wrap_instance_method(mrb, SF::Sound, "link_sound_buffer", link_sound_buffer, SF::SoundBuffer)

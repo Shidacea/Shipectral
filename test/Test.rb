@@ -1,9 +1,9 @@
-window = SDC::RenderWindow.new("Test window", 800, 600)
+window = SF::RenderWindow.new("Test window", 800, 600)
 
 puts "Created a #{window.class}."
 
-sound = SDC::Sound.new
-sound_buffer = SDC::SoundBuffer.new
+sound = SF::Sound.new
+sound_buffer = SF::SoundBuffer.new
 sound_buffer.load_from_file("Yeow.ogg")
 
 puts "Sound loaded."
@@ -34,7 +34,7 @@ window.close
 
 puts "Closed it."
 
-a = SDC::Coordinates.new(3, 4)
+a = SF::Coordinates.new(3, 4)
 
 puts a
 
@@ -42,4 +42,4 @@ a.x += 5
 
 puts a
 
-puts a + SDC::Coordinates.new(3, 8)
+puts a + SF::Coordinates.new(3, 8)

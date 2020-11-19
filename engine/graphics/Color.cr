@@ -15,7 +15,7 @@ module SF
 end
 
 def setup_ruby_color_class(mrb, module_sdc)
-  MrbWrap.wrap_class(mrb, SF::Color, "Color", under: module_sdc)
+  MrbWrap.wrap_class(mrb, SF::Color, "Color", under: SF)
   MrbWrap.wrap_constructor(mrb, SF::Color, [{UInt8, 0}, {UInt8, 0}, {UInt8, 0}, {UInt8, 255}])
   MrbWrap.wrap_instance_method(mrb, SF::Color, "to_i", to_integer)
   MrbWrap.wrap_property(mrb, SF::Color, "r", r, UInt8)

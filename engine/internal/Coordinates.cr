@@ -75,7 +75,7 @@ module SF
 end
 
 def setup_ruby_coordinates_class(mrb, module_sdc)
-  MrbWrap.wrap_class(mrb, SF::VectorWrapper2f, "Coordinates", under: module_sdc)
+  MrbWrap.wrap_class(mrb, SF::VectorWrapper2f, "Coordinates", under: SF)
   MrbWrap.wrap_constructor(mrb, SF::VectorWrapper2f, [{Float32, 0.0}, {Float32, 0.0}])
   MrbWrap.wrap_property(mrb, SF::VectorWrapper2f, "x", x, Float32)
   MrbWrap.wrap_property(mrb, SF::VectorWrapper2f, "y", y, Float32)

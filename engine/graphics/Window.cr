@@ -13,7 +13,7 @@ module SF
 end
 
 def setup_ruby_window_class(mrb, module_sdc)
-  MrbWrap.wrap_class(mrb, SF::RenderWindow, "RenderWindow", under: module_sdc)
+  MrbWrap.wrap_class(mrb, SF::RenderWindow, "RenderWindow", under: SF)
   MrbWrap.wrap_constructor(mrb, SF::RenderWindow, [String, UInt32, UInt32, {Bool, 0}])
   MrbWrap.wrap_instance_method(mrb, SF::RenderWindow, "clear", clear)
   MrbWrap.wrap_instance_method(mrb, SF::RenderWindow, "display", display)

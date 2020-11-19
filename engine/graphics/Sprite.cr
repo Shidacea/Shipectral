@@ -7,7 +7,7 @@ module SF
 end
 
 def setup_ruby_sprite_class(mrb, module_sdc)
-    MrbWrap.wrap_class(mrb, SF::Sprite, "Sprite", under: module_sdc)
+    MrbWrap.wrap_class(mrb, SF::Sprite, "Sprite", under: SF)
     MrbWrap.wrap_constructor(mrb, SF::Sprite)
     MrbWrap.wrap_instance_method(mrb, SF::Sprite, "link_texture", link_texture, SF::Texture)
     MrbWrap.wrap_property(mrb, SF::Sprite, "position", position, SF::Vector2f)

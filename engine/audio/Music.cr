@@ -7,7 +7,7 @@ module SF
 end
 
 def setup_ruby_music_class(mrb, module_sdc)
-  MrbWrap.wrap_class(mrb, SF::Music, "Music", under: module_sdc)
+  MrbWrap.wrap_class(mrb, SF::Music, "Music", under: SF)
   MrbWrap.wrap_constructor(mrb, SF::Music)
   MrbWrap.wrap_instance_method(mrb, SF::Music, "play", play)
   MrbWrap.wrap_instance_method(mrb, SF::Music, "stop", stop)

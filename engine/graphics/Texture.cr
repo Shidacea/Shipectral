@@ -7,7 +7,7 @@ module SF
 end
 
 def setup_ruby_texture_class(mrb, module_sdc)
-  MrbWrap.wrap_class(mrb, SF::Texture, "Texture", under: module_sdc)
+  MrbWrap.wrap_class(mrb, SF::Texture, "Texture", under: SF)
   MrbWrap.wrap_constructor(mrb, SF::Texture)
   MrbWrap.wrap_instance_method(mrb, SF::Texture, "size", size)
   # TODO: Fix this as soon as Anyolite allows for default object values (either nil or omitting them)

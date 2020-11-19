@@ -5,7 +5,7 @@ require "./ScriptHelper.cr"
 require "../engine/Engine.cr"
 
 MrbState.create do |mrb|
-  module_sdc = MrbModule.new(mrb, "SDC")
+  module_sdc = MrbWrap.wrap_module(mrb, SF, "SF")
 
   load_wrappers(mrb, module_sdc)
 
