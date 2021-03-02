@@ -9,16 +9,6 @@ module SF
   @[MrbWrap::ExcludeInstanceMethod("position=")]
   @[MrbWrap::ExcludeInstanceMethod("scale=")]
   @[MrbWrap::ExcludeInstanceMethod("origin=")]
-  @[MrbWrap::ExcludeInstanceMethod("style")]
-  @[MrbWrap::ExcludeInstanceMethod("style=")]
-  @[MrbWrap::ExcludeConstant("Style")]
-  @[MrbWrap::ExcludeConstant("Regular")]
-  @[MrbWrap::ExcludeConstant("Bold")]
-  @[MrbWrap::ExcludeConstant("Italic")]
-  @[MrbWrap::ExcludeConstant("Underlined")]
-  @[MrbWrap::ExcludeConstant("StrikeThrough")]
-  @[MrbWrap::ExcludeConstant("None")]
-  @[MrbWrap::ExcludeConstant("All")]
   class Text
 
   end
