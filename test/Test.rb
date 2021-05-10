@@ -16,7 +16,7 @@ sound.play
 
 puts "Sound played."
 puts 
-puts "Close window with 'Shift'."
+puts "Close window with 'Esc'."
 
 close_all = false
 
@@ -26,6 +26,8 @@ while !close_all
 
   if ev.is_a?(SDC::Event::KeyPressed)
     close_all = true if ev.code_to_int == 36
+  elsif ev.is_a?(SDC::Event::Closed)
+    close_all = true
   end
 end
 
