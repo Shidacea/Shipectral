@@ -7,7 +7,7 @@ require "./ScriptHelper.cr"
 require "../engine/Engine.cr"
 
 Anyolite::RbInterpreter.create do |rb|
-  Anyolite.wrap_module(rb, SF, "SF")
+  Anyolite.wrap_module(rb, SF, "SDC")
   load_wrappers(rb)
 
   rb.load_script_from_file("test/Test.rb")
