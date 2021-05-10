@@ -2,8 +2,8 @@ require "crsfml"
 require "crsfml/audio"
 
 require "./audio/Music.cr"
-#require "./audio/SoundBuffer.cr"
-#require "./audio/Sound.cr"
+require "./audio/SoundBuffer.cr"
+require "./audio/Sound.cr"
 
 #require "./graphics/Color.cr"
 #require "./graphics/Font.cr"
@@ -16,10 +16,10 @@ require "./audio/Music.cr"
 #require "./internal/Coordinates.cr"
 #require "./internal/Event.cr"
 
-def load_wrappers(rb, module_sdc)
-  setup_ruby_music_class(rb, module_sdc)
-  #setup_ruby_sound_buffer_class(mrb, module_sdc)
-  #setup_ruby_sound_class(mrb, module_sdc)
+def load_wrappers(rb)
+  setup_ruby_music_class(rb)
+  setup_ruby_sound_buffer_class(rb)
+  setup_ruby_sound_class(rb)
 
   #setup_ruby_color_class(mrb, module_sdc)
   #setup_ruby_font_class(mrb, module_sdc)

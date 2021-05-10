@@ -41,6 +41,6 @@ module SF
   end
 end
 
-def setup_ruby_music_class(rb, module_sdc)
+def setup_ruby_music_class(rb)
   Anyolite.wrap(rb, SF::Music, under: SF, verbose: true, wrap_superclass: false)
 end
