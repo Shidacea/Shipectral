@@ -1,17 +1,17 @@
 # TODO: Migrate to RenderQueueWindow from Shidacea
 
 module SF
-  @[MrbWrap::ExcludeInstanceMethod(:draw)]
-  @[MrbWrap::ExcludeInstanceMethod(:create)]
-  @[MrbWrap::ExcludeInstanceMethod(:map_coords_to_pixel)]
-  @[MrbWrap::ExcludeInstanceMethod(:map_pixel_to_coords)]
-  @[MrbWrap::ExcludeInstanceMethod(:set_icon)]
-  @[MrbWrap::ExcludeInstanceMethod("position=")]
-  @[MrbWrap::ExcludeInstanceMethod("size=")]
-  @[MrbWrap::SpecializeInstanceMethod(:clear, [color : Color = Color.new(0, 0, 0, 255)], [color : SF::Color = SF::Color.new(0, 0, 0, 255)])]
+  @[Anyolite::RenameClass("Window")]
+  @[Anyolite::ExcludeInstanceMethod("create")]
+  @[Anyolite::ExcludeInstanceMethod("inspect")]
+  @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : Vector2i])]
+  @[Anyolite::SpecializeInstanceMethod("size=", [size : Vector2 | Tuple], [size : Vector2i])]
+  @[Anyolite::SpecializeInstanceMethod("map_pixel_to_coords", [point : Vector2 | Tuple, view : View], [point : Vector2i, view : View])]
+  @[Anyolite::SpecializeInstanceMethod("map_coords_to_pixel", [point : Vector2 | Tuple, view : View], [point : Vector2f, view : View])]
+  @[Anyolite::SpecializeInstanceMethod("clear", [color : Color = Color.new(0, 0, 0, 255)], [color : Color = SF::Color.new(0, 0, 0, 255)])]
+  @[Anyolite::SpecializeInstanceMethod("draw", [drawable : Drawable, states : RenderStates = RenderStates::Default], [drawable : Drawable, states : RenderStates = SF::RenderStates::Default])]
   class RenderWindow
-    
-    @[MrbWrap::Specialize]
+    @[Anyolite::Specialize]
     def initialize(title : String, width : UInt32, height : UInt32, fullscreen : Bool = false)
       if fullscreen
         initialize(mode: SF::VideoMode.new(width, height), title: title, style: SF::Style::Fullscreen)
@@ -22,25 +22,6 @@ module SF
   end
 end
 
-def setup_ruby_window_class(mrb, module_sdc)
-  MrbWrap.wrap(mrb, SF::RenderWindow, under: SF, verbose: true)
-  #MrbWrap.wrap_constructor(mrb, SF::RenderWindow, [String, UInt32, UInt32, {Bool, 0}])
-  #MrbWrap.wrap_instance_method(mrb, SF::RenderWindow, "clear", clear)
-  #MrbWrap.wrap_instance_method(mrb, SF::RenderWindow, "display", display)
-  #MrbWrap.wrap_getter(mrb, SF::RenderWindow, "is_open?", open?)
-  #MrbWrap.wrap_instance_method(mrb, SF::RenderWindow, "close", close)
-
-  # TODO: Wait until Anyolite supports functions of this kind
-  mrb.define_method("poll_event", MrbClassCache.get(SF::RenderWindow), 
-    MrbFunc.new do |mrb, obj|
-      converted_obj = MrbMacro.convert_from_ruby_object(mrb, obj, SF::RenderWindow).value
-      polled_event = converted_obj.poll_event
-      if polled_event
-        MrbCast.return_value(mrb, polled_event)
-      else 
-        MrbCast.return_nil
-      end
-    end
-  )
-
+def setup_ruby_window_class(rb)
+  Anyolite.wrap(rb, SF::RenderWindow, under: SF, verbose: true, wrap_superclass: false)
 end

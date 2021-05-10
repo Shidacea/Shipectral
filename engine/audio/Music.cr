@@ -4,7 +4,7 @@ module SF
   @[Anyolite::ExcludeInstanceMethod("open_from_file")]
   @[Anyolite::ExcludeInstanceMethod("inspect")]
   @[Anyolite::ExcludeInstanceMethod("loop_points")]
-  @[Anyolite::SpecializeInstanceMethod("initialize", Anyolite::Empty)]
+  @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
   @[Anyolite::SpecializeInstanceMethod("loop_points=", [time_points : PseudoTimeSpan])]
   @[Anyolite::ExcludeClassMethod("from_file")]
   @[Anyolite::ExcludeClassMethod("from_memory")]

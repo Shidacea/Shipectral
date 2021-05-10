@@ -1,19 +1,17 @@
-@[MrbWrap::ExcludeConstant("Vector2")]
 module SF
-
-  @[MrbWrap::SpecializeInstanceMethod("initialize", [string : String, font : Font, character_size : Int = 30])]
-  @[MrbWrap::ExcludeInstanceMethod("scale")]
-  @[MrbWrap::ExcludeInstanceMethod("move")]
-  @[MrbWrap::ExcludeInstanceMethod("draw")]
-  @[MrbWrap::ExcludeInstanceMethod("inspect")]
-  @[MrbWrap::ExcludeInstanceMethod("position=")]
-  @[MrbWrap::ExcludeInstanceMethod("scale=")]
-  @[MrbWrap::ExcludeInstanceMethod("origin=")]
+  @[Anyolite::ExcludeInstanceMethod("inspect")]
+  @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
+  @[Anyolite::SpecializeInstanceMethod("draw", [target : RenderWindow, states : RenderStates])]
+  @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("origin=", [origin : Vector2 | Tuple], [origin : Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("scale", [factor : Vector2 | Tuple], [factor : Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : Vector2f])]
   class Text
 
   end
 end
 
-def setup_ruby_text_class(mrb)
-  MrbWrap.wrap_class_with_methods(mrb, SF::Text, under: SF, verbose: true)
+def setup_ruby_text_class(rb)
+  Anyolite.wrap(rb, SF::Text, under: SF, verbose: true, wrap_superclass: false)
 end
