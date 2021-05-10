@@ -1,43 +1,35 @@
-# NOTE: This is still quite hacky to ensure compatibility with the old Shidacea scripts
-# This will probably change in the future
-
-macro generate_sdc_trait_method(topic, name, default, conversion_method = nil)
-    def sdc_{{topic}}_{{name}}
-        return_value = self.responds_to?(:{{name}}) ? self.{{name}} : {{default}}
-        {% if conversion_method %}
-            return_value.{{conversion_method}}
-        {% else %}
-            return_value
-        {% end %}
-    end
-end
-
 module SF
-    struct Event
-        def sdc_type
-            @_type.to_u32
-        end
-
-        generate_sdc_trait_method(key, code, Keyboard::Key::Unknown, to_i32)
-        generate_sdc_trait_method(key, alt, false)
-        generate_sdc_trait_method(key, control, false)
-        generate_sdc_trait_method(key, shift, false)
-        generate_sdc_trait_method(key, system, false)
-        generate_sdc_trait_method(mouse_button, code, Mouse::Button::ButtonCount, to_i32)
-        generate_sdc_trait_method(mouse_button, x, 0.0)
-        generate_sdc_trait_method(mouse_button, y, 0.0)
+  struct Event
+    struct KeyPressed
+      # TODO: Remove this once Keyboard is wrapped
+      # Also never try this at home
+      def code_to_int
+        pointerof(@code).as(UInt32*).value
+      end
     end
+  end
 end
 
-def setup_ruby_event_class(mrb, module_sdc)
-    MrbWrap.wrap_class(mrb, SF::Event, "Event", under: SF)
-    MrbWrap.wrap_instance_method(mrb, SF::Event, "type", sdc_type)
-    MrbWrap.wrap_instance_method(mrb, SF::Event, "key_code", sdc_key_code)
-    MrbWrap.wrap_instance_method(mrb, SF::Event, "key_alt?", sdc_key_alt)
-    MrbWrap.wrap_instance_method(mrb, SF::Event, "key_control?", sdc_key_control)
-    MrbWrap.wrap_instance_method(mrb, SF::Event, "key_shift?", sdc_key_shift)
-    MrbWrap.wrap_instance_method(mrb, SF::Event, "key_system?", sdc_key_system)
-    MrbWrap.wrap_instance_method(mrb, SF::Event, "mouse_button_code", sdc_mouse_button_code)
-    MrbWrap.wrap_instance_method(mrb, SF::Event, "mouse_button_x", sdc_mouse_button_x)
-    MrbWrap.wrap_instance_method(mrb, SF::Event, "mouse_button_y", sdc_mouse_button_y)
+macro process_all_events(rb, event_class)
+  {% for event_type in event_class.resolve.constants %}
+    {% actual_class = event_class.resolve.constant(event_type).resolve %}
+    {% if actual_class.abstract? %}
+      Anyolite.wrap_class({{rb}}, {{actual_class}}, {{event_type.stringify}}, under: SF, superclass: {{event_class}})
+    {% else %}
+      Anyolite.wrap({{rb}}, {{actual_class}}, under: {{event_class}}, class_method_exclusions: ["<="], instance_method_exclusions: ["hash"], verbose: true)
+    {% end %}
+  {% end %}
+end
+
+macro wrap_for_all_events_of_type(rb, event_type, methods)
+  {% for method in methods %}
+    Anyolite.wrap_instance_method({{rb}}, {{event_type}}, {{method}}, {{method.id}})
+  {% end %}
+end
+
+def setup_ruby_event_class(rb)
+  Anyolite.wrap_class(rb, SF::Event, "Event", under: SF)
+  process_all_events(rb, SF::Event)
+  wrap_for_all_events_of_type(rb, SF::Event::KeyPressed, ["code", "alt", "control", "shift", "system"])
+  wrap_for_all_events_of_type(rb, SF::Event::KeyReleased, ["code", "alt", "control", "shift", "system"])
 end

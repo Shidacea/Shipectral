@@ -14,7 +14,7 @@ require "./graphics/Texture.cr"
 require "./graphics/Window.cr"
 
 #require "./internal/Coordinates.cr"
-#require "./internal/Event.cr"
+require "./internal/Event.cr"
 
 def load_wrappers(rb)
   setup_ruby_music_class(rb)
@@ -30,5 +30,5 @@ def load_wrappers(rb)
   setup_ruby_window_class(rb)
 
   #setup_ruby_coordinates_class(rb)
-  #setup_ruby_event_class(rb)
+  setup_ruby_event_class(rb)
 end
