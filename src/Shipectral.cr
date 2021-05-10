@@ -1,16 +1,16 @@
 require "anyolite"
 
-require "./ScriptHelper.cr"
+require "crsfml"
+require "crsfml/audio"
 
+require "./ScriptHelper.cr"
 require "../engine/Engine.cr"
 
-MrbState.create do |mrb|
-  module_sdc = MrbWrap.wrap_module(mrb, SF, "SF")
+Anyolite::RbInterpreter.create do |rb|
+  mod = Anyolite.wrap_module(rb, SF, "SF")
 
-  load_wrappers(mrb, module_sdc)
+  load_wrappers(rb, mod)
 
-  mrb.load_script_from_file("test/Test.rb")
-  MrbInternal.mrb_print_error(mrb)
+  rb.load_script_from_file("test/Test.rb")
+  Anyolite::RbCore.rb_print_error(rb)
 end
-
-#puts MrbRefTable.inspect

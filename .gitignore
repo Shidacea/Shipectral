@@ -7,3 +7,4 @@ build
 CMakeSettings.json
 shard.lock
 lib
+log.txt
