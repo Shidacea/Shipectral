@@ -1,12 +1,14 @@
 module SF
   @[Anyolite::ExcludeInstanceMethod("open_from_memory")]
   @[Anyolite::ExcludeInstanceMethod("load_from_memory")]
+  @[Anyolite::ExcludeInstanceMethod("load_from_file")]
   @[Anyolite::ExcludeInstanceMethod("inspect")]
   @[Anyolite::ExcludeClassMethod("from_file")]
   @[Anyolite::ExcludeClassMethod("from_memory")]
   @[Anyolite::ExcludeClassMethod("from_stream")]
   @[Anyolite::ExcludeClassMethod("from_samples")]
   class SoundBuffer
+    @[Anyolite::Rename("load_from_file")]
     def load_from_sdc_path(filename : String)
       load_from_file(ScriptHelper.path + "/" + filename)
     end

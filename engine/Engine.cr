@@ -5,8 +5,8 @@ require "./audio/Music.cr"
 require "./audio/SoundBuffer.cr"
 require "./audio/Sound.cr"
 
-#require "./graphics/Color.cr"
-#require "./graphics/Font.cr"
+require "./graphics/Color.cr"
+require "./graphics/Font.cr"
 #require "./graphics/RenderStates.cr"
 #require "./graphics/Sprite.cr"
 #require "./graphics/Text.cr"
@@ -21,14 +21,14 @@ def load_wrappers(rb)
   setup_ruby_sound_buffer_class(rb)
   setup_ruby_sound_class(rb)
 
-  #setup_ruby_color_class(mrb, module_sdc)
-  #setup_ruby_font_class(mrb, module_sdc)
-  #setup_ruby_render_states_class(mrb, module_sdc)
-  #setup_ruby_sprite_class(mrb, module_sdc)
-  #setup_ruby_text_class(mrb)
-  #setup_ruby_texture_class(mrb, module_sdc)
-  #setup_ruby_window_class(mrb, module_sdc)
+  setup_ruby_color_class(rb)
+  setup_ruby_font_class(rb)
+  #setup_ruby_render_states_class(rb)
+  #setup_ruby_sprite_class(rb)
+  #setup_ruby_text_class(rb)
+  #setup_ruby_texture_class(rb)
+  #setup_ruby_window_class(rb)
 
-  #setup_ruby_coordinates_class(mrb, module_sdc)
-  #setup_ruby_event_class(mrb, module_sdc)
+  #setup_ruby_coordinates_class(rb)
+  #setup_ruby_event_class(rb)
 end

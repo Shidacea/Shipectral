@@ -1,6 +1,7 @@
 module SF
   @[Anyolite::ExcludeInstanceMethod("open_from_memory")]
   @[Anyolite::ExcludeInstanceMethod("load_from_memory")]
+  @[Anyolite::ExcludeInstanceMethod("open_from_file")]
   @[Anyolite::ExcludeInstanceMethod("inspect")]
   @[Anyolite::ExcludeInstanceMethod("loop_points")]
   @[Anyolite::SpecializeInstanceMethod("initialize", Anyolite::Empty)]
@@ -11,6 +12,7 @@ module SF
   @[Anyolite::ExcludeConstant("Span")]
   @[Anyolite::ExcludeConstant("TimeSpan")]
   class Music
+    @[Anyolite::Rename("open_from_file")]
     def load_from_sdc_path(filename : String)
       open_from_file(ScriptHelper.path + "/" + filename)
     end
