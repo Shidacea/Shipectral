@@ -34,7 +34,10 @@ puts "Close window with 'Esc'."
 close_all = false
 
 while !close_all
+  # Both work
   sprite.draw(target: window, states: SDC::RenderStates.new)
+  window.draw(drawable: sprite)
+  
   window.display
   ev = window.poll_event
 
