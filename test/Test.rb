@@ -14,6 +14,13 @@ puts "Sound linked."
 
 sound.play
 
+a = SDC::Coordinates.new(x: 2, y: 3)
+
+puts "Test coordinates: #{a.x} #{a.y}"
+a.x = 12
+a.y *= 12
+puts "Test coordinates: #{a.x} #{a.y}"
+
 puts "Sound played."
 puts 
 puts "Close window with 'Esc'."

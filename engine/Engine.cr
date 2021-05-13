@@ -13,7 +13,7 @@ require "./graphics/Text.cr"
 require "./graphics/Texture.cr"
 require "./graphics/Window.cr"
 
-#require "./internal/Coordinates.cr"
+require "./internal/Coordinates.cr"
 require "./internal/Event.cr"
 
 def load_wrappers(rb)
@@ -29,6 +29,6 @@ def load_wrappers(rb)
   setup_ruby_texture_class(rb)
   setup_ruby_window_class(rb)
 
-  #setup_ruby_coordinates_class(rb)
+  setup_ruby_coordinates_class(rb)
   setup_ruby_event_class(rb)
 end

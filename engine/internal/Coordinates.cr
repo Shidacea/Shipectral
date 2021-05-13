@@ -1,13 +1,15 @@
-def setup_ruby_coordinates_class(mrb, module_sdc)
-  MrbWrap.wrap(mrb, SF::VectorWrapper2f, under: SF, verbose: true)
-  # MrbWrap.wrap_constructor(mrb, SF::VectorWrapper2f, [{Float32, 0.0}, {Float32, 0.0}])
-  # MrbWrap.wrap_property(mrb, SF::VectorWrapper2f, "x", x, Float32)
-  # MrbWrap.wrap_property(mrb, SF::VectorWrapper2f, "y", y, Float32)
-  # MrbWrap.wrap_instance_method(mrb, SF::VectorWrapper2f, "+", sdc_add, SF::VectorWrapper2f)
-  # MrbWrap.wrap_instance_method(mrb, SF::VectorWrapper2f, "-", sdc_subtract, SF::VectorWrapper2f)
-  # MrbWrap.wrap_instance_method(mrb, SF::VectorWrapper2f, "*", sdc_multiply, Float32)
-  # MrbWrap.wrap_instance_method(mrb, SF::VectorWrapper2f, "dot", sdc_dot, SF::VectorWrapper2f)
-  # MrbWrap.wrap_instance_method(mrb, SF::VectorWrapper2f, "squared_norm", sdc_squared_norm)
-  # MrbWrap.wrap_instance_method(mrb, SF::VectorWrapper2f, "to_s", sdc_to_s)
-  # MrbWrap.wrap_instance_method(mrb, SF::VectorWrapper2f, "inspect", sdc_inspect)
+module SF
+  @[Anyolite::SpecifyGenericTypes([T])]
+  @[Anyolite::ExcludeInstanceMethod("each")]
+  @[Anyolite::ExcludeInstanceMethod("==")]
+  @[Anyolite::SpecializeInstanceMethod("initialize", [x : T, y : T])]
+  struct Vector2(T)
+  end
+
+  alias Coordinates = Vector2f
+end
+
+def setup_ruby_coordinates_class(rb)
+  Anyolite.wrap_class_with_methods(rb, SF::Coordinates, under: SF)
+  Anyolite.wrap_class_with_methods(rb, SF::Vector2i, under: SF)
 end
