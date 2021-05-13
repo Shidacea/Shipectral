@@ -35,9 +35,9 @@ close_all = false
 
 while !close_all
   # Both work
-  sprite.draw(target: window, states: SDC::RenderStates.new)
+  sprite.draw(target: window)
   window.draw(drawable: sprite)
-  
+
   window.display
   ev = window.poll_event
 
