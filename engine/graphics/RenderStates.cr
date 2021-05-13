@@ -1,6 +1,6 @@
 module SF
   @[Anyolite::ExcludeInstanceMethod("inspect")]
-  @[Anyolite::SpecializeInstanceMethod("initialize", [blend_mode : BlendMode])]
+  @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
   struct RenderStates
   end
 end

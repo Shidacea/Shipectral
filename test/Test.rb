@@ -6,6 +6,12 @@ sound = SDC::Sound.new
 sound_buffer = SDC::SoundBuffer.new
 sound_buffer.load_from_file(filename: "Yeow.ogg")
 
+texture = SDC::Texture.new
+texture.load_from_file(filename: "Shipike.png")
+
+sprite = SDC::Sprite.new
+sprite.texture = texture
+
 puts "Sound loaded."
 
 sound.buffer = sound_buffer
@@ -28,6 +34,7 @@ puts "Close window with 'Esc'."
 close_all = false
 
 while !close_all
+  sprite.draw(target: window, states: SDC::RenderStates.new)
   window.display
   ev = window.poll_event
 
