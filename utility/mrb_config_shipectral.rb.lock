@@ -1,0 +1,27 @@
+---
+mruby:
+  version: 3.0.0
+  release_no: 30000
+  git_commit: 0f45836b5954accf508f333f932741b925214471
+builds:
+  host:
+    https://github.com/mattn/mruby-json.git:
+      url: https://github.com/mattn/mruby-json.git
+      branch: master
+      commit: '054699892b0d681110e7348440cddb70a3fd671e'
+      version: 0.0.0
+    https://github.com/iij/mruby-dir.git:
+      url: https://github.com/iij/mruby-dir.git
+      branch: master
+      commit: 89dceefa1250fb1ae868d4cb52498e9e24293cd1
+      version: 0.0.0
+    https://github.com/iij/mruby-regexp-pcre.git:
+      url: https://github.com/iij/mruby-regexp-pcre.git
+      branch: master
+      commit: 71bd16ba59239f04aefb73bb6d46d5b581f27b1b
+      version: 0.0.0
+    https://github.com/jbreeden/mruby-erb.git:
+      url: https://github.com/jbreeden/mruby-erb.git
+      branch: master
+      commit: 7ea27f1338fe5e971d818034d0163ca46ecd7d33
+      version: 0.0.0

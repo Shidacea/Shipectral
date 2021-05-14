@@ -82,7 +82,8 @@ end
 
 task :build_shards => [:generate_build_dir, :build_sfml] do
     if SHIPECTRAL_COMPILER == :gcc
-        system "SFML_INCLUDE_DIR=#{Dir.pwd}/third_party/sfml/include shards install"
+        FileUtils.mkdir_p("lib/anyolite")
+        system "ANYOLITE_CONFIG_PATH=#{Dir.pwd}/utility/config_anyolite.json SFML_INCLUDE_DIR=#{Dir.pwd}/third_party/sfml/include shards install"
     end
 end
 
