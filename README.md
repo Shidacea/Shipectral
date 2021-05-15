@@ -8,31 +8,50 @@ NOTE: Windows is currently not working properly, most likely due to https://gith
 
 Windows support will resume once this issue is properly patched out.
 
-# Features
+## Features
 
-* Full mruby interpreter included
-* Anyolite support allowing simple mruby bindings of Crystal and C methods
-* Support for Windows and Ubuntu with easy build routine
-
-# Roadmap
+* Powerful scripting using mruby and Anyolite
+* Fast Crystal core using crSFML
 
 ## Structure
 
-* [ ] Port of Collishi library as one shard
-* [ ] CI and automatically generated binaries
+(Not finalized yet)
 
-## Features
+Shipectral (or Shidacea) is a game engine with different cooperating segments.
 
-* [ ] Reproduce Shidacea bindings
-* [ ] Reproduce SDCLib as good as possible in Crystal
+The very core of Shipectral is a compound of crSFML and Anyolite,
+allowing for the direct usage of crSFML functions in Ruby scripts.
 
-# Differences from Shidacea
+On top of this, the Shidacea library (SDClib) of the old Shidacea
+project is available, which provides more advanced game functions and support
+for more readable scripts, while still preserving the fast speed of
+the core functions.
 
-* TODO
+Another module on top is Launshi, a simple launcher application
+written in Shidacea, able to launch other Shidacea-based games
+without recompiling the core.
 
-# Installation
+Overall, this engine allows different usage modes, ranging from fast
+Crystal programming using the basic features up to simple script
+usage, allowing for fast prototyping.
 
-## Prerequisites
+## Roadmap
+
+### Version 0.1.0
+
+#### Features
+
+* [ ] Basic functionality
+* [ ] Bytecode support
+* [ ] Loading of bytecode using macros
+* [ ] Ressource integration using macros
+* [ ] Launshi integration
+* [ ] Implementation of Shidacea functions in the Crystal-based SPTlib
+* [ ] Connection of SPTlib and SDClib, if and where possible
+
+## Installation
+
+### Prerequisites
 
 * Crystal
 * Ruby
@@ -43,7 +62,7 @@ Windows support will resume once this issue is properly patched out.
 
 All of these programs need to be in the path environment variable for Windows to work properly.
 
-## Building
+### Building
 
 Note that this current version does only run on Windows 64bit and Ubuntu.
 You need to run `rake` in either a terminal (Ubuntu) or the 64bit Visual Studio Command Prompt (Windows).
