@@ -10,3 +10,6 @@
 [submodule "third_party/crystal"]
 	path = third_party/crystal
 	url = https://github.com/crystal-lang/crystal
+[submodule "third_party/Launshi"]
+	path = third_party/Launshi
+	url = https://github.com/Shidacea/Launshi
