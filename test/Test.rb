@@ -31,6 +31,17 @@ puts "Sound played."
 puts 
 puts "Close window with 'Esc'."
 
+class ErbTest
+  def initialize(*items)
+    @items = items
+  end
+end
+
+e = ErbTest.new("Cake", "Books", "Food", "Dark badge of deathly death")
+
+erb_test = ERB.new("Items: <%= @items.join(', ') %>")
+puts erb_test.result(e)
+
 close_all = false
 
 while !close_all
@@ -42,7 +53,8 @@ while !close_all
   ev = window.poll_event
 
   if ev.is_a?(SDC::Event::KeyPressed)
-    close_all = true if ev.code_to_int == 36
+    puts ev.code
+    close_all = true if ev.code == SDC::Keyboard::Key::Escape
   elsif ev.is_a?(SDC::Event::Closed)
     close_all = true
   end
