@@ -1,6 +1,6 @@
 module SF
   module Keyboard
-    @[Anyolite::SpecializeInstanceMethod("parse?", [string], [string : String])]
+    @[Anyolite::SpecializeClassMethod("parse?", [string], [string : String])]
     enum Key
       @[Anyolite::WrapWithoutKeywords]
       @[Anyolite::Rename("==")]

@@ -2,8 +2,29 @@ module SF
   @[Anyolite::SpecifyGenericTypes([T])]
   @[Anyolite::ExcludeInstanceMethod("each")]
   @[Anyolite::ExcludeInstanceMethod("==")]
+  @[Anyolite::ExcludeInstanceMethod("+")]
+  @[Anyolite::ExcludeInstanceMethod("-")]
+  @[Anyolite::ExcludeInstanceMethod("*")]
   @[Anyolite::SpecializeInstanceMethod("initialize", [x : T, y : T])]
   struct Vector2(T)
+    @[Anyolite::Rename("+")]
+    def add(other : Vector2(T))
+      self + other
+    end
+
+    @[Anyolite::Rename("-")]
+    def subtract(other : Vector2(T))
+      self - other
+    end
+
+    @[Anyolite::Rename("*")]
+    def multiply(other : T)
+      self * other
+    end
+
+    def dot(other : Vector2(T))
+      self * other
+    end
   end
 
   alias Coordinates = Vector2f
