@@ -17,6 +17,7 @@ module SF
     end
 
     @[Anyolite::Specialize]
+    @[Anyolite::WrapWithoutKeywords(3)]
     def initialize(title : String, width : UInt32, height : UInt32, fullscreen : Bool = false)
       if fullscreen
         initialize(mode: SF::VideoMode.new(width, height), title: title, style: SF::Style::Fullscreen)

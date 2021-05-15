@@ -1,13 +1,13 @@
-window = SDC::Window.new(title: "Test window", width: 800, height: 600)
+window = SDC::Window.new("Test window", 800, 600)
 
 puts "Created a #{window.class}."
 
 sound = SDC::Sound.new
 sound_buffer = SDC::SoundBuffer.new
-sound_buffer.load_from_file(filename: "Yeow.ogg")
+sound_buffer.load_from_file("Yeow.ogg")
 
 texture = SDC::Texture.new
-texture.load_from_file(filename: "Shipike.png")
+texture.load_from_file("Shipike.png")
 
 sprite = SDC::Sprite.new
 sprite.texture = texture

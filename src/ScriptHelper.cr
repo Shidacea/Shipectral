@@ -1,3 +1,4 @@
+@[Anyolite::RenameModule("Script")]
 module ScriptHelper
   @@path : String = "test"
 
@@ -28,7 +29,7 @@ module ScriptHelper
         filename = path + "/" + file
         if File.directory?(filename)
           ScriptHelper.load_absolute_path(filename)
-        else
+        elsif file.ends_with?(".rb")
           ScriptHelper.load_absolute_file(filename)
         end
       end

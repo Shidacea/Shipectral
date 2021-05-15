@@ -19,7 +19,7 @@ module SPT
       return @animation_frame
     end
 
-    def set_as_solid(value = true)
+    def set_as_solid(value : Bool = true)
       @solid = value
     end
 

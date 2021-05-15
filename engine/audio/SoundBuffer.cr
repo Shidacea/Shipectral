@@ -9,6 +9,7 @@ module SF
   @[Anyolite::ExcludeClassMethod("from_samples")]
   class SoundBuffer
     @[Anyolite::Rename("load_from_file")]
+    @[Anyolite::WrapWithoutKeywords]
     def load_from_sdc_path(filename : String)
       load_from_file(ScriptHelper.path + "/" + filename)
     end
