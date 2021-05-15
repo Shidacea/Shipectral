@@ -15,6 +15,8 @@ Windows support will resume once this issue is properly patched out.
 * Powerful scripting using mruby and Anyolite
 * Fast Crystal core using crSFML
 * Support for Dear ImGUI
+* ERB methods for text substitution
+* Support for project structures
 * Modular design
 
 ## Structure
