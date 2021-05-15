@@ -20,7 +20,7 @@ puts "Sound linked."
 
 sound.play
 
-a = SDC::Coordinates.new(x: 2, y: 3)
+a = SDC::Coordinates.new(2, 3)
 
 puts "Test coordinates: #{a.x} #{a.y}"
 a.x = 12
@@ -53,7 +53,6 @@ while !close_all
   ev = window.poll_event
 
   if ev.is_a?(SDC::Event::KeyPressed)
-    puts ev.code
     close_all = true if ev.code == SDC::Keyboard::Key::Escape
   elsif ev.is_a?(SDC::Event::Closed)
     close_all = true

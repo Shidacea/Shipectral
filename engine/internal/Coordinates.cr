@@ -6,6 +6,7 @@ module SF
   @[Anyolite::ExcludeInstanceMethod("-")]
   @[Anyolite::ExcludeInstanceMethod("*")]
   @[Anyolite::SpecializeInstanceMethod("initialize", [x : T, y : T])]
+  @[Anyolite::WrapWithoutKeywordsInstanceMethod("initialize")]
   struct Vector2(T)
     @[Anyolite::Rename("+")]
     def add(other : Vector2(T))

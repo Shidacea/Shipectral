@@ -10,8 +10,12 @@ Windows support will resume once this issue is properly patched out.
 
 ## Features
 
+(Mostly not implemented yet)
+
 * Powerful scripting using mruby and Anyolite
 * Fast Crystal core using crSFML
+* Support for Dear ImGUI
+* Modular design
 
 ## Structure
 
