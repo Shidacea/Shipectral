@@ -2,6 +2,12 @@ window = SDC::Window.new("Test window", 800, 600)
 
 puts "Created a #{window.class}."
 
+coll = SDC::CollisionShapeLine.new
+coll.line = SDC::Coordinates.new(0.3, 0.5)
+coll.line += SDC::Coordinates.new(0.34, 0.54)
+
+puts coll.line
+
 sound = SDC::Sound.new
 sound_buffer = SDC::SoundBuffer.new
 sound_buffer.load_from_file("Yeow.ogg")

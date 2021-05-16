@@ -17,6 +17,7 @@ require "./internal/Coordinates.cr"
 require "./internal/Keyboard.cr"
 require "./internal/Mouse.cr"
 require "./internal/Event.cr"
+require "./internal/CollisionShape.cr"
 
 require "./map/Tile.cr"
 
@@ -37,6 +38,7 @@ def load_wrappers(rb)
   setup_ruby_keyboard_class(rb)
   setup_ruby_mouse_class(rb)
   setup_ruby_event_class(rb)
+  setup_ruby_collision_shape_class(rb)
 
   setup_ruby_tile_class(rb)
 end
