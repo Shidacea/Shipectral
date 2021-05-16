@@ -1,6 +1,8 @@
 require "crsfml"
 require "crsfml/audio"
 
+require "../src/CrystalCollishi/Collisions.cr"
+
 require "./audio/Music.cr"
 require "./audio/SoundBuffer.cr"
 require "./audio/Sound.cr"
