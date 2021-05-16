@@ -12,9 +12,10 @@ Anyolite::RbInterpreter.create do |rb|
 
   Anyolite.wrap(rb, ScriptHelper, under: SF, verbose: true, wrap_superclass: false)
 
-  ScriptHelper.load_absolute_path("shidacea/include")
-  ScriptHelper.load_absolute_file("shidacea/CompatibilityLayer.rb")
-  ScriptHelper.load_absolute_path("shidacea/core")
+  ScriptHelper.load_absolute_path("third_party/Shidacea/include")
+  ScriptHelper.load_absolute_path("third_party/Shidacea/core")
+  
+  ScriptHelper.load_absolute_file("src/CompatibilityLayer.rb")
 
   ScriptHelper.load_absolute_file("third_party/Launshi/scripts/Launshi.rb")
   ScriptHelper.load_absolute_file("third_party/Launshi/scripts/SceneLaunshi.rb")

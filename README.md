@@ -55,6 +55,12 @@ usage, allowing for fast prototyping.
 * [ ] Implementation of Shidacea functions in the Crystal-based SPTlib
 * [ ] Connection of SPTlib and SDClib, if and where possible
 
+### Version 0.2.0
+
+#### Features
+
+* [ ] Complete overhaul to support the new Shidacea 0.3 standard
+
 ## Installation
 
 ### Prerequisites
