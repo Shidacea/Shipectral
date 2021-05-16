@@ -17,9 +17,12 @@ Anyolite::RbInterpreter.create do |rb|
 
   ScriptHelper.load_absolute_file("third_party/Launshi/scripts/Launshi.rb")
   ScriptHelper.load_absolute_file("third_party/Launshi/scripts/SceneLaunshi.rb")
-  #ScriptHelper.load_absolute_file("third_party/Launshi/scripts/Main.rb")
 
-  ScriptHelper.load("Test.rb")
+  ScriptHelper.path = "third_party/Launshi"
+
+  ScriptHelper.load_absolute_file("third_party/Launshi/scripts/Main.rb")
+
+  #ScriptHelper.load("Test.rb")
   
   Anyolite::RbCore.rb_print_error(rb)
 end
