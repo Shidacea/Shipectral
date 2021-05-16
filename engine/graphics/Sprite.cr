@@ -8,6 +8,10 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("scale", [factor : Vector2 | Tuple], [factor : Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : Vector2f])]
   class Sprite
+    @[Anyolite::WrapWithoutKeywords]
+    def link_texture(texture : Texture)
+      set_texture(texture)
+    end
   end
 end
 

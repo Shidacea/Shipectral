@@ -11,45 +11,57 @@ module SF
 end
 
 module Collider
-  macro get_positions
-    x1 = pos_1.x
-    y1 = pos_1.y
-    x2 = pos_2.x
-    y2 = pos_2.y
-  end
   
+  # Useful macros
+
   macro vice_versa
     Collider.check_collision(shape_2, shape_1, pos_2, pos_1)
   end
 
+  # General test method
+
+  @[Anyolite::WrapWithoutKeywords]
   def self.test(shape_1 : CollisionShape, pos_1 : SF::Vector2f, shape_2 : CollisionShape, pos_2 : SF::Vector2f)
     offset_1 = shape_1.position - shape_1.origin
     offset_2 = shape_2.position - shape_2.origin
     self.check_collision(shape_1, shape_2, pos_1 + offset_1, pos_2 + offset_2)
   end
 
-  def self.check_collision(shape_1 : CollisionShape, shape_2 : CollisionShape, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
-    raise "Unknown shapes: #{shape_1.class} and #{shape_2.class}"
-    false
-  end
+  # Point vs ...
 
   def self.check_collision(shape_1 : CollisionShapePoint, shape_2 : CollisionShapePoint, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
-    Collider.get_positions
+    x1 = pos_1.x
+    y1 = pos_1.y
+    x2 = pos_2.x
+    y2 = pos_2.y
     Collishi.collision_point_point(x1, y1, x2, y2)
   end
 
   def self.check_collision(shape_1 : CollisionShapePoint, shape_2 : CollisionShapeBox, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
-    Collider.get_positions
+    x1 = pos_1.x
+    y1 = pos_1.y
+    x2 = pos_2.x
+    y2 = pos_2.y
     w2 = shape_2.size.x * shape_2.scale.x 
     h2 = shape_2.size.y * shape_2.scale.y
     Collishi.collision_point_box(x1, y1, x2, y2, w2, h2)
   end
+
+  # Box vs ...
 
   def self.check_collision(shape_1 : CollisionShapeBox, shape_2 : CollisionShapePoint, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
     Collider.vice_versa
   end
 
   # TODO: Other shapes
+
+  # Failsafe
+
+  @[Anyolite::Specialize]
+  def self.check_collision(shape_1 : CollisionShape, shape_2 : CollisionShape, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+    raise "Unknown shapes: #{shape_1.class} and #{shape_2.class}"
+    false
+  end
 end
 
 class CollisionShape < SF::Transformable

@@ -1,5 +1,6 @@
+@[Anyolite::NoKeywordArgs]
 module Collishi
-  def self.fraction_less_than_zero(nominator, denominator)
+  def self.fraction_less_than_zero(nominator : Float, denominator : Float)
     if nominator == 0
       return false
     elsif (nominator < 0) != (denominator < 0)
@@ -9,7 +10,7 @@ module Collishi
     end
   end
 
-  def self.fraction_between_zero_and_one(nominator, denominator)
+  def self.fraction_between_zero_and_one(nominator : Float, denominator : Float)
     if fraction_less_than_zero(nominator, denominator)
       return false
     elsif nominator.abs > denominator.abs
@@ -19,7 +20,7 @@ module Collishi
     end
   end
 
-  def self.between(value, border_1, border_2)
+  def self.between(value : Float, border_1 : Float, border_2 : Float)
     interval = {border_1, border_2}.minmax
     if value < interval[0]
       return false
@@ -30,7 +31,7 @@ module Collishi
     end
   end
 
-  def self.overlap(tuple_1, tuple_2)
+  def self.overlap(tuple_1 : Float, tuple_2 : Float)
     minmax_1 = tuple_1.minmax
     minmax_2 = tuple_2.minmax
 
@@ -43,15 +44,15 @@ module Collishi
     end
   end
 
-  def self.sign_square(x)
+  def self.sign_square(x : Float)
     return (x < 0.0 ? -x * x : x * x)
   end
 
-  def self.collision_point_point(x1, y1, x2, y2)
+  def self.collision_point_point(x1 : Float, y1 : Float, x2 : Float, y2 : Float)
     return (x1 == x2 && y1 == y2)
   end
 
-  def self.collision_point_line(x1, y1, x2, y2, dx2, dy2)
+  def self.collision_point_line(x1 : Float, y1 : Float, x2 : Float, y2 : Float, dx2 : Float, dy2 : Float)
     dx12 = x1 - x2
     dy12 = y1 - y2
 
@@ -64,7 +65,7 @@ module Collishi
     return true
   end
 
-  def self.collision_point_circle(x1, y1, x2, y2, r2)
+  def self.collision_point_circle(x1 : Float, y1 : Float, x2 : Float, y2 : Float, r2 : Float)
     dx = x1 - x2
     dy = y1 - y2
 
@@ -73,7 +74,7 @@ module Collishi
     return true
   end
 
-  def self.collision_point_box(x1, y1, x2, y2, w2, h2)
+  def self.collision_point_box(x1 : Float, y1 : Float, x2 : Float, y2 : Float, w2 : Float, h2 : Float)
     return false if x1 < x2
     return false if y1 < y2
     return false if x2 + w2 < x1
@@ -82,7 +83,7 @@ module Collishi
     return true
   end
 
-  def self.collision_point_triangle(x1, y1, x2, y2, sxa2, sya2, sxb2, syb2)
+  def self.collision_point_triangle(x1 : Float, y1 : Float, x2 : Float, y2 : Float, sxa2 : Float, sya2 : Float, sxb2 : Float, syb2 : Float)
     dx12 = x1 - x2
     dy12 = y1 - y2
 

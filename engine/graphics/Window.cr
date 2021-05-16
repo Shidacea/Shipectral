@@ -12,8 +12,8 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("clear", [color : Color = Color.new(0, 0, 0, 255)], [color : Color = SF::Color.new(0, 0, 0, 255)])]
   class RenderWindow
     @[Anyolite::Rename("draw")]
-    def pseudo_draw(drawable : Sprite, states : RenderStates = SF::RenderStates.new)
-      drawable.draw(target: self, states: states)
+    def pseudo_draw(drawable : Sprite | Text | Transformable, states : RenderStates = SF::RenderStates.new)
+      drawable.as(Drawable).draw(target: self, states: states)
     end
 
     @[Anyolite::Specialize]
@@ -25,9 +25,42 @@ module SF
         initialize(mode: SF::VideoMode.new(width, height), title: title)
       end
     end
+
+    def is_open?
+      open?
+    end
+
+    @[Anyolite::WrapWithoutKeywords]
+    def draw_translated(draw_object : Sprite | Text | Transformable, z : Float32, coords : Vector2f, render_states : SF::RenderStates | Nil = nil)
+      actual_render_states = render_states ? render_states : SF::RenderStates.new
+
+      transform = Transform.new
+      transform.translate(coords)
+      actual_render_states.transform *= transform
+
+      draw_object.as(Drawable).draw(target: self, states: actual_render_states)
+    end
+
+    @[Anyolite::WrapWithoutKeywords]
+    def set_view(view : View)
+      self.view = view
+    end
+
+    # TODO: Wrap this into a RenderQueue and add z-drawing and stuff
+
+    def render_and_display
+      display
+    end
+
+    # TODO: Add ImGUI
+
+    def imgui_defined?
+      false
+    end
   end
 end
 
 def setup_ruby_window_class(rb)
-  Anyolite.wrap(rb, SF::RenderWindow, under: SF, verbose: true, wrap_superclass: false)
+  Anyolite.wrap_class(rb, SF::Window, "BaseWindow", under: SF)
+  Anyolite.wrap(rb, SF::RenderWindow, under: SF, verbose: true, wrap_superclass: true)
 end
