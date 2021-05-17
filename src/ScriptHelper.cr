@@ -17,7 +17,9 @@ module ScriptHelper
   end
 
   @[Anyolite::WrapWithoutKeywords]
+  @[Anyolite::ReturnNil]
   def self.load(filename : String)
+    puts "Loading #{filename}..."
     ScriptHelper.load_absolute_file(ScriptHelper.path + "/" + filename)
   end
 
@@ -38,7 +40,9 @@ module ScriptHelper
   end
 
   @[Anyolite::WrapWithoutKeywords]
+  @[Anyolite::ReturnNil]
   def self.load_recursively(path : String)
+    puts "Loading #{path} recursively..."
     full_path = ScriptHelper.path + "/" + path
     ScriptHelper.load_absolute_path(full_path)
   end

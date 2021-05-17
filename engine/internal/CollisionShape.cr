@@ -10,6 +10,12 @@ module SF
   end
 end
 
+macro wrap_for_all_shapes_of_type(rb, shape_type, methods)
+  {% for method in methods %}
+    Anyolite.wrap_instance_method({{rb}}, {{shape_type}}, {{method}}, Anyolite::Empty, [par : SF::Vector2f], operator: "{{method.id}}")
+  {% end %}
+end
+
 module Collider
   
   # Useful macros
@@ -144,4 +150,13 @@ def setup_ruby_collision_shape_class(rb)
   Anyolite.wrap(rb, CollisionShapeTriangle, under: SF, verbose: true, wrap_superclass: true, class_method_exclusions: ["<="])
   Anyolite.wrap(rb, CollisionShapeEllipse, under: SF, verbose: true, wrap_superclass: true, class_method_exclusions: ["<="])
   Anyolite.wrap(rb, Collider, under: SF, verbose: true, wrap_superclass: false)
+
+  # TODO: Find a better solution or update Anyolite to include inherited methods
+  wrap_for_all_shapes_of_type(rb, CollisionShape, ["origin="])
+  wrap_for_all_shapes_of_type(rb, CollisionShapePoint, ["origin="])
+  wrap_for_all_shapes_of_type(rb, CollisionShapeLine, ["origin="])
+  wrap_for_all_shapes_of_type(rb, CollisionShapeCircle, ["origin="])
+  wrap_for_all_shapes_of_type(rb, CollisionShapeBox, ["origin="])
+  wrap_for_all_shapes_of_type(rb, CollisionShapeTriangle, ["origin="])
+  wrap_for_all_shapes_of_type(rb, CollisionShapeEllipse, ["origin="])
 end

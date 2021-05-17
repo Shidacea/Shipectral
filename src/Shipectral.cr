@@ -12,6 +12,8 @@ Anyolite::RbInterpreter.create do |rb|
 
   Anyolite.wrap(rb, ScriptHelper, under: SF, verbose: true, wrap_superclass: false)
 
+  ScriptHelper.load_absolute_file("src/SDCExtensions.rb")
+
   ScriptHelper.load_absolute_path("third_party/Shidacea/include")
   ScriptHelper.load_absolute_path("third_party/Shidacea/core")
   
