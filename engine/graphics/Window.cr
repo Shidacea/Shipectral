@@ -31,6 +31,11 @@ module SF
     end
 
     @[Anyolite::WrapWithoutKeywords]
+    def use_view(view : View)
+      self.view = view
+    end
+
+    @[Anyolite::WrapWithoutKeywords]
     def draw_translated(draw_object : Sprite | Text | Transformable, z : Float32, coords : Vector2f, render_states : SF::RenderStates | Nil = nil)
       actual_render_states = render_states ? render_states : SF::RenderStates.new
 

@@ -6,6 +6,11 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("center=", [center : Vector2 | Tuple], [offset : Vector2f])]
   @[Anyolite::WrapWithoutKeywordsInstanceMethod("initialize")]
   class View
+
+    @[Anyolite::WrapWithoutKeywords]
+    def set_viewport(viewport : FloatRect)
+      self.viewport = viewport
+    end
   end
 end
 

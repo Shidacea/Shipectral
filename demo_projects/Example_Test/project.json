@@ -1,0 +1,46 @@
+{
+	"title": "Shidacea test project",
+
+	"subtitle": "Testing environment for Shidacea and its extensions",
+
+	"description": "A simple test project to demonstrate the capabilities of Shidacea.\nStart it and play around with the options.",
+
+	"genres": [
+		"Demo" 
+	],
+
+	"project_version": "0.2.0",
+
+	"shidacea_version": "0.2.0",
+
+	"developers": [
+		"Hadeweka"
+	],
+
+	"year": 2020,
+
+	"keywords": [
+		"test",
+		"imgui",
+		"sfml"
+	],
+
+	"thumbnail": "assets/graphics/project/Thumbnail.png",
+
+	"screenshots": [
+		{
+			"file": "assets/graphics/project/Screenshot_1.png",
+			"caption": "A dummy screenshot"
+		}
+	],
+
+	"jingle": "",
+
+	"scripts": [
+		"scripts/custom/resources/",
+		"scripts/custom/scenes/",
+		"scripts/custom/entities/",
+		"scripts/custom/Game.rb",
+		"scripts/custom/Main.rb"
+	]
+}

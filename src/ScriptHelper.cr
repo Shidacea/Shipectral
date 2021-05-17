@@ -16,6 +16,7 @@ module ScriptHelper
     rb.load_script_from_file(filename)
   end
 
+  @[Anyolite::WrapWithoutKeywords]
   def self.load(filename : String)
     ScriptHelper.load_absolute_file(ScriptHelper.path + "/" + filename)
   end
@@ -36,6 +37,7 @@ module ScriptHelper
     end
   end
 
+  @[Anyolite::WrapWithoutKeywords]
   def self.load_recursively(path : String)
     full_path = ScriptHelper.path + "/" + path
     ScriptHelper.load_absolute_path(full_path)
@@ -46,8 +48,9 @@ module ScriptHelper
     # TODO
   end
 
-  def self.version
-    "0.0.1"
+  @[Anyolite::Rename("version")]
+  def self.shidacea_version
+    "0.2.1"
     # TODO
   end
 end
