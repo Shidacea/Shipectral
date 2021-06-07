@@ -10,7 +10,7 @@ Anyolite::RbInterpreter.create do |rb|
   Anyolite.wrap_module(rb, SF, "SDC")
   load_wrappers(rb)
 
-  Anyolite.wrap(rb, ScriptHelper, under: SF, verbose: true, wrap_superclass: false)
+  Anyolite.wrap(rb, ScriptHelper, under: SF, verbose: true, connect_to_superclass: false)
 
   ScriptHelper.load_absolute_file("src/SDCExtensions.rb")
 

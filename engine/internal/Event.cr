@@ -4,7 +4,7 @@ macro process_all_events(rb, event_class)
     {% if actual_class.abstract? %}
       Anyolite.wrap_class({{rb}}, {{actual_class}}, {{event_type.stringify}}, under: SF, superclass: {{event_class}})
     {% else %}
-      Anyolite.wrap({{rb}}, {{actual_class}}, under: {{event_class}}, wrap_superclass: true, class_method_exclusions: ["<="], instance_method_exclusions: ["hash"], verbose: true)
+      Anyolite.wrap({{rb}}, {{actual_class}}, under: {{event_class}}, connect_to_superclass: true, include_ancestor_methods: false, instance_method_exclusions: ["hash"], verbose: true)
     {% end %}
   {% end %}
 end

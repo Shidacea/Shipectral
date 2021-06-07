@@ -18,5 +18,5 @@ end
 def setup_ruby_sprite_class(rb)
   Anyolite.wrap_class(rb, SF::Transformable, "Transformable", under: SF)
   Anyolite.wrap_class(rb, SF::Drawable, "Drawable", under: SF)
-  Anyolite.wrap(rb, SF::Sprite, under: SF, verbose: true, wrap_superclass: true)
+  Anyolite.wrap(rb, SF::Sprite, under: SF, verbose: true, connect_to_superclass: true)
 end

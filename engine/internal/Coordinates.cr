@@ -16,6 +16,6 @@ module SF
 end
 
 def setup_ruby_coordinates_class(rb)
-  Anyolite.wrap_class_with_methods(rb, SF::Vector2f, under: SF, verbose: true)
-  Anyolite.wrap_class_with_methods(rb, SF::Vector2i, under: SF, verbose: true)
+  Anyolite.wrap_class_with_methods(rb, SF::Vector2f, under: SF, include_ancestor_methods: false, verbose: true)
+  Anyolite.wrap_class_with_methods(rb, SF::Vector2i, under: SF, include_ancestor_methods: false, verbose: true)
 end

@@ -42,5 +42,5 @@ module SPT
 end
 
 def setup_ruby_tile_class(rb)
-  Anyolite.wrap(rb, SPT::Tile, under: SF, verbose: true, wrap_superclass: false)
+  Anyolite.wrap(rb, SPT::Tile, under: SF, verbose: true, connect_to_superclass: false)
 end

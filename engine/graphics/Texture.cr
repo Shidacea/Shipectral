@@ -22,5 +22,5 @@ module SF
 end
 
 def setup_ruby_texture_class(rb)
-  Anyolite.wrap(rb, SF::Texture, under: SF, verbose: true, wrap_superclass: false)
+  Anyolite.wrap(rb, SF::Texture, under: SF, verbose: true, connect_to_superclass: false)
 end

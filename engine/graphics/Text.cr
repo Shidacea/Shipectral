@@ -14,5 +14,5 @@ module SF
 end
 
 def setup_ruby_text_class(rb)
-  Anyolite.wrap(rb, SF::Text, under: SF, verbose: true, wrap_superclass: false)
+  Anyolite.wrap(rb, SF::Text, under: SF, verbose: true, connect_to_superclass: false)
 end

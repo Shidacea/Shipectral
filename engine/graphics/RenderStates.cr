@@ -6,5 +6,5 @@ module SF
 end
 
 def setup_ruby_render_states_class(rb)
-  Anyolite.wrap(rb, SF::RenderStates, under: SF, verbose: true, wrap_superclass: false)
+  Anyolite.wrap(rb, SF::RenderStates, under: SF, verbose: true, connect_to_superclass: false)
 end

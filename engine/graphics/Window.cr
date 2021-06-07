@@ -67,5 +67,5 @@ end
 
 def setup_ruby_window_class(rb)
   Anyolite.wrap_class(rb, SF::Window, "BaseWindow", under: SF)
-  Anyolite.wrap(rb, SF::RenderWindow, under: SF, verbose: true, wrap_superclass: true)
+  Anyolite.wrap(rb, SF::RenderWindow, under: SF, verbose: true, connect_to_superclass: true)
 end
