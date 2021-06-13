@@ -1,21 +1,24 @@
 module SF
-  @[Anyolite::ExcludeInstanceMethod("inspect")]
   @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
-  @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : Vector2f])]
-  @[Anyolite::SpecializeInstanceMethod("scale", [factors : Vector2 | Tuple], [factors : Vector2f])]
-  @[Anyolite::SpecializeInstanceMethod("origin=", [origin : Vector2 | Tuple], [origin : Vector2f])]
-  @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : Vector2f])]
-  @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("scale", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("origin=", [origin : Vector2 | Tuple], [origin : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]
   class Transformable
   end
 end
 
-macro wrap_for_all_shapes_of_type(rb, shape_type, methods)
-  {% for method in methods %}
-    Anyolite.wrap_instance_method({{rb}}, {{shape_type}}, {{method}}, Anyolite::Empty, [par : SF::Vector2f], operator: "{{method.id}}")
-  {% end %}
-end
+# NOTE: These are only excluded here to avoid duplicates, since they are later on wrapped manually.
+# This was only done to directly include them into the SF module instead of the Collider module.
 
+@[Anyolite::ExcludeConstant("CollisionShape")]
+@[Anyolite::ExcludeConstant("CollisionShapePoint")]
+@[Anyolite::ExcludeConstant("CollisionShapeLine")]
+@[Anyolite::ExcludeConstant("CollisionShapeCircle")]
+@[Anyolite::ExcludeConstant("CollisionShapeBox")]
+@[Anyolite::ExcludeConstant("CollisionShapeTriangle")]
+@[Anyolite::ExcludeConstant("CollisionShapeEllipse")]
 module Collider
   
   # Useful macros
@@ -141,22 +144,13 @@ class CollisionShapeEllipse < CollisionShape
 end
 
 def setup_ruby_collision_shape_class(rb)
-  Anyolite.wrap(rb, SF::Transformable, under: SF, verbose: true, connect_to_superclass: false, include_ancestor_methods: false,)
-  Anyolite.wrap(rb, CollisionShape, under: SF, verbose: true, connect_to_superclass: true, include_ancestor_methods: false)
-  Anyolite.wrap(rb, CollisionShapePoint, under: SF, verbose: true, connect_to_superclass: true, include_ancestor_methods: false)
-  Anyolite.wrap(rb, CollisionShapeLine, under: SF, verbose: true, connect_to_superclass: true, include_ancestor_methods: false)
-  Anyolite.wrap(rb, CollisionShapeCircle, under: SF, verbose: true, connect_to_superclass: true, include_ancestor_methods: false)
-  Anyolite.wrap(rb, CollisionShapeBox, under: SF, verbose: true, connect_to_superclass: true, include_ancestor_methods: false)
-  Anyolite.wrap(rb, CollisionShapeTriangle, under: SF, verbose: true, connect_to_superclass: true, include_ancestor_methods: false)
-  Anyolite.wrap(rb, CollisionShapeEllipse, under: SF, verbose: true, connect_to_superclass: true, include_ancestor_methods: false)
-  Anyolite.wrap(rb, Collider, under: SF, verbose: true, connect_to_superclass: false, include_ancestor_methods: false)
-
-  # TODO: Find a better solution or update Anyolite to include inherited methods
-  wrap_for_all_shapes_of_type(rb, CollisionShape, ["origin="])
-  wrap_for_all_shapes_of_type(rb, CollisionShapePoint, ["origin="])
-  wrap_for_all_shapes_of_type(rb, CollisionShapeLine, ["origin="])
-  wrap_for_all_shapes_of_type(rb, CollisionShapeCircle, ["origin="])
-  wrap_for_all_shapes_of_type(rb, CollisionShapeBox, ["origin="])
-  wrap_for_all_shapes_of_type(rb, CollisionShapeTriangle, ["origin="])
-  wrap_for_all_shapes_of_type(rb, CollisionShapeEllipse, ["origin="])
+  Anyolite.wrap(rb, SF::Transformable, under: SF, verbose: true, connect_to_superclass: false)
+  Anyolite.wrap(rb, CollisionShape, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, CollisionShapePoint, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, CollisionShapeLine, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, CollisionShapeCircle, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, CollisionShapeBox, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, CollisionShapeTriangle, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, CollisionShapeEllipse, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, Collider, under: SF, verbose: true)
 end

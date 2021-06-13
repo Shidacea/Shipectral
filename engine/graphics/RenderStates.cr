@@ -1,5 +1,4 @@
 module SF
-  @[Anyolite::ExcludeInstanceMethod("inspect")]
   @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
   struct RenderStates
   end

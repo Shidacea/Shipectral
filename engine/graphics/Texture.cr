@@ -1,5 +1,4 @@
 module SF
-  @[Anyolite::ExcludeInstanceMethod("inspect")]
   @[Anyolite::ExcludeInstanceMethod("load_from_file")]
   @[Anyolite::ExcludeInstanceMethod("load_from_memory")]
   @[Anyolite::ExcludeInstanceMethod("load_from_stream")]

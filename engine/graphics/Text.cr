@@ -1,5 +1,4 @@
 module SF
-  @[Anyolite::ExcludeInstanceMethod("inspect")]
   @[Anyolite::SpecializeInstanceMethod("initialize", [string : String, font : Font, character_size : Int = 30])]
   @[Anyolite::SpecializeInstanceMethod("draw", [target : RenderWindow, states : RenderStates])]
   @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : Vector2f])]

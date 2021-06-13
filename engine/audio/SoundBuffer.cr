@@ -2,11 +2,12 @@ module SF
   @[Anyolite::ExcludeInstanceMethod("open_from_memory")]
   @[Anyolite::ExcludeInstanceMethod("load_from_memory")]
   @[Anyolite::ExcludeInstanceMethod("load_from_file")]
-  @[Anyolite::ExcludeInstanceMethod("inspect")]
+  @[Anyolite::ExcludeInstanceMethod("load_from_samples")]
   @[Anyolite::ExcludeClassMethod("from_file")]
   @[Anyolite::ExcludeClassMethod("from_memory")]
   @[Anyolite::ExcludeClassMethod("from_stream")]
   @[Anyolite::ExcludeClassMethod("from_samples")]
+  @[Anyolite::ExcludeConstant("Reference")]
   class SoundBuffer
     @[Anyolite::Rename("load_from_file")]
     @[Anyolite::WrapWithoutKeywords]

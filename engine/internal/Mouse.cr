@@ -2,23 +2,6 @@ module SF
   @[Anyolite::SpecializeClassMethod("position=", [position : Vector2 | Tuple], [position : Vector2i])]
   @[Anyolite::SpecializeClassMethod("set_position", [position : Vector2 | Tuple, relative_to : Window], [position : Vector2i, relative_to : Window])]
   module Mouse
-    @[Anyolite::SpecializeClassMethod("parse?", [string], [string : String])]
-    enum Button
-      @[Anyolite::WrapWithoutKeywords]
-      @[Anyolite::Rename("==")]
-      def same_as?(other : Button)
-        self == other  
-      end
-    end
-
-    @[Anyolite::SpecializeClassMethod("parse?", [string], [string : String])]
-    enum Wheel
-      @[Anyolite::WrapWithoutKeywords]
-      @[Anyolite::Rename("==")]
-      def same_as?(other : Wheel)
-        self == other  
-      end
-    end
   end
 end
 

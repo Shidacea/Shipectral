@@ -3,7 +3,6 @@
 module SF
   @[Anyolite::RenameClass("Window")]
   @[Anyolite::ExcludeInstanceMethod("create")]
-  @[Anyolite::ExcludeInstanceMethod("inspect")]
   @[Anyolite::ExcludeInstanceMethod("draw")]
   @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : Vector2i])]
   @[Anyolite::SpecializeInstanceMethod("size=", [size : Vector2 | Tuple], [size : Vector2i])]

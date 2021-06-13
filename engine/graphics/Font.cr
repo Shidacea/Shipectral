@@ -2,7 +2,6 @@ module SF
   @[Anyolite::ExcludeInstanceMethod("load_from_stream")]
   @[Anyolite::ExcludeInstanceMethod("load_from_memory")]
   @[Anyolite::ExcludeInstanceMethod("load_from_file")]
-  @[Anyolite::ExcludeInstanceMethod("inspect")]
   @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
   @[Anyolite::ExcludeClassMethod("from_file")]
   @[Anyolite::ExcludeClassMethod("from_memory")]

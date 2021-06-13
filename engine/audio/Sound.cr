@@ -1,5 +1,4 @@
 module SF
-  @[Anyolite::ExcludeInstanceMethod("inspect")]
   @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
   class Sound
   end
