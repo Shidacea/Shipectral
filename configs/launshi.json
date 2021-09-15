@@ -1,0 +1,12 @@
+{
+  "executable_name": "Launshi",
+  "rb_config_file": "utility/mrb_config_shipectral.rb",
+  "use_sfml": true,
+  "frontend": "third_party/Launshi",
+  "frontend_project": "project.json",
+  "frontend_assests": "assets",
+  "compile_frontend": true,
+  "engine_library": "third_party/Shidacea",
+  "compile_engine": true,
+  "debug": true
+}
