@@ -11,7 +11,7 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("clear", [color : Color = Color.new(0, 0, 0, 255)], [color : Color = SF::Color.new(0, 0, 0, 255)])]
   class RenderWindow
     @[Anyolite::Rename("draw")]
-    def pseudo_draw(drawable : Sprite | Text | Transformable, states : RenderStates = SF::RenderStates.new)
+    def pseudo_draw(drawable : Sprite | Text | Shape | Transformable, states : RenderStates = SF::RenderStates.new)
       drawable.as(Drawable).draw(target: self, states: states)
     end
 
@@ -29,13 +29,17 @@ module SF
       open?
     end
 
+    def has_focus?
+      focus?
+    end
+
     @[Anyolite::WrapWithoutKeywords]
     def use_view(view : View)
       self.view = view
     end
 
     @[Anyolite::WrapWithoutKeywords]
-    def draw_translated(draw_object : Sprite | Text | Transformable, z : Float32, coords : Vector2f, render_states : SF::RenderStates | Nil = nil)
+    def draw_translated(draw_object : Sprite | Text | Shape | Transformable, z : Float32, coords : Vector2f, render_states : SF::RenderStates | Nil = nil)
       actual_render_states = render_states ? render_states : SF::RenderStates.new
 
       transform = Transform.new

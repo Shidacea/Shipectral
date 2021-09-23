@@ -73,6 +73,36 @@ module SDC
     Up = SDC::Keyboard::Key::Up
     Left = SDC::Keyboard::Key::Left
     Right = SDC::Keyboard::Key::Right
+    A = SDC::Keyboard::Key::A
+    B = SDC::Keyboard::Key::B
+    C = SDC::Keyboard::Key::C
+    D = SDC::Keyboard::Key::D
+    E = SDC::Keyboard::Key::E
+    F = SDC::Keyboard::Key::F
+    G = SDC::Keyboard::Key::G
+    H = SDC::Keyboard::Key::H
+    I = SDC::Keyboard::Key::I
+    J = SDC::Keyboard::Key::J
+    K = SDC::Keyboard::Key::K
+    L = SDC::Keyboard::Key::L
+    M = SDC::Keyboard::Key::M
+    N = SDC::Keyboard::Key::N
+    O = SDC::Keyboard::Key::O
+    P = SDC::Keyboard::Key::P
+    Q = SDC::Keyboard::Key::Q
+    R = SDC::Keyboard::Key::R
+    S = SDC::Keyboard::Key::S
+    T = SDC::Keyboard::Key::T
+    U = SDC::Keyboard::Key::U
+    V = SDC::Keyboard::Key::V
+    W = SDC::Keyboard::Key::W
+    X = SDC::Keyboard::Key::X
+    Y = SDC::Keyboard::Key::Y
+    Z = SDC::Keyboard::Key::Z
+
+    def self.is_pressed?(key)
+      SDC::Keyboard.key_pressed?(key)
+    end
   end
 
   module EventType

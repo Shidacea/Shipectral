@@ -1,7 +1,7 @@
 module SF
   @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
   @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : SF::Vector2f])]
-  @[Anyolite::SpecializeInstanceMethod("scale", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("scale", nil)]
   @[Anyolite::SpecializeInstanceMethod("origin=", [origin : Vector2 | Tuple], [origin : SF::Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]

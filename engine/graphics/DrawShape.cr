@@ -36,6 +36,7 @@ module SF
 end
 
 def setup_ruby_draw_shape_class(rb)
-  Anyolite.wrap(rb, SF::RectangleShape, under: SF, verbose: true, connect_to_superclass: false)
-  Anyolite.wrap(rb, SF::CircleShape, under: SF, verbose: true, connect_to_superclass: false)
+  Anyolite.wrap_class(rb, SF::Shape, "DrawShape", under: SF)
+  Anyolite.wrap(rb, SF::RectangleShape, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, SF::CircleShape, under: SF, verbose: true, connect_to_superclass: true)
 end
