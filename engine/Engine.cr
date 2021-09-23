@@ -8,6 +8,7 @@ require "./audio/SoundBuffer.cr"
 require "./audio/Sound.cr"
 
 require "./graphics/Color.cr"
+require "./graphics/DrawShape.cr"
 require "./graphics/Font.cr"
 require "./graphics/RenderStates.cr"
 require "./graphics/Sprite.cr"
@@ -31,6 +32,7 @@ def load_wrappers(rb)
   setup_ruby_sound_class(rb)
 
   setup_ruby_color_class(rb)
+  setup_ruby_draw_shape_class(rb)
   setup_ruby_font_class(rb)
   setup_ruby_render_states_class(rb)
   setup_ruby_sprite_class(rb)

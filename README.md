@@ -41,7 +41,10 @@ usage, allowing for fast prototyping.
 
 ### Todo list
 
+* Add draw shapes
+* Add other collision routines
 * Implement all remaining functions from Shidacea 0.2.1
+* Fix window scaling issues
 * Add proper Z ordering, as in Shidacea 0.2.1
 * Port Shidacea to Crystal and bind with Anyolite
 * Support multiple Shidacea implementations
