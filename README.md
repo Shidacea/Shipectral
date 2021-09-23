@@ -39,23 +39,30 @@ usage, allowing for fast prototyping.
 
 ## Roadmap
 
+### Todo list
+
+* Implement all remaining functions from Shidacea 0.2.1
+* Add proper Z ordering, as in Shidacea 0.2.1
+* Port Shidacea to Crystal and bind with Anyolite
+* Support multiple Shidacea implementations
+* Test all test projects
+* Add bytecode support
+* Support multiple configurations for the executable
+* Verify full compatibility to old Shidacea 0.2.1 projects
+
 ### Version 0.1.0
 
 #### Features
 
 * [ ] Basic functionality
-* [ ] Bytecode support
-* [ ] Loading of bytecode using macros
-* [ ] Ressource integration using macros
-* [ ] Launshi integration
-* [ ] Implementation of Shidacea functions in the Crystal-based SPTlib
-* [ ] Connection of SPTlib and SDClib, if and where possible
+* [ ] Full compatibility to Shidacea-CPP
 
 ### Version 0.2.0
 
 #### Features
 
 * [ ] Complete overhaul to support the new Shidacea 0.3 standard
+* [ ] Ressource integration using macros
 
 ## Installation
 
