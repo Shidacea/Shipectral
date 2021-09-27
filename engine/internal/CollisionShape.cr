@@ -74,6 +74,7 @@ module Collider
 end
 
 class CollisionShape < SF::Transformable
+  # TODO: Fix dup here
 end
 
 class CollisionShapePoint < CollisionShape

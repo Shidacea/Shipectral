@@ -15,6 +15,7 @@ module SF
 
     @[Anyolite::ExcludeInstanceMethod("inspect")]
     @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
+    @[Anyolite::ExcludeConstant("Reference")]
     class Info
     end
   end

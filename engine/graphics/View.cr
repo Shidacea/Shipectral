@@ -5,6 +5,7 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("size=", [size : Vector2 | Tuple], [offset : Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("center=", [center : Vector2 | Tuple], [offset : Vector2f])]
   @[Anyolite::WrapWithoutKeywordsInstanceMethod("initialize")]
+  @[Anyolite::ExcludeConstant("Reference")]
   class View
 
     @[Anyolite::WrapWithoutKeywords]
