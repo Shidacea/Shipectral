@@ -10,7 +10,11 @@ module SF
   struct Vector2(T)
     @[Anyolite::WrapWithoutKeywords]
     def dot(other : Vector2(T))
-      self * other
+      self.x * other.x + self.y * other.y
+    end
+
+    def squared_norm
+      self.dot(self)
     end
   end
 end

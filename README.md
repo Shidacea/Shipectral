@@ -43,7 +43,6 @@ usage, allowing for fast prototyping.
 
 * Fix Anyolite for dup method
 * Add all draw shapes
-* Add other collision routines
 * Implement all remaining functions from Shidacea 0.2.1
 * Fix window scaling issues
 * Add proper Z ordering, as in Shidacea 0.2.1
