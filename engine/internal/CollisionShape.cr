@@ -75,6 +75,9 @@ end
 
 class CollisionShape < SF::Transformable
   # TODO: Fix dup here
+  def dup
+    CollisionShape.new
+  end
 end
 
 class CollisionShapePoint < CollisionShape
@@ -82,6 +85,10 @@ class CollisionShapePoint < CollisionShape
   def initialize(offset : SF::Vector2f = SF::Vector2f.new)
     super()
     self.position = offset
+  end
+
+  def dup
+    CollisionShapePoint.new(offset: self.position)
   end
 end
 
@@ -94,6 +101,10 @@ class CollisionShapeLine < CollisionShape
     self.position = offset
     @line = line
   end
+
+  def dup
+    CollisionShapeLine.new(offset: self.position, line: @line)
+  end
 end
 
 class CollisionShapeCircle < CollisionShape
@@ -105,6 +116,10 @@ class CollisionShapeCircle < CollisionShape
     self.position = offset
     @radius = radius
   end
+
+  def dup
+    CollisionShapeCircle.new(offset: self.position, radius: @radius)
+  end
 end
 
 class CollisionShapeBox < CollisionShape
@@ -115,6 +130,10 @@ class CollisionShapeBox < CollisionShape
     super()
     self.position = offset
     @size = size
+  end
+
+  def dup
+    CollisionShapeBox.new(offset: self.position, size: @size)
   end
 end
 
@@ -129,6 +148,10 @@ class CollisionShapeTriangle < CollisionShape
     @side_1 = side_1
     @side_2 = side_2
   end
+
+  def dup
+    CollisionShapeTriangle.new(offset: self.position, side_1: @side_1, side_2: @side_2)
+  end
 end
 
 # TODO: Quadrangle
@@ -141,6 +164,10 @@ class CollisionShapeEllipse < CollisionShape
     super()
     self.position = offset
     @semiaxes = semiaxes
+  end
+
+  def dup
+    CollisionShapeEllipse.new(offset: self.position, semiaxes: @semiaxes)
   end
 end
 
