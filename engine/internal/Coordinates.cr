@@ -16,6 +16,10 @@ module SF
     def squared_norm
       self.dot(self)
     end
+
+    def inspect
+      "(#{self.x}|#{self.y})"
+    end
   end
 end
 

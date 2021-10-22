@@ -304,6 +304,10 @@ class CollisionShape < SF::Transformable
   def dup
     CollisionShape.new
   end
+
+  def inspect
+    "(No shape)"
+  end
 end
 
 class CollisionShapePoint < CollisionShape
@@ -315,6 +319,10 @@ class CollisionShapePoint < CollisionShape
 
   def dup
     CollisionShapePoint.new(offset: self.position)
+  end
+
+  def inspect
+    "Point-#{self.position.inspect}"
   end
 end
 
@@ -331,6 +339,10 @@ class CollisionShapeLine < CollisionShape
   def dup
     CollisionShapeLine.new(offset: self.position, line: @line)
   end
+
+  def inspect
+    "Line-#{self.position.inspect}-#{@line.inspect}"
+  end
 end
 
 class CollisionShapeCircle < CollisionShape
@@ -346,6 +358,10 @@ class CollisionShapeCircle < CollisionShape
   def dup
     CollisionShapeCircle.new(offset: self.position, radius: @radius)
   end
+
+  def inspect
+    "Circle-#{self.position.inspect}-#{@radius}"
+  end
 end
 
 class CollisionShapeBox < CollisionShape
@@ -360,6 +376,10 @@ class CollisionShapeBox < CollisionShape
 
   def dup
     CollisionShapeBox.new(offset: self.position, size: @size)
+  end
+
+  def inspect
+    "Box-#{self.position.inspect}-#{@size.inspect}"
   end
 end
 
@@ -378,6 +398,10 @@ class CollisionShapeTriangle < CollisionShape
   def dup
     CollisionShapeTriangle.new(offset: self.position, side_1: @side_1, side_2: @side_2)
   end
+
+  def inspect
+    "Triangle-#{self.position.inspect}-#{@side_1.inspect}-#{@side_2.inspect}"
+  end
 end
 
 # TODO: Quadrangle
@@ -395,6 +419,10 @@ class CollisionShapeEllipse < CollisionShape
 
   def dup
     CollisionShapeEllipse.new(offset: self.position, semiaxes: @semiaxes)
+  end
+  
+  def inspect
+    "Ellipse-#{self.position.inspect}-#{@semiaxes.inspect}"
   end
 end
 
