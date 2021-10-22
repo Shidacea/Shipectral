@@ -31,13 +31,13 @@ module Collishi
     end
   end
 
-  def self.overlap(tuple_1 : Float, tuple_2 : Float)
+  def self.overlap(tuple_1 : Tuple, tuple_2 : Tuple)
     minmax_1 = tuple_1.minmax
     minmax_2 = tuple_2.minmax
 
     if minmax_2[1] < minmax_1[0]
       return false
-    elsif minmax_1[0] < minmax_2[1]
+    elsif minmax_1[1] < minmax_2[0]
       return false
     else
       return true
@@ -104,6 +104,85 @@ module Collishi
     return true
   end
 
-  # TODO: Other shapes
+  def self.collision_line_line(x1 : Float, y1 : Float, dx1 : Float, dy1 : Float, x2 : Float, y2 : Float, dx2 : Float, dy2 : Float)
+    cross_term = dx2 * dy1 - dy2 * dx1
 
+		if cross_term == 0.0
+			return true if collision_point_line(x1, y1, x2, y2, dx2, dy2)
+			return true if collision_point_line(x2, y2, x1, y1, dx1, dy1)
+    end
+
+		y21 = y2 - y1
+		x21 = x2 - x1
+
+		projection_2_on_n1 = y21 * dx1 - x21 * dy1
+
+    return false if (projection_2_on_n1 < 0.0) == (projection_2_on_n1 < cross_term)
+
+		projection_1_on_n2 = x21 * dy2 - y21 * dx2
+
+    return false if (projection_1_on_n2 < 0.0) == (projection_1_on_n2 < -cross_term)
+
+		return true
+  end
+
+  def self.collision_line_circle(x1 : Float, y1 : Float, dx1 : Float, dy1 : Float, x2 : Float, y2 : Float, r2 : Float)
+    x21 = x2 - x1
+		y21 = y2 - y1
+
+		r2_squared = r2 * r2
+
+		proj_circle_normal = y21 * dx1 - x21 * dy1
+		proj_circle_normal_max = r2_squared * (dx1 * dx1 + dy1 * dy1)
+
+    return false if !between(sign_square(proj_circle_normal), -proj_circle_normal_max, proj_circle_normal_max)
+
+		x2d1 = x21 - dx1
+		y2d1 = y21 - dy1
+
+		distance_1_2 = x21 * x21 + y21 * y21
+		distance_d_2 = x2d1 * x2d1 + y2d1 * y2d1
+
+		if distance_1_2 < distance_d_2
+			p1 = sign_square(distance_1_2)
+			p2 = sign_square(distance_1_2 - dx1 * x21 - dy1 * y21)
+
+			proj_r2_squared = r2_squared * (x21 * x21 + y21 * y21)
+
+			return false if !overlap({ p1, p2 }, { -proj_r2_squared, proj_r2_squared })
+    else
+			p1 = sign_square(distance_d_2)
+			p2 = sign_square(distance_1_2 - dx1 * x21 - dy1 * y21)
+
+			proj_r2_squared = r2_squared * (x2d1 * x2d1 + y2d1 * y2d1)
+
+			return false if !overlap({ p1, p2 }, { -proj_r2_squared, proj_r2_squared })
+		end
+
+		return true
+  end
+
+  def self.collision_line_box
+  end
+
+  def self.collision_line_triangle
+  end
+
+  def self.collision_circle_circle
+  end
+
+  def self.collision_circle_box
+  end
+
+  def self.collision_circle_triangle
+  end
+
+  def self.collision_box_box
+  end
+
+  def self.collision_box_triangle
+  end
+
+  def self.collision_triangle_triangle
+  end
 end
