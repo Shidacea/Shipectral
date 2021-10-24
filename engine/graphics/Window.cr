@@ -33,9 +33,13 @@ module SF
       focus?
     end
 
+    @[Anyolite::AddBlockArg(1, Nil)]
     @[Anyolite::WrapWithoutKeywords]
     def use_view(view : View)
+      old_view = self.view
       self.view = view
+      yield nil
+      self.view = old_view
     end
 
     @[Anyolite::WrapWithoutKeywords]
