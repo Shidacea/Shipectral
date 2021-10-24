@@ -20,7 +20,7 @@ module ShooterTest
 			@gone = true if @lifetime <= 0
 			@position += @velocity * SDC.game.dt
 
-			@update_block&.call
+			@update_block&.call unless @gone
 		end
 
 		def draw(window)
