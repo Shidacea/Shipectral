@@ -300,9 +300,13 @@ module Collider
 end
 
 class CollisionShape < SF::Transformable
-  # TODO: Fix dup here
   def dup
     CollisionShape.new
+  end
+
+  # Legacy name convention for compatibility with older Shidacea versions
+  def offset=(value : SF::Vector2f)
+    self.position = value
   end
 
   def inspect
