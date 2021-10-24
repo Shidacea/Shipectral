@@ -1,5 +1,7 @@
 # TODO: Migrate to RenderQueueWindow from Shidacea
 
+require "./graphics/RenderQueueWindow.cr"
+
 module SF
   @[Anyolite::RenameClass("Window")]
   @[Anyolite::ExcludeInstanceMethod("create")]
