@@ -66,7 +66,7 @@ module Collider
 
     x2 = pos_2.x
     y2 = pos_2.y
-    r2 = shape_2.radius
+    r2 = shape_2.radius * shape_2.scale.x
 
     Collishi.collision_point_circle(x1, y1, x2, y2, r2)
   end
@@ -89,10 +89,10 @@ module Collider
 
     x2 = pos_2.x
     y2 = pos_2.y
-    sxa2 = shape_2.side_1.x
-    sya2 = shape_2.side_1.y
-    sxb2 = shape_2.side_2.x
-    syb2 = shape_2.side_2.y
+    sxa2 = shape_2.side_1.x * shape_2.scale.x
+    sya2 = shape_2.side_1.y * shape_2.scale.y
+    sxb2 = shape_2.side_2.x * shape_2.scale.x
+    syb2 = shape_2.side_2.y * shape_2.scale.y
 
     Collishi.collision_point_triangle(x1, y1, x2, y2, sxa2, sya2, sxb2, syb2)
   end
@@ -125,7 +125,7 @@ module Collider
 
     x2 = pos_2.x
     y2 = pos_2.y
-    r2 = shape_2.radius
+    r2 = shape_2.radius * shape_2.scale.x
 
     Collishi.collision_line_circle(x1, y1, dx1, dy1, x2, y2, r2)
   end
@@ -152,10 +152,10 @@ module Collider
 
     x2 = pos_2.x
     y2 = pos_2.y
-    sxa2 = shape_2.side_1.x
-    sya2 = shape_2.side_1.y
-    sxb2 = shape_2.side_2.x
-    syb2 = shape_2.side_2.y
+    sxa2 = shape_2.side_1.x * shape_2.scale.x
+    sya2 = shape_2.side_1.y * shape_2.scale.y
+    sxb2 = shape_2.side_2.x * shape_2.scale.x
+    syb2 = shape_2.side_2.y * shape_2.scale.y
     
     Collishi.collision_line_triangle(x1, y1, dx1, dy1, x2, y2, sxa2, sya2, sxb2, syb2)
   end
@@ -173,11 +173,11 @@ module Collider
   def self.check_collision(shape_1 : CollisionShapeCircle, shape_2 : CollisionShapeCircle, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
     x1 = pos_1.x
     y1 = pos_1.y
-    r1 = shape_1.radius
+    r1 = shape_1.radius * shape_1.scale.x
 
     x2 = pos_2.x
     y2 = pos_2.y
-    r2 = shape_2.radius
+    r2 = shape_2.radius * shape_2.scale.x
 
     Collishi.collision_circle_circle(x1, y1, r1, x2, y2, r2)
   end
@@ -185,7 +185,7 @@ module Collider
   def self.check_collision(shape_1 : CollisionShapeCircle, shape_2 : CollisionShapeBox, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
     x1 = pos_1.x
     y1 = pos_1.y
-    r1 = shape_1.radius
+    r1 = shape_1.radius * shape_1.scale.x
 
     x2 = pos_2.x
     y2 = pos_2.y
@@ -198,14 +198,14 @@ module Collider
   def self.check_collision(shape_1 : CollisionShapeCircle, shape_2 : CollisionShapeTriangle, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
     x1 = pos_1.x
     y1 = pos_1.y
-    r1 = shape_1.radius
+    r1 = shape_1.radius * shape_1.scale.x
 
     x2 = pos_2.x
     y2 = pos_2.y
-    sxa2 = shape_2.side_1.x
-    sya2 = shape_2.side_1.y
-    sxb2 = shape_2.side_2.x
-    syb2 = shape_2.side_2.y
+    sxa2 = shape_2.side_1.x * shape_2.scale.x
+    sya2 = shape_2.side_1.y * shape_2.scale.y
+    sxb2 = shape_2.side_2.x * shape_2.scale.x
+    syb2 = shape_2.side_2.y * shape_2.scale.y
 
     Collishi.collision_circle_triangle(x1, y1, r1, x2, y2, sxa2, sya2, sxb2, syb2)
   end
@@ -246,10 +246,10 @@ module Collider
 
     x2 = pos_2.x
     y2 = pos_2.y
-    sxa2 = shape_2.side_1.x
-    sya2 = shape_2.side_1.y
-    sxb2 = shape_2.side_2.x
-    syb2 = shape_2.side_2.y
+    sxa2 = shape_2.side_1.x * shape_2.scale.x
+    sya2 = shape_2.side_1.y * shape_2.scale.y
+    sxb2 = shape_2.side_2.x * shape_2.scale.x
+    syb2 = shape_2.side_2.y * shape_2.scale.y
 
     Collishi.collision_box_triangle(x1, y1, h1, w1, x2, y2, sxa2, sya2, sxb2, syb2)
   end
@@ -275,17 +275,17 @@ module Collider
   def self.check_collision(shape_1 : CollisionShapeTriangle, shape_2 : CollisionShapeTriangle, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
     x1 = pos_1.x
     y1 = pos_1.y
-    sxa1 = shape_1.side_1.x
-    sya1 = shape_1.side_1.y
-    sxb1 = shape_1.side_2.x
-    syb1 = shape_1.side_2.y
+    sxa1 = shape_1.side_1.x * shape_1.scale.x
+    sya1 = shape_1.side_1.y * shape_1.scale.y
+    sxb1 = shape_1.side_2.x * shape_1.scale.x
+    syb1 = shape_1.side_2.y * shape_1.scale.y
 
     x2 = pos_2.x
     y2 = pos_2.y
-    sxa2 = shape_2.side_1.x
-    sya2 = shape_2.side_1.y
-    sxb2 = shape_2.side_2.x
-    syb2 = shape_2.side_2.y
+    sxa2 = shape_2.side_1.x * shape_2.scale.x
+    sya2 = shape_2.side_1.y * shape_2.scale.y
+    sxb2 = shape_2.side_2.x * shape_2.scale.x
+    syb2 = shape_2.side_2.y * shape_2.scale.y
 
     Collishi.collision_triangle_triangle(x1, y1, sxa1, sya1, sxb1, syb1, x2, y2, sxa2, sya2, sxb2, syb2)
   end
