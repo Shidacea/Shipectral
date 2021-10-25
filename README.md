@@ -41,11 +41,10 @@ usage, allowing for fast prototyping.
 
 ### Todo list
 
-* Fix Anyolite for dup method
 * Add all draw shapes
+* Fix weird collision results between Rectangle and Circle
 * Implement all remaining functions from Shidacea 0.2.1
 * Fix window scaling issues
-* Add proper Z ordering, as in Shidacea 0.2.1
 * Port Shidacea to Crystal and bind with Anyolite
 * Support multiple Shidacea implementations
 * Test all test projects
@@ -82,5 +81,5 @@ All of these programs need to be in the path environment variable for Windows to
 
 ### Building
 
-Note that this current version does only run on Windows 64bit and Ubuntu.
+Note that this current version is only guaranteed to run on Windows 64bit and Ubuntu.
 You need to run `rake` in either a terminal (Ubuntu) or the 64bit Visual Studio Command Prompt (Windows).
