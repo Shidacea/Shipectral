@@ -6,6 +6,8 @@ require "crsfml/audio"
 require "./ScriptHelper.cr"
 require "../engine/Engine.cr"
 
+Collishi.test_all_collision_routines
+
 begin
   Anyolite::RbInterpreter.create do |rb|
     Anyolite.wrap_module(rb, SF, "SDC")

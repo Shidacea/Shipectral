@@ -483,4 +483,103 @@ module Collishi
 
 		return true
   end
+
+	@[Anyolite::Exclude]
+	def self.test_all_collision_routines
+		raise "Collision test failed" unless true == Collishi.fraction_less_than_zero(-1.0, 3.0)
+		raise "Collision test failed" unless true == Collishi.fraction_less_than_zero(1.0, -3.0)
+		raise "Collision test failed" unless false == Collishi.fraction_less_than_zero(0.0, 3.0)
+		raise "Collision test failed" unless false == Collishi.fraction_less_than_zero(0.0, -3.0)
+		raise "Collision test failed" unless false == Collishi.fraction_less_than_zero(1.0, 3.0)
+		raise "Collision test failed" unless false == Collishi.fraction_less_than_zero(-1.0, -3.0)
+
+		raise "Collision test failed" unless false == Collishi.fraction_between_zero_and_one(-1.0, 3.0)
+		raise "Collision test failed" unless false == Collishi.fraction_between_zero_and_one(1.0, -3.0)
+		raise "Collision test failed" unless true == Collishi.fraction_between_zero_and_one(0.0, 3.0)
+		raise "Collision test failed" unless true == Collishi.fraction_between_zero_and_one(0.0, -3.0)
+		raise "Collision test failed" unless true == Collishi.fraction_between_zero_and_one(1.0, 3.0)
+		raise "Collision test failed" unless true == Collishi.fraction_between_zero_and_one(-1.0, -3.0)
+		raise "Collision test failed" unless false == Collishi.fraction_between_zero_and_one(3.0, 1.0)
+		raise "Collision test failed" unless false == Collishi.fraction_between_zero_and_one(-3.0, 1.0)
+		raise "Collision test failed" unless false == Collishi.fraction_between_zero_and_one(-3.0, -1.0)
+
+		raise "Collision test failed" unless true == Collishi.overlap({ 1, 3, 4 }, { 2, 1 })
+		raise "Collision test failed" unless false == Collishi.overlap({ 1, 3, 4 }, { 6, 5 })
+		raise "Collision test failed" unless false == Collishi.overlap({ -1, 6 }, { -3 })
+		raise "Collision test failed" unless true == Collishi.overlap({ -1, 6 }, { 3 })
+		raise "Collision test failed" unless true == Collishi.overlap({ -1, 6 }, { -1 })
+		raise "Collision test failed" unless true == Collishi.overlap({ -1, 6 }, { 6 })
+
+		raise "Collision test failed" unless false == Collishi.collision_point_point(1.0, 2.0,     3.0, 4.0)
+		raise "Collision test failed" unless true == Collishi.collision_point_point(1.0, 9.0,     1.0, 9.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_point_line(0.2, 0.2,     0.0, 0.0, 1.0, 1.0)
+		raise "Collision test failed" unless false == Collishi.collision_point_line(0.2, 0.3,     0.0, 0.0, 1.0, 1.0)
+		raise "Collision test failed" unless true == Collishi.collision_point_line(1.0, 0.0,     0.0, 0.0, 1.0, 0.0)
+		raise "Collision test failed" unless true == Collishi.collision_point_line(1.0, 0.0,      1.0, 0.0, 1.0, 0.0)
+		raise "Collision test failed" unless false == Collishi.collision_point_line(1.0, 0.0,     1.1, 0.0, 1.0, 0.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_point_circle(2.0, 3.0,     4.0, 5.0, 3.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_point_box(-3.0, -5.0,     -7.0, -8.0, 20.0, 18.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_point_triangle(0.0, 0.0,     0.0, 0.2, 3.0, -1.0, -3.0, -1.0)
+		raise "Collision test failed" unless false == Collishi.collision_point_triangle(0.0, 0.0,     0.0, 0.2, 3.0, 1.0, -3.0, 1.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_line_line(0.0, 0.0, 1.0, 1.0,     0.0, 1.0, 1.0, -1.0)
+		raise "Collision test failed" unless false == Collishi.collision_line_line(0.0, 0.0, 1.0, 0.0,     1.1, -1.0, 0.0, 2.0)
+		raise "Collision test failed" unless true == Collishi.collision_line_line(0.0, 0.0, 1.0, 0.0,     0.9, -1.0, 0.0, 2.0)
+		raise "Collision test failed" unless false == Collishi.collision_line_line(0.0, 0.0, 1.0, 1.0,     0.0, 0.1, 1.0, 1.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_line_line(0.0, 0.0, 1.0, 0.0,     1.0, 0.0, 1.0, 0.0)
+		raise "Collision test failed" unless false == Collishi.collision_line_line(0.0, 0.0, 1.0, 0.0,     1.1, 0.0, 1.0, 0.0)
+		raise "Collision test failed" unless false == Collishi.collision_line_line(1.1, 0.0, 1.0, 0.0,     0.0, 0.0, 1.0, 0.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_line_circle(1.0, 1.0, 8.0, 8.0,     -3.0, -3.0, 100.0)
+		raise "Collision test failed" unless true == Collishi.collision_line_circle(1.0, 1.0, 8.0, 8.0,      4.0, 4.0, 0.1)
+		raise "Collision test failed" unless false == Collishi.collision_line_circle(1.0, 1.0, 8.0, 8.0,      10.0, 10.0, 1.4)
+		raise "Collision test failed" unless true == Collishi.collision_line_circle(1.0, 1.0, 8.0, 8.0,      10.0, 10.0, 1.5)
+
+		raise "Collision test failed" unless true == Collishi.collision_line_box(3.0, 2.0, 8.0, 11.0,     0.0, 1.0, 10.0, 10.0)
+		raise "Collision test failed" unless false == Collishi.collision_line_box(11.0, 0.0, 11.0, 13.0,     0.0, 1.0, 10.0, 10.0)
+		raise "Collision test failed" unless true == Collishi.collision_line_box(1.0, 1.0, 7.0, 7.0,     2.0, 2.0, 4.0, 4.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_line_triangle(3.0, 0.0, 0.0, 2.0,     2.0, 1.0, -1.0, 3.0, 2.0, 1.0)
+		raise "Collision test failed" unless false == Collishi.collision_line_triangle(2.0, 4.0, 2.0, 0.0,     2.0, 1.0, -1.0, 3.0, 2.0, 1.0)
+		raise "Collision test failed" unless true == Collishi.collision_line_triangle(2.0, 1.0, -1.0, 3.0,     2.0, 1.0, -1.0, 3.0, 2.0, 1.0)
+		raise "Collision test failed" unless true == Collishi.collision_line_triangle(2.0, 1.0, 2.0, 1.0,     2.0, 1.0, -1.0, 3.0, 2.0, 1.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_circle_box(1.0, -3.0, 4.0,     -5.0, -4.0, 10.0, 8.0)
+		raise "Collision test failed" unless true == Collishi.collision_circle_box(1.0, -3.0, 1.0,     -5.0, -2.0, 10.0, 4.0)
+		raise "Collision test failed" unless false == Collishi.collision_circle_box(1.0, -3.0, 0.9,     -5.0, -2.0, 10.0, 4.0)
+		raise "Collision test failed" unless true == Collishi.collision_circle_box(2.0, 1.0, 0.1,     -2.0, -2.0, 4.0, 4.0)
+		raise "Collision test failed" unless false == Collishi.collision_circle_box(3.0, 3.0, 1.0,     -2.0, -2.0, 4.0, 4.0)
+		raise "Collision test failed" unless true == Collishi.collision_circle_box(3.0, 3.0, 1.5,     -2.0, -2.0, 4.0, 4.0)
+		raise "Collision test failed" unless true == Collishi.collision_circle_box(3.0, 3.0, 2.0,     -2.0, -2.0, 4.0, 4.0)
+
+		raise "Collision test failed" unless false == Collishi.collision_circle_triangle(5.0, 5.0, 3.0,     3.0, 2.0, -1.0, -5.0, -5.0, -1.0)
+		raise "Collision test failed" unless true == Collishi.collision_circle_triangle(0.0, 0.0, 1.0,     3.0, 2.0, -1.0, -5.0, -5.0, -1.0)
+		raise "Collision test failed" unless true == Collishi.collision_circle_triangle(5.0, 5.0, 4.0,     3.0, 2.0, -1.0, -5.0, -5.0, -1.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_box_box(-2.0, -2.0, 6.0, 8.0,     2.5, 5.5, 4.0, 4.0)
+		raise "Collision test failed" unless false == Collishi.collision_box_box(-2.0, -2.0, 6.0, 8.0,     3.1, 6.1, 2.8, 2.8)
+
+		raise "Collision test failed" unless true == Collishi.collision_box_triangle(-5.0, 2.0, 4.0, 2.0,     1.0, 5.0, 0.0, -4.0, -3.0, -4.0)
+		raise "Collision test failed" unless false == Collishi.collision_box_triangle(-5.0, 2.0, 3.0, 2.0,     1.0, 5.0, 0.0, -4.0, -3.0, -4.0)
+		raise "Collision test failed" unless false == Collishi.collision_box_triangle(-1.0, -1.0, 1.0, 1.0,     1.0, 5.0, 0.0, -4.0, -3.0, -4.0)
+		raise "Collision test failed" unless true == Collishi.collision_box_triangle(-1.0, -1.0, 1.0, 2.5,     1.0, 5.0, 0.0, -4.0, -3.0, -4.0)
+
+		raise "Collision test failed" unless true == Collishi.collision_triangle_triangle(0.0, 3.0, 1.0, 2.0, 3.0, 2.0,     2.0, 2.0, 1.0, 4.0, 2.0, 3.0)
+		raise "Collision test failed" unless false == Collishi.collision_triangle_triangle(0.0, 3.0, 1.0, 2.0, 3.0, 2.0,     4.0, 4.0, 1.0, 0.0, 1.0, 1.0)
+		raise "Collision test failed" unless false == Collishi.collision_triangle_triangle(0.0, 3.0, 1.0, 2.0, 3.0, 2.0,     3.0, 1.0, 0.0, 2.0, 4.0, 2.0)
+		raise "Collision test failed" unless false == Collishi.collision_triangle_triangle(0.0, 3.0, 1.0, 2.0, 3.0, 2.0,     4.0, 2.0, 2.0, 2.0, 3.0, 3.0)
+		raise "Collision test failed" unless false == Collishi.collision_triangle_triangle(2.0, 2.0, 1.0, 4.0, 2.0, 3.0,     4.0, 4.0, 1.0, 0.0, 1.0, 1.0)
+		raise "Collision test failed" unless false == Collishi.collision_triangle_triangle(2.0, 2.0, 1.0, 4.0, 2.0, 3.0,     3.0, 1.0, 0.0, 2.0, 4.0, 2.0)
+		raise "Collision test failed" unless false == Collishi.collision_triangle_triangle(2.0, 2.0, 1.0, 4.0, 2.0, 3.0,     4.0, 2.0, 2.0, 2.0, 3.0, 3.0)
+		raise "Collision test failed" unless false == Collishi.collision_triangle_triangle(4.0, 4.0, 1.0, 0.0, 1.0, 1.0,     3.0, 1.0, 0.0, 2.0, 4.0, 2.0)
+		raise "Collision test failed" unless false == Collishi.collision_triangle_triangle(4.0, 4.0, 1.0, 0.0, 1.0, 1.0,     4.0, 2.0, 2.0, 2.0, 3.0, 3.0)
+		raise "Collision test failed" unless true == Collishi.collision_triangle_triangle(3.0, 1.0, 0.0, 2.0, 4.0, 2.0,     4.0, 2.0, 2.0, 2.0, 3.0, 3.0)
+
+		puts "Collision routines checked successfully."
+	end
 end
