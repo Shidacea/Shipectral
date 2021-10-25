@@ -12,6 +12,8 @@ end
 # NOTE: These are only excluded here to avoid duplicates, since they are later on wrapped manually.
 # This was only done to directly include them into the SF module instead of the Collider module.
 
+# TODO: Fix shifted hitboxes for some objects
+
 @[Anyolite::ExcludeConstant("CollisionShape")]
 @[Anyolite::ExcludeConstant("CollisionShapePoint")]
 @[Anyolite::ExcludeConstant("CollisionShapeLine")]

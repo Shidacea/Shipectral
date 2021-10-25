@@ -94,7 +94,7 @@ class RenderQueue
             t_obj.scale = render_call.scale
             t_obj.rotation = render_call.rotation
 
-            old_view = window.view
+            old_view = window.view.dup
             window.view = render_call.view
             window.draw(d_obj, render_call.states)
             window.view = old_view

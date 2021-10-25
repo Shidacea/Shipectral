@@ -103,6 +103,21 @@ module SF
     def dup : TriangleShape
       return TriangleShape.new(@points[0], @points[1], @points[2])
     end
+
+    @[Anyolite::WrapWithoutKeywords]
+    def link_texture(texture : Texture)
+      self.texture= texture
+    end
+
+    @[Anyolite::WrapWithoutKeywords]
+    def get_from(shape : CollisionShapeTriangle)
+      @points = [SF::Vector2f.new, shape.side_1, shape.side_2]
+      self.position = shape.position
+      self.scale = shape.scale
+      self.origin = shape.origin
+      self.rotation = shape.rotation
+      update
+    end
   end
 end
 
