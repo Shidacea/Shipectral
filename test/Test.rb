@@ -51,11 +51,9 @@ puts erb_test.result(e)
 close_all = false
 
 while !close_all
-  # Both work
-  sprite.draw(target: window)
-  window.draw(drawable: sprite)
+  window.draw(sprite)
 
-  window.display
+  window.render_and_display
   ev = window.poll_event
 
   if ev.is_a?(SDC::Event::KeyPressed)

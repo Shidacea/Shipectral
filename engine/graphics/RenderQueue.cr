@@ -13,8 +13,8 @@ struct RenderCall
   def initialize(@obj, @states, @view, @origin, @position, @scale, @rotation, @z)
   end
 
-  def <(other)
-    @z < other.z
+  def <=>(other)
+    @z <=> other.z
   end
 end
 
@@ -26,35 +26,40 @@ class RenderQueue
   @element_count : Array(UInt64) = Array(UInt64).new(MAX_Z_GROUP, 0)
   @max_z_used : UInt64 = 0
 
-  @invalid : Bool = false
+  property invalid : Bool = false
 
   def initialize
     0.upto(MAX_Z_GROUP - 1) do |z_group|
-      @queue[z_group] = Array(RenderCall).new(initial_capacity: MAX_ELEMENTS_PER_GROUP)
+      @queue.push Array(RenderCall).new(initial_capacity: MAX_ELEMENTS_PER_GROUP)
     end
   end
 
-  def get_z_group(z : Float)
-    return_value : UInt64 = 0
+  def diagnose
+    "Render queue element counts: #{@element_count.inspect}"
+  end
+
+  def get_z_group(z : Float32)
+    return_value = 0
 
     if z >= 0.0
       int_z = z.to_i
       return_value = (int_z >= MAX_Z_GROUP - 1) ? MAX_Z_GROUP - 1 : int_z + 1
     end
 
-    @max_z_used = return_value if return_value > @max_z_used
+    @max_z_used = return_value.to_u64 if return_value > @max_z_used
 
-    return_value
+    return_value.to_u64
   end
 
-  def push(obj : SF::Drawable, states : SF::RenderStates, view : SF::View, origin : SF::Vector2f, position : SF::Vector2f, scale : SF::Vector2f, rotation : Float, z : Float)
+  def push(obj : SF::Drawable, states : SF::RenderStates, view : SF::View, origin : SF::Vector2f, position : SF::Vector2f, scale : SF::Vector2f, rotation : Float, z : Float32)
     z_group = get_z_group(z)
 
     if @element_count[z_group] >= MAX_ELEMENTS_PER_GROUP
       @invalid = true
       return
     else
-      @queue[z_group][(@element_count[z_group] += 1)] = RenderCall.new(obj, states, view, origin, position, scale, rotation, z)
+      @element_count[z_group] += 1
+      @queue[z_group].push RenderCall.new(obj, states, view, origin, position, scale, rotation, z)
     end
   end
 
@@ -74,24 +79,30 @@ class RenderQueue
   end
 
   def draw_to(window : SF::RenderWindow)
-    0.upto(MAX_Z_GROUP - 1) do |z|
+    0u64.upto(@max_z_used) do |z|
       sort(z)
 
-      0.upto(@element_count[z] - 1) do |i|
-        render_call = get_render_call(z, i)
+      if @element_count[z] > 0
+        0u64.upto(@element_count[z] - 1) do |i|
+          render_call = get_render_call(z, i)
 
-        t_obj = render_call.obj.as(SF::Transformable)
+          if d_obj = render_call.obj
+            t_obj = d_obj.as(SF::Transformable)
 
-        t_obj.origin = render_call.origin
-        t_obj.position = render_call.position
-        t_obj.scale = render_call.scale
-        t_obj.rotation = render_call.rotation
+            t_obj.origin = render_call.origin
+            t_obj.position = render_call.position
+            t_obj.scale = render_call.scale
+            t_obj.rotation = render_call.rotation
 
-        old_view = window.view
-        window.view = render_call.view
-        window.draw(render_call.obj, render_call.states)
-        window.view = old_view
+            old_view = window.view
+            window.view = render_call.view
+            window.draw(d_obj, render_call.states)
+            window.view = old_view
+          end
+        end
       end
+
+      reset(z)
     end
   end
 end

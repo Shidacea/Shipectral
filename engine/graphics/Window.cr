@@ -1,80 +1,136 @@
-# TODO: Migrate to RenderQueueWindow from Shidacea
+require "./RenderQueue.cr"
 
-require "./graphics/RenderQueueWindow.cr"
+@[Anyolite::RenameClass("Window")]
+class RenderQueueWindow
+  @window : SF::RenderWindow
+  @render_queue : RenderQueue = RenderQueue.new
+  @clock : SF::Clock = SF::Clock.new
 
-module SF
-  @[Anyolite::RenameClass("Window")]
-  @[Anyolite::ExcludeInstanceMethod("create")]
-  @[Anyolite::ExcludeInstanceMethod("draw")]
-  @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : Vector2i])]
-  @[Anyolite::SpecializeInstanceMethod("size=", [size : Vector2 | Tuple], [size : Vector2i])]
-  @[Anyolite::SpecializeInstanceMethod("map_pixel_to_coords", [point : Vector2 | Tuple, view : View], [point : Vector2i, view : View])]
-  @[Anyolite::SpecializeInstanceMethod("map_coords_to_pixel", [point : Vector2 | Tuple, view : View], [point : Vector2f, view : View])]
-  @[Anyolite::SpecializeInstanceMethod("clear", [color : Color = Color.new(0, 0, 0, 255)], [color : Color = SF::Color.new(0, 0, 0, 255)])]
-  class RenderWindow
-    @[Anyolite::Rename("draw")]
-    def pseudo_draw(drawable : Sprite | Text | Shape | Transformable, states : RenderStates = SF::RenderStates.new)
-      drawable.as(Drawable).draw(target: self, states: states)
+  @[Anyolite::WrapWithoutKeywords(3)]
+  def initialize(title : String, width : UInt32, height : UInt32, fullscreen : Bool = false)
+    if fullscreen
+      @window = SF::RenderWindow.new(SF::VideoMode.new(width, height), title, SF::Style::Fullscreen)
+    else
+      @window = SF::RenderWindow.new(SF::VideoMode.new(width, height), title)
+    end
+  end
+
+  @[Anyolite::AddBlockArg(1, Nil)]
+  @[Anyolite::WrapWithoutKeywords]
+  def use_view(view : SF::View)
+    old_view = @window.view.dup
+    @window.view = view
+    yield nil
+    @window.view = old_view
+  end
+
+  @[Anyolite::Exclude]
+  def draw_object(render_states : SF::RenderStates, draw_object : SF::Drawable, z : Float32)
+    t_obj = draw_object.as(SF::Transformable)
+
+    origin = t_obj.origin
+    position = t_obj.position
+    scale = t_obj.scale
+    rotation = t_obj.rotation
+
+    @render_queue.push(draw_object, render_states, @window.view.dup, origin, position, scale, rotation, z)
+
+    if @render_queue.invalid
+      Anyolite.raise_runtime_error("Maximum render queue level of #{RenderQueue::MAX_ELEMENTS_PER_GROUP} reached at z group #{@render_queue.get_z_group(z)} for z = #{z}.\nDiagnose: #{@render_queue.diagnose}")
     end
 
-    @[Anyolite::Specialize]
-    @[Anyolite::WrapWithoutKeywords(3)]
-    def initialize(title : String, width : UInt32, height : UInt32, fullscreen : Bool = false)
-      if fullscreen
-        initialize(mode: SF::VideoMode.new(width, height), title: title, style: SF::Style::Fullscreen)
-      else
-        initialize(mode: SF::VideoMode.new(width, height), title: title)
-      end
-    end
+    true
+  end
 
-    def is_open?
-      open?
-    end
+  @[Anyolite::WrapWithoutKeywords]
+  def draw_translated(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable, z : Float32 = 0.0, coords : SF::Vector2f = SF::Vector2f.new, render_states : SF::RenderStates = SF::RenderStates.new)
+    actual_render_states = render_states
 
-    def has_focus?
-      focus?
-    end
+    transform = SF::Transform.new
+    transform.translate(coords)
+    actual_render_states.transform *= transform
 
-    @[Anyolite::AddBlockArg(1, Nil)]
-    @[Anyolite::WrapWithoutKeywords]
-    def use_view(view : View)
-      old_view = self.view
-      self.view = view
-      yield nil
-      self.view = old_view
-    end
+    draw_object(actual_render_states, draw_object.as(SF::Drawable), z)
 
-    @[Anyolite::WrapWithoutKeywords]
-    def draw_translated(draw_object : Sprite | Text | Shape | Transformable, z : Float32, coords : Vector2f, render_states : SF::RenderStates | Nil = nil)
-      actual_render_states = render_states ? render_states : SF::RenderStates.new
+    true
+  end
 
-      transform = Transform.new
-      transform.translate(coords)
-      actual_render_states.transform *= transform
+  @[Anyolite::WrapWithoutKeywords]
+  def draw(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable, z : Float32 = 0.0, render_states : SF::RenderStates = SF::RenderStates.new)
+    draw_object(render_states, draw_object.as(SF::Drawable), z)
+  end
 
-      draw_object.as(Drawable).draw(target: self, states: actual_render_states)
-    end
+  def imgui_defined?
+    false # TODO
+  end
 
-    @[Anyolite::WrapWithoutKeywords]
-    def set_view(view : View)
-      self.view = view
-    end
+  def width
+    @window.size.x
+  end
 
-    # TODO: Wrap this into a RenderQueue and add z-drawing and stuff
+  def height
+    @window.size.y
+  end
 
-    def render_and_display
-      display
-    end
+  def clear
+    @window.clear
+    true
+  end
 
-    # TODO: Add ImGUI
+  def display
+    @window.display
+    true
+  end
 
-    def imgui_defined?
-      false
-    end
+  def is_open?
+    @window.open?
+  end
+
+  def has_focus?
+    @window.focus?
+  end
+
+  def visible=(value : Bool)
+    @window.visible = value
+  end
+
+  def vsync=(value : Bool)
+    @window.vertical_sync_enabled = value
+  end
+
+  @[Anyolite::WrapWithoutKeywords]
+  def set_view(view : SF::View)
+    @window.view = view
+  end
+
+  def get_view
+    @window.view
+  end
+
+  def poll_event
+    @window.poll_event
+  end
+
+  def close
+    @window.close
+  end
+
+  def render
+    @render_queue.draw_to(@window)
+  end
+
+  @[Anyolite::Exclude]
+  def get_window_reference
+    @window
+  end
+
+  def render_and_display
+    render
+    #render_imgui
+    display
   end
 end
 
 def setup_ruby_window_class(rb)
-  Anyolite.wrap_class(rb, SF::Window, "BaseWindow", under: SF)
-  Anyolite.wrap(rb, SF::RenderWindow, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, RenderQueueWindow, under: SF, verbose: true, connect_to_superclass: false)
 end

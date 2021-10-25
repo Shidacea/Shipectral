@@ -1,6 +1,6 @@
 module SF
   @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
-  @[Anyolite::SpecializeInstanceMethod("draw", [target : RenderWindow, states : RenderStates], [target : RenderWindow, states : RenderStates = SF::RenderStates.new])]
+  @[Anyolite::ExcludeInstanceMethod("draw")]
   @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("origin=", [origin : Vector2 | Tuple], [origin : Vector2f])]
