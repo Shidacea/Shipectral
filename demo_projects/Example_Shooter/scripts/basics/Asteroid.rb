@@ -29,9 +29,9 @@ module ShooterTest
 		end
 
 		def custom_draw(window)
-			draw_shape = SDC::DrawShapeRectangle.new
-			draw_shape.get_from(@boxes[0])
-			window.draw_translated(draw_shape, 10, @position)
+			#draw_shape = SDC::DrawShapeRectangle.new
+			#draw_shape.get_from(@boxes[0])
+			#window.draw_translated(draw_shape, 10, @position)
 		end
 
 	end

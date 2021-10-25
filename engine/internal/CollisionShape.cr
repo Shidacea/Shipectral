@@ -324,7 +324,10 @@ class CollisionShapePoint < CollisionShape
   end
 
   def dup
-    CollisionShapePoint.new(offset: self.position)
+    return_shape = CollisionShapePoint.new(offset: self.position)
+    return_shape.origin = self.origin
+    return_shape.scale = self.scale
+    return_shape
   end
 
   def inspect
@@ -343,7 +346,10 @@ class CollisionShapeLine < CollisionShape
   end
 
   def dup
-    CollisionShapeLine.new(offset: self.position, line: @line)
+    return_shape = CollisionShapeLine.new(offset: self.position, line: @line)
+    return_shape.origin = self.origin
+    return_shape.scale = self.scale
+    return_shape
   end
 
   def inspect
@@ -362,7 +368,10 @@ class CollisionShapeCircle < CollisionShape
   end
 
   def dup
-    CollisionShapeCircle.new(offset: self.position, radius: @radius)
+    return_shape = CollisionShapeCircle.new(offset: self.position, radius: @radius)
+    return_shape.origin = self.origin
+    return_shape.scale = self.scale
+    return_shape
   end
 
   def inspect
@@ -381,7 +390,10 @@ class CollisionShapeBox < CollisionShape
   end
 
   def dup
-    CollisionShapeBox.new(offset: self.position, size: @size)
+    return_shape = CollisionShapeBox.new(offset: self.position, size: @size)
+    return_shape.origin = self.origin
+    return_shape.scale = self.scale
+    return_shape
   end
 
   def inspect
@@ -402,7 +414,10 @@ class CollisionShapeTriangle < CollisionShape
   end
 
   def dup
-    CollisionShapeTriangle.new(offset: self.position, side_1: @side_1, side_2: @side_2)
+    return_shape = CollisionShapeTriangle.new(offset: self.position, side_1: @side_1, side_2: @side_2)
+    return_shape.origin = self.origin
+    return_shape.scale = self.scale
+    return_shape
   end
 
   def inspect
@@ -424,7 +439,10 @@ class CollisionShapeEllipse < CollisionShape
   end
 
   def dup
-    CollisionShapeEllipse.new(offset: self.position, semiaxes: @semiaxes)
+    return_shape = CollisionShapeEllipse.new(offset: self.position, semiaxes: @semiaxes)
+    return_shape.origin = self.origin
+    return_shape.scale = self.scale
+    return_shape
   end
   
   def inspect
