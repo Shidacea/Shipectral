@@ -151,7 +151,7 @@ module ShooterTest
 		end
 
 		def health_percentage
-			return @health / self.max_health
+			return @health.to_f / self.max_health
 		end
 
 	end
