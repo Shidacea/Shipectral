@@ -52,6 +52,20 @@ module ScriptHelper
     # TODO
   end
 
+  # TODO: These will become relevant for later Shidacea versions
+
+  def enable_crystal_gc
+    GC.enable
+  end
+
+  def disable_crystal_gc
+    GC.disable
+  end
+
+  def run_crystal_gc
+    GC.collect
+  end
+
   @[Anyolite::Rename("version")]
   def self.shidacea_version
     "0.2.1"
