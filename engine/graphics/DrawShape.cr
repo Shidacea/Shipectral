@@ -1,6 +1,111 @@
 module SF
 # Sadly, Shape is an abstract class, so we need to to this for every shape
 
+  @[Anyolite::RenameClass("DrawShapePoint")]
+  @[Anyolite::SpecializeInstanceMethod("scale", nil)]
+  @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : SF::Vector2f])]
+  @[Anyolite::ExcludeInstanceMethod("draw")]
+  @[Anyolite::SpecializeInstanceMethod("origin=", [origin : Vector2 | Tuple], [origin : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]
+  @[Anyolite::ExcludeInstanceMethod("set_texture")]
+  class PointShape < Shape
+    @point : Vector2f = Vector2f.new
+
+    def initialize(point : SF::Vector2f = SF::Vector2f.new)
+      super()
+
+      @point = point
+      update
+    end
+
+    def point_count : Int32
+      1
+    end
+
+    def get_point(index : Int) : Vector2f
+      @point
+    end
+
+    def dup : PointShape
+      return PointShape.new(@point)
+    end
+
+    @[Anyolite::WrapWithoutKeywords]
+    def link_texture(texture : Texture)
+      self.texture= texture
+    end
+
+    @[Anyolite::WrapWithoutKeywords]
+    def get_from(shape : CollisionShapePoint)
+      @point = SF::Vector2f.new
+      self.position = shape.position
+      self.scale = shape.scale
+      self.origin = shape.origin
+      self.rotation = shape.rotation
+      update
+    end
+  end
+
+  @[Anyolite::RenameClass("DrawShapeLine")]
+  @[Anyolite::SpecializeInstanceMethod("scale", nil)]
+  @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : SF::Vector2f])]
+  @[Anyolite::ExcludeInstanceMethod("draw")]
+  @[Anyolite::SpecializeInstanceMethod("origin=", [origin : Vector2 | Tuple], [origin : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]
+  @[Anyolite::ExcludeInstanceMethod("set_texture")]
+  class LineShape < Shape
+    @points : Array(Vector2f) = [Vector2f.new, Vector2f.new]
+
+    def initialize(start_point : SF::Vector2f = SF::Vector2f.new, end_point : SF::Vector2f = SF::Vector2f.new)
+      super()
+
+      @points[0] = start_point
+      @points[1] = end_point
+
+      self.outline_thickness = 0.5
+
+      update
+    end
+
+    def line=(value : SF::Vector2f)
+      @points[1] = value
+      update
+    end
+
+    def line
+      @points[1]
+    end
+
+    def point_count : Int32
+      4
+    end
+
+    def get_point(index : Int) : Vector2f
+      @points[index > 1 ? 3 - index : index]
+    end
+
+    def dup : LineShape
+      return LineShape.new(@points[0], @points[1])
+    end
+
+    @[Anyolite::WrapWithoutKeywords]
+    def link_texture(texture : Texture)
+      self.texture= texture
+    end
+
+    @[Anyolite::WrapWithoutKeywords]
+    def get_from(shape : CollisionShapeLine)
+      @points = [SF::Vector2f.new, shape.line]
+      self.position = shape.position
+      self.scale = shape.scale
+      self.origin = shape.origin
+      self.rotation = shape.rotation
+      update
+    end
+  end
+
   @[Anyolite::RenameClass("DrawShapeRectangle")]
   @[Anyolite::SpecializeInstanceMethod("initialize", [size : Vector2 | Tuple = Vector2.new(0, 0)], [size : Vector2f = SF::Vector2f.new(0, 0)])]
   @[Anyolite::SpecializeInstanceMethod("size=", [size : Vector2 | Tuple], [size : SF::Vector2f])]
@@ -123,6 +228,8 @@ end
 
 def setup_ruby_draw_shape_class(rb)
   Anyolite.wrap_class(rb, SF::Shape, "DrawShape", under: SF)
+  Anyolite.wrap(rb, SF::PointShape, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, SF::LineShape, under: SF, verbose: true, connect_to_superclass: true)
   Anyolite.wrap(rb, SF::RectangleShape, under: SF, verbose: true, connect_to_superclass: true)
   Anyolite.wrap(rb, SF::CircleShape, under: SF, verbose: true, connect_to_superclass: true)
   Anyolite.wrap(rb, SF::TriangleShape, under: SF, verbose: true, connect_to_superclass: true)
