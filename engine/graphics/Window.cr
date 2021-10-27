@@ -43,7 +43,7 @@ class RenderQueueWindow
   end
 
   @[Anyolite::WrapWithoutKeywords]
-  def draw_translated(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable, z : Float32 = 0.0, coords : SF::Vector2f = SF::Vector2f.new, render_states : SF::RenderStates = SF::RenderStates.new)
+  def draw_translated(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable | MapLayer, z : Float32 = 0.0, coords : SF::Vector2f = SF::Vector2f.new, render_states : SF::RenderStates = SF::RenderStates.new)
     actual_render_states = render_states
 
     transform = SF::Transform.new
@@ -56,7 +56,7 @@ class RenderQueueWindow
   end
 
   @[Anyolite::WrapWithoutKeywords]
-  def draw(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable, z : Float32 = 0.0, render_states : SF::RenderStates = SF::RenderStates.new)
+  def draw(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable | MapLayer, z : Float32 = 0.0, render_states : SF::RenderStates = SF::RenderStates.new)
     draw_object(render_states, draw_object.as(SF::Drawable), z)
   end
 

@@ -21,6 +21,10 @@ module SF
       SFMLExt.sfml_music_setlooppoints_TU3(to_unsafe, time_points)
     end
 
+    def looping=(value : Bool)
+      self.loop = value
+    end
+
     @[Anyolite::Rename("loop_points")]
     def pseudo_loop_points
       result = Music::PseudoTimeSpan.allocate
@@ -44,5 +48,6 @@ module SF
 end
 
 def setup_ruby_music_class(rb)
-  Anyolite.wrap(rb, SF::Music, under: SF, verbose: true, connect_to_superclass: false)
+  Anyolite.wrap_class(rb, SF::SoundStream, "SoundStream", under: SF)
+  Anyolite.wrap(rb, SF::Music, under: SF, verbose: true, connect_to_superclass: true)
 end

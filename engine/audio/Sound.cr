@@ -1,6 +1,10 @@
 module SF
   @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
   class Sound
+    @[Anyolite::WrapWithoutKeywords]
+    def link_sound_buffer(buffer : SF::SoundBuffer)
+      self.buffer = buffer
+    end
   end
 end
 

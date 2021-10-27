@@ -25,6 +25,8 @@ require "./internal/Event.cr"
 require "./internal/CollisionShape.cr"
 
 require "./map/Tile.cr"
+require "./map/Tileset.cr"
+require "./map/MapLayer.cr"
 
 def load_wrappers(rb)
   setup_ruby_music_class(rb)
@@ -49,4 +51,6 @@ def load_wrappers(rb)
   setup_ruby_collision_shape_class(rb)
 
   setup_ruby_tile_class(rb)
+  setup_ruby_tileset_class(rb)
+  setup_ruby_map_layer_class(rb)
 end

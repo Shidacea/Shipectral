@@ -374,6 +374,11 @@ class CollisionShapeCircle < CollisionShape
     return_shape
   end
 
+  @[Anyolite::Specialize]
+  def scale=(value : Float)
+    self.scale = SF::Vector2f.new(value.to_f32, value.to_f32)
+  end
+
   def inspect
     "Circle-#{self.position.inspect}-#{@radius}"
   end
