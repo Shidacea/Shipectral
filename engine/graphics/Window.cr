@@ -124,6 +124,16 @@ class RenderQueueWindow
     @window
   end
 
+  @[Anyolite::WrapWithoutKeywords]
+  def map_pixel_to_coords(point : SF::Vector2i)
+    get_window_reference.map_pixel_to_coords(point)
+  end
+
+  @[Anyolite::WrapWithoutKeywords]
+  def map_coords_to_pixel(point : SF::Vector2i)
+    get_window_reference.map_coords_to_pixel(point)
+  end
+
   def render_and_display
     render
     #render_imgui

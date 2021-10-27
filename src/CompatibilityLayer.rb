@@ -60,8 +60,9 @@ module SDC
     HorizontalWheel = SDC::Mouse::Wheel::HorizontalWheel
 
     def self.get_coordinates(window)
-      int_coords = SDC::Mouse.get_position(relative_to: window)
-		  SDC.xy(int_coords.x, int_coords.y)
+      #int_coords = SDC::Mouse.get_position(relative_to: window)
+		  #SDC.xy(int_coords.x, int_coords.y)
+      window.map_pixel_to_coords(SDC::Mouse.get_position(relative_to: window))
     end
   end
 

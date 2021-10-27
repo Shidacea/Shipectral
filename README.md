@@ -43,7 +43,6 @@ usage, allowing for fast prototyping.
 
 * Add all draw shapes
 * Implement all remaining functions from Shidacea 0.2.1
-* Fix window scaling issues
 * Port Shidacea to Crystal and bind with Anyolite
 * Support multiple Shidacea implementations
 * Test all test projects
