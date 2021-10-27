@@ -253,7 +253,7 @@ module Collider
     sxb2 = shape_2.side_2.x * shape_2.scale.x
     syb2 = shape_2.side_2.y * shape_2.scale.y
 
-    Collishi.collision_box_triangle(x1, y1, h1, w1, x2, y2, sxa2, sya2, sxb2, syb2)
+    Collishi.collision_box_triangle(x1, y1, w1, h1, x2, y2, sxa2, sya2, sxb2, syb2)
   end
 
   # Triangle vs ...

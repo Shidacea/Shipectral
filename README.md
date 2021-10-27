@@ -42,7 +42,6 @@ usage, allowing for fast prototyping.
 ### Todo list
 
 * Add all draw shapes
-* Fix weird collision results between Rectangle and Circle
 * Implement all remaining functions from Shidacea 0.2.1
 * Fix window scaling issues
 * Port Shidacea to Crystal and bind with Anyolite
