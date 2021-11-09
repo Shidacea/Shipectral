@@ -9,6 +9,6 @@ shard.lock
 lib
 log.txt
 utility/mrb_config_shipectral.rb.lock
-projects/*
+projects
 *.exe
 *.dll
