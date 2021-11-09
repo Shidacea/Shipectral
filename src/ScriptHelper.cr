@@ -66,9 +66,8 @@ module ScriptHelper
     GC.collect
   end
 
-  @[Anyolite::Rename("version")]
-  def self.shidacea_version
-    "0.2.1"
+  def self.version
+    SHIPECTRAL_VERSION
     # TODO
   end
 end
