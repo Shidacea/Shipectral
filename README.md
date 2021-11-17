@@ -43,6 +43,8 @@ usage, allowing for fast prototyping.
 
 * Implement all remaining functions from Shidacea 0.2.1
 * Imgui support
+* Make Imgui optional
+* Block Crystal GC in draw and update routines
 * Port Shidacea to Crystal and bind with Anyolite
 * Support multiple Shidacea implementations
 * Test all test projects
