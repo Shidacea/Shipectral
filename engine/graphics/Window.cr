@@ -13,6 +13,8 @@ class RenderQueueWindow
     else
       @window = SF::RenderWindow.new(SF::VideoMode.new(width, height), title)
     end
+
+    imgui_init
   end
 
   @[Anyolite::AddBlockArg(1, Nil)]
@@ -61,7 +63,31 @@ class RenderQueueWindow
   end
 
   def imgui_defined?
-    false # TODO
+    true # TODO
+  end
+
+  def set_imgui_scale(value : Float32)
+    # TODO  
+  end
+
+  def imgui_init
+    ImGui::SFML.init(@window)
+  end
+
+  def imgui_render
+    ImGui::SFML.render(@window)
+  end
+
+  def imgui_update
+    ImGui::SFML.update(@window, @clock.restart)
+  end
+
+  def imgui_process_event(event : SF::Event)
+    ImGui::SFML.process_event(@window, event)
+  end
+
+  def imgui_shutdown
+    ImGui::SFML.shutdown
   end
 
   def width
@@ -108,10 +134,16 @@ class RenderQueueWindow
   end
 
   def poll_event
-    @window.poll_event
+    if event = @window.poll_event
+      imgui_process_event(event)
+      event
+    else
+      nil
+    end
   end
 
   def close
+    imgui_shutdown
     @window.close
   end
 
@@ -136,7 +168,7 @@ class RenderQueueWindow
 
   def render_and_display
     render
-    #render_imgui
+    imgui_render
     display
   end
 end

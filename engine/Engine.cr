@@ -28,6 +28,8 @@ require "./map/Tile.cr"
 require "./map/Tileset.cr"
 require "./map/MapLayer.cr"
 
+require "./imgui/ImGui.cr"
+
 def load_wrappers(rb)
   setup_ruby_music_class(rb)
   setup_ruby_sound_buffer_class(rb)
@@ -53,4 +55,6 @@ def load_wrappers(rb)
   setup_ruby_tile_class(rb)
   setup_ruby_tileset_class(rb)
   setup_ruby_map_layer_class(rb)
+
+  setup_ruby_imgui_module(rb)
 end

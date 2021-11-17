@@ -54,6 +54,19 @@ task :build_sfml => [:generate_build_dir] do
     end
 end
 
+task :build_imgui => [:generate_build_dir] do
+    FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/imgui-sfml")
+    FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/imgui")
+    FileUtils.cp_r "third_party/crystal-imgui-sfml/.", "#{SHIPECTRAL_BUILD_PATH}/imgui-sfml", :verbose => true
+    FileUtils.cp_r "third_party/crystal-imgui/.", "#{SHIPECTRAL_BUILD_PATH}/imgui", :verbose => true
+
+    if SHIPECTRAL_COMPILER == :msvc
+        system "utility/compile_crimgui.bat #{SHIPECTRAL_BUILD_PATH}"
+    elsif SHIPECTRAL_COMPILER == :gcc
+        # TODO
+    end
+end
+
 task :build_anyolite => [:generate_build_dir] do
     if SHIPECTRAL_COMPILER == :msvc
         FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/anyolite")
@@ -64,7 +77,7 @@ task :build_anyolite => [:generate_build_dir] do
     end
 end
 
-task :build_shipectral => [:generate_build_dir, :build_crsfml, :build_sfml, :build_anyolite, :build_shards] do
+task :build_shipectral => [:generate_build_dir, :build_crsfml, :build_sfml, :build_imgui, :build_anyolite, :build_shards] do
     FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/shipectral")
 
     if SHIPECTRAL_COMPILER == :msvc

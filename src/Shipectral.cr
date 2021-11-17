@@ -5,6 +5,9 @@ require "anyolite"
 require "crsfml"
 require "crsfml/audio"
 
+require "imgui"
+require "imgui-sfml"
+
 require "./ScriptHelper.cr"
 require "../engine/Engine.cr"
 
@@ -29,12 +32,11 @@ begin
 
     ScriptHelper.path = "third_party/Launshi"
     ScriptHelper.load_absolute_file("third_party/Launshi/scripts/Main.rb")
-
-    ScriptHelper.path = "test"
-    ScriptHelper.load("Test.rb")
     
     Anyolite::RbCore.rb_print_error(rb)
   end
 rescue ex 
   puts "An exception occured in Shipectral: #{ex.inspect_with_backtrace}"
 end
+
+ImGui::SFML.shutdown
