@@ -36,7 +36,7 @@ task :build_crsfml => [:generate_build_dir, :build_sfml] do
     if SHIPECTRAL_COMPILER == :msvc
         FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml")
         FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml/src")
-        FileUtils.cp_r "third_party/crsfml/src/.", "#{SHIPECTRAL_BUILD_PATH}/crsfml/src", :verbose => true
+        FileUtils.cp_r "third_party/crsfml/.", "#{SHIPECTRAL_BUILD_PATH}/crsfml", :verbose => true
         #FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml/spec")
         #FileUtils.cp_r "third_party/crsfml/spec/.", "#{SHIPECTRAL_BUILD_PATH}/crsfml/spec", :verbose => true
         system "utility/compile_crSFML.bat #{SHIPECTRAL_BUILD_PATH}"
