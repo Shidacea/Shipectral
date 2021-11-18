@@ -12,3 +12,4 @@ utility/mrb_config_shipectral.rb.lock
 projects
 *.exe
 *.dll
+imgui.ini

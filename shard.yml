@@ -12,6 +12,12 @@ dependencies:
     github: Anyolite/anyolite
     branch: master
     version: 0.15.0
+  imgui:
+    github: oprypin/crystal-imgui
+    branch: master
+  imgui-sfml:
+    github: oprypin/crystal-imgui-sfml
+    branch: master
 
 license: MIT
 

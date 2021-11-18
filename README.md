@@ -75,7 +75,7 @@ usage, allowing for fast prototyping.
 * Rake
 * Bison
 * Git
-* Libraries needed for SFML (mostly Ubuntu, see the SFML documentation for more information)
+* SFML (only on Ubuntu - on Windows it is installed automatically)
 
 All of these programs need to be in the path environment variable for Windows to work properly.
 

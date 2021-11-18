@@ -56,7 +56,7 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]
   @[Anyolite::ExcludeInstanceMethod("set_texture")]
   class LineShape < Shape
-    @points : Array(Vector2f) = [Vector2f.new, Vector2f.new]
+    @points : Array(SF::Vector2f) = [SF::Vector2f.new, SF::Vector2f.new]
 
     def initialize(start_point : SF::Vector2f = SF::Vector2f.new, end_point : SF::Vector2f = SF::Vector2f.new)
       super()
@@ -164,7 +164,7 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]
   @[Anyolite::ExcludeInstanceMethod("set_texture")]
   class TriangleShape < Shape
-    @points : Array(Vector2f) = [Vector2f.new, Vector2f.new, Vector2f.new]
+    @points : Array(SF::Vector2f) = [SF::Vector2f.new, SF::Vector2f.new, SF::Vector2f.new]
 
     def initialize(point_0 : SF::Vector2f = SF::Vector2f.new, point_1 : SF::Vector2f = SF::Vector2f.new, point_2 : SF::Vector2f = SF::Vector2f.new)
       super()
