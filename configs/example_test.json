@@ -1,6 +1,6 @@
 {
   "executable_name": "Example_Test",
-  "rb_config_file": "utility/mrb_config_shipectral.rb",
+  "anyolite_config_file": "utility/config_anyolite.json",
   "use_sfml": true,
   "frontend": "demo_projects/Example_Test",
   "frontend_project": "project.json",
