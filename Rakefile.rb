@@ -28,31 +28,43 @@ task :generate_build_dir do
 end
 
 task :build_crsfml => [:generate_build_dir, :build_sfml, :load_config] do
-    if SHIPECTRAL_COMPILER == :msvc
-        FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml")
-        FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml/src")
-        FileUtils.cp_r "third_party/crsfml/.", "#{SHIPECTRAL_BUILD_PATH}/crsfml", :verbose => true
+    use_sfml = $shipectral_config.get_option_value(:use_sfml)
 
-        system "utility/compile_crSFML.bat #{SHIPECTRAL_BUILD_PATH}"
+    if use_sfml
+        if SHIPECTRAL_COMPILER == :msvc
+            FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml")
+            FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/crsfml/src")
+            FileUtils.cp_r "third_party/crsfml/.", "#{SHIPECTRAL_BUILD_PATH}/crsfml", :verbose => true
+
+            system "utility/compile_crSFML.bat #{SHIPECTRAL_BUILD_PATH}"
+        end
     end
 end
 
 task :build_sfml => [:generate_build_dir, :load_config] do
-    if SHIPECTRAL_COMPILER == :msvc
-        FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/sfml")
+    use_sfml = $shipectral_config.get_option_value(:use_sfml)
 
-        system "utility/compile_SFML.bat #{SHIPECTRAL_BUILD_PATH}"
+    if use_sfml
+        if SHIPECTRAL_COMPILER == :msvc
+            FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/sfml")
+
+            system "utility/compile_SFML.bat #{SHIPECTRAL_BUILD_PATH}"
+        end
     end
 end
 
 task :build_imgui => [:generate_build_dir, :build_sfml, :load_config] do
-    if SHIPECTRAL_COMPILER == :msvc
-        FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/imgui-sfml")
-        FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/imgui")
-        FileUtils.cp_r "third_party/crystal-imgui-sfml/.", "#{SHIPECTRAL_BUILD_PATH}/imgui-sfml", :verbose => true
-        FileUtils.cp_r "third_party/crystal-imgui/.", "#{SHIPECTRAL_BUILD_PATH}/imgui", :verbose => true
+    use_sfml = $shipectral_config.get_option_value(:use_sfml)
 
-        system "utility/compile_crimgui.bat #{SHIPECTRAL_BUILD_PATH}"
+    if use_sfml
+        if SHIPECTRAL_COMPILER == :msvc
+            FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/imgui-sfml")
+            FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/imgui")
+            FileUtils.cp_r "third_party/crystal-imgui-sfml/.", "#{SHIPECTRAL_BUILD_PATH}/imgui-sfml", :verbose => true
+            FileUtils.cp_r "third_party/crystal-imgui/.", "#{SHIPECTRAL_BUILD_PATH}/imgui", :verbose => true
+
+            system "utility/compile_crimgui.bat #{SHIPECTRAL_BUILD_PATH}"
+        end
     end
 end
 
@@ -64,7 +76,7 @@ task :build_anyolite => [:generate_build_dir, :load_config] do
         unless File.exist?("#{SHIPECTRAL_BUILD_PATH}/anyolite/Rakefile.rb")
             FileUtils.cp_r "third_party/anyolite/.", "#{SHIPECTRAL_BUILD_PATH}/anyolite", :verbose => true
         end
-        
+
         system "utility/compile_anyolite.bat #{SHIPECTRAL_BUILD_PATH} #{anyolite_config_file}"
     end
 end
@@ -72,39 +84,54 @@ end
 task :build_shipectral => [:generate_build_dir, :build_crsfml, :build_sfml, :build_imgui, :build_anyolite, :build_shards, :load_config] do
     executable_name = $shipectral_config.get_option_value(:executable_name)
     debug = $shipectral_config.get_option_value(:debug)
+    use_sfml = $shipectral_config.get_option_value(:use_sfml)
 
     build_type = debug ? "--debug" : "--release"
+    script_name = use_sfml ? "compile_Shipectral" : "compile_Shipectral_without_SFML"
 
     FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/shipectral")
 
     if SHIPECTRAL_COMPILER == :msvc
-        system "utility/compile_Shipectral.bat #{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type}"
+        system "utility/#{script_name}.bat #{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type}"
     elsif SHIPECTRAL_COMPILER == :gcc
-        system "utility/compile_Shipectral.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type}"
+        system "utility/#{script_name}.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type}"
     end
 end
 
 task :install_shipectral => [:build_shipectral, :load_config] do
-    if SHIPECTRAL_COMPILER == :msvc
-        FileUtils.cp_r "#{SHIPECTRAL_BUILD_PATH}/sfml/bin/.", "#{SHIPECTRAL_BUILD_PATH}/shipectral", :verbose => true
-    else
-        FileUtils.cp "#{Dir.pwd}/lib/imgui-sfml/libcimgui.so", "#{SHIPECTRAL_BUILD_PATH}/shipectral/libcimgui.so", :verbose => true
+    use_sfml = $shipectral_config.get_option_value(:use_sfml)
+
+    if use_sfml
+        if SHIPECTRAL_COMPILER == :msvc
+            FileUtils.cp_r "#{SHIPECTRAL_BUILD_PATH}/sfml/bin/.", "#{SHIPECTRAL_BUILD_PATH}/shipectral", :verbose => true
+        else
+            FileUtils.cp "#{Dir.pwd}/lib/imgui-sfml/libcimgui.so", "#{SHIPECTRAL_BUILD_PATH}/shipectral/libcimgui.so", :verbose => true
+        end
     end
 end
 
 task :build_shards => [:generate_build_dir, :build_sfml, :load_config] do
     anyolite_config_file = $shipectral_config.get_option_value(:anyolite_config_file)
 
+    # TODO: Ignore SFML and ImGui shards if possible somehow
+
     if SHIPECTRAL_COMPILER == :gcc
         system "ANYOLITE_CONFIG_PATH=#{Dir.pwd}/#{anyolite_config_file} shards install"
     end
 end
 
-task :recompile do
+task :recompile => [:load_config] do
+    executable_name = $shipectral_config.get_option_value(:executable_name)
+    debug = $shipectral_config.get_option_value(:debug)
+    use_sfml = $shipectral_config.get_option_value(:use_sfml)
+
+    build_type = debug ? "--debug" : "--release"
+    script_name = use_sfml ? "compile_Shipectral" : "compile_Shipectral_without_SFML"
+
     if SHIPECTRAL_COMPILER == :msvc
-        system "utility/compile_Shipectral.bat #{SHIPECTRAL_BUILD_PATH}"
+        system "utility/#{script_name}.bat #{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type}"
     elsif SHIPECTRAL_COMPILER == :gcc
-        system "utility/compile_Shipectral.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH}"
+        system "utility/#{script_name}.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type}"
     end
 end
 

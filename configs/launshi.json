@@ -3,8 +3,6 @@
   "anyolite_config_file": "utility/config_anyolite.json",
   "use_sfml": true,
   "frontend": "third_party/Launshi",
-  "frontend_project": "project.json",
-  "frontend_assests": "assets",
   "compile_frontend": true,
   "engine_library": "third_party/Shidacea",
   "compile_engine": true,

@@ -20,12 +20,10 @@ class ShipectralConfig
     @options = {
       :executable_name => :required,
       :anyolite_config_file => :required,
-      :use_sfml => :required, # TODO
-      :frontend => :required, # TODO
-      :frontend_project => :required, # TODO
-      :frontend_assests => :required, # TODO
+      :use_sfml => :required,
+      :frontend => :required,
       :compile_frontend => :required, # TODO
-      :engine_library => :required, # TODO
+      :engine_library => :required,
       :compile_engine => :required, # TODO
       :debug => :required
     }

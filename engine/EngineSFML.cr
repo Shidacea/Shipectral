@@ -1,8 +1,6 @@
 require "crsfml"
 require "crsfml/audio"
 
-require "../src/CrystalCollishi/Collisions.cr"
-
 require "./audio/Music.cr"
 require "./audio/SoundBuffer.cr"
 require "./audio/Sound.cr"
@@ -28,9 +26,7 @@ require "./map/Tile.cr"
 require "./map/Tileset.cr"
 require "./map/MapLayer.cr"
 
-require "./imgui/ImGui.cr"
-
-def load_wrappers(rb)
+def load_sfml_wrappers(rb)
   setup_ruby_music_class(rb)
   setup_ruby_sound_buffer_class(rb)
   setup_ruby_sound_class(rb)

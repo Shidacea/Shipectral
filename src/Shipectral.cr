@@ -1,42 +1,92 @@
 SHIPECTRAL_VERSION = "0.2.1"
 
-require "anyolite"
+macro main_routine_with_config(filename)
+  {% config_use_sfml = run("./GetConfigOption.cr", filename, "use_sfml").chomp %}
+  {% config_frontend = run("./GetConfigOption.cr", filename, "frontend").chomp %}
+  {% config_engine_library = run("./GetConfigOption.cr", filename, "engine_library").chomp %}
 
-require "crsfml"
-require "crsfml/audio"
+  {% if config_use_sfml.starts_with?("B|") %}
+    {% if config_use_sfml[2..-1] == "true" %}
+      {% use_sfml = true %}
+    {% else %}
+      {% use_sfml = false %}
+    {% end %}
+  {% else %}
+    {% raise "Option \"use_sfml\" is not a bool" %}
+  {% end %}
 
-require "imgui"
-require "imgui-sfml"
+  # TODO: Put these into separate methods for checking
 
-require "./ScriptHelper.cr"
-require "../engine/Engine.cr"
+  {% if config_frontend.starts_with?("S|") %}
+    {% frontend = config_frontend[2..-1] %}
+  {% else %}
+    {% raise "Option \"frontend\" is not a string" %}
+  {% end %}
 
-Collishi.test_all_collision_routines
+  {% if config_engine_library.starts_with?("S|") %}
+    {% engine_library = config_engine_library[2..-1] %}
+  {% else %}
+    {% raise "Option \"engine_library\" is not a string" %}
+  {% end %}
 
-begin
-  Anyolite::RbInterpreter.create do |rb|
-    Anyolite.wrap_module(rb, SF, "SDC")
-    load_wrappers(rb)
+  require "anyolite"
 
-    Anyolite.wrap(rb, ScriptHelper, under: SF, verbose: true, connect_to_superclass: false)
+  require "./ScriptHelper.cr"
+  require "./CrystalCollishi/Collisions.cr"
 
-    ScriptHelper.load_absolute_file("src/SDCExtensions.rb")
+  {% if use_sfml %}
+    require "../engine/EngineSFML.cr"
+    require "../engine/EngineImGui.cr"
+  {% else %}
+    module SF
+    end
+  {% end %}
 
-    ScriptHelper.load_absolute_path("third_party/Shidacea/include")
-    ScriptHelper.load_absolute_path("third_party/Shidacea/core")
-    
-    ScriptHelper.load_absolute_file("src/CompatibilityLayer.rb")
+  Collishi.test_all_collision_routines
 
-    ScriptHelper.load_absolute_file("third_party/Launshi/scripts/Launshi.rb")
-    ScriptHelper.load_absolute_file("third_party/Launshi/scripts/SceneLaunshi.rb")
+  begin
+    Anyolite::RbInterpreter.create do |rb|
+      Anyolite.wrap_module(rb, SF, "SDC")
 
-    ScriptHelper.path = "third_party/Launshi"
-    ScriptHelper.load_absolute_file("third_party/Launshi/scripts/Main.rb")
-    
-    Anyolite::RbCore.rb_print_error(rb)
+      {% if use_sfml %}
+        load_sfml_wrappers(rb)
+        load_imgui_wrappers(rb)
+      {% end %}
+
+      Anyolite.wrap(rb, ScriptHelper, under: SF, verbose: true, connect_to_superclass: false)
+
+      {% if use_sfml %}
+        ScriptHelper.load_absolute_file("src/SDCExtensions.rb")
+      {% end %}
+
+      ScriptHelper.load_absolute_path("{{engine_library}}/include")
+      ScriptHelper.load_absolute_path("{{engine_library}}/core")
+      
+      {% if use_sfml %}
+        ScriptHelper.load_absolute_file("src/CompatibilityLayer.rb")
+      {% end %}
+
+      # TODO: Respect project.json here instead of just calling these scripts
+
+      ScriptHelper.load_absolute_file("{{frontend}}/scripts/Launshi.rb")
+      ScriptHelper.load_absolute_file("{{frontend}}/scripts/SceneLaunshi.rb")
+
+      ScriptHelper.path = "{{frontend}}"
+      ScriptHelper.load_absolute_file("{{frontend}}/scripts/Main.rb")
+      
+      Anyolite::RbCore.rb_print_error(rb)
+    end
+  rescue ex 
+    puts "An exception occured in Shipectral: #{ex.inspect_with_backtrace}"
   end
-rescue ex 
-  puts "An exception occured in Shipectral: #{ex.inspect_with_backtrace}"
+
+  {% if use_sfml %}
+    ImGui::SFML.shutdown
+  {% end %}
 end
 
-ImGui::SFML.shutdown
+{% if env("SHIPECTRAL_CONFIG_FILE") %}
+  main_routine_with_config({{env("SHIPECTRAL_CONFIG_FILE")}})
+{% else %}
+  main_routine_with_config("configs/launshi.json")
+{% end %}
