@@ -76,7 +76,7 @@ usage, allowing for fast prototyping.
 * Rake
 * Bison
 * Git
-* SFML (only on Ubuntu - on Windows it is installed automatically)
+* SFML (only on Ubuntu - on Windows it will be installed automatically)
 
 All of these programs need to be in the path environment variable for Windows to work properly.
 
