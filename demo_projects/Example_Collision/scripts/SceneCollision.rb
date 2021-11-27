@@ -106,19 +106,6 @@ class SceneCollision < SDC::Scene
 		@marked = nil
 
 		@dragged_object = nil
-
-		@shapes.push TestShape.new_circle(pos: SDC.xy(@new_obj_x, @new_obj_y), radius: @new_circle_r, z: @z, counter: @counter)
-		@shapes.push TestShape.new_circle(pos: SDC.xy(@new_obj_x, @new_obj_y), radius: @new_circle_r, z: @z, counter: @counter)
-
-		@shapes.push TestShape.new_box(pos: SDC.xy(@new_obj_x, @new_obj_y), size: SDC.xy(@new_box_w, @new_box_h), z: @z, counter: @counter)
-		@shapes.push TestShape.new_box(pos: SDC.xy(@new_obj_x, @new_obj_y), size: SDC.xy(@new_box_w, @new_box_h), z: @z, counter: @counter)
-
-		@shapes.push TestShape.new_triangle(pos: SDC.xy(@new_obj_x, @new_obj_y), 
-					side_1: SDC.xy(@new_side_1_x, @new_side_1_y),
-					side_2: SDC.xy(@new_side_2_x, @new_side_2_y), z: @z, counter: @counter)
-		@shapes.push TestShape.new_triangle(pos: SDC.xy(@new_obj_x, @new_obj_y), 
-					side_1: SDC.xy(@new_side_1_x, @new_side_1_y),
-					side_2: SDC.xy(@new_side_2_x, @new_side_2_y), z: @z, counter: @counter)
 	end
 
 	def update

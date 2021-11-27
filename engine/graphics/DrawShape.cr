@@ -128,6 +128,7 @@ module SF
       self.position = shape.position
       self.scale = shape.scale
       self.origin = shape.origin
+      update
     end
   end
 
@@ -152,6 +153,7 @@ module SF
       self.position = shape.position - shape.scale * shape.radius
       self.scale = shape.scale
       self.origin = shape.origin
+      update
     end
   end
 
@@ -183,10 +185,12 @@ module SF
 
     def side_1=(value : SF::Vector2f)
       set_point(1, value)
+      update
     end
 
     def side_2=(value : SF::Vector2f)
       set_point(2, value)
+      update
     end
 
     def side_1

@@ -89,6 +89,11 @@ class RenderQueue
           if d_obj = render_call.obj
             t_obj = d_obj.as(SF::Transformable)
 
+            old_origin = t_obj.origin
+            old_position = t_obj.position
+            old_scale = t_obj.scale
+            old_rotation = t_obj.rotation
+
             t_obj.origin = render_call.origin
             t_obj.position = render_call.position
             t_obj.scale = render_call.scale
@@ -98,6 +103,13 @@ class RenderQueue
             window.view = render_call.view
             window.draw(d_obj, render_call.states)
             window.view = old_view
+
+            # TODO: Is there a better way than just setting and resetting everything?
+
+            t_obj.origin = old_origin
+            t_obj.position = old_position
+            t_obj.scale = old_scale
+            t_obj.rotation = old_rotation
           end
         end
       end

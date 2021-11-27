@@ -64,6 +64,10 @@ module SDC
 		  #SDC.xy(int_coords.x, int_coords.y)
       window.map_pixel_to_coords(SDC::Mouse.get_position(relative_to: window))
     end
+
+    def self.set_position(pos, window)
+      SDC::Mouse.set_position(position: SDC::Vector2i.new(pos[0], pos[1]), relative_to: window)
+    end
   end
 
   module EventKey

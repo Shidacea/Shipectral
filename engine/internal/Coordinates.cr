@@ -20,6 +20,10 @@ module SF
     def inspect
       "(#{self.x}|#{self.y})"
     end
+
+    def to_s
+      "(#{self.x}|#{self.y})"
+    end
   end
 end
 

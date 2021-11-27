@@ -361,6 +361,7 @@ class CollisionShapeLine < CollisionShape
   end
 end
 
+@[Anyolite::ExcludeInstanceMethod("scale")]
 class CollisionShapeCircle < CollisionShape
   property radius : Float32 = 0.0
 
@@ -376,6 +377,11 @@ class CollisionShapeCircle < CollisionShape
     return_shape.origin = self.origin
     return_shape.scale = self.scale
     return_shape
+  end
+
+  @[Anyolite::Rename("scale")]
+  def scale_helper
+    self.scale.x
   end
 
   @[Anyolite::Specialize]

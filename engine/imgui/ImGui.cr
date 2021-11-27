@@ -13,9 +13,11 @@ module ImGuiHelper
   def self.button(name : String)
     return_value = ImGui.button(name)
     ruby_block = Anyolite.obtain_given_rb_block
-    if ruby_block
+
+    if ruby_block && return_value
       Anyolite.call_rb_block(ruby_block, nil)
     end
+
     return_value
   end
 
@@ -38,6 +40,22 @@ module ImGuiHelper
 
   def self.new_line
     ImGui.new_line
+  end
+
+  # TODO: Rework the whole input model in the next version
+  @[Anyolite::WrapWithoutKeywords]
+  def self.input_instance_variable_int(label : String, obj : Anyolite::RbRef, sym : Anyolite::RbRef)
+    nil
+  end
+
+  @[Anyolite::WrapWithoutKeywords]
+  def self.input_instance_variable_string(label : String, obj : Anyolite::RbRef, sym : Anyolite::RbRef)
+    nil
+  end
+
+  @[Anyolite::WrapWithoutKeywords]
+  def self.input_int(label : String, objs : Array(Int32))
+    nil
   end
 end
 

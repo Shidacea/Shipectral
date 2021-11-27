@@ -29,6 +29,7 @@ class SceneTest < SDC::Scene
 	end
 
 	def update
+		puts "U - #{@entities[0].sprites[0].scale}"
 		if SDC::key_pressed?(:F10) then
 			SDC.window.set_imgui_scale(2.0)
 
@@ -141,6 +142,7 @@ class SceneTest < SDC::Scene
 	end
 
 	def draw
+		puts "D - #{@entities[0].sprites[0].scale}"
 		#SDC::Debug.log_time("Time = ") do
 		view_player = SDC::View.new(SDC::FloatRect.new(@entities[0].position.x - 1280 * 0.5, @entities[0].position.y - 720 * 0.5, 1280, 720))
 		SDC.window.set_view(view_player)
@@ -235,6 +237,7 @@ class SceneTest < SDC::Scene
 				@entities[0].shapes[0].scale *= 1.1
 				@entities[0].boxes[0].scale *= 1.1
 				@entities[0].sprites[0].scale *= 1.1
+				puts "1 - #{@entities[0].sprites[0].scale}"
 			end
 			SDC::ImGui.button "Reset entity" do
 				@entities[0].shapes[0].scale = 1.0
@@ -288,6 +291,8 @@ class SceneTest < SDC::Scene
 			SDC::ImGui.button "Toggle show sprite 0" do
 				@entities[0].active_sprites[0] = !@entities[0].active_sprites[0]
 			end
+
+			puts "2 - #{@entities[0].sprites[0].scale}"
 
 		end
 	end
