@@ -311,6 +311,10 @@ class CollisionShape < SF::Transformable
     self.position = value
   end
 
+  def offset
+    self.position
+  end
+
   def inspect
     "(No shape)"
   end
