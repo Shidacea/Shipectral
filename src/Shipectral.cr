@@ -2,7 +2,9 @@ SHIPECTRAL_VERSION = "0.2.1"
 
 macro main_routine_with_config(filename)
   {% config_use_sfml = run("./GetConfigOption.cr", filename, "use_sfml").chomp %}
+  {% config_use_collishi = run("./GetConfigOption.cr", filename, "use_collishi").chomp %}
   {% config_frontend = run("./GetConfigOption.cr", filename, "frontend").chomp %}
+  {% config_frontend_project = run("./GetConfigOption.cr", filename, "frontend_project").chomp %}
   {% config_engine_library = run("./GetConfigOption.cr", filename, "engine_library").chomp %}
 
   {% if config_use_sfml.starts_with?("B|") %}
@@ -15,6 +17,16 @@ macro main_routine_with_config(filename)
     {% raise "Option \"use_sfml\" is not a bool" %}
   {% end %}
 
+  {% if config_use_collishi.starts_with?("B|") %}
+    {% if config_use_collishi[2..-1] == "true" %}
+      {% use_collishi = true %}
+    {% else %}
+      {% use_collishi = false %}
+    {% end %}
+  {% else %}
+    {% raise "Option \"use_collishi\" is not a bool" %}
+  {% end %}
+
   # TODO: Put these into separate methods for checking
 
   {% if config_frontend.starts_with?("S|") %}
@@ -23,16 +35,31 @@ macro main_routine_with_config(filename)
     {% raise "Option \"frontend\" is not a string" %}
   {% end %}
 
+  {% if config_frontend_project.starts_with?("S|") %}
+    {% frontend_project = config_frontend_project[2..-1] %}
+  {% else %}
+    {% raise "Option \"frontend_project\" is not a string" %}
+  {% end %}
+
   {% if config_engine_library.starts_with?("S|") %}
     {% engine_library = config_engine_library[2..-1] %}
+  {% elsif config_engine_library.starts_with?("B|") %}
+    {% if config_engine_library[2..-1] == "true" %}
+      {% raise "Option \"engine_library\" is neither a string nor false" %}
+    {% else %}
+      {% engine_library = false %}
+    {% end %}
   {% else %}
-    {% raise "Option \"engine_library\" is not a string" %}
+    {% raise "Option \"engine_library\" is neither a string nor false" %}
   {% end %}
 
   require "anyolite"
 
   require "./ScriptHelper.cr"
-  require "./CrystalCollishi/Collisions.cr"
+
+  {% if use_collishi %}
+    require "./CrystalCollishi/Collisions.cr"
+  {% end %}
 
   {% if use_sfml %}
     require "../engine/EngineSFML.cr"
@@ -42,7 +69,9 @@ macro main_routine_with_config(filename)
     end
   {% end %}
 
-  Collishi.test_all_collision_routines
+  {% if use_collishi %}
+    Collishi.test_all_collision_routines
+  {% end %}
 
   begin
     Anyolite::RbInterpreter.create do |rb|
@@ -59,20 +88,27 @@ macro main_routine_with_config(filename)
         ScriptHelper.load_absolute_file("src/SDCExtensions.rb")
       {% end %}
 
-      ScriptHelper.load_absolute_path("{{engine_library}}/include")
-      ScriptHelper.load_absolute_path("{{engine_library}}/core")
+      {% if engine_library != false %}
+        ScriptHelper.load_absolute_path("{{engine_library}}/include")
+        ScriptHelper.load_absolute_path("{{engine_library}}/core")
+      {% end %}
       
       {% if use_sfml %}
         ScriptHelper.load_absolute_file("src/CompatibilityLayer.rb")
       {% end %}
 
       # TODO: Respect project.json here instead of just calling these scripts
+      # TODO: Check whether a json or rb file is given and act accordingly
 
-      ScriptHelper.load_absolute_file("{{frontend}}/scripts/Launshi.rb")
-      ScriptHelper.load_absolute_file("{{frontend}}/scripts/SceneLaunshi.rb")
+      {% if frontend == "third_party/Launshi" %}
+        ScriptHelper.load_absolute_file("{{frontend}}/scripts/Launshi.rb")
+        ScriptHelper.load_absolute_file("{{frontend}}/scripts/SceneLaunshi.rb")
 
-      ScriptHelper.path = "{{frontend}}"
-      ScriptHelper.load_absolute_file("{{frontend}}/scripts/Main.rb")
+        ScriptHelper.path = "{{frontend}}"
+        ScriptHelper.load_absolute_file("{{frontend}}/scripts/Main.rb")
+      {% else %}
+        ScriptHelper.load_absolute_file("{{frontend}}/{{frontend_project}}")
+      {% end %}
       
       Anyolite::RbCore.rb_print_error(rb)
     end

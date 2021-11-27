@@ -7,7 +7,7 @@ build
 CMakeSettings.json
 lib
 log.txt
-utility/mrb_config_shipectral.rb.lock
+utility/*.rb.lock
 projects
 *.exe
 *.dll

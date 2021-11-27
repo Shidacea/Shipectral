@@ -41,17 +41,14 @@ usage, allowing for fast prototyping.
 
 ### Todo list
 
-* Implement all remaining functions from Shidacea 0.2.1
-* Imgui support
-* Add option for release builds
+* Find a way to load different shards on Linux
 * Make Imgui optional
 * Block Crystal GC in draw and update routines
 * Port Shidacea to Crystal and bind with Anyolite
 * Support multiple Shidacea implementations
-* Test all test projects
 * Add bytecode support
-* Support multiple configurations for the executable
-* Verify full compatibility to old Shidacea 0.2.1 projects
+* Clear render queue when switching scenes
+* Fix Launshi crashes
 
 ### Version 0.1.0
 

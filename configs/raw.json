@@ -1,0 +1,13 @@
+{
+  "executable_name": "Raw",
+  "anyolite_config_file": "utility/config_anyolite_raw.json",
+  "use_sfml": false,
+  "use_imgui": false,
+  "use_collishi": false,
+  "frontend": "test",
+  "frontend_project": "RawTest.rb",
+  "compile_frontend": true,
+  "engine_library": false,
+  "compile_engine": false,
+  "debug": false
+}

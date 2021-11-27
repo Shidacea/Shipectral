@@ -21,7 +21,10 @@ class ShipectralConfig
       :executable_name => :required,
       :anyolite_config_file => :required,
       :use_sfml => :required,
+      :use_imgui => :required, # TODO
+      :use_collishi => :required, # TODO
       :frontend => :required,
+      :frontend_project => :required, # TODO
       :compile_frontend => :required, # TODO
       :engine_library => :required,
       :compile_engine => :required, # TODO
