@@ -41,6 +41,7 @@ usage, allowing for fast prototyping.
 
 ### Todo list
 
+* Add config option to change subsequent build paths (not the main one)
 * Copy frontend resources to build path
 * Add way and flag to put frontend resources directly into executable
 * Find a way to load different shards on Linux
@@ -81,3 +82,11 @@ All of these programs need to be in the path environment variable for Windows to
 
 Note that this current version is only guaranteed to run on Windows 64bit and Ubuntu.
 You need to run `rake` in either a terminal (Ubuntu) or the 64bit Visual Studio Command Prompt (Windows).
+
+If you want to use another config file, set the environment variable `SHIPECTRAL_CONFIG_FILE`
+to the path of the respective config file (default is `configs/launshi.json`).
+
+The final program is under the `build` (can be changed using the environment variable `SHIPECTRAL_BUILD_PATH`)
+path, in the `shipectral` directory.
+
+For now, the best way to run it is using the `rake test` command.
