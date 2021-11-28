@@ -48,8 +48,11 @@ module ScriptHelper
   end
 
   def self.debug?
-    true
-    # TODO
+    {% if flag? :debug %}
+      true
+    {% else %}
+      false
+    {% end %}
   end
 
   # TODO: These will become relevant for later Shidacea versions
