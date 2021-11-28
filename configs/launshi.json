@@ -8,6 +8,7 @@
   "frontend_project": "project.json",
   "compile_frontend": true,
   "engine_library": "third_party/Shidacea",
-  "compile_engine": true,
+  "engine_library_project": "scripts.json",
+  "compile_engine_library": true,
   "debug": false
 }

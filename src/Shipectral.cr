@@ -4,18 +4,20 @@ require "./CompilationHelper.cr"
 require "anyolite"
 require "./ScriptHelper.cr"
 
-macro load_compiled_frontend_project(frontend_scripts)
-  {% c = 0 %}
-  {% for script in frontend_scripts %}
-    {% if script.ends_with? ".rb" %}
-      Anyolite::Preloader::AtCompiletime.load_bytecode_array_from_file({{script}})
+macro load_compiled_script(script)
+  {% if script.ends_with? ".rb" %}
+    Anyolite::Preloader::AtCompiletime.load_bytecode_array_from_file({{script}})
 
-      rb = Anyolite::RbRefTable.get_current_interpreter
-      Anyolite::Preloader.execute_bytecode_from_cache_or_file(rb, {{script}})
-    {% else %}
-      {% raise "Not a ruby script file: #{script}" %}
-    {% end %}
-    {% c += 1 %}
+    rb = Anyolite::RbRefTable.get_current_interpreter
+    Anyolite::Preloader.execute_bytecode_from_cache_or_file(rb, {{script}})
+  {% else %}
+    {% raise "Not a ruby script file: #{script}" %}
+  {% end %}
+end
+
+macro load_compiled_script_array(frontend_scripts)
+  {% for script in frontend_scripts %}
+    load_compiled_script({{script}})
   {% end %}
 end
 
@@ -23,10 +25,12 @@ macro main_routine_with_config(filename)
   {% config_use_sfml = run("./GetConfigOption.cr", filename, "use_sfml").chomp %}
   {% config_use_collishi = run("./GetConfigOption.cr", filename, "use_collishi").chomp %}
   {% config_frontend = run("./GetConfigOption.cr", filename, "frontend").chomp %}
-  {% config_compile_frontend = run("./GetConfigOption.cr", filename, "compile_frontend").chomp %}
   {% config_frontend_project = run("./GetConfigOption.cr", filename, "frontend_project").chomp %}
+  {% config_compile_frontend = run("./GetConfigOption.cr", filename, "compile_frontend").chomp %}
   {% config_engine_library = run("./GetConfigOption.cr", filename, "engine_library").chomp %}
-
+  {% config_engine_library_project = run("./GetConfigOption.cr", filename, "engine_library_project").chomp %}
+  {% config_compile_engine_library = run("./GetConfigOption.cr", filename, "compile_engine_library").chomp %}
+  
   {% if config_use_sfml.starts_with?("B|") %}
     {% if config_use_sfml[2..-1] == "true" %}
       {% use_sfml = true %}
@@ -55,6 +59,12 @@ macro main_routine_with_config(filename)
     {% raise "Option \"frontend\" is not a string" %}
   {% end %}
 
+  {% if config_frontend_project.starts_with?("S|") %}
+    {% frontend_project = config_frontend_project[2..-1] %}
+  {% else %}
+    {% raise "Option \"frontend_project\" is not a string" %}
+  {% end %}
+
   {% if config_compile_frontend.starts_with?("B|") %}
     {% if config_compile_frontend[2..-1] == "true" %}
       {% compile_frontend = true %}
@@ -63,12 +73,6 @@ macro main_routine_with_config(filename)
     {% end %}
   {% else %}
     {% raise "Option \"compile_frontend\" is not a bool" %}
-  {% end %}
-
-  {% if config_frontend_project.starts_with?("S|") %}
-    {% frontend_project = config_frontend_project[2..-1] %}
-  {% else %}
-    {% raise "Option \"frontend_project\" is not a string" %}
   {% end %}
 
   {% if config_engine_library.starts_with?("S|") %}
@@ -81,6 +85,22 @@ macro main_routine_with_config(filename)
     {% end %}
   {% else %}
     {% raise "Option \"engine_library\" is neither a string nor false" %}
+  {% end %}
+
+  {% if config_engine_library_project.starts_with?("S|") %}
+    {% engine_library_project = config_engine_library_project[2..-1] %}
+  {% else %}
+    {% raise "Option \"engine_library_project\" is not a string" %}
+  {% end %}
+
+  {% if config_compile_engine_library.starts_with?("B|") %}
+    {% if config_compile_engine_library[2..-1] == "true" %}
+      {% compile_engine_library = true %}
+    {% else %}
+      {% compile_engine_library = false %}
+    {% end %}
+  {% else %}
+    {% raise "Option \"compile_engine_library\" is not a bool" %}
   {% end %}
 
   {% if use_collishi %}
@@ -111,16 +131,38 @@ macro main_routine_with_config(filename)
       Anyolite.wrap(rb, ScriptHelper, under: SF, verbose: true, connect_to_superclass: false)
 
       {% if use_sfml %}
-        ScriptHelper.load_absolute_file("src/SDCExtensions.rb")
+        load_compiled_script("src/SDCExtensions.rb")
       {% end %}
 
-      {% if engine_library != false %}
-        ScriptHelper.load_absolute_path("{{engine_library}}/include")
-        ScriptHelper.load_absolute_path("{{engine_library}}/core")
+      {% if engine_library %}
+        {% if compile_engine_library %}
+          {% if engine_library_project.ends_with?(".json") %}
+            {% engine_library_scripts = run("./GetProjectScripts.cr", engine_library, engine_library_project) %}
+            load_compiled_script_array({{engine_library_scripts}})
+          {% else %}
+            load_compiled_script("{{engine_library}}/{{engine_library_project}}")
+          {% end %}
+        {% else %}
+          {% if engine_library_project.ends_with?(".json") %}
+            scripts = CompilationHelper.get_all_scripts_from_project_file("{{engine_library}}", "{{engine_library_project}}")
+
+            scripts.each do |script|
+              full_script_path = File.join("{{engine_library}}", script)
+
+              if File.directory?(full_script_path)
+                ScriptHelper.load_recursively(full_script_path)
+              else
+                ScriptHelper.load(full_script_path)
+              end
+            end
+          {% else %}
+            ScriptHelper.load("{{engine_library}}/{{engine_library_project}}")
+          {% end %}
+        {% end %}
       {% end %}
       
       {% if use_sfml %}
-        ScriptHelper.load_absolute_file("src/CompatibilityLayer.rb")
+        load_compiled_script("src/CompatibilityLayer.rb")
       {% end %}
 
       {% if compile_frontend %}
@@ -128,11 +170,10 @@ macro main_routine_with_config(filename)
           {% frontend_scripts = run("./GetProjectScripts.cr", frontend, frontend_project) %}
           
           ScriptHelper.path = "{{frontend}}"
-
-          load_compiled_frontend_project({{frontend_scripts}})
+          load_compiled_script_array({{frontend_scripts}})
         {% else %}
           ScriptHelper.path = "{{frontend}}"
-          ScriptHelper.load("{{frontend_project}}")
+          load_compiled_script("{{frontend}}/{{frontend_project}}")
         {% end %}
       {% else %}
         {% if frontend_project.ends_with?(".json") %}
@@ -152,8 +193,6 @@ macro main_routine_with_config(filename)
           ScriptHelper.load("{{frontend_project}}")
         {% end %}
       {% end %}
-
-      
 
       Anyolite::RbCore.rb_print_error(rb)
     end

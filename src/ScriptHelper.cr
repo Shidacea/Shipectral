@@ -1,6 +1,6 @@
 @[Anyolite::RenameModule("Script")]
 module ScriptHelper
-  @@path : String = "test"
+  @@path : String = "."
 
   def self.path
     @@path

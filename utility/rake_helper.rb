@@ -24,10 +24,11 @@ class ShipectralConfig
       :use_imgui => :required, # TODO
       :use_collishi => :required, # TODO
       :frontend => :required,
-      :frontend_project => :required, # TODO
-      :compile_frontend => :required, # TODO
+      :frontend_project => :required,
+      :compile_frontend => :required,
       :engine_library => :required,
-      :compile_engine => :required, # TODO
+      :engine_library_project => :required,
+      :compile_engine_library => :required,
       :debug => :required
     }
   end

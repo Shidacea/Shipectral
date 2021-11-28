@@ -41,12 +41,12 @@ usage, allowing for fast prototyping.
 
 ### Todo list
 
+* Copy frontend resources to build path
+* Add way and flag to put frontend resources directly into executable
 * Find a way to load different shards on Linux
 * Make Imgui optional
 * Block Crystal GC in draw and update routines
 * Port Shidacea to Crystal and bind with Anyolite
-* Support multiple Shidacea implementations
-* Add bytecode support
 * Clear render queue when switching scenes
 * Fix Launshi crashes
 

@@ -8,6 +8,7 @@
   "frontend_project": "RawTest.rb",
   "compile_frontend": true,
   "engine_library": false,
-  "compile_engine": false,
+  "engine_library_project": "",
+  "compile_engine_library": false,
   "debug": false
 }
