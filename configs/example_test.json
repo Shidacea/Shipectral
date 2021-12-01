@@ -1,5 +1,6 @@
 {
   "executable_name": "Example_Test",
+  "build_path_name": "test",
   "anyolite_config_file": "utility/config_anyolite.json",
   "use_sfml": true,
   "use_imgui": true,
@@ -7,8 +8,12 @@
   "frontend": "demo_projects/Example_Test",
   "frontend_project": "project.json",
   "compile_frontend": true,
+  "frontend_asset_directory": "assets",
+  "copy_frontend_assets_to_build_directory": true,
   "engine_library": "third_party/Shidacea",
   "engine_library_project": "scripts.json",
   "compile_engine_library": true,
+  "add_demos": false,
+  "add_project_directory": false,
   "debug": true
 }

@@ -169,17 +169,17 @@ macro main_routine_with_config(filename)
         {% if frontend_project.ends_with?(".json") %}
           {% frontend_scripts = run("./GetProjectScripts.cr", frontend, frontend_project) %}
           
-          ScriptHelper.path = "{{frontend}}"
+          #ScriptHelper.path = "{{frontend}}"
           load_compiled_script_array({{frontend_scripts}})
         {% else %}
-          ScriptHelper.path = "{{frontend}}"
+          #ScriptHelper.path = "{{frontend}}"
           load_compiled_script("{{frontend}}/{{frontend_project}}")
         {% end %}
       {% else %}
         {% if frontend_project.ends_with?(".json") %}
           scripts = CompilationHelper.get_all_scripts_from_project_file("{{frontend}}", "{{frontend_project}}")
 
-          ScriptHelper.path = "{{frontend}}"
+          #ScriptHelper.path = "{{frontend}}"
 
           scripts.each do |script|
             if File.directory?(script)
@@ -189,7 +189,7 @@ macro main_routine_with_config(filename)
             end
           end
         {% else %}
-          ScriptHelper.path = "{{frontend}}"
+          #ScriptHelper.path = "{{frontend}}"
           ScriptHelper.load("{{frontend_project}}")
         {% end %}
       {% end %}

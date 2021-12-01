@@ -1,1 +1,1 @@
-crystal build src/Shipectral.cr -o $1/shipectral/$2 $3 --error-trace > log.txt
+crystal build src/Shipectral.cr -o $1/$2 $3 --error-trace > log.txt

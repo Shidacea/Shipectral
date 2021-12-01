@@ -41,8 +41,9 @@ usage, allowing for fast prototyping.
 
 ### Todo list
 
-* Add config option to change subsequent build paths (not the main one)
-* Copy frontend resources to build path
+* Make separate options for build directory and install directory
+* Put logs in respective build directories
+* Add virtual file system for executable and connect it with SFML
 * Add way and flag to put frontend resources directly into executable
 * Find a way to load different shards on Linux
 * Make Imgui optional

@@ -18,9 +18,15 @@ task :load_config do
     $shipectral_config.load_file(CONFIG_FILE)
 end
 
-task :clean do
+task :clean_all do
     FileUtils.rm_r "#{SHIPECTRAL_BUILD_PATH}" if Dir.exist?("#{SHIPECTRAL_BUILD_PATH}")
     FileUtils.rm_r "lib" if Dir.exist?("lib")
+end
+
+task :clean => [:load_config] do
+    build_path_name = $shipectral_config.get_option_value(:build_path_name)
+
+    FileUtils.rm_r "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}" if Dir.exist?("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}")
 end
 
 task :generate_build_dir do
@@ -85,28 +91,48 @@ task :build_shipectral => [:generate_build_dir, :build_crsfml, :build_sfml, :bui
     executable_name = $shipectral_config.get_option_value(:executable_name)
     debug = $shipectral_config.get_option_value(:debug)
     use_sfml = $shipectral_config.get_option_value(:use_sfml)
+    build_path_name = $shipectral_config.get_option_value(:build_path_name)
 
-    build_type = debug ? "--debug" : "--release"
+    build_type = debug ? "-DDEBUG" : "--release"
     script_name = use_sfml ? "compile_Shipectral" : "compile_Shipectral_without_SFML"
 
-    FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/shipectral")
+    FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}")
 
     if SHIPECTRAL_COMPILER == :msvc
-        system "utility/#{script_name}.bat #{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type}"
+        system "utility/#{script_name}.bat #{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type} #{build_path_name}"
     elsif SHIPECTRAL_COMPILER == :gcc
-        system "utility/#{script_name}.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type}"
+        system "utility/#{script_name}.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{executable_name} #{build_type}"
     end
 end
 
 task :install_shipectral => [:build_shipectral, :load_config] do
     use_sfml = $shipectral_config.get_option_value(:use_sfml)
+    build_path_name = $shipectral_config.get_option_value(:build_path_name)
+    frontend = $shipectral_config.get_option_value(:frontend)
+    copy_frontend_assets_to_build_directory = $shipectral_config.get_option_value(:copy_frontend_assets_to_build_directory)
+    frontend_asset_directory = $shipectral_config.get_option_value(:frontend_asset_directory)
+    add_demos = $shipectral_config.get_option_value(:add_demos)
+    add_project_directory = $shipectral_config.get_option_value(:add_project_directory)
 
     if use_sfml
         if SHIPECTRAL_COMPILER == :msvc
-            FileUtils.cp_r "#{SHIPECTRAL_BUILD_PATH}/sfml/bin/.", "#{SHIPECTRAL_BUILD_PATH}/shipectral", :verbose => true
+            FileUtils.cp_r "#{SHIPECTRAL_BUILD_PATH}/sfml/bin/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}", :verbose => true
         else
-            FileUtils.cp "#{Dir.pwd}/lib/imgui-sfml/libcimgui.so", "#{SHIPECTRAL_BUILD_PATH}/shipectral/libcimgui.so", :verbose => true
+            FileUtils.cp "#{Dir.pwd}/lib/imgui-sfml/libcimgui.so", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/libcimgui.so", :verbose => true
         end
+    end
+
+    if copy_frontend_assets_to_build_directory
+        FileUtils.cp_r "#{Dir.pwd}/#{frontend}/#{frontend_asset_directory}/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/#{frontend_asset_directory}", :verbose => true
+    end
+
+    if add_demos
+        FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/demo_projects")
+        FileUtils.cp_r "#{Dir.pwd}/demo_projects/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/demo_projects"
+    end
+
+    if add_project_directory
+        FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/projects")
     end
 end
 
@@ -124,23 +150,25 @@ task :recompile => [:load_config] do
     executable_name = $shipectral_config.get_option_value(:executable_name)
     debug = $shipectral_config.get_option_value(:debug)
     use_sfml = $shipectral_config.get_option_value(:use_sfml)
+    build_path_name = $shipectral_config.get_option_value(:build_path_name)
 
-    build_type = debug ? "--debug" : "--release"
+    build_type = debug ? "-DDEBUG" : "--release"
     script_name = use_sfml ? "compile_Shipectral" : "compile_Shipectral_without_SFML"
 
     if SHIPECTRAL_COMPILER == :msvc
-        system "utility/#{script_name}.bat #{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type}"
+        system "utility/#{script_name}.bat #{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type} #{build_path_name}"
     elsif SHIPECTRAL_COMPILER == :gcc
-        system "utility/#{script_name}.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH} #{executable_name} #{build_type}"
+        system "utility/#{script_name}.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{executable_name} #{build_type}"
     end
 end
 
 task :test => [:load_config] do
     executable_name = $shipectral_config.get_option_value(:executable_name)
+    build_path_name = $shipectral_config.get_option_value(:build_path_name)
 
     if SHIPECTRAL_COMPILER == :msvc
-        system "\"#{SHIPECTRAL_BUILD_PATH}/shipectral/#{executable_name}.exe\""
+        system "\"#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/#{executable_name}.exe\""
     elsif SHIPECTRAL_COMPILER == :gcc
-        system "utility/run_Shipectral.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH} #{executable_name}"
+        system "utility/run_Shipectral.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{executable_name}"
     end
 end

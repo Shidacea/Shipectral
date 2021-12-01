@@ -1,6 +1,6 @@
 @[Anyolite::RenameModule("Script")]
 module ScriptHelper
-  @@path : String = "."
+  @@path : String = ((exec_path = Process.executable_path) ? File.dirname(exec_path) : ".")
 
   def self.path
     @@path

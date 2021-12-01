@@ -19,16 +19,21 @@ class ShipectralConfig
   def initialize
     @options = {
       :executable_name => :required,
+      :build_path_name => :required,
       :anyolite_config_file => :required,
       :use_sfml => :required,
-      :use_imgui => :required, # TODO
-      :use_collishi => :required, # TODO
+      :use_imgui => :required, # TODO: Make these useful
+      :use_collishi => :required, # TODO: Make these useful
       :frontend => :required,
       :frontend_project => :required,
       :compile_frontend => :required,
+      :frontend_asset_directory => :required,
+      :copy_frontend_assets_to_build_directory => :required,
       :engine_library => :required,
       :engine_library_project => :required,
       :compile_engine_library => :required,
+      :add_demos => :required,
+      :add_project_directory => :required,
       :debug => :required
     }
   end

@@ -1,5 +1,6 @@
 {
   "executable_name": "Raw",
+  "build_path_name": "raw",
   "anyolite_config_file": "utility/config_anyolite_raw.json",
   "use_sfml": false,
   "use_imgui": false,
@@ -7,8 +8,12 @@
   "frontend": "test",
   "frontend_project": "RawTest.rb",
   "compile_frontend": true,
+  "frontend_asset_directory": ".",
+  "copy_frontend_assets_to_build_directory": false,
   "engine_library": false,
   "engine_library_project": "",
   "compile_engine_library": false,
+  "add_demos": false,
+  "add_project_directory": false,
   "debug": false
 }
