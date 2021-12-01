@@ -41,8 +41,6 @@ usage, allowing for fast prototyping.
 
 ### Todo list
 
-* Make separate options for build directory and install directory
-* Put logs in respective build directories
 * Add virtual file system for executable and connect it with SFML
 * Add way and flag to put frontend resources directly into executable
 * Find a way to load different shards on Linux

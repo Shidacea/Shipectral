@@ -1,5 +1,5 @@
 cd %1
 cd sfml
 
-cmake -DCMAKE_INSTALL_PREFIX="%CD%" ..\..\third_party\SFML
+cmake -DCMAKE_INSTALL_PREFIX="%CD%" %2
 cmake --build . --target install --config Release
