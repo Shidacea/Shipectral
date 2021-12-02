@@ -47,8 +47,7 @@ usage, allowing for fast prototyping.
 * Make Imgui optional
 * Block Crystal GC in draw and update routines
 * Port Shidacea to Crystal and bind with Anyolite
-* Clear render queue when switching scenes
-* Fix Launshi crashes
+* Fix irregular segmentation faults when using Launshi
 
 ### Version 0.1.0
 
