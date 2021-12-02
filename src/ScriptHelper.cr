@@ -57,15 +57,15 @@ module ScriptHelper
 
   # TODO: These will become relevant for later Shidacea versions
 
-  def enable_crystal_gc
+  def self.enable_crystal_gc
     GC.enable
   end
 
-  def disable_crystal_gc
+  def self.disable_crystal_gc
     GC.disable
   end
 
-  def run_crystal_gc
+  def self.run_crystal_gc
     GC.collect
   end
 
