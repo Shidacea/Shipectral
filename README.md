@@ -47,13 +47,13 @@ usage, allowing for fast prototyping.
 * Make Imgui optional
 * Block Crystal GC in draw and update routines
 * Port Shidacea to Crystal and bind with Anyolite
-* Fix irregular segmentation faults when using Launshi
 
 ### Version 0.1.0
 
 #### Features
 
-* [ ] Basic functionality
+* [X] Basic functionality
+* [X] Working examples
 * [ ] Full compatibility to Shidacea-CPP
 
 ### Version 0.2.0

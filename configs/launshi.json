@@ -15,5 +15,5 @@
   "compile_engine_library": true,
   "add_demos": true,
   "add_project_directory": true,
-  "debug": true
+  "debug": false
 }
