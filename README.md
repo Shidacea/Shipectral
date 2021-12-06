@@ -39,15 +39,6 @@ usage, allowing for fast prototyping.
 
 ## Roadmap
 
-### Todo list
-
-* Add virtual file system for executable and connect it with SFML
-* Add way and flag to put frontend resources directly into executable
-* Find a way to load different shards on Linux
-* Make Imgui optional
-* Block Crystal GC in draw and update routines
-* Port Shidacea to Crystal and bind with Anyolite
-
 ### Version 0.1.0
 
 #### Features
@@ -55,13 +46,25 @@ usage, allowing for fast prototyping.
 * [X] Basic functionality
 * [X] Working examples
 * [ ] Full compatibility to Shidacea-CPP
+* [ ] Find a way to load different shards on Linux
 
 ### Version 0.2.0
 
 #### Features
 
+* [ ] Port Shidacea to Crystal and bind with Anyolite
 * [ ] Complete overhaul to support the new Shidacea 0.3 standard
+
+* [ ] Block Crystal GC in draw and update routines
+
+### Future versions
+
+#### Features
+
+* [ ] Add virtual file system for executable and connect it with SFML
 * [ ] Ressource integration using macros
+* [ ] Add way and flag to put frontend resources directly into executable
+* [ ] Make Imgui optional
 
 ## Installation
 
