@@ -143,8 +143,8 @@ class RenderQueueWindow
   end
 
   def close
-    imgui_shutdown
     @window.close
+    imgui_shutdown
   end
 
   def render
