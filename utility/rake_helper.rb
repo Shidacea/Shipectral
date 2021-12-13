@@ -7,7 +7,8 @@ end
 
 def determine_compiler
     if ENV["ANYOLITE_COMPILER"]
-        return ENV["ANYOLITE_COMPILER"].lowercase.to_sym
+        puts "Got compiler from environment variable: #{ANYOLITE_COMPILER}"
+        return ENV["ANYOLITE_COMPILER"].downcase.to_sym
     elsif ENV["VisualStudioVersion"] || ENV["VSINSTALLDIR"]
         return :msvc
     else
