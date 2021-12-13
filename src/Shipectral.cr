@@ -205,8 +205,20 @@ macro main_routine_with_config(filename)
   {% end %}
 end
 
-{% if env("SHIPECTRAL_CONFIG_FILE") %}
-  main_routine_with_config({{env("SHIPECTRAL_CONFIG_FILE")}})
-{% else %}
-  main_routine_with_config("configs/launshi.json")
-{% end %}
+test_run = false
+
+ARGV.each do |arg|
+  if arg == "--version"
+    test_run = true
+  end
+end
+
+if test_run
+  puts SHIPECTRAL_VERSION
+else
+  {% if env("SHIPECTRAL_CONFIG_FILE") %}
+    main_routine_with_config({{env("SHIPECTRAL_CONFIG_FILE")}})
+  {% else %}
+    main_routine_with_config("configs/launshi.json")
+  {% end %}
+end
