@@ -2,13 +2,7 @@ name: BuildWindows
 
 on:
   push:
-    branches:
-      - actions-test
-  release:
-    types: [published, edited, prereleased]
-  pull_request:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
 
