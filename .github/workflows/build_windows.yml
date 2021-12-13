@@ -11,6 +11,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: recursive
     - uses: microsoft/setup-msbuild@v1.1
     - uses: seanmiddleditch/gha-setup-ninja@master
     - uses: seanmiddleditch/gha-setup-vsdevenv@master
