@@ -31,10 +31,7 @@ jobs:
     - name: Build
       run: |
         rake -v
-        dir build
-        dir build/launshi
-        dir build/launshi/imgui
-        dir build/launshi/imgui/cimgui
+        tree build/launshi
         
     - name: Run
       run: |
