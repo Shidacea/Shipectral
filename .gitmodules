@@ -13,9 +13,6 @@
 [submodule "third_party/Launshi"]
 	path = third_party/Launshi
 	url = https://github.com/Shidacea/Launshi
-[submodule "third_party/Shidacea"]
-	path = third_party/Shidacea
-	url = https://github.com/Shidacea/Shidacea
 [submodule "third_party/crystal-imgui-sfml"]
 	path = third_party/crystal-imgui-sfml
 	url = https://github.com/oprypin/crystal-imgui-sfml
