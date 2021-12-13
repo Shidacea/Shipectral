@@ -8,6 +8,8 @@ jobs:
 
   build:
     runs-on: windows-latest
+    env:
+      ANYOLITE_COMPILER: MSVC
 
     steps:
     - uses: actions/checkout@v2
@@ -31,7 +33,6 @@ jobs:
     
     - name: Build
       run: |
-        set ANYOLITE_COMPILER=MSVC
         rake
         
     - name: Run
