@@ -35,6 +35,7 @@ jobs:
     - name: Build
       run: |
         rake -v
+        dir /s
         
     - name: Run
       run: |
