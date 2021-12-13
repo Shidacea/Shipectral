@@ -215,10 +215,11 @@ end
 
 if test_run
   puts SHIPECTRAL_VERSION
-else
-  {% if env("SHIPECTRAL_CONFIG_FILE") %}
-    main_routine_with_config({{env("SHIPECTRAL_CONFIG_FILE")}})
-  {% else %}
-    main_routine_with_config("configs/launshi.json")
-  {% end %}
+  exit
 end
+
+{% if env("SHIPECTRAL_CONFIG_FILE") %}
+  main_routine_with_config({{env("SHIPECTRAL_CONFIG_FILE")}})
+{% else %}
+  main_routine_with_config("configs/launshi.json")
+{% end %}
