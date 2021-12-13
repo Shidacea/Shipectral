@@ -33,6 +33,9 @@ jobs:
       env:
         CC: cl
         CXX: cl
+        CPP: cl
+        LD: link.exe
+        
       run: |
         rake -v
         
