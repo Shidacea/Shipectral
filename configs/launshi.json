@@ -10,7 +10,7 @@
   "compile_frontend": true,
   "frontend_asset_directory": "assets",
   "copy_frontend_assets_to_build_directory": true,
-  "engine_library": "third_party/Shidacea",
+  "engine_library": "Shidacea",
   "engine_library_project": "scripts.json",
   "compile_engine_library": true,
   "add_demos": true,
