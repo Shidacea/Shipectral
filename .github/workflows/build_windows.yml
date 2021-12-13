@@ -15,9 +15,7 @@ jobs:
         submodules: recursive
     - uses: microsoft/setup-msbuild@v1.1
     - uses: seanmiddleditch/gha-setup-vsdevenv@master
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.0
+    - uses: actions/setup-ruby@v1
 
     - name: Install Crystal
       uses: crystal-lang/install-crystal@v1
