@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-ruby@v1
+    - uses: ruby/setup-ruby@v1
 
     - name: Install Crystal
       uses: oprypin/install-crystal@v1
@@ -21,6 +21,11 @@ jobs:
     - name: Set up environment
       run: |
         echo "CRYSTAL_PATH=$(pwd)\..;${env:CRYSTAL_PATH}" >>${env:GITHUB_ENV}
+        
+    - name: Deps
+      run: |
+        git submodule init
+        git submodule update --recursive
     
     - name: Build
       run: |
