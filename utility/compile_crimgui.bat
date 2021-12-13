@@ -6,7 +6,7 @@
 
 @cd cimgui
 
-cmake -DCMAKE_CXX_FLAGS='-DIMGUI_USE_WCHAR32' .
+cmake -DCMAKE_CXX_COMPILER="cl" -DCMAKE_C_COMPILER="cl" -DCMAKE_CXX_FLAGS='-DIMGUI_USE_WCHAR32' .
 cmake --build . 
 
 @cd ..
