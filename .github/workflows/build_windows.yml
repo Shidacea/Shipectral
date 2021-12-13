@@ -31,6 +31,7 @@ jobs:
     
     - name: Build
       run: |
+        set ANYOLITE_COMPILER=MSVC
         rake
         
     - name: Run
