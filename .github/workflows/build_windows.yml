@@ -30,6 +30,9 @@ jobs:
         git submodule update --recursive
     
     - name: Build
+      env:
+        CC: cl
+        CXX: cl
       run: |
         rake -v
         
