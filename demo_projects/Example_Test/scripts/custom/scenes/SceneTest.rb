@@ -135,7 +135,7 @@ class SceneTest < SDC::Scene
 	end
 
 	def load_map
-		@test_map = SF::Map.new(view_width: 30, view_height: 20)
+		@test_map = SDC::Map.new(view_width: 30, view_height: 20)
 		@test_map.load_from_file("dummy")
 		@test_map.set_config(:TestMap)
 	end

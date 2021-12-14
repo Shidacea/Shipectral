@@ -28,6 +28,7 @@ macro main_routine_with_config(filename)
   {% config_frontend_project = run("./GetConfigOption.cr", filename, "frontend_project").chomp %}
   {% config_compile_frontend = run("./GetConfigOption.cr", filename, "compile_frontend").chomp %}
   {% config_engine_library = run("./GetConfigOption.cr", filename, "engine_library").chomp %}
+  {% config_engine_library_crystal = run("./GetConfigOption.cr", filename, "engine_library_crystal").chomp %}
   {% config_engine_library_project = run("./GetConfigOption.cr", filename, "engine_library_project").chomp %}
   {% config_compile_engine_library = run("./GetConfigOption.cr", filename, "compile_engine_library").chomp %}
   
@@ -87,6 +88,18 @@ macro main_routine_with_config(filename)
     {% raise "Option \"engine_library\" is neither a string nor false" %}
   {% end %}
 
+  {% if config_engine_library_crystal.starts_with?("S|") %}
+    {% engine_library_crystal = config_engine_library_crystal[2..-1] %}
+  {% elsif config_engine_library_crystal.starts_with?("B|") %}
+    {% if config_engine_library_crystal[2..-1] == "true" %}
+      {% raise "Option \"engine_library_crystal\" is neither a string nor false" %}
+    {% else %}
+      {% engine_library_crystal = false %}
+    {% end %}
+  {% else %}
+    {% raise "Option \"engine_library_crystal\" is neither a string nor false" %}
+  {% end %}
+
   {% if config_engine_library_project.starts_with?("S|") %}
     {% engine_library_project = config_engine_library_project[2..-1] %}
   {% else %}
@@ -118,6 +131,10 @@ macro main_routine_with_config(filename)
   module SDC
   end
 
+  {% if engine_library_crystal %}
+    require "../{{engine_library_crystal}}"
+  {% end %}
+
   {% if use_collishi %}
     Collishi.test_all_collision_routines
   {% end %}
@@ -139,6 +156,10 @@ macro main_routine_with_config(filename)
       {% end %}
 
       {% if engine_library %}
+        {% if engine_library_crystal %}
+          load_engine_library(rb)
+        {% end %}
+        
         {% if compile_engine_library %}
           {% if engine_library_project.ends_with?(".json") %}
             {% engine_library_scripts = run("./GetProjectScripts.cr", engine_library, engine_library_project) %}

@@ -31,6 +31,7 @@ class ShipectralConfig
       :frontend_asset_directory => :required,
       :copy_frontend_assets_to_build_directory => :required,
       :engine_library => :required,
+      :engine_library_crystal => :required,
       :engine_library_project => :required,
       :compile_engine_library => :required,
       :add_demos => :required,

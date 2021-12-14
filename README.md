@@ -48,7 +48,8 @@ This version number was chosen in order to avoid confusions with legacy versions
 * [X] Separated SDC and SF module
 * [X] Updated Shidacea library to new standard
 * [ ] Strictly separate SF modules from SDC modules
-* [ ] Encourage keyword usage where useful
+* [ ] Encourage keyword usage where useful (and stay faithful to SFML)
+* [ ] Add ImGui helper classes for inputs
 
 ### Version 0.4.0
 

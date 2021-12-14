@@ -3,7 +3,7 @@
 # Certain attributes like animations and the solidity are implemented in the base class.
 
 module SDC
-	class CustomTile < SF::Tile
+	class CustomTile < SDC::Tile
 
 		def at_init
 

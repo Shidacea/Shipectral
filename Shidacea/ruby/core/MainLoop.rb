@@ -12,7 +12,7 @@ module SDC
 	def self.main_routine(scene_class, game_class: nil, title: "", width: 800, height: 600, limiter: nil)
 
 		begin
-			SDC.window = SF::Window.new(title, width, height)
+			SDC.window = SDC::Window.new(title, width, height)
 			SDC.set_draw_size(width, height)
 			SDC.limiter = limiter ? limiter : SDC::Limiter.new(max: 720, renders_per_second: 60, ticks_per_second: 60, gc_per_second: 60)
 

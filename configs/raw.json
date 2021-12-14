@@ -11,6 +11,7 @@
   "frontend_asset_directory": ".",
   "copy_frontend_assets_to_build_directory": false,
   "engine_library": false,
+  "engine_library_crystal": false,
   "engine_library_project": "",
   "compile_engine_library": false,
   "add_demos": false,
