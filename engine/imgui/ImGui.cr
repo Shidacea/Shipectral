@@ -60,5 +60,5 @@ module ImGuiHelper
 end
 
 def setup_ruby_imgui_module(rb)
-  Anyolite.wrap(rb, ImGuiHelper, under: SF, verbose: true)
+  Anyolite.wrap(rb, ImGuiHelper, verbose: true)
 end

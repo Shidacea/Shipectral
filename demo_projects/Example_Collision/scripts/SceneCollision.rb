@@ -135,35 +135,35 @@ class SceneCollision < SDC::Scene
 	end
 
 	def draw_imgui
-		SF::ImGui.begin "Shapes" do
-			SF::ImGui.input_instance_variable_int("x", self, :@new_obj_x)
-			SF::ImGui.input_instance_variable_int("y", self, :@new_obj_y)
+		ImGui.begin "Shapes" do
+			ImGui.input_instance_variable_int("x", self, :@new_obj_x)
+			ImGui.input_instance_variable_int("y", self, :@new_obj_y)
 
-			SF::ImGui.input_instance_variable_int("Radius", self, :@new_circle_r)
+			ImGui.input_instance_variable_int("Radius", self, :@new_circle_r)
 
-			SF::ImGui.button "New circle" do
+			ImGui.button "New circle" do
 				@shapes.push TestShape.new_circle(pos: SDC.xy(@new_obj_x, @new_obj_y), radius: @new_circle_r, z: @z, counter: @counter)
 
 				@z += 0.1
 				@counter += 1
 			end
 
-			SF::ImGui.input_instance_variable_int("Box width", self, :@new_box_w)
-			SF::ImGui.input_instance_variable_int("Box height", self, :@new_box_h)
+			ImGui.input_instance_variable_int("Box width", self, :@new_box_w)
+			ImGui.input_instance_variable_int("Box height", self, :@new_box_h)
 
-			SF::ImGui.button "New box" do
+			ImGui.button "New box" do
 				@shapes.push TestShape.new_box(pos: SDC.xy(@new_obj_x, @new_obj_y), size: SDC.xy(@new_box_w, @new_box_h), z: @z, counter: @counter)
 
 				@z += 0.1
 				@counter += 1
 			end
 
-			SF::ImGui.input_instance_variable_int("Triangle side 1 x", self, :@new_side_1_x)
-			SF::ImGui.input_instance_variable_int("Triangle side 1 y", self, :@new_side_1_y)
-			SF::ImGui.input_instance_variable_int("Triangle side 2 x", self, :@new_side_2_x)
-			SF::ImGui.input_instance_variable_int("Triangle side 2 y", self, :@new_side_2_y)
+			ImGui.input_instance_variable_int("Triangle side 1 x", self, :@new_side_1_x)
+			ImGui.input_instance_variable_int("Triangle side 1 y", self, :@new_side_1_y)
+			ImGui.input_instance_variable_int("Triangle side 2 x", self, :@new_side_2_x)
+			ImGui.input_instance_variable_int("Triangle side 2 y", self, :@new_side_2_y)
 
-			SF::ImGui.button "New triangle" do
+			ImGui.button "New triangle" do
 				@shapes.push TestShape.new_triangle(pos: SDC.xy(@new_obj_x, @new_obj_y), 
 					side_1: SDC.xy(@new_side_1_x, @new_side_1_y),
 					side_2: SDC.xy(@new_side_2_x, @new_side_2_y), z: @z, counter: @counter)

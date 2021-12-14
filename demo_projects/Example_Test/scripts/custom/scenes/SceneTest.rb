@@ -132,6 +132,7 @@ class SceneTest < SDC::Scene
 
 	def at_exit
 		SDC.text_input = nil
+		@music.pause
 	end
 
 	def load_map
@@ -173,7 +174,7 @@ class SceneTest < SDC::Scene
 	end
 
 	def draw_imgui
-		SF::ImGui.begin "Glorious Test Dialog Number 1" do
+		ImGui.begin "Glorious Test Dialog Number 1" do
 
 			shape_collision_no = 0
 			box_collision_no = 0
@@ -187,20 +188,20 @@ class SceneTest < SDC::Scene
 				end
 			end
 
-			SF::ImGui.text "Map was loaded #{SDC.get_variable("map_loaded")} times."
-			SF::ImGui.button "Reload map" {load_map}
+			ImGui.text "Map was loaded #{SDC.get_variable("map_loaded")} times."
+			ImGui.button "Reload map" {load_map}
 
-			SF::ImGui.button "Play music" {@music.play}
-			SF::ImGui.button "Pause music" {@music.pause}
-			SF::ImGui.button "Pitch up" {@music.pitch *= 1.1}
-			SF::ImGui.button "Pitch down" {@music.pitch /= 1.1}
-			SF::ImGui.button "Pitch ??? #{!SDC.get_switch("chaos") ? "on" : "off"}" {SDC.toggle_switch("chaos")}
+			ImGui.button "Play music" {@music.play}
+			ImGui.button "Pause music" {@music.pause}
+			ImGui.button "Pitch up" {@music.pitch *= 1.1}
+			ImGui.button "Pitch down" {@music.pitch /= 1.1}
+			ImGui.button "Pitch ??? #{!SDC.get_switch("chaos") ? "on" : "off"}" {SDC.toggle_switch("chaos")}
 
-			SF::ImGui.button "Play sound" do
+			ImGui.button "Play sound" do
 				@example_sound.play
 			end
 
-			SF::ImGui.button "Play demonic sound" do
+			ImGui.button "Play demonic sound" do
 				@example_sound_1.pitch = 0.5
 				@example_sound_2.pitch = 0.4
 				@example_sound_3.pitch = 0.3
@@ -212,57 +213,57 @@ class SceneTest < SDC::Scene
 				@decrease = 100
 			end
 
-			SF::ImGui.text "Shape Collision: #{shape_collision_no.div(2)}"	# Filter double collisions
-			SF::ImGui.text "Box Collision:   #{box_collision_no.div(2)}"
-			SF::ImGui.text "Entity Collision: #{SDC.get_switch("coll")}"
+			ImGui.text "Shape Collision: #{shape_collision_no.div(2)}"	# Filter double collisions
+			ImGui.text "Box Collision:   #{box_collision_no.div(2)}"
+			ImGui.text "Entity Collision: #{SDC.get_switch("coll")}"
 			SDC.reset_switch("coll")
-			SF::ImGui.text "HP of entity 0: #{@entities[0].hp}"
+			ImGui.text "HP of entity 0: #{@entities[0].hp}"
 
-			SF::ImGui.text "Last key code: #{@last_key_code}"
+			ImGui.text "Last key code: #{@last_key_code}"
 
-			SF::ImGui.text "On solid tile: #{@test_map.test_collision_with_entity(@entities[0])}"
-			SF::ImGui.button "Set dirt passable" {SDC::Data.tilesets[:Default].tiles[3].solid = false}
+			ImGui.text "On solid tile: #{@test_map.test_collision_with_entity(@entities[0])}"
+			ImGui.button "Set dirt passable" {SDC::Data.tilesets[:Default].tiles[3].solid = false}
 
-			SF::ImGui.text "Counter = #{@counter}"
+			ImGui.text "Counter = #{@counter}"
 
-			SF::ImGui.button "Reset mouse" {SF::EventMouse.set_position([300, 200], SDC.window)}
-			SF::ImGui.text "Mouse pos = #{SDC.get_mouse_coords}"
+			ImGui.button "Reset mouse" {SF::EventMouse.set_position([300, 200], SDC.window)}
+			ImGui.text "Mouse pos = #{SDC.get_mouse_coords}"
 
-			SF::ImGui.button "Set text input to #{!SDC.text_input}" {SDC.text_input = !SDC.text_input}
-			SF::ImGui.text "Text = #{@text_buffer}"
+			ImGui.button "Set text input to #{!SDC.text_input}" {SDC.text_input = !SDC.text_input}
+			ImGui.text "Text = #{@text_buffer}"
 
-			SF::ImGui.button "Rescale entity" do
+			ImGui.button "Rescale entity" do
 				@entities[0].shapes[0].scale *= 1.1
 				@entities[0].boxes[0].scale *= 1.1
 				@entities[0].sprites[0].scale *= 1.1
 			end
-			SF::ImGui.button "Reset entity" do
+			ImGui.button "Reset entity" do
 				@entities[0].shapes[0].scale = 1.0
 				@entities[0].boxes[0].scale = SDC.xy(1.0, 1.0)
 				@entities[0].sprites[0].scale = SDC.xy(1.0, 1.0)
 			end
 
-			SF::ImGui.button (SDC.get_switch("test") ? "Stop jumping with Q" : "Start jumping with Q") do
+			ImGui.button (SDC.get_switch("test") ? "Stop jumping with Q" : "Start jumping with Q") do
 				SDC.toggle_switch("test")
 			end
-			SF::ImGui.button "Amplify jumping" do
+			ImGui.button "Amplify jumping" do
 				SDC.multiply_variable("test", 1.05, default: 1000.0 * (SDC.game.meter / SDC.game.second**2))
 			end
 
-			if SF::ImGui.button "Glorious Test Button Number 1" then
+			if ImGui.button "Glorious Test Button Number 1" then
 				@test_toggle = !@test_toggle
 			end
 
 			if @test_toggle then
-				SF::ImGui.begin_child "Some child" do
-					SF::ImGui.text "Oh yes, that button was pushed!"
+				ImGui.begin_child "Some child" do
+					ImGui.text "Oh yes, that button was pushed!"
 				end
-				SF::ImGui.text "This text signifies that."
+				ImGui.text "This text signifies that."
 			end
 
-			SF::ImGui.input_int("Array", @test_array)
+			ImGui.input_int("Array", @test_array)
 
-			SF::ImGui.button "Test socket" do
+			ImGui.button "Test socket" do
 				puts "Socket"
 				@socket = SDC::Socket.new
 				puts @socket.connect("127.0.0.1", 293)
@@ -272,7 +273,7 @@ class SceneTest < SDC::Scene
 				puts @socket.send_message("TestBla")
 			end
 
-			SF::ImGui.button "Test listener" do
+			ImGui.button "Test listener" do
 				puts "Listener"
 				@listener = SDC::Listener.new
 				@socket = SDC::Socket.new
@@ -285,7 +286,7 @@ class SceneTest < SDC::Scene
 				puts @socket.last_message
 			end
 
-			SF::ImGui.button "Toggle show sprite 0" do
+			ImGui.button "Toggle show sprite 0" do
 				@entities[0].active_sprites[0] = !@entities[0].active_sprites[0]
 			end
 

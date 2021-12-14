@@ -1,8 +1,9 @@
 # Shipectral
 
-Shipectral aims to be a Crystal variant of the Shidacea framework.
+Shipectral (accompanied by Shidacea) is a 2D game engine with different cooperating segments.
 
-In the future, Shipectral will take the place of the previous Shidacea C++ backend, which will allow for easier bindings and simplify the process of converting a Shidacea project to much more performant code.
+Its goal is to provide a simple entry into game development, which works out of the box, but
+can also be used for more complicated ideas.
 
 ## Features
 
@@ -11,19 +12,16 @@ In the future, Shipectral will take the place of the previous Shidacea C++ backe
 * Support for Dear ImGUI
 * ERB methods for text substitution
 * Support for project structures
+* Game development library for easier development
 * Modular design
 
 ## Structure
 
-(Not finalized yet)
+The very core of Shipectral is a compound of crSFML, Dear ImGUI and Anyolite,
+allowing for the direct usage of crSFML and ImGUI functions in Ruby scripts.
 
-Shipectral (or Shidacea) is a game engine with different cooperating segments.
-
-The very core of Shipectral is a compound of crSFML and Anyolite,
-allowing for the direct usage of crSFML functions in Ruby scripts.
-
-On top of this, the Shidacea library (SDClib) of the old Shidacea
-project is available, which provides more advanced game functions and support
+On top of this, the Shidacea library is available,
+which provides more advanced game functions and support
 for more readable scripts, while still preserving the fast speed of
 the core functions.
 
@@ -47,9 +45,12 @@ This version number was chosen in order to avoid confusions with legacy versions
 * [X] Working examples
 * [X] Separated SDC and SF module
 * [X] Updated Shidacea library to new standard
-* [ ] Strictly separate SF modules from SDC modules
+* [X] Strictly separate SF modules from SDC modules
+* [ ] Wrap other SF classes
 * [ ] Encourage keyword usage where useful (and stay faithful to SFML)
 * [ ] Add ImGui helper classes for inputs
+* [ ] Wrap ImGui classes
+* [ ] Add more SDC methods as alternative to directly using SFML methods
 
 ### Version 0.4.0
 
