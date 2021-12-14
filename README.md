@@ -92,6 +92,6 @@ If you want to use another config file, set the environment variable `SHIPECTRAL
 to the path of the respective config file (default is `configs/launshi.json`).
 
 The final program is under the `build` (can be changed using the environment variable `SHIPECTRAL_BUILD_PATH`)
-path, in the `shipectral` directory.
+path, in the respective directory.
 
-For now, the best way to run it is using the `rake test` command.
+You can run it using the `rake test` command or by directly executing it from the build directory (on Windows).
