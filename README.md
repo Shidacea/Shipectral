@@ -6,8 +6,6 @@ In the future, Shipectral will take the place of the previous Shidacea C++ backe
 
 ## Features
 
-(Mostly not implemented yet)
-
 * Powerful scripting using mruby and Anyolite
 * Fast Crystal core using crSFML
 * Support for Dear ImGUI
@@ -39,22 +37,26 @@ usage, allowing for fast prototyping.
 
 ## Roadmap
 
-### Version 0.1.0
+### Version 0.3.0
+
+This version number was chosen in order to avoid confusions with legacy versions.
 
 #### Features
 
 * [X] Basic functionality
 * [X] Working examples
-* [ ] Full compatibility to Shidacea-CPP
-* [ ] Find a way to load different shards on Linux
+* [X] Separated SDC and SF module
+* [X] Updated Shidacea library to new standard
+* [ ] Strictly separate SF modules from SDC modules
+* [ ] Encourage keyword usage where useful
 
-### Version 0.2.0
+### Version 0.4.0
 
 #### Features
 
 * [ ] Port Shidacea to Crystal and bind with Anyolite
-* [ ] Complete overhaul to support the new Shidacea 0.3 standard
-
+* [ ] Find a way to load different shards on Linux
+* [ ] Networking routines
 * [ ] Block Crystal GC in draw and update routines
 
 ### Future versions

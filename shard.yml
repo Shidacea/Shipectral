@@ -1,5 +1,5 @@
 name: Shipectral
-version: 0.0.1
+version: 0.3.0
 
 authors:
   - Hadeweka
@@ -21,4 +21,4 @@ dependencies:
 
 license: MIT
 
-crystal: '>= 0.34.0'
+crystal: '>= 1.1.0'
