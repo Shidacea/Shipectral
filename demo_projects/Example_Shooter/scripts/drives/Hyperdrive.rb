@@ -11,7 +11,7 @@ module ShooterTest
 		self.cooldown_rate = 0.01
 
 		def generate_particles(ship)
-			particle_shape = SDC::DrawShapeCircle.new
+			particle_shape = SF::DrawShapeCircle.new
 			particle_shape.radius = 50
 			particle_shape.origin = SDC.xy(50, 50)
 
@@ -19,7 +19,7 @@ module ShooterTest
 			new_velocity = SDC.xy(0, 0)
 
 			particle = Particle.new(shape: particle_shape, lifetime: 255, position: new_position, velocity: new_velocity, z: Z_PARTICLE) do
-				particle.color = SDC::Color.new(127, particle.lifetime, 255, particle.lifetime * 0.25)
+				particle.color = SF::Color.new(127, particle.lifetime, 255, particle.lifetime * 0.25)
 				particle.shape.radius *= 1.0075
 				particle_shape.origin *= 1.0075
 			end

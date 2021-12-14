@@ -12,7 +12,7 @@ module ShooterTest
 
 		def generate_particles(ship)
 			rand(5).times do
-				particle_shape = SDC::DrawShapeRectangle.new
+				particle_shape = SF::DrawShapeRectangle.new
 				particle_shape.size = SDC.xy(2, 2)
 				particle_shape.origin = SDC.xy(1, 1)
 
@@ -20,7 +20,7 @@ module ShooterTest
 				new_velocity = ship.velocity + ship.direction * (-20.0)
 
 				particle = Particle.new(shape: particle_shape, lifetime: rand(64), position: new_position, velocity: new_velocity, z: Z_PARTICLE) do
-					particle.color = SDC::Color.new(particle.lifetime * 4, 0, particle.lifetime * 4, particle.lifetime * 4)
+					particle.color = SF::Color.new(particle.lifetime * 4, 0, particle.lifetime * 4, particle.lifetime * 4)
 				end
 
 				SDC.scene.add_particle particle

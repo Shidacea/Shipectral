@@ -1,6 +1,6 @@
 # NOTE: This will be dropped in future versions of Shidacea
 
-module SDC
+module SF
   class Event
     def type
       -1
@@ -52,89 +52,87 @@ module SDC
   end
 
   module EventMouse
-    Left = SDC::Mouse::Button::Left
-    Right = SDC::Mouse::Button::Right
-    Middle = SDC::Mouse::Button::Middle
+    Left = SF::Mouse::Button::Left
+    Right = SF::Mouse::Button::Right
+    Middle = SF::Mouse::Button::Middle
 
-    VerticalWheel = SDC::Mouse::Wheel::VerticalWheel
-    HorizontalWheel = SDC::Mouse::Wheel::HorizontalWheel
+    VerticalWheel = SF::Mouse::Wheel::VerticalWheel
+    HorizontalWheel = SF::Mouse::Wheel::HorizontalWheel
 
     def self.get_coordinates(window)
-      #int_coords = SDC::Mouse.get_position(relative_to: window)
-		  #SDC.xy(int_coords.x, int_coords.y)
-      window.map_pixel_to_coords(SDC::Mouse.get_position(relative_to: window))
+      window.map_pixel_to_coords(SF::Mouse.get_position(relative_to: window))
     end
 
     def self.set_position(pos, window)
-      SDC::Mouse.set_position(position: SDC::Vector2i.new(pos[0], pos[1]), relative_to: window)
+      SF::Mouse.set_position(position: SF::Vector2i.new(pos[0], pos[1]), relative_to: window)
     end
   end
 
   module EventKey
-    Escape = SDC::Keyboard::Key::Escape
-    Space = SDC::Keyboard::Key::Space
-    Enter = SDC::Keyboard::Key::Enter
-    Down = SDC::Keyboard::Key::Down
-    Up = SDC::Keyboard::Key::Up
-    Left = SDC::Keyboard::Key::Left
-    Right = SDC::Keyboard::Key::Right
-    Backspace = SDC::Keyboard::Key::Backspace
-    Tab = SDC::Keyboard::Key::Tab
-    LControl = SDC::Keyboard::Key::LControl
-    RControl = SDC::Keyboard::Key::RControl
-    LShift = SDC::Keyboard::Key::LShift
-    RShift = SDC::Keyboard::Key::RShift
-    Num1 = SDC::Keyboard::Key::Num1
-    Num2 = SDC::Keyboard::Key::Num2
-    Num3 = SDC::Keyboard::Key::Num3
-    Num4 = SDC::Keyboard::Key::Num4
-    Num5 = SDC::Keyboard::Key::Num5
-    Num6 = SDC::Keyboard::Key::Num6
-    Num7 = SDC::Keyboard::Key::Num7
-    Num8 = SDC::Keyboard::Key::Num8
-    Num9 = SDC::Keyboard::Key::Num9
-    Num0 = SDC::Keyboard::Key::Num0
-    F1 = SDC::Keyboard::Key::F1
-    F2 = SDC::Keyboard::Key::F2
-    F3 = SDC::Keyboard::Key::F3
-    F4 = SDC::Keyboard::Key::F4
-    F5 = SDC::Keyboard::Key::F5
-    F6 = SDC::Keyboard::Key::F6
-    F7 = SDC::Keyboard::Key::F7
-    F8 = SDC::Keyboard::Key::F8
-    F9 = SDC::Keyboard::Key::F9
-    F10 = SDC::Keyboard::Key::F10
-    F11 = SDC::Keyboard::Key::F11
-    F12 = SDC::Keyboard::Key::F12
-    A = SDC::Keyboard::Key::A
-    B = SDC::Keyboard::Key::B
-    C = SDC::Keyboard::Key::C
-    D = SDC::Keyboard::Key::D
-    E = SDC::Keyboard::Key::E
-    F = SDC::Keyboard::Key::F
-    G = SDC::Keyboard::Key::G
-    H = SDC::Keyboard::Key::H
-    I = SDC::Keyboard::Key::I
-    J = SDC::Keyboard::Key::J
-    K = SDC::Keyboard::Key::K
-    L = SDC::Keyboard::Key::L
-    M = SDC::Keyboard::Key::M
-    N = SDC::Keyboard::Key::N
-    O = SDC::Keyboard::Key::O
-    P = SDC::Keyboard::Key::P
-    Q = SDC::Keyboard::Key::Q
-    R = SDC::Keyboard::Key::R
-    S = SDC::Keyboard::Key::S
-    T = SDC::Keyboard::Key::T
-    U = SDC::Keyboard::Key::U
-    V = SDC::Keyboard::Key::V
-    W = SDC::Keyboard::Key::W
-    X = SDC::Keyboard::Key::X
-    Y = SDC::Keyboard::Key::Y
-    Z = SDC::Keyboard::Key::Z
+    Escape = SF::Keyboard::Key::Escape
+    Space = SF::Keyboard::Key::Space
+    Enter = SF::Keyboard::Key::Enter
+    Down = SF::Keyboard::Key::Down
+    Up = SF::Keyboard::Key::Up
+    Left = SF::Keyboard::Key::Left
+    Right = SF::Keyboard::Key::Right
+    Backspace = SF::Keyboard::Key::Backspace
+    Tab = SF::Keyboard::Key::Tab
+    LControl = SF::Keyboard::Key::LControl
+    RControl = SF::Keyboard::Key::RControl
+    LShift = SF::Keyboard::Key::LShift
+    RShift = SF::Keyboard::Key::RShift
+    Num1 = SF::Keyboard::Key::Num1
+    Num2 = SF::Keyboard::Key::Num2
+    Num3 = SF::Keyboard::Key::Num3
+    Num4 = SF::Keyboard::Key::Num4
+    Num5 = SF::Keyboard::Key::Num5
+    Num6 = SF::Keyboard::Key::Num6
+    Num7 = SF::Keyboard::Key::Num7
+    Num8 = SF::Keyboard::Key::Num8
+    Num9 = SF::Keyboard::Key::Num9
+    Num0 = SF::Keyboard::Key::Num0
+    F1 = SF::Keyboard::Key::F1
+    F2 = SF::Keyboard::Key::F2
+    F3 = SF::Keyboard::Key::F3
+    F4 = SF::Keyboard::Key::F4
+    F5 = SF::Keyboard::Key::F5
+    F6 = SF::Keyboard::Key::F6
+    F7 = SF::Keyboard::Key::F7
+    F8 = SF::Keyboard::Key::F8
+    F9 = SF::Keyboard::Key::F9
+    F10 = SF::Keyboard::Key::F10
+    F11 = SF::Keyboard::Key::F11
+    F12 = SF::Keyboard::Key::F12
+    A = SF::Keyboard::Key::A
+    B = SF::Keyboard::Key::B
+    C = SF::Keyboard::Key::C
+    D = SF::Keyboard::Key::D
+    E = SF::Keyboard::Key::E
+    F = SF::Keyboard::Key::F
+    G = SF::Keyboard::Key::G
+    H = SF::Keyboard::Key::H
+    I = SF::Keyboard::Key::I
+    J = SF::Keyboard::Key::J
+    K = SF::Keyboard::Key::K
+    L = SF::Keyboard::Key::L
+    M = SF::Keyboard::Key::M
+    N = SF::Keyboard::Key::N
+    O = SF::Keyboard::Key::O
+    P = SF::Keyboard::Key::P
+    Q = SF::Keyboard::Key::Q
+    R = SF::Keyboard::Key::R
+    S = SF::Keyboard::Key::S
+    T = SF::Keyboard::Key::T
+    U = SF::Keyboard::Key::U
+    V = SF::Keyboard::Key::V
+    W = SF::Keyboard::Key::W
+    X = SF::Keyboard::Key::X
+    Y = SF::Keyboard::Key::Y
+    Z = SF::Keyboard::Key::Z
 
     def self.is_pressed?(key)
-      SDC::Keyboard.key_pressed?(key)
+      SF::Keyboard.key_pressed?(key)
     end
   end
 

@@ -12,7 +12,7 @@ module SF
     @[Anyolite::Rename("load_from_file")]
     @[Anyolite::WrapWithoutKeywords]
     def load_from_sdc_path(filename : String)
-      load_from_file(ScriptHelper.path + "/" + filename)
+      load_from_file(SDC::ScriptHelper.path + "/" + filename)
     end
   end
 end

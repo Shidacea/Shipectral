@@ -115,20 +115,24 @@ macro main_routine_with_config(filename)
     end
   {% end %}
 
+  module SDC
+  end
+
   {% if use_collishi %}
     Collishi.test_all_collision_routines
   {% end %}
 
   begin
     Anyolite::RbInterpreter.create do |rb|
-      Anyolite.wrap_module(rb, SF, "SDC")
+      Anyolite.wrap_module(rb, SDC, "SDC")
 
       {% if use_sfml %}
+        Anyolite.wrap_module(rb, SF, "SF")
         load_sfml_wrappers(rb)
         load_imgui_wrappers(rb)
       {% end %}
 
-      Anyolite.wrap(rb, ScriptHelper, under: SF, verbose: true, connect_to_superclass: false)
+      Anyolite.wrap(rb, SDC::ScriptHelper, under: SDC, verbose: true, connect_to_superclass: false)
 
       {% if use_sfml %}
         load_compiled_script("src/SDCExtensions.rb")

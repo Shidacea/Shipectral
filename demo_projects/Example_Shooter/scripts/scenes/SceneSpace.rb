@@ -41,24 +41,24 @@ module ShooterTest
 			@asteroids[1].position = SDC.xy(500, 500)
 			@asteroids[1].velocity = SDC.xy(-1 * SDC.game.dt, -1 * SDC.game.dt)
 
-			@bar_heat = SDC::DrawShapeRectangle.new
+			@bar_heat = SF::DrawShapeRectangle.new
 			@bar_heat.origin = SDC.xy(0, 200)
 			@bar_heat.size = SDC.xy(25, 200)
 
-			@bar_health = SDC::DrawShapeRectangle.new
+			@bar_health = SF::DrawShapeRectangle.new
 			@bar_health.size = SDC.xy(310, 25)
 		end
 
 		def load_assets
 			0.upto(8) do |i|
-				texture = SDC::Texture.new
-				texture.load_from_file("assets/graphics/DriveIcons.png", SDC::IntRect.new(i * 20, 0, 20, 20))
+				texture = SF::Texture.new
+				texture.load_from_file("assets/graphics/DriveIcons.png", SF::IntRect.new(i * 20, 0, 20, 20))
 				SDC::Data.add_texture(texture, index: "driveicon#{i}".to_sym)
 			end
 		end
 
 		def draw
-			view_player = SDC::View.new(SDC::FloatRect.new(@player_ship.position.x - SDC.draw_width * 0.5, @player_ship.position.y - SDC.draw_height * 0.5, SDC.draw_width, SDC.draw_height))
+			view_player = SF::View.new(SF::FloatRect.new(@player_ship.position.x - SDC.draw_width * 0.5, @player_ship.position.y - SDC.draw_height * 0.5, SDC.draw_width, SDC.draw_height))
 
 			SDC.window.use_view(view_player) do
 				@space.draw SDC.window
@@ -70,9 +70,9 @@ module ShooterTest
 			heat_percent = @player_ship.selected_drive.heat_percentage
 			@bar_heat.scale = SDC.xy(1.0, heat_percent)
 			if @player_ship.selected_drive.overheated then
-				@bar_heat.fill_color = SDC::Color.new(255 * heat_percent, 255 - 255 * heat_percent, 0)
+				@bar_heat.fill_color = SF::Color.new(255 * heat_percent, 255 - 255 * heat_percent, 0)
 			else
-				@bar_heat.fill_color = SDC::Color.new(255 * heat_percent, 0, 255 - 255 * heat_percent)
+				@bar_heat.fill_color = SF::Color.new(255 * heat_percent, 0, 255 - 255 * heat_percent)
 			end
 			SDC.window.draw_translated(@bar_heat, Z_BAR, SDC.xy(25, 225))
 
@@ -80,32 +80,32 @@ module ShooterTest
 				if drive == @player_ship.selected_drive then
 					SDC.draw_texture(index: "driveicon#{drive.identification}".to_sym, z: Z_DRIVE_ICON, scale: SDC.xy(1.5, 1.5), coordinates: SDC.xy(75 + drive.identification * 35, 5))
 				else
-					SDC.draw_texture(index: "driveicon#{drive.identification}".to_sym, z: Z_DRIVE_ICON, scale: SDC.xy(1.5, 1.5), coordinates: SDC.xy(75 + drive.identification * 35, 5), color: SDC::Color.new(128, 128, 128, 128))
+					SDC.draw_texture(index: "driveicon#{drive.identification}".to_sym, z: Z_DRIVE_ICON, scale: SDC.xy(1.5, 1.5), coordinates: SDC.xy(75 + drive.identification * 35, 5), color: SF::Color.new(128, 128, 128, 128))
 				end
 			end
 
 			health_percent = @player_ship.health_percentage
 			@bar_health.scale = SDC.xy(health_percent, 1.0)
-			@bar_health.fill_color = SDC::Color.new(255 - 255 * health_percent, 255 * health_percent, 63 * health_percent)
+			@bar_health.fill_color = SF::Color.new(255 - 255 * health_percent, 255 * health_percent, 63 * health_percent)
 			SDC.window.draw_translated(@bar_health, Z_BAR, SDC.xy(75, 60))
 
-			minimap_shape = SDC::DrawShapeRectangle.new
+			minimap_shape = SF::DrawShapeRectangle.new
 			minimap_shape.size = SDC.xy(SDC.draw_width * 0.2, SDC.draw_height * 0.2)
-			minimap_shape.fill_color = SDC::Color.new(128, 128, 128, 128)
+			minimap_shape.fill_color = SF::Color.new(128, 128, 128, 128)
 			SDC.window.draw_translated(minimap_shape, Z_MINIMAP, SDC.xy(SDC.draw_width * 0.775, SDC.draw_height * 0.05))
 
-			view_minimap = SDC::View.new(SDC::FloatRect.new(0, 0, @space.width, @space.height))
-			view_minimap.set_viewport(SDC::FloatRect.new(0.775, 0.05, 0.2, 0.2))
+			view_minimap = SF::View.new(SF::FloatRect.new(0, 0, @space.width, @space.height))
+			view_minimap.set_viewport(SF::FloatRect.new(0.775, 0.05, 0.2, 0.2))
 
 			SDC.window.use_view(view_minimap) do
-				player_indicator = SDC::DrawShapeRectangle.new
+				player_indicator = SF::DrawShapeRectangle.new
 				player_indicator.size = SDC.xy(@space.width * 0.01, @space.height * 0.02)
-				player_indicator.fill_color = SDC::Color.new(255, 0, 0, 255)
+				player_indicator.fill_color = SF::Color.new(255, 0, 0, 255)
 				SDC.window.draw_translated(player_indicator, Z_MINIMAP, @player_ship.position)
 
-				asteroid_indicator = SDC::DrawShapeRectangle.new
+				asteroid_indicator = SF::DrawShapeRectangle.new
 				asteroid_indicator.size = SDC.xy(@space.width * 0.01, @space.height * 0.02)
-				asteroid_indicator.fill_color = SDC::Color.new(255, 0, 0, 255)
+				asteroid_indicator.fill_color = SF::Color.new(255, 0, 0, 255)
 				@asteroids.each do |asteroid|
 					SDC.window.draw_translated(asteroid_indicator, Z_MINIMAP, asteroid.position)
 				end

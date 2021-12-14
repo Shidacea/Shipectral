@@ -14,23 +14,23 @@ module SDC
 	C_ESCAPE = "\e"
 	C_CTRL_BACK = "\x7F"
 
-	# Empty {SDC::Coordinates} object as a constant
+	# Empty {SF::Coordinates} object as a constant
 	# Using this might save time on functions needing a constant vector
-	XY0 = SDC::Coordinates.new(0.0, 0.0).freeze
+	XY0 = SF::Coordinates.new(0.0, 0.0).freeze
 
 	# Colors
 
-	COLOR_RED = SDC::Color.new(255, 0, 0).freeze
-	COLOR_GREEN = SDC::Color.new(0, 255, 0).freeze
-	COLOR_BLUE = SDC::Color.new(0, 0, 255).freeze
+	COLOR_RED = SF::Color.new(255, 0, 0).freeze
+	COLOR_GREEN = SF::Color.new(0, 255, 0).freeze
+	COLOR_BLUE = SF::Color.new(0, 0, 255).freeze
 
-	COLOR_BLACK = SDC::Color.new(0, 0, 0).freeze
-	COLOR_WHITE = SDC::Color.new(255, 255, 255).freeze
+	COLOR_BLACK = SF::Color.new(0, 0, 0).freeze
+	COLOR_WHITE = SF::Color.new(255, 255, 255).freeze
 
-	COLOR_TRANSPARENT = SDC::Color.new(0, 0, 0, 0).freeze
+	COLOR_TRANSPARENT = SF::Color.new(0, 0, 0, 0).freeze
 
-	COLOR_YELLOW = SDC::Color.new(255, 255, 0).freeze
-	COLOR_CYAN = SDC::Color.new(0, 255, 255).freeze
-	COLOR_MAGENTA = SDC::Color.new(255, 0, 255).freeze
+	COLOR_YELLOW = SF::Color.new(255, 255, 0).freeze
+	COLOR_CYAN = SF::Color.new(0, 255, 255).freeze
+	COLOR_MAGENTA = SF::Color.new(255, 0, 255).freeze
 
 end

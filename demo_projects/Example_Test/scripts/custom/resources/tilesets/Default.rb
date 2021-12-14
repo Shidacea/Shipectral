@@ -1,4 +1,4 @@
-tileset = SDC::Tileset.new
+tileset = SF::Tileset.new
 
 SDC::Data.load_texture(:TilesetDefault, filename: "assets/graphics/maptest/Tileset.png")
 

@@ -3,9 +3,9 @@ module ShooterTest
 		register_id :PlayerShip
 
 		SDC::Data.load_texture(:PlayerShip, filename: "assets/graphics/Ship.png")
-		add_sprite(index: 0, texture_index: :PlayerShip, rect: SDC::IntRect.new(0, 0, 40, 60), origin: SDC.xy(20, 30))
+		add_sprite(index: 0, texture_index: :PlayerShip, rect: SF::IntRect.new(0, 0, 40, 60), origin: SDC.xy(20, 30))
 
-		add_shape(index: 0, type: SDC::CollisionShapeTriangle, offset: SDC.xy(20, 0), origin: SDC.xy(20, 30), side_a: SDC.xy(20, 60), side_b: SDC.xy(-20, 60))
+		add_shape(index: 0, type: SF::CollisionShapeTriangle, offset: SDC.xy(20, 0), origin: SDC.xy(20, 30), side_a: SDC.xy(20, 60), side_b: SDC.xy(-20, 60))
 		add_box(index: 0, size: SDC.xy(60.0, 60.0), offset: SDC.xy(0.0, 0.0), origin: SDC.xy(20, 30))
 
 		self.drive = :CombustionDrive
@@ -30,7 +30,7 @@ module ShooterTest
 		end
 
 		def custom_draw(window)
-			#draw_shape = SDC::DrawShapeTriangle.new
+			#draw_shape = SF::DrawShapeTriangle.new
 			#draw_shape.get_from(@shapes[0])
 			#window.draw_translated(draw_shape, 10, @position)
 		end

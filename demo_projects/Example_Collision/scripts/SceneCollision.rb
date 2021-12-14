@@ -36,7 +36,7 @@ class SceneCollision < SDC::Scene
 			end
 
 		elsif event.has_type?(:KeyPressed) then
-			if @dragged_object && @dragged_object[0].collision_shape.is_a?(SDC::CollisionShapeBox) then
+			if @dragged_object && @dragged_object[0].collision_shape.is_a?(SF::CollisionShapeBox) then
 				if event.key_pressed?(:Down) then
 					@dragged_object[0].collision_shape.size = SDC.xy(@dragged_object[0].collision_shape.size.x, @dragged_object[0].collision_shape.size.y * 1.1)
 					@dragged_object[0].update
@@ -82,11 +82,11 @@ class SceneCollision < SDC::Scene
 		@z = 0
 		@counter = 0
 		
-		@indicator = SDC::DrawShapeCircle.new
+		@indicator = SF::DrawShapeCircle.new
 		@indicator.radius = 10
 		@indicator.outline_thickness = 2.0
-		@indicator.outline_color = SDC::Color.new(255, 0, 0, 255)
-		@indicator.fill_color = SDC::Color.new(0, 0, 0, 0)
+		@indicator.outline_color = SF::Color.new(255, 0, 0, 255)
+		@indicator.fill_color = SF::Color.new(0, 0, 0, 0)
 
 		@draw_indicator = false
 
@@ -120,7 +120,7 @@ class SceneCollision < SDC::Scene
 				first_shape = @shapes[i]
 				second_shape = @shapes[j]
 
-				if SDC::Collider.test(first_shape.collision_shape, first_shape.pos, second_shape.collision_shape, second_shape.pos) then
+				if SF::Collider.test(first_shape.collision_shape, first_shape.pos, second_shape.collision_shape, second_shape.pos) then
 					@draw_indicator = true
 				end
 			end
@@ -135,35 +135,35 @@ class SceneCollision < SDC::Scene
 	end
 
 	def draw_imgui
-		SDC::ImGui.begin "Shapes" do
-			SDC::ImGui.input_instance_variable_int("x", self, :@new_obj_x)
-			SDC::ImGui.input_instance_variable_int("y", self, :@new_obj_y)
+		SF::ImGui.begin "Shapes" do
+			SF::ImGui.input_instance_variable_int("x", self, :@new_obj_x)
+			SF::ImGui.input_instance_variable_int("y", self, :@new_obj_y)
 
-			SDC::ImGui.input_instance_variable_int("Radius", self, :@new_circle_r)
+			SF::ImGui.input_instance_variable_int("Radius", self, :@new_circle_r)
 
-			SDC::ImGui.button "New circle" do
+			SF::ImGui.button "New circle" do
 				@shapes.push TestShape.new_circle(pos: SDC.xy(@new_obj_x, @new_obj_y), radius: @new_circle_r, z: @z, counter: @counter)
 
 				@z += 0.1
 				@counter += 1
 			end
 
-			SDC::ImGui.input_instance_variable_int("Box width", self, :@new_box_w)
-			SDC::ImGui.input_instance_variable_int("Box height", self, :@new_box_h)
+			SF::ImGui.input_instance_variable_int("Box width", self, :@new_box_w)
+			SF::ImGui.input_instance_variable_int("Box height", self, :@new_box_h)
 
-			SDC::ImGui.button "New box" do
+			SF::ImGui.button "New box" do
 				@shapes.push TestShape.new_box(pos: SDC.xy(@new_obj_x, @new_obj_y), size: SDC.xy(@new_box_w, @new_box_h), z: @z, counter: @counter)
 
 				@z += 0.1
 				@counter += 1
 			end
 
-			SDC::ImGui.input_instance_variable_int("Triangle side 1 x", self, :@new_side_1_x)
-			SDC::ImGui.input_instance_variable_int("Triangle side 1 y", self, :@new_side_1_y)
-			SDC::ImGui.input_instance_variable_int("Triangle side 2 x", self, :@new_side_2_x)
-			SDC::ImGui.input_instance_variable_int("Triangle side 2 y", self, :@new_side_2_y)
+			SF::ImGui.input_instance_variable_int("Triangle side 1 x", self, :@new_side_1_x)
+			SF::ImGui.input_instance_variable_int("Triangle side 1 y", self, :@new_side_1_y)
+			SF::ImGui.input_instance_variable_int("Triangle side 2 x", self, :@new_side_2_x)
+			SF::ImGui.input_instance_variable_int("Triangle side 2 y", self, :@new_side_2_y)
 
-			SDC::ImGui.button "New triangle" do
+			SF::ImGui.button "New triangle" do
 				@shapes.push TestShape.new_triangle(pos: SDC.xy(@new_obj_x, @new_obj_y), 
 					side_1: SDC.xy(@new_side_1_x, @new_side_1_y),
 					side_2: SDC.xy(@new_side_2_x, @new_side_2_y), z: @z, counter: @counter)

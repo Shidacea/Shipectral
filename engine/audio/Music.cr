@@ -14,7 +14,7 @@ module SF
     @[Anyolite::Rename("open_from_file")]
     @[Anyolite::WrapWithoutKeywords]
     def load_from_sdc_path(filename : String)
-      open_from_file(ScriptHelper.path + "/" + filename)
+      open_from_file(SDC::ScriptHelper.path + "/" + filename)
     end
 
     def loop_points=(time_points : PseudoTimeSpan)

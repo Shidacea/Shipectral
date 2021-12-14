@@ -3,7 +3,7 @@ module ShooterTest
 
 		attr_accessor :gone, :position, :velocity, :color, :lifetime, :z, :shape, :texture_index
 
-		def initialize(texture_index: nil, shape: nil, lifetime: 1, z: 0, position: SDC.xy, velocity: SDC.xy, color: SDC::Color.new(255, 255, 255, 255), &update_block)
+		def initialize(texture_index: nil, shape: nil, lifetime: 1, z: 0, position: SDC.xy, velocity: SDC.xy, color: SF::Color.new(255, 255, 255, 255), &update_block)
 			@lifetime = lifetime
 			@gone = false
 			@z = z

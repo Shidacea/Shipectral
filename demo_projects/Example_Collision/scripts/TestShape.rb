@@ -22,24 +22,24 @@ class TestShape
 	end
 
 	def randomize_color
-		@color = SDC::Color.new(rand(256), rand(256), rand(256), 196)
+		@color = SF::Color.new(rand(256), rand(256), rand(256), 196)
 	end
 
 	def self.new_circle(pos: SDC.xy, offset: SDC.xy, radius: 0.0, z: 0, counter: counter)
-		draw_shape = SDC::DrawShapeCircle.new
-		collision_shape = SDC::CollisionShapeCircle.new(offset, radius)
+		draw_shape = SF::DrawShapeCircle.new
+		collision_shape = SF::CollisionShapeCircle.new(offset, radius)
 		return self.new(draw_shape, collision_shape, pos, z, counter)
 	end
 
 	def self.new_box(pos: SDC.xy, offset: SDC.xy, size: SDC.xy, z: 0, counter: counter)
-		draw_shape = SDC::DrawShapeRectangle.new
-		collision_shape = SDC::CollisionShapeBox.new(offset, size)
+		draw_shape = SF::DrawShapeRectangle.new
+		collision_shape = SF::CollisionShapeBox.new(offset, size)
 		return self.new(draw_shape, collision_shape, pos, z, counter)
 	end
 
 	def self.new_triangle(pos: SDC.xy, offset: SDC.xy, side_1: SDC.xy, side_2: SDC.xy, z: 0, counter: counter)
-		draw_shape = SDC::DrawShapeTriangle.new
-		collision_shape = SDC::CollisionShapeTriangle.new(offset, side_1, side_2)
+		draw_shape = SF::DrawShapeTriangle.new
+		collision_shape = SF::CollisionShapeTriangle.new(offset, side_1, side_2)
 		return self.new(draw_shape, collision_shape, pos, z, counter)
 	end
 
