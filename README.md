@@ -39,6 +39,12 @@ usage, allowing for fast prototyping.
 
 This version number was chosen in order to avoid confusions with legacy versions.
 
+It will be the first proper release since the legacy versions. Most of the work
+is already done, but many features are still missing of not functioning.
+
+The major goal is to support Launshi and own SFML-based frontends fully,
+allowing for a solid Ruby-based game development experience.
+
 #### Features
 
 * [X] Basic functionality
@@ -46,20 +52,27 @@ This version number was chosen in order to avoid confusions with legacy versions
 * [X] Separated SDC and SF module
 * [X] Updated Shidacea library to new standard
 * [X] Strictly separate SF modules from SDC modules
+* [ ] Properly implement maps
 * [ ] Wrap other SF classes
 * [ ] Encourage keyword usage where useful (and stay faithful to SFML)
 * [ ] Add ImGui helper classes for inputs
 * [ ] Wrap ImGui classes
 * [ ] Add more SDC methods as alternative to directly using SFML methods
+* [ ] Block Crystal GC in draw and update routines
 
 ### Version 0.4.0
+
+This version will contain more updates which allow for better customization of
+Shipectral, including a complete port of the Shidacea library to Crystal.
+
+However, since some Crystal features like fibers are not yet fully functional on Windows,
+this version is not planned for the near future.
 
 #### Features
 
 * [ ] Port Shidacea to Crystal and bind with Anyolite
 * [ ] Find a way to load different shards on Linux
-* [ ] Networking routines
-* [ ] Block Crystal GC in draw and update routines
+* [ ] Make ImGui optional
 
 ### Future versions
 
@@ -67,8 +80,7 @@ This version number was chosen in order to avoid confusions with legacy versions
 
 * [ ] Add virtual file system for executable and connect it with SFML
 * [ ] Ressource integration using macros
-* [ ] Add way and flag to put frontend resources directly into executable
-* [ ] Make Imgui optional
+* [ ] Add a way and flags to put frontend resources directly into executable
 
 ## Installation
 
