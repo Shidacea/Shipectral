@@ -11,7 +11,7 @@ module ShooterTest
 
 		def draw(window)
 			if SDC.scene.in_cam(@position) then
-				window.draw_translated(@shape, z: Z_STAR, coords: @position)
+				window.draw_translated(@shape, z: Z_STAR, at: @position)
 			end
 		end
 

@@ -27,7 +27,7 @@ module ShooterTest
 			if SDC.scene.in_cam(@position, tolerance: 100) then
 				if @shape then
 					@shape.fill_color = @color
-					window.draw_translated(@shape, z: @z, coords: @position)
+					window.draw_translated(@shape, z: @z, at: @position)
 
 				elsif @texture_index then
 					# TODO

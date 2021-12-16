@@ -373,7 +373,7 @@ module SDC
 			0.upto(@sprites.size - 1) do |i|
 				sprite = @sprites[i]
 				next if !sprite || !@active_sprites[i]
-				window.draw_translated(sprite, z: self.z, coords: absolute_position)
+				window.draw_translated(sprite, z: self.z, at: absolute_position)
 				custom_sprite_draw(window, sprite)
 			end
 

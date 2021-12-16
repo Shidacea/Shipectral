@@ -18,7 +18,7 @@ class TestShape
 	end
 
 	def draw
-		SDC.window.draw_translated(@draw_shape, z: @z, coords: @pos)
+		SDC.window.draw_translated(@draw_shape, z: @z, at: @pos)
 	end
 
 	def randomize_color

@@ -44,11 +44,11 @@ module SDC
       true
     end
 
-    def draw_translated(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable | SDC::MapLayer, z : Float32 = 0.0f32, coords : SF::Vector2f = SF::Vector2f.new, render_states : SF::RenderStates = SF::RenderStates.new)
+    def draw_translated(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable | SDC::MapLayer, z : Float32 = 0.0f32, at : SF::Vector2f = SF::Vector2f.new, render_states : SF::RenderStates = SF::RenderStates.new)
       actual_render_states = render_states
 
       transform = SF::Transform.new
-      transform.translate(coords)
+      transform.translate(at)
       actual_render_states.transform *= transform
 
       draw_object(actual_render_states, draw_object.as(SF::Drawable), z)

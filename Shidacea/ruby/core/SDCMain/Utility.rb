@@ -10,7 +10,7 @@ module SDC
 		sprite.link_texture(texture)
 		sprite.color = color
 		sprite.scale = scale
-		draw_window.draw_translated(sprite, z: z, coords: coordinates)
+		draw_window.draw_translated(sprite, z: z, at: coordinates)
 	end
 
 	def self.draw_text(index: nil, font_index: nil, font: nil, text: "", size: 10, z: 0, draw_window: SDC.window, coordinates: SF::Coordinates.new, color: nil)
@@ -18,7 +18,7 @@ module SDC
 		puts "Warning: Text index #{index} not loaded." if !text_obj
 
 		text_obj.color = color if color
-		draw_window.draw_translated(text_obj, z: z, coords: coordinates)
+		draw_window.draw_translated(text_obj, z: z, at: coordinates)
 	end
 
 	def self.play_sound(index: nil, file_index: nil, filename: nil, volume: 100.0, pitch: 1.0)

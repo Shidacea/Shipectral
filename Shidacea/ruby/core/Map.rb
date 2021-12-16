@@ -91,7 +91,7 @@ module SDC
 
 		def draw(window, offset)
 			@map_layers.each do |layer|
-				window.draw_translated(layer, z: (layer.z ? layer.z : 0), coords: offset)
+				window.draw_translated(layer, z: (layer.z ? layer.z : 0), at: offset)
 			end
 		end
 

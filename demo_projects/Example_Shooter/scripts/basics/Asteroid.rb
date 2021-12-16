@@ -31,7 +31,7 @@ module ShooterTest
 		def custom_draw(window)
 			#draw_shape = SF::DrawShapeRectangle.new
 			#draw_shape.get_from(@boxes[0])
-			#window.draw_translated(draw_shape, z: 10, coords: @position)
+			#window.draw_translated(draw_shape, z: 10, at: @position)
 		end
 
 	end
