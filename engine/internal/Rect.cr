@@ -2,7 +2,7 @@ module SF
   @[Anyolite::SpecifyGenericTypes([T])]
   @[Anyolite::SpecializeInstanceMethod("initialize", [left : T, top : T, width : T, height : T])]
   @[Anyolite::SpecializeInstanceMethod("contains?", [point : Vector2 | Tuple], [point : Vector2(T)])]
-  @[Anyolite::WrapWithoutKeywordsInstanceMethod("initialize")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   struct Rect(T)
   end
 end

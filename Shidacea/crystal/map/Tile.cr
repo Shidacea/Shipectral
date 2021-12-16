@@ -1,4 +1,5 @@
 module SDC
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Tile
     @solid = false
     @animation_frame = false
@@ -23,7 +24,6 @@ module SDC
       @solid = value
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def get_animation_frame(frame_counter : UInt64)
       animation_cycle = @number_of_animation_frames * @time_per_animation_frame
       animation_time = frame_counter % animation_cycle

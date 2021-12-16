@@ -100,7 +100,7 @@ class SceneTest < SDC::Scene
 
 		@test_font = SDC::Data.load_font(filename: "assets/fonts/arial.ttf")
 		SDC::Data.add_text("Hello,\nWorld", index: :helloworld_text)
-		@test_text = SF::Text.new(SDC::Data.texts[:helloworld_text], @test_font, 100)
+		@test_text = SF::Text.new(SDC::Data.texts[:helloworld_text], @test_font, character_size: 100)
 
 		load_map
 
@@ -151,14 +151,14 @@ class SceneTest < SDC::Scene
 
 		box_shape = SF::DrawShapeRectangle.new
 		box_shape.get_from(@entities[0].boxes[0])
-		box_shape.fill_color = SF::Color.new(255, 0, 0, 128)
-		box_shape.outline_color = SF::Color.new(0, 0, 255, 128)
+		box_shape.fill_color = SF::Color.new(255, 0, 0, alpha: 128)
+		box_shape.outline_color = SF::Color.new(0, 0, 255, alpha: 128)
 		box_shape.outline_thickness = 2.0
-		SDC.window.draw_translated(box_shape, 1, @entities[0].position)
+		SDC.window.draw_translated(box_shape, z: 1, coords: @entities[0].position)
 
 		line_shape = SF::DrawShapeLine.new
 		line_shape.line = SDC.xy(200.0, 100.0)
-		SDC.window.draw(line_shape, 0)
+		SDC.window.draw(line_shape, z: 0)
 		
 		view_minimap = SF::View.new(SF::FloatRect.new(@entities[0].position.x - 1280 * 0.5, @entities[0].position.y - 720 * 0.5, 1280, 720))
 		view_minimap.set_viewport(SF::FloatRect.new(0.8, 0.0, 0.2, 0.2))
@@ -168,7 +168,7 @@ class SceneTest < SDC::Scene
 
 		view_ui = SF::View.new(SF::FloatRect.new(0, 0, 1280, 720))
 		SDC.window.use_view(view_ui) do
-			SDC.window.draw(@test_text, 0)
+			SDC.window.draw(@test_text, z: 0)
 		end
 		#end
 	end

@@ -4,11 +4,10 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("size=", [size : Vector2 | Tuple], [offset : Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("center=", [center : Vector2 | Tuple], [offset : Vector2f])]
-  @[Anyolite::WrapWithoutKeywordsInstanceMethod("initialize")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   @[Anyolite::ExcludeConstant("Reference")]
   class View
 
-    @[Anyolite::WrapWithoutKeywords]
     def set_viewport(viewport : FloatRect)
       self.viewport = viewport
     end

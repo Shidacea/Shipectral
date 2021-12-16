@@ -54,7 +54,7 @@ allowing for a solid Ruby-based game development experience.
 * [X] Strictly separate SF modules from SDC modules
 * [ ] Properly implement maps
 * [ ] Wrap other SF classes
-* [ ] Encourage keyword usage where useful (and stay faithful to SFML)
+* [X] Keyword usage for optional arguments (and only then)
 * [ ] Add ImGui helper classes for inputs
 * [ ] Wrap ImGui classes
 * [ ] Add more SDC methods as alternative to directly using SFML methods

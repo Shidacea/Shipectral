@@ -1,7 +1,7 @@
 module ShooterTest
 	class Star
 
-		def initialize(position: SDC.xy, color: SF::Color.new(255, 255, 255, 255))
+		def initialize(position: SDC.xy, color: SF::Color.new(255, 255, 255, alpha: 255))
 			@position = position
 			@color = color
 			@shape = SF::DrawShapeRectangle.new
@@ -11,7 +11,7 @@ module ShooterTest
 
 		def draw(window)
 			if SDC.scene.in_cam(@position) then
-				window.draw_translated(@shape, Z_STAR, @position)
+				window.draw_translated(@shape, z: Z_STAR, coords: @position)
 			end
 		end
 

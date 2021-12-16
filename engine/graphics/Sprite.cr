@@ -6,8 +6,8 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("origin=", [origin : Vector2 | Tuple], [origin : Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("scale", nil)]
   @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : Vector2f])]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Sprite
-    @[Anyolite::WrapWithoutKeywords]
     def link_texture(texture : Texture)
       set_texture(texture)
     end

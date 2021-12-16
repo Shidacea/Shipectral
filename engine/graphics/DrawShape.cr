@@ -9,6 +9,7 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]
   @[Anyolite::ExcludeInstanceMethod("set_texture")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class PointShape < Shape
     @point : Vector2f = Vector2f.new
 
@@ -31,12 +32,10 @@ module SF
       return PointShape.new(@point)
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def link_texture(texture : Texture)
       self.texture= texture
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def get_from(shape : CollisionShapePoint)
       @point = SF::Vector2f.new
       self.position = shape.position
@@ -90,12 +89,10 @@ module SF
       return LineShape.new(@points[0], @points[1])
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def link_texture(texture : Texture)
       self.texture= texture
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def get_from(shape : CollisionShapeLine)
       @points = [SF::Vector2f.new, shape.line]
       self.position = shape.position
@@ -116,13 +113,12 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]
   @[Anyolite::ExcludeInstanceMethod("set_texture")] # For some reason, this does not work
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class RectangleShape
-    @[Anyolite::WrapWithoutKeywords]
     def link_texture(texture : Texture)
       self.texture= texture
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def get_from(shape : CollisionShapeBox)
       self.size = shape.size
       self.position = shape.position
@@ -141,13 +137,12 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]
   @[Anyolite::ExcludeInstanceMethod("set_texture")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class CircleShape
-    @[Anyolite::WrapWithoutKeywords]
     def link_texture(texture : Texture)
       self.texture= texture
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def get_from(shape : CollisionShapeCircle)
       self.radius = shape.radius
       self.position = shape.position - shape.scale * shape.radius
@@ -165,6 +160,7 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]
   @[Anyolite::ExcludeInstanceMethod("set_texture")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class TriangleShape < Shape
     @points : Array(SF::Vector2f) = [SF::Vector2f.new, SF::Vector2f.new, SF::Vector2f.new]
 
@@ -213,12 +209,10 @@ module SF
       return TriangleShape.new(@points[0], @points[1], @points[2])
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def link_texture(texture : Texture)
       self.texture= texture
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def get_from(shape : CollisionShapeTriangle)
       @points = [SF::Vector2f.new, shape.side_1, shape.side_2]
       self.position = shape.position

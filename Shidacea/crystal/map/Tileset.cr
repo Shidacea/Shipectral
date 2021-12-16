@@ -1,4 +1,5 @@
 module SDC
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Tileset
     @texture : SF::Texture?
     @tiles : Array(Tile) = Array(Tile).new(initial_capacity: 1000)
@@ -6,7 +7,6 @@ module SDC
     def initialize
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def link_texture(texture : SF::Texture)
       @texture = texture
     end
@@ -19,7 +19,6 @@ module SDC
       end
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def get_tile(identification : UInt64)
       @tiles[identification]? ? @tiles[identification] : raise "Invalid Tile"
     end
@@ -28,7 +27,6 @@ module SDC
       @tiles.size
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def add_tile(tile : Tile)
       @tiles.push(tile)
     end

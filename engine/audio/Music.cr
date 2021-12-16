@@ -10,9 +10,9 @@ module SF
   @[Anyolite::ExcludeClassMethod("from_stream")]
   @[Anyolite::ExcludeConstant("Span")]
   @[Anyolite::ExcludeConstant("TimeSpan")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Music
     @[Anyolite::Rename("open_from_file")]
-    @[Anyolite::WrapWithoutKeywords]
     def load_from_sdc_path(filename : String)
       open_from_file(SDC::ScriptHelper.path + "/" + filename)
     end

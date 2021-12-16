@@ -44,7 +44,7 @@ module SDC
 			end
 
 			@boxes = SDC::SpecialContainer.new if !@boxes
-			new_box = SF::CollisionShapeBox.new(offset, size)
+			new_box = SF::CollisionShapeBox.new(offset: offset, size: size)
 			new_box.origin = origin
 			@boxes.add(new_box, index)
 		end
@@ -54,26 +54,26 @@ module SDC
 			shape = nil
 
 			if type == SF::CollisionShapePoint then
-				shape = type.new(offset)
+				shape = type.new(offset: offset)
 			elsif type == SF::CollisionShapeLine then
 				raise("Direction not defined for line shape with index #{index}") if !direction
-				shape = type.new(offset, direction)
+				shape = type.new(offset: offset, line: direction)
 			elsif type == SF::CollisionShapeCircle then
 				raise("Radius not defined for circle shape with index #{index}") if !radius
-				shape = type.new(offset, radius)
+				shape = type.new(offset: offset, radius: radius)
 			elsif type == SF::CollisionShapeBox then
 				raise("Size not defined for box shape with index #{index}") if !size
-				shape = type.new(offset, size)
+				shape = type.new(offset: offset, size: size)
 			elsif type == SF::CollisionShapeTriangle then
 				raise("Undefined sides for triangle shape with index #{index}") if !side_a || !side_b
-				shape = type.new(offset, side_a, side_b)
+				shape = type.new(offset: offset, side_1: side_a, side_2: side_b)
 			elsif type == SF::CollisionShapeQuadrangle then
 				raise("Quadrangle shape not supported yet")	# TODO
 				shape = type.new
 			elsif type == SF::CollisionShapeEllipse then
 				raise("Ellipse shape not supported yet")	# TODO
 				raise("Semiaxes not defined for ellipse shape with index #{index}") if !semiaxes
-				shape = type.new(offset, axes)
+				shape = type.new(offset: offset, semiaxes: axes)
 			else
 				raise("Unknown shape type #{type} for shape index #{index}")
 			end
@@ -373,7 +373,7 @@ module SDC
 			0.upto(@sprites.size - 1) do |i|
 				sprite = @sprites[i]
 				next if !sprite || !@active_sprites[i]
-				window.draw_translated(sprite, self.z, absolute_position)
+				window.draw_translated(sprite, z: self.z, coords: absolute_position)
 				custom_sprite_draw(window, sprite)
 			end
 

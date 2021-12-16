@@ -8,9 +8,9 @@ module SF
   @[Anyolite::ExcludeClassMethod("from_stream")]
   @[Anyolite::ExcludeClassMethod("from_samples")]
   @[Anyolite::ExcludeConstant("Reference")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class SoundBuffer
     @[Anyolite::Rename("load_from_file")]
-    @[Anyolite::WrapWithoutKeywords]
     def load_from_sdc_path(filename : String)
       load_from_file(SDC::ScriptHelper.path + "/" + filename)
     end

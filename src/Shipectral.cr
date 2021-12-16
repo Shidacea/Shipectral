@@ -175,13 +175,13 @@ macro main_routine_with_config(filename)
               full_script_path = File.join("{{engine_library}}", script)
 
               if File.directory?(full_script_path)
-                ScriptHelper.load_recursively(full_script_path)
+                SDC::ScriptHelper.load_recursively(full_script_path)
               else
-                ScriptHelper.load(full_script_path)
+                SDC::ScriptHelper.load(full_script_path)
               end
             end
           {% else %}
-            ScriptHelper.load("{{engine_library}}/{{engine_library_project}}")
+            SDC::ScriptHelper.load("{{engine_library}}/{{engine_library_project}}")
           {% end %}
         {% end %}
       {% end %}
@@ -204,13 +204,13 @@ macro main_routine_with_config(filename)
 
           scripts.each do |script|
             if File.directory?(script)
-              ScriptHelper.load_recursively(script)
+              SDC::ScriptHelper.load_recursively(script)
             else
-              ScriptHelper.load(script)
+              SDC::ScriptHelper.load(script)
             end
           end
         {% else %}
-          ScriptHelper.load("{{frontend_project}}")
+          SDC::ScriptHelper.load("{{frontend_project}}")
         {% end %}
       {% end %}
 

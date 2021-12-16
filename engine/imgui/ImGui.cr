@@ -1,7 +1,7 @@
 @[Anyolite::RenameModule("ImGui")]
+@[Anyolite::DefaultOptionalArgsToKeywordArgs]
 module ImGuiHelper
   @[Anyolite::AddBlockArg(1, Nil)]
-  @[Anyolite::WrapWithoutKeywords]
   def self.begin(name : String)
     ImGui.begin(name)
     yield nil
@@ -9,7 +9,6 @@ module ImGuiHelper
   end
 
   @[Anyolite::StoreBlockArg]
-  @[Anyolite::WrapWithoutKeywords]
   def self.button(name : String)
     return_value = ImGui.button(name)
     ruby_block = Anyolite.obtain_given_rb_block
@@ -21,13 +20,11 @@ module ImGuiHelper
     return_value
   end
 
-  @[Anyolite::WrapWithoutKeywords]
   def self.text(value : String)
     ImGui.text_unformatted(value)
   end
 
   @[Anyolite::AddBlockArg(1, Nil)]
-  @[Anyolite::WrapWithoutKeywords]
   def self.begin_child(name : String)
     ImGui.begin_child(name)
     yield nil
@@ -43,17 +40,14 @@ module ImGuiHelper
   end
 
   # TODO: Rework the whole input model in the next version
-  @[Anyolite::WrapWithoutKeywords]
   def self.input_instance_variable_int(label : String, obj : Anyolite::RbRef, sym : Anyolite::RbRef)
     nil
   end
 
-  @[Anyolite::WrapWithoutKeywords]
   def self.input_instance_variable_string(label : String, obj : Anyolite::RbRef, sym : Anyolite::RbRef)
     nil
   end
 
-  @[Anyolite::WrapWithoutKeywords]
   def self.input_int(label : String, objs : Array(Int32))
     nil
   end

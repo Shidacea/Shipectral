@@ -38,7 +38,7 @@ module SDC
 			end
 
 			if !self.texts[index] then
-				self.add_text(SF::Text.new(content, font, size), index: index)
+				self.add_text(SF::Text.new(content, font, character_size: size), index: index)
 			else
 				# TODO: Update font
 				self.texts[index].string = content

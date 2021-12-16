@@ -31,7 +31,7 @@ module SDC
 	end
 
 	def self.get_mouse_point
-		return SF::CollisionShapePoint.new(self.get_mouse_coords)
+		return SF::CollisionShapePoint.new(offset: self.get_mouse_coords)
 	end
 
 	def self.mouse_touching?(shape, offset: SDC.xy)

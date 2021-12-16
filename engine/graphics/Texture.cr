@@ -11,9 +11,9 @@ module SF
   @[Anyolite::ExcludeClassMethod("from_stream")]
   @[Anyolite::ExcludeClassMethod("from_image")]
   @[Anyolite::ExcludeConstant("Reference")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Texture
     @[Anyolite::Rename("load_from_file")]
-    @[Anyolite::WrapWithoutKeywords]
     def load_from_sdc_path(filename : String, texture_rect : SF::IntRect = SF::IntRect.new)
       load_from_file(SDC::ScriptHelper.path + "/" + filename, texture_rect)
     end

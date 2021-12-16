@@ -1,4 +1,5 @@
 module SDC
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class MapLayer < SF::Transformable
     include SF::Drawable
 
@@ -22,7 +23,6 @@ module SDC
 
     property collision_active : Bool = true
 
-    @[Anyolite::WrapWithoutKeywords]
     def initialize(@width : UInt64, @height : UInt64, @view_width : UInt64, @view_height : UInt64, @tile_width : UInt64, @tile_height : UInt64)
       super()
       @vertices = SF::VertexArray.new(SF::Quads, @view_width * @view_height * 4)
@@ -40,7 +40,6 @@ module SDC
       end
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def reload(cam : SF::Vector2f)
       if tileset = @tileset
         exact_shift_x = cam.x - (@view_width - 1) * (@tile_width / 2) - 1
@@ -111,12 +110,10 @@ module SDC
       end
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def set_tile(x : UInt64, y : UInt64, tile_id : UInt64)
       @tiles[x][y] = tile_id
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def get_tile(x : UInt64, y : UInt64)
       @tiles[x][y]
     end
@@ -125,7 +122,6 @@ module SDC
       @tiles = new_tiles
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def [](x : UInt64, y : UInt64)
       get_tile(x, y)
     end
@@ -138,7 +134,6 @@ module SDC
       end
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def link_tileset(tileset : Tileset)
       @tileset = tileset
       tileset.get_tile(4).set_animation(4, 5, 2, 60)  # TODO

@@ -1,0 +1,20 @@
+{
+  "executable_name": "LaunshiDebug",
+  "build_path_name": "launshi_debug",
+  "anyolite_config_file": "utility/config_anyolite.json",
+  "use_sfml": true,
+  "use_imgui": true,
+  "use_collishi": true,
+  "frontend": "third_party/Launshi",
+  "frontend_project": "project.json",
+  "compile_frontend": false,
+  "frontend_asset_directory": "assets",
+  "copy_frontend_assets_to_build_directory": true,
+  "engine_library": "Shidacea/ruby",
+  "engine_library_crystal": "Shidacea/crystal/Shidacea.cr",
+  "engine_library_project": "scripts.json",
+  "compile_engine_library": false,
+  "add_demos": true,
+  "add_project_directory": true,
+  "debug": true
+}

@@ -27,7 +27,7 @@ module SDC
 	COLOR_BLACK = SF::Color.new(0, 0, 0).freeze
 	COLOR_WHITE = SF::Color.new(255, 255, 255).freeze
 
-	COLOR_TRANSPARENT = SF::Color.new(0, 0, 0, 0).freeze
+	COLOR_TRANSPARENT = SF::Color.new(0, 0, 0, alpha: 0).freeze
 
 	COLOR_YELLOW = SF::Color.new(255, 255, 0).freeze
 	COLOR_CYAN = SF::Color.new(0, 255, 255).freeze

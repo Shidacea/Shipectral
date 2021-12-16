@@ -6,9 +6,8 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("+", [other], [other : Vector2(T)])]
   @[Anyolite::SpecializeInstanceMethod("-", [other], [other : Vector2(T)])]
   @[Anyolite::SpecializeInstanceMethod("initialize", [x : T, y : T])]
-  @[Anyolite::WrapWithoutKeywordsInstanceMethod("initialize")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   struct Vector2(T)
-    @[Anyolite::WrapWithoutKeywords]
     def dot(other : Vector2(T))
       self.x * other.x + self.y * other.y
     end

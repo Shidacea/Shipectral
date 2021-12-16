@@ -36,7 +36,7 @@ module SDC
 			@tile_height = 60
 
 			# Can be used for more detailed collisions
-			@tile_shape = SF::CollisionShapeBox.new(SF::Coordinates.new(-@tile_width * 0.5, -@tile_height * 0.5), SF::Coordinates.new(@tile_width, @tile_height))
+			@tile_shape = SF::CollisionShapeBox.new(offset: SF::Coordinates.new(-@tile_width * 0.5, -@tile_height * 0.5), size: SF::Coordinates.new(@tile_width, @tile_height))
 
 			@number_of_layers.times do |i|
 				new_layer = SDC::MapLayer.new(@width, @height, @view_width, @view_height, @tile_width, @tile_height)
@@ -91,7 +91,7 @@ module SDC
 
 		def draw(window, offset)
 			@map_layers.each do |layer|
-				window.draw_translated(layer, (layer.z ? layer.z : 0), offset)
+				window.draw_translated(layer, z: (layer.z ? layer.z : 0), coords: offset)
 			end
 		end
 

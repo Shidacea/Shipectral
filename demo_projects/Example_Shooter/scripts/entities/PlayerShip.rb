@@ -32,7 +32,7 @@ module ShooterTest
 		def custom_draw(window)
 			#draw_shape = SF::DrawShapeTriangle.new
 			#draw_shape.get_from(@shapes[0])
-			#window.draw_translated(draw_shape, 10, @position)
+			#window.draw_translated(draw_shape, z: 10, coords: @position)
 		end
 
 	end

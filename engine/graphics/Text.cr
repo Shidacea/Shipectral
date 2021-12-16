@@ -6,7 +6,7 @@ module SF
   @[Anyolite::SpecializeInstanceMethod("origin=", [origin : Vector2 | Tuple], [origin : Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("scale", nil)]
   @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : Vector2f])]
-  @[Anyolite::WrapWithoutKeywordsInstanceMethod("initialize")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Text
 
   end

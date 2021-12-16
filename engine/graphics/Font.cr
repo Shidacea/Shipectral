@@ -6,9 +6,9 @@ module SF
   @[Anyolite::ExcludeClassMethod("from_file")]
   @[Anyolite::ExcludeClassMethod("from_memory")]
   @[Anyolite::ExcludeClassMethod("from_stream")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Font
     @[Anyolite::Rename("load_from_file")]
-    @[Anyolite::WrapWithoutKeywords]
     def load_from_sdc_path(filename : String)
       load_from_file(SDC::ScriptHelper.path + "/" + filename)
     end

@@ -2,12 +2,12 @@ require "./RenderQueue.cr"
 
 module SDC
   @[Anyolite::RenameClass("Window")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class RenderQueueWindow
     @window : SF::RenderWindow
     @render_queue : RenderQueue = RenderQueue.new
     @clock : SF::Clock = SF::Clock.new
 
-    @[Anyolite::WrapWithoutKeywords(3)]
     def initialize(title : String, width : UInt32, height : UInt32, fullscreen : Bool = false)
       if fullscreen
         @window = SF::RenderWindow.new(SF::VideoMode.new(width, height), title, SF::Style::Fullscreen)
@@ -19,7 +19,6 @@ module SDC
     end
 
     @[Anyolite::AddBlockArg(1, Nil)]
-    @[Anyolite::WrapWithoutKeywords]
     def use_view(view : SF::View)
       old_view = @window.view.dup
       @window.view = view
@@ -45,8 +44,7 @@ module SDC
       true
     end
 
-    @[Anyolite::WrapWithoutKeywords]
-    def draw_translated(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable | SDC::MapLayer, z : Float32 = 0.0, coords : SF::Vector2f = SF::Vector2f.new, render_states : SF::RenderStates = SF::RenderStates.new)
+    def draw_translated(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable | SDC::MapLayer, z : Float32 = 0.0f32, coords : SF::Vector2f = SF::Vector2f.new, render_states : SF::RenderStates = SF::RenderStates.new)
       actual_render_states = render_states
 
       transform = SF::Transform.new
@@ -58,8 +56,7 @@ module SDC
       true
     end
 
-    @[Anyolite::WrapWithoutKeywords]
-    def draw(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable | SDC::MapLayer, z : Float32 = 0.0, render_states : SF::RenderStates = SF::RenderStates.new)
+    def draw(draw_object : SF::Sprite | SF::Text | SF::Shape | SF::Transformable | SDC::MapLayer, z : Float32 = 0.0f32, render_states : SF::RenderStates = SF::RenderStates.new)
       draw_object(render_states, draw_object.as(SF::Drawable), z)
     end
 
@@ -125,7 +122,6 @@ module SDC
       @window.vertical_sync_enabled = value
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def set_view(view : SF::View)
       @window.view = view
     end
@@ -157,12 +153,10 @@ module SDC
       @window
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def map_pixel_to_coords(point : SF::Vector2i)
       get_window_reference.map_pixel_to_coords(point)
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     def map_coords_to_pixel(point : SF::Vector2i)
       get_window_reference.map_coords_to_pixel(point)
     end

@@ -1,5 +1,6 @@
 module SDC
   @[Anyolite::RenameModule("Script")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   module ScriptHelper
     @@path : String = ((exec_path = Process.executable_path) ? File.dirname(exec_path) : ".")
 
@@ -17,7 +18,6 @@ module SDC
       rb.load_script_from_file(filename)
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     @[Anyolite::ReturnNil]
     def self.load(filename : String)
       puts "Loading #{filename}..."
@@ -40,7 +40,6 @@ module SDC
       end
     end
 
-    @[Anyolite::WrapWithoutKeywords]
     @[Anyolite::ReturnNil]
     def self.load_recursively(path : String)
       puts "Loading #{path} recursively..."

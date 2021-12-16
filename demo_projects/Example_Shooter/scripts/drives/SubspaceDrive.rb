@@ -20,7 +20,7 @@ module ShooterTest
 			new_velocity = SDC.xy(0, 0)
 
 			particle = Particle.new(shape: particle_shape, lifetime: 255, position: new_position, velocity: new_velocity, z: Z_PARTICLE) do
-				particle.color = SF::Color.new(128, 0, particle.lifetime, particle.lifetime * 0.25)
+				particle.color = SF::Color.new(128, 0, particle.lifetime, alpha: (particle.lifetime * 0.25).to_i)
 				particle.shape.radius *= 1.01
 				particle_shape.origin *= 1.01
 			end

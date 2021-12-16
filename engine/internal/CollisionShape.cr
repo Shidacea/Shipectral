@@ -21,6 +21,7 @@ end
 @[Anyolite::ExcludeConstant("CollisionShapeBox")]
 @[Anyolite::ExcludeConstant("CollisionShapeTriangle")]
 @[Anyolite::ExcludeConstant("CollisionShapeEllipse")]
+@[Anyolite::DefaultOptionalArgsToKeywordArgs]
 module Collider
   
   # Useful macros
@@ -31,7 +32,6 @@ module Collider
 
   # General test method
 
-  @[Anyolite::WrapWithoutKeywords]
   def self.test(shape_1 : CollisionShape, pos_1 : SF::Vector2f, shape_2 : CollisionShape, pos_2 : SF::Vector2f)
     offset_1 = shape_1.position - shape_1.origin
     offset_2 = shape_2.position - shape_2.origin
@@ -320,8 +320,8 @@ class CollisionShape < SF::Transformable
   end
 end
 
+@[Anyolite::DefaultOptionalArgsToKeywordArgs]
 class CollisionShapePoint < CollisionShape
-  @[Anyolite::WrapWithoutKeywords]
   def initialize(offset : SF::Vector2f = SF::Vector2f.new)
     super()
     self.position = offset
@@ -339,10 +339,10 @@ class CollisionShapePoint < CollisionShape
   end
 end
 
+@[Anyolite::DefaultOptionalArgsToKeywordArgs]
 class CollisionShapeLine < CollisionShape
   property line : SF::Vector2f = SF::Vector2f.new
 
-  @[Anyolite::WrapWithoutKeywords]
   def initialize(offset : SF::Vector2f = SF::Vector2f.new, line : SF::Vector2f = SF::Vector2f.new)
     super()
     self.position = offset
@@ -362,11 +362,11 @@ class CollisionShapeLine < CollisionShape
 end
 
 @[Anyolite::ExcludeInstanceMethod("scale")]
+@[Anyolite::DefaultOptionalArgsToKeywordArgs]
 class CollisionShapeCircle < CollisionShape
   property radius : Float32 = 0.0
 
-  @[Anyolite::WrapWithoutKeywords]
-  def initialize(offset : SF::Vector2f = SF::Vector2f.new, radius : Float32 = 0.0)
+  def initialize(offset : SF::Vector2f = SF::Vector2f.new, radius : Float32 = 0.0f32)
     super()
     self.position = offset
     @radius = radius
@@ -394,10 +394,10 @@ class CollisionShapeCircle < CollisionShape
   end
 end
 
+@[Anyolite::DefaultOptionalArgsToKeywordArgs]
 class CollisionShapeBox < CollisionShape
   property size : SF::Vector2f = SF::Vector2f.new
 
-  @[Anyolite::WrapWithoutKeywords]
   def initialize(offset : SF::Vector2f = SF::Vector2f.new, size : SF::Vector2f = SF::Vector2f.new)
     super()
     self.position = offset
@@ -416,11 +416,11 @@ class CollisionShapeBox < CollisionShape
   end
 end
 
+@[Anyolite::DefaultOptionalArgsToKeywordArgs]
 class CollisionShapeTriangle < CollisionShape
   property side_1 : SF::Vector2f = SF::Vector2f.new 
   property side_2 : SF::Vector2f = SF::Vector2f.new
 
-  @[Anyolite::WrapWithoutKeywords]
   def initialize(offset : SF::Vector2f = SF::Vector2f.new, side_1 : SF::Vector2f = SF::Vector2f.new, side_2 : SF::Vector2f = SF::Vector2f.new)
     super()
     self.position = offset
@@ -443,10 +443,10 @@ end
 # TODO: Quadrangle
 # TODO: Support for ellipses
 
+@[Anyolite::DefaultOptionalArgsToKeywordArgs]
 class CollisionShapeEllipse < CollisionShape
   property semiaxes : SF::Vector2f = SF::Vector2f.new
 
-  @[Anyolite::WrapWithoutKeywords]
   def initialize(offset : SF::Vector2f = SF::Vector2f.new, semiaxes : SF::Vector2f = SF::Vector2f.new)
     super()
     self.position = offset

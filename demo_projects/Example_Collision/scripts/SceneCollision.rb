@@ -85,8 +85,8 @@ class SceneCollision < SDC::Scene
 		@indicator = SF::DrawShapeCircle.new
 		@indicator.radius = 10
 		@indicator.outline_thickness = 2.0
-		@indicator.outline_color = SF::Color.new(255, 0, 0, 255)
-		@indicator.fill_color = SF::Color.new(0, 0, 0, 0)
+		@indicator.outline_color = SF::Color.new(255, 0, 0, alpha: 255)
+		@indicator.fill_color = SF::Color.new(0, 0, 0, alpha: 0)
 
 		@draw_indicator = false
 
@@ -131,7 +131,7 @@ class SceneCollision < SDC::Scene
 		@shapes.each do |shape|
 			shape.draw
 		end
-		SDC.window.draw_translated(@indicator, 1000000, SDC.xy(15, 15)) if @draw_indicator
+		SDC.window.draw_translated(@indicator, z: 1000000, coords: SDC.xy(15, 15)) if @draw_indicator
 	end
 
 	def draw_imgui

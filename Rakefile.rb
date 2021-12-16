@@ -127,34 +127,7 @@ task :build_shipectral => [:generate_build_dir, :build_crsfml, :build_sfml, :bui
 end
 
 task :install_shipectral => [:build_shipectral, :load_config] do
-    use_sfml = $shipectral_config.get_option_value(:use_sfml)
-    build_path_name = $shipectral_config.get_option_value(:build_path_name)
-    frontend = $shipectral_config.get_option_value(:frontend)
-    copy_frontend_assets_to_build_directory = $shipectral_config.get_option_value(:copy_frontend_assets_to_build_directory)
-    frontend_asset_directory = $shipectral_config.get_option_value(:frontend_asset_directory)
-    add_demos = $shipectral_config.get_option_value(:add_demos)
-    add_project_directory = $shipectral_config.get_option_value(:add_project_directory)
-
-    if use_sfml
-        if SHIPECTRAL_COMPILER == :msvc
-            FileUtils.cp_r "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sfml/bin/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
-        else
-            FileUtils.cp "#{Dir.pwd}/lib/imgui-sfml/libcimgui.so", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin/libcimgui.so", :verbose => true
-        end
-    end
-
-    if copy_frontend_assets_to_build_directory
-        FileUtils.cp_r "#{Dir.pwd}/#{frontend}/#{frontend_asset_directory}/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin/#{frontend_asset_directory}", :verbose => true
-    end
-
-    if add_demos
-        FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin/demo_projects")
-        FileUtils.cp_r "#{Dir.pwd}/demo_projects/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin/demo_projects"
-    end
-
-    if add_project_directory
-        FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin/projects")
-    end
+    install_helper
 end
 
 task :build_shards => [:generate_build_dir, :build_sfml, :load_config] do
@@ -183,6 +156,8 @@ task :recompile => [:load_config] do
     elsif SHIPECTRAL_COMPILER == :gcc
         system "utility/#{script_name}.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{executable_name} #{build_type} bin"
     end
+
+    install_helper
 end
 
 task :test => [:load_config] do
