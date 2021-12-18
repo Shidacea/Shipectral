@@ -8,7 +8,7 @@ module SDC
 			# Initialize base game values
 			super
 			# Gravity
-			@gravity = SF::Coordinates.new(0, 30.0) * (@meter / @second**2)
+			@gravity = SDC.xy(0, 30.0) * (@meter / @second**2)
 		end
 
 	end

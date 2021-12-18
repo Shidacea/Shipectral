@@ -14,9 +14,9 @@ module SDC
 	C_ESCAPE = "\e"
 	C_CTRL_BACK = "\x7F"
 
-	# Empty {SF::Coordinates} object as a constant
+	# Empty {SF::Vector2f} object as a constant
 	# Using this might save time on functions needing a constant vector
-	XY0 = SF::Coordinates.new(0.0, 0.0).freeze
+	XY0 = SDC.xy(0.0, 0.0).freeze
 
 	# Colors
 

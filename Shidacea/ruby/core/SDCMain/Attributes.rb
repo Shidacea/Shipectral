@@ -12,9 +12,9 @@ module SDC
 	@draw_width = nil
 	@draw_height = nil
 
-	# Short expression to create a new {SF::Coordinates} objects
+	# Short expression to create a new {SF::Vector2f} object
 	def self.xy(x = 0.0, y = 0.0)
-		return SF::Coordinates.new(x, y)
+		return SF::Vector2f.new(x, y)
 	end
 
 	def self.window

@@ -36,7 +36,7 @@ module SDC
 			@tile_height = 60
 
 			# Can be used for more detailed collisions
-			@tile_shape = SF::CollisionShapeBox.new(offset: SF::Coordinates.new(-@tile_width * 0.5, -@tile_height * 0.5), size: SF::Coordinates.new(@tile_width, @tile_height))
+			@tile_shape = SF::CollisionShapeBox.new(offset: SDC.xy(-@tile_width * 0.5, -@tile_height * 0.5), size: SDC.xy(@tile_width, @tile_height))
 
 			@number_of_layers.times do |i|
 				new_layer = SDC::MapLayer.new(@width, @height, @view_width, @view_height, @tile_width, @tile_height)
@@ -72,7 +72,7 @@ module SDC
 							tile_id = layer[ix, iy]
 							result = layer.tileset.tiles[tile_id].solid
 							any_result = true
-							# NOTE: Use   Collider.test(<shape>, <pos>, @tile_shape, Coordinates.new((ix + 0.5) * @tile_width, (iy + 0.5) * @tile_height))   for detailed collisions
+							# NOTE: Use   Collider.test(<shape>, <pos>, @tile_shape, SDC.xy((ix + 0.5) * @tile_width, (iy + 0.5) * @tile_height))   for detailed collisions
 							return true if result
 						end
 					end

@@ -38,7 +38,7 @@ module SDC
 
 		# Class methods for adding different objects to any entity
 	
-		def self.add_box(index: nil, offset: SF::Coordinates.new, origin: SF::Coordinates.new, size: nil)
+		def self.add_box(index: nil, offset: SDC.xy, origin: SDC.xy, size: nil)
 			if !size then
 				raise("No size given for box with index #{index}")
 			end
@@ -49,7 +49,7 @@ module SDC
 			@boxes.add(new_box, index)
 		end
 
-		def self.add_shape(index: nil, type: nil, offset: SF::Coordinates.new, origin: SF::Coordinates.new, radius: nil, size: nil, semiaxes: nil, direction: nil, side_a: nil, side_b: nil)
+		def self.add_shape(index: nil, type: nil, offset: SDC.xy, origin: SDC.xy, radius: nil, size: nil, semiaxes: nil, direction: nil, side_a: nil, side_b: nil)
 			@shapes = SDC::SpecialContainer.new if !@shapes
 			shape = nil
 
@@ -83,7 +83,7 @@ module SDC
 			@shapes.add(shape, index)
 		end
 
-		def self.add_sprite(index: nil, active: true, texture_index: nil, offset: SF::Coordinates.new, origin: SF::Coordinates.new, rect: nil)
+		def self.add_sprite(index: nil, active: true, texture_index: nil, offset: SDC.xy, origin: SDC.xy, rect: nil)
 			@sprites = SDC::SpecialContainer.new if !@sprites
 			@sprites.add([texture_index, offset, origin, active, rect], index)
 		end
@@ -217,9 +217,9 @@ module SDC
 		def initialization_procedure
 			@parent = nil
 			@children = []
-			@position = SF::Coordinates.new
-			@velocity = SF::Coordinates.new
-			@acceleration = SF::Coordinates.new
+			@position = SDC.xy
+			@velocity = SDC.xy
+			@acceleration = SDC.xy
 
 			setup_ai
 			

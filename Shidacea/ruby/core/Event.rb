@@ -33,11 +33,11 @@ module SF
 		end
 
 		def mouse_coordinates
-			return SF::Coordinates.new(self.mouse_button_x.to_f, self.mouse_button_y.to_f)
+			return SDC.xy(self.mouse_button_x.to_f, self.mouse_button_y.to_f)
 		end
 
 		def new_mouse_coordinates
-			return SF::Coordinates.new(self.mouse_move_x.to_f, self.mouse_move_y.to_f)
+			return SDC.xy(self.mouse_move_x.to_f, self.mouse_move_y.to_f)
 		end
 
 		def text_char

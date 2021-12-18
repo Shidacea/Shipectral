@@ -2,7 +2,7 @@ module SDC
 
 	# Other utility methods for rapid development
 
-	def self.draw_texture(index: nil, file_index: nil, filename: nil, z: 0, draw_window: SDC.window, color: SDC::COLOR_WHITE, scale: SDC.xy(1, 1), coordinates: SF::Coordinates.new)
+	def self.draw_texture(index: nil, file_index: nil, filename: nil, z: 0, draw_window: SDC.window, color: SDC::COLOR_WHITE, scale: SDC.xy(1, 1), coordinates: SDC.xy)
 		texture = SDC::Data.load_texture(index, file_index: file_index, filename: filename)
 		puts "Warning: Texture index #{index} not loaded." if !texture
 
@@ -13,7 +13,7 @@ module SDC
 		draw_window.draw_translated(sprite, z: z, at: coordinates)
 	end
 
-	def self.draw_text(index: nil, font_index: nil, font: nil, text: "", size: 10, z: 0, draw_window: SDC.window, coordinates: SF::Coordinates.new, color: nil)
+	def self.draw_text(index: nil, font_index: nil, font: nil, text: "", size: 10, z: 0, draw_window: SDC.window, coordinates: SDC.xy, color: nil)
 		text_obj = SDC::Data.load_text(index = index, content: text, size: size, font_index: font_index, font: font)
 		puts "Warning: Text index #{index} not loaded." if !text_obj
 

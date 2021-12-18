@@ -2,11 +2,11 @@ class TestEntity < SDC::Entity
 	register_id(:TestEntity)
 
 	add_shape(index: 0, type: SF::CollisionShapeCircle, radius: 25.0)
-	add_box(index: 0, size: SF::Coordinates.new(50.0, 50.0), offset: SF::Coordinates.new(0.0, 0.0), origin: SF::Coordinates.new(25.0, 25.0))
+	add_box(index: 0, size: SDC.xy(50.0, 50.0), offset: SDC.xy(0.0, 0.0), origin: SDC.xy(25.0, 25.0))
 
 	SDC::Data.load_texture(:EntityChishi, filename: "assets/graphics/test/Chishi.png")
 
-	add_sprite(index: 0, texture_index: :EntityChishi, offset: SF::Coordinates.new(0.0, 0.0), rect: SF::IntRect.new(0, 0, 50, 50), origin: SF::Coordinates.new(25.0, 25.0))
+	add_sprite(index: 0, texture_index: :EntityChishi, offset: SDC.xy(0.0, 0.0), rect: SF::IntRect.new(0, 0, 50, 50), origin: SDC.xy(25.0, 25.0))
 
 	set_hitshape(index: 7, shape_index: 0, damage: 3, attributes: {:test => 3})
 	set_hurtshape(index: 13, shape_index: 0)

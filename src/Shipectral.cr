@@ -151,10 +151,6 @@ macro main_routine_with_config(filename)
 
       Anyolite.wrap(rb, SDC::ScriptHelper, under: SDC, verbose: true, connect_to_superclass: false)
 
-      {% if use_sfml %}
-        load_compiled_script("src/SDCExtensions.rb")
-      {% end %}
-
       {% if engine_library %}
         {% if engine_library_crystal %}
           load_engine_library(rb)
