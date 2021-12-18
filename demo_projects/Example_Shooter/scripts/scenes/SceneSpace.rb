@@ -41,11 +41,11 @@ module ShooterTest
 			@asteroids[1].position = SDC.xy(500, 500)
 			@asteroids[1].velocity = SDC.xy(-1 * SDC.game.dt, -1 * SDC.game.dt)
 
-			@bar_heat = SF::DrawShapeRectangle.new
+			@bar_heat = SF::RectangleShape.new
 			@bar_heat.origin = SDC.xy(0, 200)
 			@bar_heat.size = SDC.xy(25, 200)
 
-			@bar_health = SF::DrawShapeRectangle.new
+			@bar_health = SF::RectangleShape.new
 			@bar_health.size = SDC.xy(310, 25)
 		end
 
@@ -70,7 +70,7 @@ module ShooterTest
 			heat_percent = @player_ship.selected_drive.heat_percentage
 			@bar_heat.scale = SDC.xy(1.0, heat_percent)
 			if @player_ship.selected_drive.overheated then
-				@bar_heat.fill_color = SF::Color.new(255 * heat_percent, 255 - 255 * heat_percent, alpha: 0)
+				@bar_heat.fill_color = SF::Color.new(255 * heat_percent, 255 - 255 * heat_percent, 0)
 			else
 				@bar_heat.fill_color = SF::Color.new(255 * heat_percent, 0, 255 - 255 * heat_percent)
 			end
@@ -89,7 +89,7 @@ module ShooterTest
 			@bar_health.fill_color = SF::Color.new(255 - 255 * health_percent, 255 * health_percent, 63 * health_percent)
 			SDC.window.draw_translated(@bar_health, z: Z_BAR, at: SDC.xy(75, 60))
 
-			minimap_shape = SF::DrawShapeRectangle.new
+			minimap_shape = SF::RectangleShape.new
 			minimap_shape.size = SDC.xy(SDC.draw_width * 0.2, SDC.draw_height * 0.2)
 			minimap_shape.fill_color = SF::Color.new(128, 128, 128, alpha: 128)
 			SDC.window.draw_translated(minimap_shape, z: Z_MINIMAP, at: SDC.xy(SDC.draw_width * 0.775, SDC.draw_height * 0.05))
@@ -98,12 +98,12 @@ module ShooterTest
 			view_minimap.set_viewport(SF::FloatRect.new(0.775, 0.05, 0.2, 0.2))
 
 			SDC.window.use_view(view_minimap) do
-				player_indicator = SF::DrawShapeRectangle.new
+				player_indicator = SF::RectangleShape.new
 				player_indicator.size = SDC.xy(@space.width * 0.01, @space.height * 0.02)
 				player_indicator.fill_color = SF::Color.new(255, 0, 0, alpha: 255)
 				SDC.window.draw_translated(player_indicator, z: Z_MINIMAP, at: @player_ship.position)
 
-				asteroid_indicator = SF::DrawShapeRectangle.new
+				asteroid_indicator = SF::RectangleShape.new
 				asteroid_indicator.size = SDC.xy(@space.width * 0.01, @space.height * 0.02)
 				asteroid_indicator.fill_color = SF::Color.new(255, 0, 0, alpha: 255)
 				@asteroids.each do |asteroid|

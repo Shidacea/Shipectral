@@ -149,14 +149,14 @@ class SceneTest < SDC::Scene
 		@test_map.draw(SDC.window, SDC.xy(0, 0))
 		@entities.each {|entity| entity.draw(SDC.window)}
 
-		box_shape = SF::DrawShapeRectangle.new
+		box_shape = SF::RectangleShape.new
 		box_shape.get_from(@entities[0].boxes[0])
 		box_shape.fill_color = SF::Color.new(255, 0, 0, alpha: 128)
 		box_shape.outline_color = SF::Color.new(0, 0, 255, alpha: 128)
 		box_shape.outline_thickness = 2.0
 		SDC.window.draw_translated(box_shape, z: 1, at: @entities[0].position)
 
-		line_shape = SF::DrawShapeLine.new
+		line_shape = SF::LineShape.new
 		line_shape.line = SDC.xy(200.0, 100.0)
 		SDC.window.draw(line_shape, z: 0)
 		

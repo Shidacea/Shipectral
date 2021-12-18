@@ -1,7 +1,6 @@
 module SF
 # Sadly, Shape is an abstract class, so we need to to this for every shape
 
-  @[Anyolite::RenameClass("DrawShapePoint")]
   @[Anyolite::SpecializeInstanceMethod("scale", nil)]
   @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : SF::Vector2f])]
   @[Anyolite::ExcludeInstanceMethod("draw")]
@@ -46,7 +45,6 @@ module SF
     end
   end
 
-  @[Anyolite::RenameClass("DrawShapeLine")]
   @[Anyolite::SpecializeInstanceMethod("scale", nil)]
   @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : SF::Vector2f])]
   @[Anyolite::ExcludeInstanceMethod("draw")]
@@ -103,7 +101,6 @@ module SF
     end
   end
 
-  @[Anyolite::RenameClass("DrawShapeRectangle")]
   @[Anyolite::SpecializeInstanceMethod("initialize", [size : Vector2 | Tuple = Vector2.new(0, 0)], [size : Vector2f = SF::Vector2f.new(0, 0)])]
   @[Anyolite::SpecializeInstanceMethod("size=", [size : Vector2 | Tuple], [size : SF::Vector2f])]
   @[Anyolite::SpecializeInstanceMethod("scale", nil)]
@@ -128,7 +125,6 @@ module SF
     end
   end
 
-  @[Anyolite::RenameClass("DrawShapeCircle")]
   @[Anyolite::SpecializeInstanceMethod("initialize", [radius : Number = 0, point_count : Int = 30], [radius : Number = 0])]
   @[Anyolite::SpecializeInstanceMethod("scale", nil)]
   @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : SF::Vector2f])]
@@ -152,7 +148,6 @@ module SF
     end
   end
 
-  @[Anyolite::RenameClass("DrawShapeTriangle")]
   @[Anyolite::SpecializeInstanceMethod("scale", nil)]
   @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : SF::Vector2f])]
   @[Anyolite::ExcludeInstanceMethod("draw")]
@@ -225,7 +220,7 @@ module SF
 end
 
 def setup_ruby_draw_shape_class(rb)
-  Anyolite.wrap_class(rb, SF::Shape, "DrawShape", under: SF)
+  Anyolite.wrap_class(rb, SF::Shape, "Shape", under: SF)
   Anyolite.wrap(rb, SF::PointShape, under: SF, verbose: true, connect_to_superclass: true)
   Anyolite.wrap(rb, SF::LineShape, under: SF, verbose: true, connect_to_superclass: true)
   Anyolite.wrap(rb, SF::RectangleShape, under: SF, verbose: true, connect_to_superclass: true)

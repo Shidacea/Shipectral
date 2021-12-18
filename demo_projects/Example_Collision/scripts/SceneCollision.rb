@@ -82,7 +82,7 @@ class SceneCollision < SDC::Scene
 		@z = 0
 		@counter = 0
 		
-		@indicator = SF::DrawShapeCircle.new
+		@indicator = SF::CircleShape.new
 		@indicator.radius = 10
 		@indicator.outline_thickness = 2.0
 		@indicator.outline_color = SF::Color.new(255, 0, 0, alpha: 255)

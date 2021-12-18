@@ -6,7 +6,7 @@ require "./audio/SoundBuffer.cr"
 require "./audio/Sound.cr"
 
 require "./graphics/Color.cr"
-require "./graphics/DrawShape.cr"
+require "./graphics/Shape.cr"
 require "./graphics/Font.cr"
 require "./graphics/RenderStates.cr"
 require "./graphics/Sprite.cr"

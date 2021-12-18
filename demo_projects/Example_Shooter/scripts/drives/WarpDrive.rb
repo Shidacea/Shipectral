@@ -12,7 +12,7 @@ module ShooterTest
 
 		def generate_particles(ship)
 			rand(2).times do
-				particle_shape = SF::DrawShapeLine.new
+				particle_shape = SF::LineShape.new
 				length = rand(300)
 				particle_shape.line = ship.direction * (-length) + ship.direction_normal * (50 * rand - 25)
 

@@ -4,7 +4,7 @@ module ShooterTest
 		def initialize(position: SDC.xy, color: SF::Color.new(255, 255, 255, alpha: 255))
 			@position = position
 			@color = color
-			@shape = SF::DrawShapeRectangle.new
+			@shape = SF::RectangleShape.new
 			@shape.fill_color = color
 			@shape.size = SDC.xy(3, 3)
 		end
