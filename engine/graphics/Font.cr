@@ -10,7 +10,7 @@ module SF
   class Font
     @[Anyolite::Rename("load_from_file")]
     def load_from_sdc_path(filename : String)
-      load_from_file(SDC::ScriptHelper.path + "/" + filename)
+      load_from_file(SDC::Script.path + "/" + filename)
     end
 
     @[Anyolite::ExcludeInstanceMethod("inspect")]

@@ -11,7 +11,7 @@ module SF
   class Music
     @[Anyolite::Rename("open_from_file")]
     def load_from_sdc_path(filename : String)
-      open_from_file(SDC::ScriptHelper.path + "/" + filename)
+      open_from_file(SDC::Script.path + "/" + filename)
     end
 
     def looping=(value : Bool)

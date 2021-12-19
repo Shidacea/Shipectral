@@ -2,7 +2,7 @@ SHIPECTRAL_VERSION = "0.3.0"
 
 require "./CompilationHelper.cr"
 require "anyolite"
-require "./ScriptHelper.cr"
+require "./Script.cr"
 
 macro load_compiled_script(script)
   {% if script.ends_with? ".rb" %}
@@ -149,7 +149,7 @@ macro main_routine_with_config(filename)
         load_imgui_wrappers(rb)
       {% end %}
 
-      Anyolite.wrap(rb, SDC::ScriptHelper, under: SDC, verbose: true, connect_to_superclass: false)
+      Anyolite.wrap(rb, SDC::Script, under: SDC, verbose: true, connect_to_superclass: false)
 
       {% if engine_library %}
         {% if engine_library_crystal %}
@@ -171,13 +171,13 @@ macro main_routine_with_config(filename)
               full_script_path = File.join("{{engine_library}}", script)
 
               if File.directory?(full_script_path)
-                SDC::ScriptHelper.load_recursively(full_script_path)
+                SDC::Script.load_recursively(full_script_path)
               else
-                SDC::ScriptHelper.load(full_script_path)
+                SDC::Script.load(full_script_path)
               end
             end
           {% else %}
-            SDC::ScriptHelper.load("{{engine_library}}/{{engine_library_project}}")
+            SDC::Script.load("{{engine_library}}/{{engine_library_project}}")
           {% end %}
         {% end %}
       {% end %}
@@ -200,13 +200,13 @@ macro main_routine_with_config(filename)
 
           scripts.each do |script|
             if File.directory?(script)
-              SDC::ScriptHelper.load_recursively(script)
+              SDC::Script.load_recursively(script)
             else
-              SDC::ScriptHelper.load(script)
+              SDC::Script.load(script)
             end
           end
         {% else %}
-          SDC::ScriptHelper.load("{{frontend_project}}")
+          SDC::Script.load("{{frontend_project}}")
         {% end %}
       {% end %}
 

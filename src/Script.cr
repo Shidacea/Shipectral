@@ -1,7 +1,6 @@
 module SDC
-  @[Anyolite::RenameModule("Script")]
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  module ScriptHelper
+  module Script
     @@path : String = ((exec_path = Process.executable_path) ? File.dirname(exec_path) : ".")
 
     def self.path
@@ -21,7 +20,7 @@ module SDC
     @[Anyolite::ReturnNil]
     def self.load(filename : String)
       puts "Loading #{filename}..."
-      ScriptHelper.load_absolute_file(ScriptHelper.path + "/" + filename)
+      Script.load_absolute_file(Script.path + "/" + filename)
     end
 
     @[Anyolite::Exclude]
@@ -32,9 +31,9 @@ module SDC
         unless file.starts_with?(".")
           filename = path + "/" + file
           if File.directory?(filename)
-            ScriptHelper.load_absolute_path(filename)
+            Script.load_absolute_path(filename)
           elsif file.ends_with?(".rb")
-            ScriptHelper.load_absolute_file(filename)
+            Script.load_absolute_file(filename)
           end
         end
       end
@@ -43,8 +42,8 @@ module SDC
     @[Anyolite::ReturnNil]
     def self.load_recursively(path : String)
       puts "Loading #{path} recursively..."
-      full_path = ScriptHelper.path + "/" + path
-      ScriptHelper.load_absolute_path(full_path)
+      full_path = Script.path + "/" + path
+      Script.load_absolute_path(full_path)
     end
 
     def self.debug?
