@@ -1,9 +1,8 @@
 require "./RenderQueue.cr"
 
 module SDC
-  @[Anyolite::RenameClass("Window")]
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  class RenderQueueWindow
+  class GameWindow
     @window : SF::RenderWindow
     @render_queue : RenderQueue = RenderQueue.new
     @clock : SF::Clock = SF::Clock.new
@@ -170,5 +169,5 @@ module SDC
 end
 
 def setup_ruby_window_class(rb)
-  Anyolite.wrap(rb, SDC::RenderQueueWindow, under: SDC, verbose: true, connect_to_superclass: false)
+  Anyolite.wrap(rb, SDC::GameWindow, under: SDC, verbose: true, connect_to_superclass: false)
 end

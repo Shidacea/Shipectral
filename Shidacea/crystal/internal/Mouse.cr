@@ -4,7 +4,7 @@ module SF
   @[Anyolite::ExcludeClassMethod("get_position")]
   module Mouse
     @[Anyolite::Rename("set_position")]
-    def self.set_position_helper(position : Vector2i, relative_to : SDC::RenderQueueWindow?)
+    def self.set_position_helper(position : Vector2i, relative_to : SDC::GameWindow?)
       if relative_to
         self.set_position(position, relative_to.get_window_reference)
       else
@@ -13,7 +13,7 @@ module SF
     end
 
     @[Anyolite::Rename("get_position")]
-    def self.get_position_helper(relative_to : SDC::RenderQueueWindow?)
+    def self.get_position_helper(relative_to : SDC::GameWindow?)
       if relative_to
         self.get_position(relative_to.get_window_reference)
       else

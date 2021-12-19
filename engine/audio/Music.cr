@@ -2,14 +2,11 @@ module SF
   @[Anyolite::ExcludeInstanceMethod("open_from_memory")]
   @[Anyolite::ExcludeInstanceMethod("load_from_memory")]
   @[Anyolite::ExcludeInstanceMethod("open_from_file")]
-  @[Anyolite::ExcludeInstanceMethod("loop_points")]
   @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
-  @[Anyolite::SpecializeInstanceMethod("loop_points=", [time_points : PseudoTimeSpan])]
   @[Anyolite::ExcludeClassMethod("from_file")]
   @[Anyolite::ExcludeClassMethod("from_memory")]
   @[Anyolite::ExcludeClassMethod("from_stream")]
   @[Anyolite::ExcludeConstant("Span")]
-  @[Anyolite::ExcludeConstant("TimeSpan")]
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Music
     @[Anyolite::Rename("open_from_file")]
@@ -17,32 +14,13 @@ module SF
       open_from_file(SDC::ScriptHelper.path + "/" + filename)
     end
 
-    def loop_points=(time_points : PseudoTimeSpan)
-      SFMLExt.sfml_music_setlooppoints_TU3(to_unsafe, time_points)
-    end
-
     def looping=(value : Bool)
       self.loop = value
     end
 
-    @[Anyolite::Rename("loop_points")]
-    def pseudo_loop_points
-      result = Music::PseudoTimeSpan.allocate
-      SFMLExt.sfml_music_getlooppoints(to_unsafe, result)
-      return result
-    end
-
-    @[Anyolite::RenameClass("TimeSpan")]
-    struct PseudoTimeSpan
-      property offset : Time 
-      property length : Time
-
-      def initialize(@offset : Time = SF::Time.new, @length : Time = SF::Time.new)
-      end
-
-      def to_unsafe 
-        pointerof(@offset).as(Void*)
-      end
+    @[Anyolite::SpecifyGenericTypes([T])]
+    @[Anyolite::SpecializeInstanceMethod("initialize", [offset = T.zero, length = T.zero], [offset : T = T.new, length : T = T.new])]
+    struct Span(T)
     end
   end
 end

@@ -37,10 +37,10 @@ usage, allowing for fast prototyping.
 
 ### Version 0.3.0
 
-This version number was chosen in order to avoid confusions with legacy versions.
+This version number was chosen in order to avoid confusion with legacy versions.
 
 It will be the first proper release since the legacy versions. Most of the work
-is already done, but many features are still missing of not functioning.
+is already done, but many features are still missing or not functioning.
 
 The major goal is to support Launshi and own SFML-based frontends fully,
 allowing for a solid Ruby-based game development experience.
@@ -51,7 +51,6 @@ allowing for a solid Ruby-based game development experience.
 * [X] Working examples
 * [X] Separated SDC and SF module
 * [X] Updated Shidacea library to new standard
-* [X] Strictly separate SF modules from SDC modules
 * [ ] Properly implement maps
 * [ ] Wrap other SF classes
 * [X] Keyword usage for optional arguments (and only then)
