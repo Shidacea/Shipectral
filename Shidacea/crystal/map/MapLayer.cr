@@ -12,8 +12,6 @@ module SDC
     @tile_width : UInt64 = 0
     @tile_height : UInt64 = 0
 
-    @background_tile : UInt64 = 0
-
     @tiles : Array(Array(UInt64)) = [] of Array(UInt64)
     @vertices : SF::VertexArray
 
@@ -22,6 +20,7 @@ module SDC
     @frame_counter : UInt64 = 0
 
     property collision_active : Bool = true
+    property background_tile : UInt64 = 0
 
     def initialize(@width : UInt64, @height : UInt64, @view_width : UInt64, @view_height : UInt64, @tile_width : UInt64, @tile_height : UInt64)
       super()
@@ -136,7 +135,6 @@ module SDC
 
     def link_tileset(tileset : Tileset)
       @tileset = tileset
-      tileset.get_tile(4).set_animation(4, 5, 2, 60)  # TODO
     end
 
     def dup

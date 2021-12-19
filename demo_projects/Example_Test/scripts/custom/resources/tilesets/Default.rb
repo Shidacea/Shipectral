@@ -9,4 +9,6 @@ tileset.tiles[5].solid = true
 
 tileset.link_texture(SDC::Data.textures[:TilesetDefault])
 
+tileset.tiles[4].set_animation(4, 5, 2, 60)
+
 SDC::Data.add_tileset(tileset, index: :Default)
