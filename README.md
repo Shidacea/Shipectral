@@ -65,7 +65,6 @@ allowing for a solid Ruby-based game development experience.
 * [ ] Add more SDC methods as alternative to directly using SFML methods
 * * [ ] Find better syntax for draw and collision shapes
 * * [ ] Find short syntax for colors
-* [ ] Block Crystal GC in draw and update routines
 
 ### Version 0.4.0
 

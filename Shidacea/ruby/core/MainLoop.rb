@@ -17,6 +17,7 @@ module SDC
 			SDC.limiter = limiter ? limiter : SDC::Limiter.new(max: 720, renders_per_second: 60, ticks_per_second: 60, gc_per_second: 60)
 
 			GC.disable
+			Script.disable_crystal_gc
 
 			# Update routine, formulated as block for the limiter
 			SDC.limiter.set_update_routine do
@@ -45,6 +46,9 @@ module SDC
 				GC.enable
 				GC.start
 				GC.disable
+				Script.enable_crystal_gc
+				Script.run_crystal_gc
+				Script.disable_crystal_gc
 			end
 
 			SDC.game = game_class&.new
@@ -80,6 +84,7 @@ module SDC
 			SDC.window.close
 
 			GC.enable
+			Script.enable_crystal_gc
 
 		rescue Exception => exc
 			f = File.open("log.txt", "a")
