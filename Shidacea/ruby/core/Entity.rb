@@ -44,7 +44,7 @@ module SDC
 			end
 
 			@boxes = SDC::SpecialContainer.new if !@boxes
-			new_box = SF::CollisionShapeBox.new(offset: offset, size: size)
+			new_box = SDC::CollisionShapeBox.new(offset: offset, size: size)
 			new_box.origin = origin
 			@boxes.add(new_box, index)
 		end
@@ -53,24 +53,24 @@ module SDC
 			@shapes = SDC::SpecialContainer.new if !@shapes
 			shape = nil
 
-			if type == SF::CollisionShapePoint then
+			if type == SDC::CollisionShapePoint then
 				shape = type.new(offset: offset)
-			elsif type == SF::CollisionShapeLine then
+			elsif type == SDC::CollisionShapeLine then
 				raise("Direction not defined for line shape with index #{index}") if !direction
 				shape = type.new(offset: offset, line: direction)
-			elsif type == SF::CollisionShapeCircle then
+			elsif type == SDC::CollisionShapeCircle then
 				raise("Radius not defined for circle shape with index #{index}") if !radius
 				shape = type.new(offset: offset, radius: radius)
-			elsif type == SF::CollisionShapeBox then
+			elsif type == SDC::CollisionShapeBox then
 				raise("Size not defined for box shape with index #{index}") if !size
 				shape = type.new(offset: offset, size: size)
-			elsif type == SF::CollisionShapeTriangle then
+			elsif type == SDC::CollisionShapeTriangle then
 				raise("Undefined sides for triangle shape with index #{index}") if !side_a || !side_b
 				shape = type.new(offset: offset, side_1: side_a, side_2: side_b)
-			elsif type == SF::CollisionShapeQuadrangle then
+			elsif type == SDC::CollisionShapeQuadrangle then
 				raise("Quadrangle shape not supported yet")	# TODO
 				shape = type.new
-			elsif type == SF::CollisionShapeEllipse then
+			elsif type == SDC::CollisionShapeEllipse then
 				raise("Ellipse shape not supported yet")	# TODO
 				raise("Semiaxes not defined for ellipse shape with index #{index}") if !semiaxes
 				shape = type.new(offset: offset, semiaxes: axes)
@@ -321,7 +321,7 @@ module SDC
 
 			@boxes.each do |box|
 				other_entity.boxes.each do |other_box|
-					result = SF::Collider.test(box, absolute_position, other_box, other_entity.absolute_position)
+					result = SDC::Collider.test(box, absolute_position, other_box, other_entity.absolute_position)
 					return other_box if result
 				end
 			end
@@ -334,7 +334,7 @@ module SDC
 
 			@shapes.each do |shape|
 				other_entity.shapes.each do |other_shape|
-					result = SF::Collider.test(shape, absolute_position, other_shape, other_entity.absolute_position)
+					result = SDC::Collider.test(shape, absolute_position, other_shape, other_entity.absolute_position)
 					return other_shape if result
 				end
 			end
@@ -359,7 +359,7 @@ module SDC
 
 					other_shape = other_entity.shapes[hitshape.shape_index]
 
-					if SF::Collider.test(shape, absolute_position, other_shape, other_position) then
+					if SDC::Collider.test(shape, absolute_position, other_shape, other_position) then
 						yield hurtshape, hitshape
 					end
 				end

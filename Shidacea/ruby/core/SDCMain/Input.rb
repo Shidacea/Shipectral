@@ -31,11 +31,11 @@ module SDC
 	end
 
 	def self.get_mouse_point
-		return SF::CollisionShapePoint.new(offset: self.get_mouse_coords)
+		return SDC::CollisionShapePoint.new(offset: self.get_mouse_coords)
 	end
 
 	def self.mouse_touching?(shape, offset: SDC.xy)
-		return SF::Collider.test(self.get_mouse_point, SDC.xy, shape, offset)
+		return SDC::Collider.test(self.get_mouse_point, SDC.xy, shape, offset)
 	end
 
 	def self.right_klick?

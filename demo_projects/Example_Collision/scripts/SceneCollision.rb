@@ -36,7 +36,7 @@ class SceneCollision < SDC::Scene
 			end
 
 		elsif event.has_type?(:KeyPressed) then
-			if @dragged_object && @dragged_object[0].collision_shape.is_a?(SF::CollisionShapeBox) then
+			if @dragged_object && @dragged_object[0].collision_shape.is_a?(SDC::CollisionShapeBox) then
 				if event.key_pressed?(:Down) then
 					@dragged_object[0].collision_shape.size = SDC.xy(@dragged_object[0].collision_shape.size.x, @dragged_object[0].collision_shape.size.y * 1.1)
 					@dragged_object[0].update
@@ -120,7 +120,7 @@ class SceneCollision < SDC::Scene
 				first_shape = @shapes[i]
 				second_shape = @shapes[j]
 
-				if SF::Collider.test(first_shape.collision_shape, first_shape.pos, second_shape.collision_shape, second_shape.pos) then
+				if SDC::Collider.test(first_shape.collision_shape, first_shape.pos, second_shape.collision_shape, second_shape.pos) then
 					@draw_indicator = true
 				end
 			end

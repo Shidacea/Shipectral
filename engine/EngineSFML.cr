@@ -19,7 +19,6 @@ require "./internal/Rect.cr"
 require "./internal/Keyboard.cr"
 require "./internal/Mouse.cr"
 require "./internal/Event.cr"
-require "./internal/CollisionShape.cr"
 
 def load_sfml_wrappers(rb)
   setup_ruby_music_class(rb)
@@ -40,7 +39,6 @@ def load_sfml_wrappers(rb)
   setup_ruby_keyboard_class(rb)
   setup_ruby_mouse_class(rb)
   setup_ruby_event_class(rb)
-  setup_ruby_collision_shape_class(rb)
 
   setup_ruby_tile_class(rb)
   setup_ruby_tileset_class(rb)

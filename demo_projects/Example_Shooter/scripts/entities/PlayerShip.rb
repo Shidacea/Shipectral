@@ -5,7 +5,7 @@ module ShooterTest
 		SDC::Data.load_texture(:PlayerShip, filename: "assets/graphics/Ship.png")
 		add_sprite(index: 0, texture_index: :PlayerShip, rect: SF::IntRect.new(0, 0, 40, 60), origin: SDC.xy(20, 30))
 
-		add_shape(index: 0, type: SF::CollisionShapeTriangle, offset: SDC.xy(20, 0), origin: SDC.xy(20, 30), side_a: SDC.xy(20, 60), side_b: SDC.xy(-20, 60))
+		add_shape(index: 0, type: SDC::CollisionShapeTriangle, offset: SDC.xy(20, 0), origin: SDC.xy(20, 30), side_a: SDC.xy(20, 60), side_b: SDC.xy(-20, 60))
 		add_box(index: 0, size: SDC.xy(60.0, 60.0), offset: SDC.xy(0.0, 0.0), origin: SDC.xy(20, 30))
 
 		self.drive = :CombustionDrive

@@ -63,7 +63,8 @@ allowing for a solid Ruby-based game development experience.
 * * [ ] Add ImGui container class for inputs
 * * [ ] Wrap all relevant functions
 * [ ] Add more SDC methods as alternative to directly using SFML methods
-* * [ ] Find better syntax for draw and collision shapes
+* * [ ] Find better syntax for draw shapes
+* * [X] Find better syntax for collision shapes
 * * [ ] Find short syntax for colors
 * [ ] Add more collision shapes
 * * [ ] Ellipses

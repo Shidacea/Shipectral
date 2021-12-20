@@ -8,7 +8,7 @@ module ShooterTest
 		SDC::Data.load_texture(:Asteroid, filename: "assets/graphics/Asteroid.png")
 		add_sprite(index: 0, texture_index: :Asteroid, rect: SF::IntRect.new(0, 0, 400, 400), origin: SDC.xy(200, 200))
 
-		add_shape(index: 0, type: SF::CollisionShapeCircle, radius: 200.0)
+		add_shape(index: 0, type: SDC::CollisionShapeCircle, radius: 200.0)
 		add_box(index: 0, size: SDC.xy(400.0, 400.0), offset: SDC.xy(0.0, 0.0), origin: SDC.xy(200, 200))
 
 		def at_init

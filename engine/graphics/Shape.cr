@@ -34,15 +34,6 @@ module SF
     def link_texture(texture : Texture)
       self.texture= texture
     end
-
-    def get_from(shape : CollisionShapePoint)
-      @point = SF::Vector2f.new
-      self.position = shape.position
-      self.scale = shape.scale
-      self.origin = shape.origin
-      self.rotation = shape.rotation
-      update
-    end
   end
 
   @[Anyolite::SpecializeInstanceMethod("scale", nil)]
@@ -90,15 +81,6 @@ module SF
     def link_texture(texture : Texture)
       self.texture= texture
     end
-
-    def get_from(shape : CollisionShapeLine)
-      @points = [SF::Vector2f.new, shape.line]
-      self.position = shape.position
-      self.scale = shape.scale
-      self.origin = shape.origin
-      self.rotation = shape.rotation
-      update
-    end
   end
 
   @[Anyolite::SpecializeInstanceMethod("initialize", [size : Vector2 | Tuple = Vector2.new(0, 0)], [size : Vector2f = SF::Vector2f.new(0, 0)])]
@@ -115,14 +97,6 @@ module SF
     def link_texture(texture : Texture)
       self.texture= texture
     end
-
-    def get_from(shape : CollisionShapeBox)
-      self.size = shape.size
-      self.position = shape.position
-      self.scale = shape.scale
-      self.origin = shape.origin
-      update
-    end
   end
 
   @[Anyolite::SpecializeInstanceMethod("initialize", [radius : Number = 0, point_count : Int = 30], [radius : Number = 0])]
@@ -137,14 +111,6 @@ module SF
   class CircleShape
     def link_texture(texture : Texture)
       self.texture= texture
-    end
-
-    def get_from(shape : CollisionShapeCircle)
-      self.radius = shape.radius
-      self.position = shape.position - shape.scale * shape.radius
-      self.scale = shape.scale
-      self.origin = shape.origin
-      update
     end
   end
 
@@ -206,15 +172,6 @@ module SF
 
     def link_texture(texture : Texture)
       self.texture= texture
-    end
-
-    def get_from(shape : CollisionShapeTriangle)
-      @points = [SF::Vector2f.new, shape.side_1, shape.side_2]
-      self.position = shape.position
-      self.scale = shape.scale
-      self.origin = shape.origin
-      self.rotation = shape.rotation
-      update
     end
   end
 end
