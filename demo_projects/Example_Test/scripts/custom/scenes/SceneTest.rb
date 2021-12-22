@@ -151,8 +151,8 @@ class SceneTest < SDC::Scene
 
 		box_shape = SF::RectangleShape.new
 		box_shape.get_from(@entities[0].boxes[0])
-		box_shape.fill_color = SF::Color.new(255, 0, 0, alpha: 128)
-		box_shape.outline_color = SF::Color.new(0, 0, 255, alpha: 128)
+		box_shape.fill_color = SDC.color(255, 0, 0, alpha: 128)
+		box_shape.outline_color = SDC.color(0, 0, 255, alpha: 128)
 		box_shape.outline_thickness = 2.0
 		SDC.window.draw_translated(box_shape, z: 1, at: @entities[0].position)
 

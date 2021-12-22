@@ -20,17 +20,17 @@ module SDC
 
 	# Colors
 
-	COLOR_RED = SF::Color.new(255, 0, 0).freeze
-	COLOR_GREEN = SF::Color.new(0, 255, 0).freeze
-	COLOR_BLUE = SF::Color.new(0, 0, 255).freeze
+	COLOR_RED = SDC.color(255, 0, 0).freeze
+	COLOR_GREEN = SDC.color(0, 255, 0).freeze
+	COLOR_BLUE = SDC.color(0, 0, 255).freeze
 
-	COLOR_BLACK = SF::Color.new(0, 0, 0).freeze
-	COLOR_WHITE = SF::Color.new(255, 255, 255).freeze
+	COLOR_BLACK = SDC.color(0, 0, 0).freeze
+	COLOR_WHITE = SDC.color(255, 255, 255).freeze
 
-	COLOR_TRANSPARENT = SF::Color.new(0, 0, 0, alpha: 0).freeze
+	COLOR_TRANSPARENT = SDC.color(0, 0, 0, alpha: 0).freeze
 
-	COLOR_YELLOW = SF::Color.new(255, 255, 0).freeze
-	COLOR_CYAN = SF::Color.new(0, 255, 255).freeze
-	COLOR_MAGENTA = SF::Color.new(255, 0, 255).freeze
+	COLOR_YELLOW = SDC.color(255, 255, 0).freeze
+	COLOR_CYAN = SDC.color(0, 255, 255).freeze
+	COLOR_MAGENTA = SDC.color(255, 0, 255).freeze
 
 end

@@ -1,7 +1,7 @@
 module ShooterTest
 	class Star
 
-		def initialize(position: SDC.xy, color: SF::Color.new(255, 255, 255, alpha: 255))
+		def initialize(position: SDC.xy, color: SDC.color(255, 255, 255, alpha: 255))
 			@position = position
 			@color = color
 			@shape = SF::RectangleShape.new

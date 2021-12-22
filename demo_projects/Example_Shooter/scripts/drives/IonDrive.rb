@@ -20,7 +20,7 @@ module ShooterTest
 				new_velocity = ship.velocity + ship.direction * (-20.0)
 
 				particle = Particle.new(shape: particle_shape, lifetime: rand(64), position: new_position, velocity: new_velocity, z: Z_PARTICLE) do
-					particle.color = SF::Color.new(particle.lifetime * 4, 0, particle.lifetime * 4, alpha: particle.lifetime * 4)
+					particle.color = SDC.color(particle.lifetime * 4, 0, particle.lifetime * 4, alpha: particle.lifetime * 4)
 				end
 
 				SDC.scene.add_particle particle

@@ -85,8 +85,8 @@ class SceneCollision < SDC::Scene
 		@indicator = SF::CircleShape.new
 		@indicator.radius = 10
 		@indicator.outline_thickness = 2.0
-		@indicator.outline_color = SF::Color.new(255, 0, 0, alpha: 255)
-		@indicator.fill_color = SF::Color.new(0, 0, 0, alpha: 0)
+		@indicator.outline_color = SDC.color(255, 0, 0, alpha: 255)
+		@indicator.fill_color = SDC.color(0, 0, 0, alpha: 0)
 
 		@draw_indicator = false
 

@@ -17,6 +17,10 @@ module SDC
 		return SF::Vector2f.new(x, y)
 	end
 
+	def self.color(r, g, b, alpha: 255)
+		return SF::Color.new(r, g, b, alpha: alpha)
+	end
+
 	def self.window
 		return @window
 	end

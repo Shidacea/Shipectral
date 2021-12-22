@@ -22,7 +22,7 @@ class TestShape
 	end
 
 	def randomize_color
-		@color = SF::Color.new(rand(256), rand(256), rand(256), alpha: 196)
+		@color = SDC.color(rand(256), rand(256), rand(256), alpha: 196)
 	end
 
 	def self.new_circle(pos: SDC.xy, offset: SDC.xy, radius: 0.0, z: 0, counter: counter)
