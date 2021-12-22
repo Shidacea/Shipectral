@@ -65,7 +65,7 @@ allowing for a solid Ruby-based game development experience.
 * [ ] Add more SDC methods as alternative to directly using SFML methods
 * * [ ] Find better syntax for draw shapes
 * * [X] Find better syntax for collision shapes
-* * [ ] Find short syntax for colors
+* * [X] Find short syntax for colors
 * [ ] Add more collision shapes
 * * [ ] Ellipses
 * * [ ] Quadrangles

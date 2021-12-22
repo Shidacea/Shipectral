@@ -484,6 +484,74 @@ module Collishi
 		return true
   end
 
+	def self.collision_ellipse_ellipse(x1 : Float, y1 : Float, a1 : Float, b1 : Float, x2 : Float, y2 : Float, a2 : Float, b2 : Float)
+		# TODO: Test this extensively
+		
+		a1_squared = a1 * a1
+		b1_squared = b1 * b1
+		a2_squared = a2 * a2
+		b2_squared = b2 * b2
+		
+		dx = x2 - x1
+		dy = y2 - y1
+
+		dx_squared = x21 * x21
+		dy_squared = y21 * y21
+
+		return false if {dx_squared, dy_squared}.max > 2.0 * {(a1_squared + a2_squared), (b1_squared + b2_squared)}.max
+
+		product = a1_squared * b1_squared * a2_squared * b2_squared
+
+		coeff_0 = 1.0 / (a2_squared * b2_squared)
+		coeff_1 = (-a1_squared * b1_squared - b1_squared * a2_squared - a1_squared * b2_squared + b1_squared * dx_squared + a1_squared * dy_squared) / product
+		coeff_2 = (b1_squared * a2_squared + a1_squared * b2_squared + a2_squared * b2_squared - b2_squared * dx_squared - a2_squared * dy_squared) / product
+		coeff_3 = -1.0 / (a1_squared * b1_squared)
+
+		lower_limit = (coeff_3.abs > 0.0 ? -coeff_3 : (coeff_2.abs > 0.0 ? coeff_2 : (coeff_1.abs > 0.0 ? -coeff_1 : coeff_0)))
+		upper_limit = coeff_0
+
+		deriv_0 = coeff_1
+		deriv_1 = 2.0 * coeff_2
+		deriv_2 = 3.0 * coeff_3
+
+		discr_deriv = deriv_1 * deriv_1 - 4 * deriv_2 * deriv_0
+
+		return true if discr_deriv < 0.0
+
+		denom = 1.0 / (2.0 * deriv_2)
+		sqrt_term = Math.sqrt(discr_deriv) * denom
+		add_term = -deriv_1 * denom
+
+		e_1_r = add_term - sqrt_term
+		e_2_r = add_term + sqrt_term
+
+		e_1 = e_1_r
+		e_2 = e_2_r
+
+		if e_1_r > e_2_r
+			e_1 = e_2_r
+			e_2 = e_1_r
+		end
+
+		return true if e_1 >= 0.0
+		return (lower_limit * upper_limit <= 0.0) if e_2 >= 0.0
+
+		e_1_2 = e_1 * e_1
+		e_1_3 = e_1_2 * e_1
+
+		f_e_1 = coeff_0 + coeff_1 * e_1 + coeff_2 * e_1_2 + coeff_3 * e_1_3
+
+		e_2_2 = e_2 * e_2
+		e_2_3 = e_2_2 * e_2
+
+		f_e_2 = coeff_0 + coeff_1 * e_2 + coeff_2 * e_2_2 + coeff_3 * e_2_3
+
+		return (lower_limit * f_e_1 > 0.0 && upper_limit * f_e_2 > 0.0) if e_1 < e_2
+		return (lower_limit * f_e_2 > 0.0 && upper_limit * f_e_1 > 0.0) if e_2 < e_1
+		
+		return false
+	end
+
 	@[Anyolite::Exclude]
 	def self.test_all_collision_routines
 		raise "Collision test failed" unless true == Collishi.fraction_less_than_zero(-1.0, 3.0)
