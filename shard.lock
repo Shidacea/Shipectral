@@ -2,7 +2,7 @@ version: 2.0
 shards:
   anyolite:
     git: https://github.com/anyolite/anyolite.git
-    version: 0.15.0+git.commit.f125a1396904a3fdc05aa10dc9332dbaf2de59ce
+    version: 0.15.0+git.commit.01dde1d72509e2285c49d71185ac2ba801ee316a
 
   crsfml:
     git: https://github.com/oprypin/crsfml.git
@@ -10,9 +10,9 @@ shards:
 
   imgui:
     git: https://github.com/oprypin/crystal-imgui.git
-    version: 0.1.0+git.commit.caddaba8bb93d16aa76dfe0212aea290e8126f8c
+    version: 0.1.0+git.commit.3c577079d1319e80e79a0b739439fc3b53c5011f
 
   imgui-sfml:
     git: https://github.com/oprypin/crystal-imgui-sfml.git
-    version: 2.1.0+git.commit.3b46a09ff099116115820f011e5b399745d28eba
+    version: 2.1.0+git.commit.73e03608837b3690cea9c9df0b95d1626c50c38e
 
