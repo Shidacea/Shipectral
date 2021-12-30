@@ -11,7 +11,7 @@ dependencies:
   anyolite:
     github: Anyolite/anyolite
     branch: master
-    version: 0.15.0
+    version: 0.16.0
   imgui:
     github: oprypin/crystal-imgui
     branch: master
