@@ -43,4 +43,10 @@ class TestShape
 		return self.new(draw_shape, collision_shape, pos, z, counter)
 	end
 
+	def self.new_ellipse(pos: SDC.xy, offset: SDC.xy, semiaxes: SDC.xy, z: 0, counter: counter)
+		draw_shape = SF::EllipseShape.new
+		collision_shape = SDC::CollisionShapeEllipse.new(offset: offset, semiaxes: semiaxes)
+		return self.new(draw_shape, collision_shape, pos, z, counter)
+	end
+
 end

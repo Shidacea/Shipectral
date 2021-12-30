@@ -103,6 +103,9 @@ class SceneCollision < SDC::Scene
 		@new_side_2_x = 50
 		@new_side_2_y = -50
 
+		@new_semiaxes_x = 200
+		@new_semiaxes_y = 100
+
 		@marked = nil
 
 		@dragged_object = nil
@@ -167,6 +170,17 @@ class SceneCollision < SDC::Scene
 				@shapes.push TestShape.new_triangle(pos: SDC.xy(@new_obj_x, @new_obj_y), 
 					side_1: SDC.xy(@new_side_1_x, @new_side_1_y),
 					side_2: SDC.xy(@new_side_2_x, @new_side_2_y), z: @z, counter: @counter)
+
+				@z += 0.1
+				@counter += 1
+			end
+
+			# TODO: Params
+
+			ImGui.button "New ellipse" do
+				@shapes.push TestShape.new_ellipse(pos: SDC.xy(@new_obj_x, @new_obj_y), 
+					semiaxes: SDC.xy(@new_semiaxes_x, @new_semiaxes_y),
+					z: @z, counter: @counter)
 
 				@z += 0.1
 				@counter += 1

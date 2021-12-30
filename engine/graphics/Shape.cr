@@ -174,6 +174,44 @@ module SF
       self.texture= texture
     end
   end
+
+  @[Anyolite::SpecializeInstanceMethod("initialize", [radius : Number = 0, point_count : Int = 30], [radius : Number = 0])]
+  @[Anyolite::SpecializeInstanceMethod("scale", nil)]
+  @[Anyolite::SpecializeInstanceMethod("move", [offset : Vector2 | Tuple], [offset : SF::Vector2f])]
+  @[Anyolite::ExcludeInstanceMethod("draw")]
+  @[Anyolite::SpecializeInstanceMethod("origin=", [origin : Vector2 | Tuple], [origin : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("scale=", [factors : Vector2 | Tuple], [factors : SF::Vector2f])]
+  @[Anyolite::SpecializeInstanceMethod("position=", [position : Vector2 | Tuple], [position : SF::Vector2f])]
+  @[Anyolite::ExcludeInstanceMethod("set_texture")]
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
+  class EllipseShape < Shape
+    property semiaxes : SF::Vector2f = SF::Vector2f.new
+
+    def initialize(semiaxes : SF::Vector2f = SF::Vector2f.new)
+      super()
+
+      @semiaxes = semiaxes
+    end
+
+    def point_count : Int32
+      30
+    end
+
+    def get_point(index : Int) : Vector2f
+      angle = index.to_f32 * 2.0 * Math::PI / point_count.to_f32 - 0.5 * Math::PI
+
+      px = Math.cos(angle) * @semiaxes.x
+      py = Math.sin(angle) * @semiaxes.y
+
+      # TODO: Respect position here and in other methods
+
+      SF::Vector2f.new(px, py)
+    end
+
+    def dup : EllipseShape
+      return EllipseShape.new(@semiaxes)
+    end
+  end
 end
 
 def setup_ruby_draw_shape_class(rb)
@@ -183,4 +221,5 @@ def setup_ruby_draw_shape_class(rb)
   Anyolite.wrap(rb, SF::RectangleShape, under: SF, verbose: true, connect_to_superclass: true)
   Anyolite.wrap(rb, SF::CircleShape, under: SF, verbose: true, connect_to_superclass: true)
   Anyolite.wrap(rb, SF::TriangleShape, under: SF, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, SF::EllipseShape, under: SF, verbose: true, connect_to_superclass: true)
 end

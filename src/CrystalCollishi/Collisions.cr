@@ -104,6 +104,15 @@ module Collishi
     return true
   end
 
+	def self.collision_point_ellipse(x1 : Float, y1 : Float, x2 : Float, y2 : Float, a2 : Float, b2 : Float)
+		dx = x1 - x2
+		dy = y1 - y2
+
+		return false if dx * dx * b2 * b2 + dy * dy * a2 * a2 > a2 * a2 * b2 * b2
+
+		return true
+	end
+
   def self.collision_line_line(x1 : Float, y1 : Float, dx1 : Float, dy1 : Float, x2 : Float, y2 : Float, dx2 : Float, dy2 : Float)
     cross_term = dx2 * dy1 - dy2 * dx1
 
@@ -485,8 +494,8 @@ module Collishi
   end
 
 	def self.collision_ellipse_ellipse(x1 : Float, y1 : Float, a1 : Float, b1 : Float, x2 : Float, y2 : Float, a2 : Float, b2 : Float)
-		# TODO: Test this extensively
-		
+		# Helper terms.
+
 		a1_squared = a1 * a1
 		b1_squared = b1 * b1
 		a2_squared = a2 * a2
@@ -495,61 +504,64 @@ module Collishi
 		dx = x2 - x1
 		dy = y2 - y1
 
-		dx_squared = x21 * x21
-		dy_squared = y21 * y21
+		dx_squared = dx * dx
+		dy_squared = dy * dy
+
+		# Test if the circles spanned by the bigger semiaxes collide.
 
 		return false if {dx_squared, dy_squared}.max > 2.0 * {(a1_squared + a2_squared), (b1_squared + b2_squared)}.max
 
-		product = a1_squared * b1_squared * a2_squared * b2_squared
+		# Construct the characteristic polynomial f(x) for both ellipse matrices.
+		# If and only if f(x) has less than two negative real roots, the ellipses collide.
 
-		coeff_0 = 1.0 / (a2_squared * b2_squared)
-		coeff_1 = (-a1_squared * b1_squared - b1_squared * a2_squared - a1_squared * b2_squared + b1_squared * dx_squared + a1_squared * dy_squared) / product
-		coeff_2 = (b1_squared * a2_squared + a1_squared * b2_squared + a2_squared * b2_squared - b2_squared * dx_squared - a2_squared * dy_squared) / product
-		coeff_3 = -1.0 / (a1_squared * b1_squared)
+		coeff_0 = a1_squared * b1_squared
+		coeff_1 = (-a1_squared * b1_squared - b1_squared * a2_squared - a1_squared * b2_squared + b1_squared * dx_squared + a1_squared * dy_squared)
+		coeff_2 = (b1_squared * a2_squared + a1_squared * b2_squared + a2_squared * b2_squared - b2_squared * dx_squared - a2_squared * dy_squared)
+		coeff_3 = -a2_squared * b2_squared
+
+		# Determine the values of f(x) at negative infinity and at zero.
 
 		lower_limit = (coeff_3.abs > 0.0 ? -coeff_3 : (coeff_2.abs > 0.0 ? coeff_2 : (coeff_1.abs > 0.0 ? -coeff_1 : coeff_0)))
-		upper_limit = coeff_0
+		value_at_zero = coeff_0
+
+		# Calculate the derivative f'(x) of f(x) to help determine root positions,
+		# since calculating roots of a third-order polynomial is quite slow.
 
 		deriv_0 = coeff_1
 		deriv_1 = 2.0 * coeff_2
 		deriv_2 = 3.0 * coeff_3
 
-		discr_deriv = deriv_1 * deriv_1 - 4 * deriv_2 * deriv_0
+		discriminant_of_derivative = deriv_1 * deriv_1 - 4 * deriv_2 * deriv_0
 
-		return true if discr_deriv < 0.0
+		return true if discriminant_of_derivative <= 0.0
 
-		denom = 1.0 / (2.0 * deriv_2)
-		sqrt_term = Math.sqrt(discr_deriv) * denom
-		add_term = -deriv_1 * denom
+		# Find out the extrema of f(x) by using the pq formula to solve f'(x)=0.
 
-		e_1_r = add_term - sqrt_term
-		e_2_r = add_term + sqrt_term
+		denominator_term = 1.0 / (2.0 * deriv_2)
 
-		e_1 = e_1_r
-		e_2 = e_2_r
+		base_term = -deriv_1 * denominator_term
+		sqrt_term = Math.sqrt(discriminant_of_derivative) * denominator_term.abs
 
-		if e_1_r > e_2_r
-			e_1 = e_2_r
-			e_2 = e_1_r
-		end
+		lower_extremum = base_term - sqrt_term
+		upper_extremum = base_term + sqrt_term
 
-		return true if e_1 >= 0.0
-		return (lower_limit * upper_limit <= 0.0) if e_2 >= 0.0
+		# If the lower extremum is higher than zero, we have less than two roots.
 
-		e_1_2 = e_1 * e_1
-		e_1_3 = e_1_2 * e_1
+		return true if lower_extremum >= 0.0
 
-		f_e_1 = coeff_0 + coeff_1 * e_1 + coeff_2 * e_1_2 + coeff_3 * e_1_3
+		# Finally, just count the roots by counting any sign changes.
 
-		e_2_2 = e_2 * e_2
-		e_2_3 = e_2_2 * e_2
+		lower_extremum_square = lower_extremum * lower_extremum
+		lower_extremum_cubic = lower_extremum_square * lower_extremum
 
-		f_e_2 = coeff_0 + coeff_1 * e_2 + coeff_2 * e_2_2 + coeff_3 * e_2_3
+		lower_extremum_value = coeff_0 + coeff_1 * lower_extremum + coeff_2 * lower_extremum_square + coeff_3 * lower_extremum_cubic
 
-		return (lower_limit * f_e_1 > 0.0 && upper_limit * f_e_2 > 0.0) if e_1 < e_2
-		return (lower_limit * f_e_2 > 0.0 && upper_limit * f_e_1 > 0.0) if e_2 < e_1
-		
-		return false
+		upper_extremum_square = upper_extremum * upper_extremum
+		upper_extremum_cubic = upper_extremum_square * upper_extremum
+
+		upper_extremum_value = coeff_0 + coeff_1 * upper_extremum + coeff_2 * upper_extremum_square + coeff_3 * upper_extremum_cubic
+
+		return (lower_limit * lower_extremum_value >= 0.0 && value_at_zero * upper_extremum_value >= 0.0)
 	end
 
 	@[Anyolite::Exclude]
@@ -647,6 +659,8 @@ module Collishi
 		raise "Collision test failed" unless false == Collishi.collision_triangle_triangle(4.0, 4.0, 1.0, 0.0, 1.0, 1.0,     3.0, 1.0, 0.0, 2.0, 4.0, 2.0)
 		raise "Collision test failed" unless false == Collishi.collision_triangle_triangle(4.0, 4.0, 1.0, 0.0, 1.0, 1.0,     4.0, 2.0, 2.0, 2.0, 3.0, 3.0)
 		raise "Collision test failed" unless true == Collishi.collision_triangle_triangle(3.0, 1.0, 0.0, 2.0, 4.0, 2.0,     4.0, 2.0, 2.0, 2.0, 3.0, 3.0)
+
+		# TODO: Ellipse routine checks
 
 		puts "Collision routines checked successfully."
 	end

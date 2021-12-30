@@ -89,6 +89,18 @@ module SDC
       Collishi.collision_point_triangle(x1, y1, x2, y2, sxa2, sya2, sxb2, syb2)
     end
 
+    def self.check_collision(shape_1 : SDC::CollisionShapePoint, shape_2 : SDC::CollisionShapeEllipse, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      x1 = pos_1.x
+      y1 = pos_1.y
+
+      x2 = pos_2.x
+      y2 = pos_2.y
+      a2 = shape_2.semiaxes.x
+      b2 = shape_2.semiaxes.y
+
+      Collishi.collision_point_ellipse(x1, y1, x2, y2, a2, b2)
+    end
+
     # Line vs ...
 
     def self.check_collision(shape_1 : SDC::CollisionShapeLine, shape_2 : SDC::CollisionShapePoint, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
@@ -280,6 +292,26 @@ module SDC
       syb2 = shape_2.side_2.y * shape_2.scale.y
 
       Collishi.collision_triangle_triangle(x1, y1, sxa1, sya1, sxb1, syb1, x2, y2, sxa2, sya2, sxb2, syb2)
+    end
+
+    # Ellipse vs ...
+
+    def self.check_collision(shape_1 : SDC::CollisionShapeEllipse, shape_2 : SDC::CollisionShapePoint, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      Collider.vice_versa
+    end
+
+    def self.check_collision(shape_1 : SDC::CollisionShapeEllipse, shape_2 : SDC::CollisionShapeEllipse, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      x1 = pos_1.x
+      y1 = pos_1.y
+      a1 = shape_1.semiaxes.x * shape_1.scale.x
+      b1 = shape_1.semiaxes.y * shape_1.scale.y
+
+      x2 = pos_2.x
+      y2 = pos_2.y
+      a2 = shape_2.semiaxes.x * shape_2.scale.x
+      b2 = shape_2.semiaxes.y * shape_2.scale.y
+
+      Collishi.collision_ellipse_ellipse(x1, y1, a1, b1, x2, y2, a2, b2)
     end
 
     # Failsafe
