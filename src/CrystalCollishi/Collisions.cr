@@ -248,6 +248,14 @@ module Collishi
 		return true
   end
 
+	def self.collision_line_ellipse(x1 : Float, y1 : Float, dx1 : Float, dy1 : Float, x2 : Float, y2 : Float, a2 : Float, b2 : Float)
+		# Rescale by centering the coordinate system at (x2, y2) and 
+		# applying the transformation matrix ((b, 0), (0, a)) to everything.
+		# This way, the ellipse becomes a circle.
+
+		self.collision_line_circle((x1 - x2) * b2, (y1 - y2) * a2, dx1 * b2, dy1 * a2, 0.0, 0.0, a2 * b2)
+	end
+
   def self.collision_circle_circle(x1 : Float, y1 : Float, r1 : Float, x2 : Float, y2 : Float, r2 : Float)
     dx = x1 - x2
 		dy = y1 - y2
@@ -373,6 +381,10 @@ module Collishi
 		return true
   end
 
+	def self.collision_circle_ellipse(x1 : Float, y1 : Float, r1 : Float, x2 : Float, y2 : Float, a2 : Float, b2 : Float)
+		self.collision_ellipse_ellipse(x1, y1, r1, r1, x2, y2, a2, b2)
+	end
+
   def self.collision_box_box(x1 : Float, y1 : Float, w1 : Float, h1 : Float, x2 : Float, y2 : Float, w2 : Float, h2 : Float)
     return false if x1 + w1 < x2
 		return false if y1 + h1 < y2
@@ -421,6 +433,10 @@ module Collishi
 
 		return true
   end
+
+	def self.collision_box_ellipse(x1 : Float, y1 : Float, w1 : Float, h1 : Float, x2 : Float, y2 : Float, a2 : Float, b2 : Float)
+		self.collision_circle_box(0.0, 0.0, a2 * b2, (x1 - x2) * b2, (y1 - y2) * a2, w1 * b2, h1 * a2)
+	end
 
   def self.collision_triangle_triangle(x1 : Float, y1 : Float, sxa1 : Float, sya1 : Float, sxb1 : Float, syb1 : Float, x2 : Float, y2 : Float, sxa2 : Float, sya2 : Float, sxb2 : Float, syb2 : Float)
     x21 = x2 - x1
@@ -492,6 +508,10 @@ module Collishi
 
 		return true
   end
+
+	def self.collision_triangle_ellipse(x1 : Float, y1 : Float, sxa1 : Float, sya1 : Float, sxb1 : Float, syb1 : Float, x2 : Float, y2 : Float, a2 : Float, b2 : Float)
+		self.collision_circle_triangle(0.0, 0.0, a2 * b2, (x1 - x2) * b2, (y1 - y2) * a2, sxa1 * b2, sya1 * a2, sxb1 * b2, syb1 * a2)
+	end
 
 	def self.collision_ellipse_ellipse(x1 : Float, y1 : Float, a1 : Float, b1 : Float, x2 : Float, y2 : Float, a2 : Float, b2 : Float)
 		# Helper terms.

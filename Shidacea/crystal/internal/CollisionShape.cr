@@ -95,8 +95,8 @@ module SDC
 
       x2 = pos_2.x
       y2 = pos_2.y
-      a2 = shape_2.semiaxes.x
-      b2 = shape_2.semiaxes.y
+      a2 = shape_2.semiaxes.x * shape_2.scale.x
+      b2 = shape_2.semiaxes.y * shape_2.scale.y
 
       Collishi.collision_point_ellipse(x1, y1, x2, y2, a2, b2)
     end
@@ -164,6 +164,20 @@ module SDC
       Collishi.collision_line_triangle(x1, y1, dx1, dy1, x2, y2, sxa2, sya2, sxb2, syb2)
     end
 
+    def self.check_collision(shape_1 : SDC::CollisionShapeLine, shape_2 : SDC::CollisionShapeEllipse, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      x1 = pos_1.x
+      y1 = pos_1.y
+      dx1 = shape_1.line.x
+      dy1 = shape_1.line.y
+
+      x2 = pos_2.x
+      y2 = pos_2.y
+      a2 = shape_2.semiaxes.x * shape_2.scale.x
+      b2 = shape_2.semiaxes.y * shape_2.scale.y
+
+      Collishi.collision_line_ellipse(x1, y1, dx1, dy1, x2, y2, a2, b2)
+    end
+
     # Circle vs ...
 
     def self.check_collision(shape_1 : SDC::CollisionShapeCircle, shape_2 : SDC::CollisionShapePoint, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
@@ -214,6 +228,19 @@ module SDC
       Collishi.collision_circle_triangle(x1, y1, r1, x2, y2, sxa2, sya2, sxb2, syb2)
     end
 
+    def self.check_collision(shape_1 : SDC::CollisionShapeCircle, shape_2 : SDC::CollisionShapeEllipse, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      x1 = pos_1.x
+      y1 = pos_1.y
+      r1 = shape_1.radius * shape_1.scale.x
+
+      x2 = pos_2.x
+      y2 = pos_2.y
+      a2 = shape_2.semiaxes.x * shape_2.scale.x
+      b2 = shape_2.semiaxes.y * shape_2.scale.y
+
+      Collishi.collision_circle_ellipse(x1, y1, r1, x2, y2, a2, b2)
+    end
+
     # Box vs ...
 
     def self.check_collision(shape_1 : SDC::CollisionShapeBox, shape_2 : SDC::CollisionShapePoint, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
@@ -258,6 +285,20 @@ module SDC
       Collishi.collision_box_triangle(x1, y1, w1, h1, x2, y2, sxa2, sya2, sxb2, syb2)
     end
 
+    def self.check_collision(shape_1 : SDC::CollisionShapeBox, shape_2 : SDC::CollisionShapeEllipse, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      x1 = pos_1.x
+      y1 = pos_1.y
+      w1 = shape_1.size.x * shape_1.scale.x 
+      h1 = shape_1.size.y * shape_1.scale.y
+
+      x2 = pos_2.x
+      y2 = pos_2.y
+      a2 = shape_2.semiaxes.x * shape_2.scale.x
+      b2 = shape_2.semiaxes.y * shape_2.scale.y
+
+      Collishi.collision_box_ellipse(x1, y1, w1, h1, x2, y2, a2, b2)
+    end
+
     # Triangle vs ...
 
     def self.check_collision(shape_1 : SDC::CollisionShapeTriangle, shape_2 : SDC::CollisionShapePoint, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
@@ -294,9 +335,41 @@ module SDC
       Collishi.collision_triangle_triangle(x1, y1, sxa1, sya1, sxb1, syb1, x2, y2, sxa2, sya2, sxb2, syb2)
     end
 
+    def self.check_collision(shape_1 : SDC::CollisionShapeTriangle, shape_2 : SDC::CollisionShapeEllipse, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      x1 = pos_1.x
+      y1 = pos_1.y
+      sxa1 = shape_1.side_1.x * shape_1.scale.x
+      sya1 = shape_1.side_1.y * shape_1.scale.y
+      sxb1 = shape_1.side_2.x * shape_1.scale.x
+      syb1 = shape_1.side_2.y * shape_1.scale.y
+
+      x2 = pos_2.x
+      y2 = pos_2.y
+      a2 = shape_2.semiaxes.x * shape_2.scale.x
+      b2 = shape_2.semiaxes.y * shape_2.scale.y
+
+      Collishi.collision_triangle_ellipse(x1, y1, sxa1, sya1, sxb1, syb1, x2, y2, a2, b2)
+    end
+
     # Ellipse vs ...
 
     def self.check_collision(shape_1 : SDC::CollisionShapeEllipse, shape_2 : SDC::CollisionShapePoint, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      Collider.vice_versa
+    end
+
+    def self.check_collision(shape_1 : SDC::CollisionShapeEllipse, shape_2 : SDC::CollisionShapeLine, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      Collider.vice_versa
+    end
+
+    def self.check_collision(shape_1 : SDC::CollisionShapeEllipse, shape_2 : SDC::CollisionShapeCircle, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      Collider.vice_versa
+    end
+
+    def self.check_collision(shape_1 : SDC::CollisionShapeEllipse, shape_2 : SDC::CollisionShapeBox, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
+      Collider.vice_versa
+    end
+
+    def self.check_collision(shape_1 : SDC::CollisionShapeEllipse, shape_2 : SDC::CollisionShapeTriangle, pos_1 : SF::Vector2f, pos_2 : SF::Vector2f)
       Collider.vice_versa
     end
 

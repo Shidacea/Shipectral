@@ -67,7 +67,7 @@ allowing for a solid Ruby-based game development experience.
 * * [X] Find better syntax for collision shapes
 * * [X] Find short syntax for colors
 * [ ] Add more collision shapes
-* * [ ] Ellipses
+* * [X] Ellipses
 * * [ ] Quadrangles
 
 ### Version 0.4.0
