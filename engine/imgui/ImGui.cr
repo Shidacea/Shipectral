@@ -254,9 +254,6 @@ module ImGui
     ImGui.end_child
   end
 
-  # TODO: Fix remaining warnings for block arg function overloads
-  # TODO: Fix anyolite so private ancestors will be ignored and some exclusions can be removed
-
   @[Anyolite::Specialize]
   def self.input_int(label : String, var : IntVar, step : Int32 = 1, step_fast : Int32 = 100, flags : ImGui::ImGuiInputTextFlags = ImGui::ImGuiInputTextFlags.new(0))
     ImGui.input_int(label, pointerof(var.content), step, step_fast, flags)
