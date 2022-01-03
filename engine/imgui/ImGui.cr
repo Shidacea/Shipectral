@@ -191,20 +191,19 @@
 @[Anyolite::SpecializeClassMethod("begin", [name : String, p_open : ::Pointer(Bool) = Pointer(Bool).null, flags : ImGuiWindowFlags = ImGuiWindowFlags.new(0)],  [name : String, flags : ImGuiWindowFlags = ImGui::ImGuiWindowFlags.new(0)])]
 @[Anyolite::SpecializeClassMethod("button", [label : String, size : ImVec2 = ImVec2.new(0, 0)], [label : String, size : ImVec2 = ImGui::ImVec2.new(0, 0)])]
 module ImGui
-  @[Anyolite::IgnoreAncestorMethods]
+
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   @[Anyolite::SpecializeInstanceMethod("initialize", [x : Float32, y : Float32])]
   struct ImVec2
   end
 
-  @[Anyolite::IgnoreAncestorMethods]
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   @[Anyolite::SpecializeInstanceMethod("initialize", [x : Float32, y : Float32, z : Float32, w : Float32])]
   struct ImVec4
   end
 
-  @[Anyolite::IgnoreAncestorMethods]
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
+  @[Anyolite::IgnoreAncestorMethods]
   @[Anyolite::SpecializeInstanceMethod("initialize", [value : ImVec4], [r : Int32, g : Int32, b : Int32, a : Int32 = 255])]
   @[Anyolite::SpecializeInstanceMethod("set_hsv", [h : Float32, s : Float32, v : Float32, a : Float32 = 1.0], [h : Float32, s : Float32, v : Float32, a : Float32 = 1.0f32])]
   @[Anyolite::SpecializeInstanceMethod("hsv", [h : Float32, s : Float32, v : Float32, a : Float32 = 1.0], [h : Float32, s : Float32, v : Float32, a : Float32 = 1.0f32])]
