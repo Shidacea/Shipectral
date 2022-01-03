@@ -59,9 +59,7 @@ allowing for a solid Ruby-based game development experience.
 * [ ] Wrap other SF classes
 * * [ ] Networking classes
 * * [ ] Other important classes
-* [ ] Wrap ImGui classes
-* * [X] Add ImGui container class for inputs
-* * [ ] Wrap all relevant functions
+* [X] ImGui support for debugging
 * [ ] Add more SDC methods as alternative to directly using SFML methods
 * * [ ] Find better syntax for draw shapes
 * * [X] Find better syntax for collision shapes
