@@ -125,9 +125,11 @@ class SceneTest < SDC::Scene
 
 		@test_toggle = false
 		@test_value = 4
-		@test_array = [1, 2, 3]
 		@test_string = "Hello"
 		@test_string2 = "Derp"
+
+		@single_input_test_var = ImGui::IntVar.new(123)
+		@single_input_test_float = ImGui::FloatVar.new(1.23)
 	end
 
 	def at_exit
@@ -190,6 +192,9 @@ class SceneTest < SDC::Scene
 
 			ImGui.text "Map was loaded #{SDC.get_variable("map_loaded")} times."
 			ImGui.button "Reload map" {load_map}
+
+			ImGui.input_int("Int", @single_input_test_var)
+			ImGui.input_float("Float", @single_input_test_float)
 
 			ImGui.button "Play music" {@music.play}
 			ImGui.button "Pause music" {@music.pause}
@@ -260,8 +265,6 @@ class SceneTest < SDC::Scene
 				end
 				ImGui.text "This text signifies that."
 			end
-
-			ImGui.input_int("Array", @test_array)
 
 			ImGui.button "Test socket" do
 				puts "Socket"

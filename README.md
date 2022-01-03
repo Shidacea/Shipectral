@@ -60,15 +60,13 @@ allowing for a solid Ruby-based game development experience.
 * * [ ] Networking classes
 * * [ ] Other important classes
 * [ ] Wrap ImGui classes
-* * [ ] Add ImGui container class for inputs
+* * [X] Add ImGui container class for inputs
 * * [ ] Wrap all relevant functions
 * [ ] Add more SDC methods as alternative to directly using SFML methods
 * * [ ] Find better syntax for draw shapes
 * * [X] Find better syntax for collision shapes
 * * [X] Find short syntax for colors
-* [ ] Add more collision shapes
-* * [X] Ellipses
-* * [ ] Quadrangles
+* [X] Ellipse shapes
 
 ### Version 0.4.0
 
@@ -83,6 +81,7 @@ this version is not planned for the near future.
 * [ ] Port Shidacea to Crystal and bind with Anyolite
 * [ ] Find a way to load different shards on Linux
 * [ ] Make ImGui optional
+* [ ] Quadrangle shapes
 
 ### Future versions
 
