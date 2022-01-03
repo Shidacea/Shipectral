@@ -187,6 +187,12 @@
 @[Anyolite::SpecializeClassMethod("load_ini_settings_from_memory", [ini_data : String, ini_size : LibC::SizeT = 0], [ini_data : String, ini_size : LibC::SizeT = 0u64])]
 @[Anyolite::SpecializeClassMethod("col32", [r : Int, g : Int, b : Int, a : Int = 255])]
 @[Anyolite::SpecializeClassMethod("color", [r : Int, g : Int, b : Int, a : Int = 255])]
+@[Anyolite::SpecializeClassMethod("begin_child", [str_id : String, size : ImVec2 = ImVec2.new(0, 0), border : Bool = false, flags : ImGuiWindowFlags = ImGuiWindowFlags.new(0)], [str_id : String, size : ImVec2 = ImGui::ImVec2.new(0, 0), border : Bool = false, flags : ImGuiWindowFlags = ImGui::ImGuiWindowFlags.new(0)])]
+@[Anyolite::SpecializeClassMethod("set_window_focus", nil)]
+@[Anyolite::SpecializeClassMethod("push_style_color", [idx : ImGuiCol, col : ImVec4], [idx : ImGuiCol, col : ImVec4 | UInt32])]
+@[Anyolite::SpecializeClassMethod("push_style_var", [idx : ImGuiStyleVar, val : Float32], [idx : ImGuiStyleVar, val : Float32 | ImVec2])]
+@[Anyolite::SpecializeClassMethod("begin", [name : String, p_open : ::Pointer(Bool) = Pointer(Bool).null, flags : ImGuiWindowFlags = ImGuiWindowFlags.new(0)],  [name : String, flags : ImGuiWindowFlags = ImGui::ImGuiWindowFlags.new(0)])]
+@[Anyolite::SpecializeClassMethod("button", [label : String, size : ImVec2 = ImVec2.new(0, 0)], [label : String, size : ImVec2 = ImGui::ImVec2.new(0, 0)])]
 module ImGui
   @[Anyolite::SpecifyGenericTypes([T])]
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
@@ -204,7 +210,7 @@ module ImGui
 
   @[Anyolite::Specialize]
   @[Anyolite::AddBlockArg(1, Nil)]
-  def self.begin(name : String)
+  def self.begin_block(name : String)
     ImGui.begin(name)
     yield nil
     ImGui.end
@@ -212,7 +218,7 @@ module ImGui
 
   @[Anyolite::Specialize]
   @[Anyolite::StoreBlockArg]
-  def self.button(name : String) : Bool
+  def self.button_block(name : String) : Bool
     return_value = ImGui.button(name)
     ruby_block = Anyolite.obtain_given_rb_block
 
@@ -225,14 +231,13 @@ module ImGui
 
   @[Anyolite::Specialize]
   @[Anyolite::AddBlockArg(1, Nil)]
-  def self.begin_child(name : String)
+  def self.begin_child_block(name : String)
     ImGui.begin_child(name)
     yield nil
     ImGui.end_child
   end
 
-  # TODO: Fix remaining warnings
-  # TODO: Fix segmentation fault in Ruby scripts (most likely due to recursion - rename these functions)
+  # TODO: Fix remaining warnings for block arg function overloads
   # TODO: Fix anyolite so private ancestors will be ignored and some exclusions can be removed
 
   @[Anyolite::Specialize]

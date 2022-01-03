@@ -176,7 +176,7 @@ class SceneTest < SDC::Scene
 	end
 
 	def draw_imgui
-		ImGui.begin "Glorious Test Dialog Number 1" do
+		ImGui.begin_block "Glorious Test Dialog Number 1" do
 
 			shape_collision_no = 0
 			box_collision_no = 0
@@ -191,22 +191,22 @@ class SceneTest < SDC::Scene
 			end
 
 			ImGui.text "Map was loaded #{SDC.get_variable("map_loaded")} times."
-			ImGui.button "Reload map" {load_map}
+			ImGui.button_block "Reload map" {load_map}
 
 			ImGui.input_int("Int", @single_input_test_var)
 			ImGui.input_float("Float", @single_input_test_float)
 
-			ImGui.button "Play music" {@music.play}
-			ImGui.button "Pause music" {@music.pause}
-			ImGui.button "Pitch up" {@music.pitch *= 1.1}
-			ImGui.button "Pitch down" {@music.pitch /= 1.1}
-			ImGui.button "Pitch ??? #{!SDC.get_switch("chaos") ? "on" : "off"}" {SDC.toggle_switch("chaos")}
+			ImGui.button_block "Play music" {@music.play}
+			ImGui.button_block "Pause music" {@music.pause}
+			ImGui.button_block "Pitch up" {@music.pitch *= 1.1}
+			ImGui.button_block "Pitch down" {@music.pitch /= 1.1}
+			ImGui.button_block "Pitch ??? #{!SDC.get_switch("chaos") ? "on" : "off"}" {SDC.toggle_switch("chaos")}
 
-			ImGui.button "Play sound" do
+			ImGui.button_block "Play sound" do
 				@example_sound.play
 			end
 
-			ImGui.button "Play demonic sound" do
+			ImGui.button_block "Play demonic sound" do
 				@example_sound_1.pitch = 0.5
 				@example_sound_2.pitch = 0.4
 				@example_sound_3.pitch = 0.3
@@ -227,46 +227,46 @@ class SceneTest < SDC::Scene
 			ImGui.text "Last key code: #{@last_key_code}"
 
 			ImGui.text "On solid tile: #{@test_map.test_collision_with_entity(@entities[0])}"
-			ImGui.button "Set dirt passable" {SDC::Data.tilesets[:Default].tiles[3].solid = false}
+			ImGui.button_block "Set dirt passable" {SDC::Data.tilesets[:Default].tiles[3].solid = false}
 
 			ImGui.text "Counter = #{@counter}"
 
-			ImGui.button "Reset mouse" {SF::EventMouse.set_position([300, 200], SDC.window)}
+			ImGui.button_block "Reset mouse" {SF::EventMouse.set_position([300, 200], SDC.window)}
 			ImGui.text "Mouse pos = #{SDC.get_mouse_coords}"
 
-			ImGui.button "Set text input to #{!SDC.text_input}" {SDC.text_input = !SDC.text_input}
+			ImGui.button_block "Set text input to #{!SDC.text_input}" {SDC.text_input = !SDC.text_input}
 			ImGui.text "Text = #{@text_buffer}"
 
-			ImGui.button "Rescale entity" do
+			ImGui.button_block "Rescale entity" do
 				@entities[0].shapes[0].scale *= 1.1
 				@entities[0].boxes[0].scale *= 1.1
 				@entities[0].sprites[0].scale *= 1.1
 			end
-			ImGui.button "Reset entity" do
+			ImGui.button_block "Reset entity" do
 				@entities[0].shapes[0].scale = 1.0
 				@entities[0].boxes[0].scale = SDC.xy(1.0, 1.0)
 				@entities[0].sprites[0].scale = SDC.xy(1.0, 1.0)
 			end
 
-			ImGui.button (SDC.get_switch("test") ? "Stop jumping with Q" : "Start jumping with Q") do
+			ImGui.button_block (SDC.get_switch("test") ? "Stop jumping with Q" : "Start jumping with Q") do
 				SDC.toggle_switch("test")
 			end
-			ImGui.button "Amplify jumping" do
+			ImGui.button_block "Amplify jumping" do
 				SDC.multiply_variable("test", 1.05, default: 1000.0 * (SDC.game.meter / SDC.game.second**2))
 			end
 
-			if ImGui.button "Glorious Test Button Number 1" then
+			if ImGui.button_block "Glorious Test Button Number 1" then
 				@test_toggle = !@test_toggle
 			end
 
 			if @test_toggle then
-				ImGui.begin_child "Some child" do
+				ImGui.begin_block_child "Some child" do
 					ImGui.text "Oh yes, that button was pushed!"
 				end
 				ImGui.text "This text signifies that."
 			end
 
-			ImGui.button "Test socket" do
+			ImGui.button_block "Test socket" do
 				puts "Socket"
 				@socket = SDC::Socket.new
 				puts @socket.connect("127.0.0.1", 293)
@@ -276,7 +276,7 @@ class SceneTest < SDC::Scene
 				puts @socket.send_message("TestBla")
 			end
 
-			ImGui.button "Test listener" do
+			ImGui.button_block "Test listener" do
 				puts "Listener"
 				@listener = SDC::Listener.new
 				@socket = SDC::Socket.new
@@ -289,7 +289,7 @@ class SceneTest < SDC::Scene
 				puts @socket.last_message
 			end
 
-			ImGui.button "Toggle show sprite 0" do
+			ImGui.button_block "Toggle show sprite 0" do
 				@entities[0].active_sprites[0] = !@entities[0].active_sprites[0]
 			end
 
