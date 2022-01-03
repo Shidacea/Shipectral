@@ -268,8 +268,8 @@ class SceneTest < SDC::Scene
 
 			ImGui.button_block "Test socket" do
 				puts "Socket"
-				@socket = SDC::Socket.new
-				puts @socket.connect("127.0.0.1", 293)
+				@socket = SF::TcpSocket.new
+				puts @socket.connect(SF::IpAddress.new("127.0.0.1"), 293)
 				puts @socket.remote_address
 				puts @socket.remote_port
 				puts @socket.local_port
@@ -278,8 +278,8 @@ class SceneTest < SDC::Scene
 
 			ImGui.button_block "Test listener" do
 				puts "Listener"
-				@listener = SDC::Listener.new
-				@socket = SDC::Socket.new
+				@listener = SF::TcpListener.new
+				@socket = SF::TcpSocket.new
 				puts @listener.listen(293)
 				puts @listener.accept(@socket)
 				puts @socket.remote_address

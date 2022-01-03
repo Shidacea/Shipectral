@@ -1,5 +1,6 @@
 require "crsfml"
 require "crsfml/audio"
+require "crsfml/network"
 
 require "./audio/Music.cr"
 require "./audio/SoundBuffer.cr"
@@ -19,6 +20,8 @@ require "./internal/Rect.cr"
 require "./internal/Keyboard.cr"
 require "./internal/Mouse.cr"
 require "./internal/Event.cr"
+
+require "./networking/Socket.cr"
 
 def load_sfml_wrappers(rb)
   setup_ruby_music_class(rb)
@@ -44,5 +47,5 @@ def load_sfml_wrappers(rb)
   setup_ruby_tileset_class(rb)
   setup_ruby_map_layer_class(rb)
 
-  setup_ruby_imgui_module(rb)
+  setup_ruby_socket_class(rb)
 end
