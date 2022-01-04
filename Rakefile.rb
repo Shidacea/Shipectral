@@ -161,6 +161,19 @@ task :recompile => [:load_config] do
 end
 
 task :test => [:load_config] do
+    install_helper
+
+    executable_name = $shipectral_config.get_option_value(:executable_name)
+    build_path_name = $shipectral_config.get_option_value(:build_path_name)
+
+    if SHIPECTRAL_COMPILER == :msvc
+        system "\"#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin/#{executable_name}.exe\""
+    elsif SHIPECTRAL_COMPILER == :gcc
+        system "utility/run_Shipectral.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin #{executable_name}"
+    end
+end
+
+task :test_standalone => [:load_config] do
     executable_name = $shipectral_config.get_option_value(:executable_name)
     build_path_name = $shipectral_config.get_option_value(:build_path_name)
 
