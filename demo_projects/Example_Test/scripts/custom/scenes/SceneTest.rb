@@ -260,7 +260,7 @@ class SceneTest < SDC::Scene
 			end
 
 			if @test_toggle then
-				ImGui.begin_block_child "Some child" do
+				ImGui.begin_child_block "Some child" do
 					ImGui.text "Oh yes, that button was pushed!"
 				end
 				ImGui.text "This text signifies that."
