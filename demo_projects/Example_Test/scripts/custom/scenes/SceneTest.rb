@@ -273,7 +273,9 @@ class SceneTest < SDC::Scene
 				puts @socket.remote_address
 				puts @socket.remote_port
 				puts @socket.local_port
-				puts @socket.send_message("TestBla")
+				message = SF::Packet.new
+				message.write("Test")
+				puts @socket.send(message)
 			end
 
 			ImGui.button_block "Test listener" do
@@ -285,8 +287,9 @@ class SceneTest < SDC::Scene
 				puts @socket.remote_address
 				puts @socket.remote_port
 				puts @socket.local_port
-				puts @socket.receive(100)
-				puts @socket.last_message
+				message = SF::Packet.new
+				puts @socket.receive(message)
+				puts message.read_string
 			end
 
 			ImGui.button_block "Toggle show sprite 0" do

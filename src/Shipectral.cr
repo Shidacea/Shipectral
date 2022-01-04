@@ -196,7 +196,7 @@ macro main_routine_with_config(filename)
         {% end %}
       {% else %}
         {% if frontend_project.ends_with?(".json") %}
-          scripts = CompilationHelper.get_all_scripts_from_project_file("{{frontend}}", "{{frontend_project}}")
+          scripts = CompilationHelper.get_all_scripts_from_project_file(SDC::Script.path, "{{frontend_project}}")
 
           scripts.each do |script|
             if File.directory?(script)

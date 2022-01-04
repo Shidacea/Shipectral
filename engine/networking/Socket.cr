@@ -16,10 +16,26 @@ module SF
   @[Anyolite::SpecializeClassMethod("get_public_address", [timeout : Time = Time::Zero], [timeout : Time = SF::Time::Zero])]
   struct IpAddress
   end
+
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
+  @[Anyolite::ExcludeInstanceMethod("read")]
+  @[Anyolite::ExcludeInstanceMethod("append")]
+  @[Anyolite::ExcludeInstanceMethod("data")]
+  @[Anyolite::SpecializeInstanceMethod("initialize", nil)]
+  @[Anyolite::SpecializeInstanceMethod("write", [data : String], [data : String | Float32 | Int32 | Bool])]
+  class Packet
+    def read_string
+      self.read(String)
+    end
+  end
 end
 
 def setup_ruby_socket_class(rb)
   Anyolite.wrap(rb, SF::TcpSocket, under: SF, verbose: true)
   Anyolite.wrap(rb, SF::TcpListener, under: SF, verbose: true)
   Anyolite.wrap(rb, SF::IpAddress, under: SF, verbose: true)
+  Anyolite.wrap_class(rb, SF::Socket, "Socket", under: SF)
+  Anyolite.wrap(rb, SF::Socket::Status, under: SF::Socket, verbose: true)
+  Anyolite.wrap(rb, SF::Socket::Type, under: SF::Socket, verbose: true)
+  Anyolite.wrap(rb, SF::Packet, under: SF, verbose: true)
 end

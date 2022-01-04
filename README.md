@@ -56,10 +56,7 @@ allowing for a solid Ruby-based game development experience.
 * * [ ] Simple map format
 * * [ ] Map format parser
 * * [ ] Fully functional map functions
-* [ ] Wrap other SF classes
-* * [ ] Networking classes
-* * [ ] Other important classes
-* [X] ImGui support for debugging
+* [X] ImGui support for debugging (some features are currently missing)
 * [ ] Add more SDC methods as alternative to directly using SFML methods
 * * [ ] Find better syntax for draw shapes
 * * [X] Find better syntax for collision shapes
@@ -80,6 +77,7 @@ this version is not planned for the near future.
 * [ ] Find a way to load different shards on Linux
 * [ ] Make ImGui optional
 * [ ] Quadrangle shapes
+* [ ] More wrapped SF classes
 
 ### Future versions
 
