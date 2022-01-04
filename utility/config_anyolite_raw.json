@@ -1,4 +1,4 @@
 {
   "rb_config": "utility/mrb_config_shipectral_raw.rb",
-  "rb_release": "master"
+  "rb_release": "3.0.0"
 }
