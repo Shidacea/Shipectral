@@ -113,6 +113,35 @@ module SDC
       end
     end
 
+    def self.load_from_file(filename : String, format : SDC::MapFormat = SDC::MapFormat::NUMBER_BASE_DEBUG)
+      full_filename = SDC::Script.path + "/" + filename
+
+      if !File.exists?(full_filename)
+        Anyolite.raise_runtime_error("File not found: #{full_filename}")
+      end
+
+      tiles = [] of Array(UInt64)
+      
+      File.each_line(full_filename) do |line|
+        str_values = line.split
+        tiles.push(str_values.map {|str| str.to_u64})
+      end
+
+      map_width = tiles.size.to_u64
+      map_height = tiles[0].size.to_u64
+
+      # TODO: Check parameters
+      # TODO: Read full map from file, not only layers
+      # TODO: Fix rotated map
+
+      map_layer = MapLayer.new(map_width, map_height, 30u64, 20u64, 60u64, 60u64)
+      map_layer.replace_tiles(tiles)
+
+      map_layer.background_tile = 4
+
+      map_layer
+    end
+
     def set_tile(x : UInt64, y : UInt64, tile_id : UInt64)
       @tiles[x][y] = tile_id
     end
@@ -154,4 +183,5 @@ end
 
 def setup_ruby_map_layer_class(rb)
   Anyolite.wrap(rb, SDC::MapLayer, under: SDC, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, SDC::MapFormat, under: SDC, verbose: true)
 end
