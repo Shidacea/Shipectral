@@ -1,6 +1,6 @@
 module SDC
   enum MapFormat
-    NUMBER_BASE
+    NUMBER_BASE_DEBUG # Numbers separated by spaces
   end
 
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
