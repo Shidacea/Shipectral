@@ -1,4 +1,8 @@
 module SDC
+  enum MapFormat
+    NUMBER_BASE
+  end
+
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class MapLayer < SF::Transformable
     include SF::Drawable
