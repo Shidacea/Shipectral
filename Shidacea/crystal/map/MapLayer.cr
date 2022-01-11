@@ -7,8 +7,8 @@ module SDC
   class MapLayer < SF::Transformable
     include SF::Drawable
 
-    @width : UInt64 = 0
-    @height : UInt64 = 0
+    property width : UInt64 = 0
+    property height : UInt64 = 0
 
     @view_width : UInt64 = 0
     @view_height : UInt64 = 0
@@ -113,7 +113,7 @@ module SDC
       end
     end
 
-    def self.load_from_file(filename : String, format : SDC::MapFormat = SDC::MapFormat::NUMBER_BASE_DEBUG)
+    def self.load_from_file(filename : String, view_width : UInt64, view_height : UInt64, tile_width : UInt64, tile_height : UInt64, format : SDC::MapFormat = SDC::MapFormat::NUMBER_BASE_DEBUG)
       full_filename = SDC::Script.path + "/" + filename
 
       if !File.exists?(full_filename)
@@ -134,8 +134,10 @@ module SDC
       # TODO: Read full map from file, not only layers
       # TODO: Fix rotated map
 
-      map_layer = MapLayer.new(map_width, map_height, 30u64, 20u64, 60u64, 60u64)
+      map_layer = MapLayer.new(map_width, map_height, view_width, view_height, tile_width, tile_height)
       map_layer.replace_tiles(tiles)
+
+      # TODO: Get background tile from elsewhere
 
       map_layer.background_tile = 4
 

@@ -28,10 +28,11 @@ module SDC
 		end
 
 		def load_from_file(filename)
-			# TODO: Read properties from file
+			# TODO: Read number of layers from file
+			# TODO: Get tile width and height as arguments
+			
 			@number_of_layers = 3
-			@width = 10
-			@height = 8
+
 			@tile_width = 60
 			@tile_height = 60
 
@@ -39,11 +40,11 @@ module SDC
 			@tile_shape = SDC::CollisionShapeBox.new(offset: SDC.xy(-@tile_width * 0.5, -@tile_height * 0.5), size: SDC.xy(@tile_width, @tile_height))
 
 			@number_of_layers.times do |i|
-				new_layer = SDC::MapLayer.load_from_file("assets/maps/Test.sdcmap")
-				#new_layer = SDC::MapLayer.new(@width, @height, @view_width, @view_height, @tile_width, @tile_height)
+				new_layer = SDC::MapLayer.load_from_file("assets/maps/Test.sdcmap", @view_width, @view_height, @tile_height, @tile_width)
 
-				# TODO: Load tiles into map layer and initialize the mesh
-				#new_layer.load_test_map
+				@width = new_layer.width
+				@height = new_layer.height
+
 				new_layer.collision_active = (i == 2)
 
 				@map_layers.push(new_layer)
