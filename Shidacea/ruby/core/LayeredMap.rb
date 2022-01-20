@@ -1,9 +1,9 @@
 module SDC
-	class MapLayer
+	class Map
 		attr_accessor :z
 	end
 
-	class Map
+	class LayeredMap
 
 		include SDCMeta::AIBackend
 
@@ -40,7 +40,7 @@ module SDC
 			@tile_shape = SDC::CollisionShapeBox.new(offset: SDC.xy(-@tile_width * 0.5, -@tile_height * 0.5), size: SDC.xy(@tile_width, @tile_height))
 
 			@number_of_layers.times do |i|
-				new_layer = SDC::MapLayer.load_from_file("assets/maps/Test.sdcmap", @view_width, @view_height, @tile_height, @tile_width)
+				new_layer = SDC::Map.load_from_file("assets/maps/Test.sdcmap", @view_width, @view_height, @tile_height, @tile_width)
 
 				@width = new_layer.width
 				@height = new_layer.height

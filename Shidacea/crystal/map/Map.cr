@@ -4,7 +4,7 @@ module SDC
   end
 
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  class MapLayer < SF::Transformable
+  class Map < SF::Transformable
     include SF::Drawable
 
     property width : UInt64 = 0
@@ -134,7 +134,7 @@ module SDC
       # TODO: Read full map from file, not only layers
       # TODO: Fix rotated map
 
-      map_layer = MapLayer.new(map_width, map_height, view_width, view_height, tile_width, tile_height)
+      map_layer = Map.new(map_width, map_height, view_width, view_height, tile_width, tile_height)
       map_layer.replace_tiles(tiles)
 
       # TODO: Get background tile from elsewhere
@@ -173,7 +173,7 @@ module SDC
     end
 
     def dup
-      new_map_layer = SDC::MapLayer.new(@width, @height, @view_width, @view_height, @tile_width, @tile_height)
+      new_map_layer = SDC::Map.new(@width, @height, @view_width, @view_height, @tile_width, @tile_height)
       if tileset = @tileset
         new_map_layer.link_tileset(tileset)
       end
@@ -184,6 +184,6 @@ module SDC
 end
 
 def setup_ruby_map_layer_class(rb)
-  Anyolite.wrap(rb, SDC::MapLayer, under: SDC, verbose: true, connect_to_superclass: true)
+  Anyolite.wrap(rb, SDC::Map, under: SDC, verbose: true, connect_to_superclass: true)
   Anyolite.wrap(rb, SDC::MapFormat, under: SDC, verbose: true)
 end

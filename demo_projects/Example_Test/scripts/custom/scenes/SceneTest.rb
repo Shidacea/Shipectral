@@ -138,7 +138,7 @@ class SceneTest < SDC::Scene
 	end
 
 	def load_map
-		@test_map = SDC::Map.new(view_width: 30, view_height: 20)
+		@test_map = SDC::LayeredMap.new(view_width: 30, view_height: 20)
 		@test_map.load_from_file("dummy")
 		@test_map.set_config(:TestMap)
 	end
@@ -190,7 +190,7 @@ class SceneTest < SDC::Scene
 				end
 			end
 
-			ImGui.text "Map was loaded #{SDC.get_variable("map_loaded")} times."
+			ImGui.text "LayeredMap was loaded #{SDC.get_variable("map_loaded")} times."
 			ImGui.button_block "Reload map" {load_map}
 
 			ImGui.input_int("Int", @single_input_test_var)

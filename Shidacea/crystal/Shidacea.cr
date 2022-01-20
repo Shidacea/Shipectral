@@ -1,6 +1,6 @@
 require "./map/Tile.cr"
 require "./map/Tileset.cr"
-require "./map/MapLayer.cr"
+require "./map/Map.cr"
 
 require "./internal/CollisionShape.cr"
 require "./internal/Mouse.cr"
