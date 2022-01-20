@@ -95,24 +95,6 @@ module SDC
       end
     end
 
-    def load_test_map
-      @background_tile = 4
-      
-      debug_counter = 0u64
-
-      @tiles = [[] of UInt64]
-
-      0.upto(@width - 1) do |ix|
-        @tiles.push([] of UInt64)
-        0.upto(@height - 1) do |iy|
-          @tiles[ix].push(debug_counter % 3 + 2)
-          @tiles[ix][iy] = 2 if @tiles[ix][iy] == 4
-          debug_counter &*= 7
-          debug_counter &+= 3
-        end
-      end
-    end
-
     def self.load_from_file(filename : String, view_width : UInt64, view_height : UInt64, tile_width : UInt64, tile_height : UInt64, format : SDC::MapFormat = SDC::MapFormat::NUMBER_BASE_DEBUG)
       full_filename = SDC::Script.path + "/" + filename
 
