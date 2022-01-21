@@ -53,7 +53,7 @@ allowing for a solid Ruby-based game development experience.
 * [X] Updated Shidacea library to new standard
 * [X] Consistent syntax between Crystal and Ruby
 * [ ] Properly implement maps
-* * [ ] Simple map format
+* * [X] Simple map format
 * * [ ] Map format parser
 * * [ ] Fully functional map functions
 * [X] ImGui support for debugging (some features are currently missing)

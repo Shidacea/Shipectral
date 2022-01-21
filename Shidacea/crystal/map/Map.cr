@@ -69,7 +69,7 @@ module SDC
             actual_x = exact_actual_x.floor.to_i64
             actual_y = exact_actual_y.floor.to_i64
 
-            tile_id = (actual_x < 0 || actual_x.to_u64 >= @content.width || actual_y < 0 || actual_y.to_u64 >= @content.height) ? @background_tile : @content.tiles[actual_x][actual_y]
+            tile_id = (actual_x < 0 || actual_x.to_u64 >= @content.width || actual_y < 0 || actual_y.to_u64 >= @content.height) ? @background_tile : @content.tiles[actual_y][actual_x]
 
             actual_tile_id = tile_id
 
@@ -101,36 +101,14 @@ module SDC
       end
     end
 
-    def self.load_from_file(filename : String, view_width : UInt64, view_height : UInt64, tile_width : UInt64, tile_height : UInt64, format : SDC::MapFormat = SDC::MapFormat::NUMBER_BASE_DEBUG)
-      full_filename = SDC::Script.path + "/" + filename
-
-      if !File.exists?(full_filename)
-        Anyolite.raise_runtime_error("File not found: #{full_filename}")
-      end
-
-      tiles = [] of Array(UInt64)
-      
-      File.each_line(full_filename) do |line|
-        str_values = line.split
-        tiles.push(str_values.map {|str| str.to_u64})
-      end
-
-      map = Map.new(view_width, view_height, tile_width, tile_height)
-      map.content.load_from_array(tiles)
-
-      # TODO: Get background tile from elsewhere
-
-      map.background_tile = 4
-
-      map
-    end
+    # TODO: Add functions with guards
 
     def set_tile(x : UInt64, y : UInt64, tile_id : UInt64)
-      @content.tiles[x][y] = tile_id
+      @content.tiles[y][x] = tile_id
     end
 
     def get_tile(x : UInt64, y : UInt64)
-      @content.tiles[x][y]
+      @content.tiles[y][x]
     end
 
     def replace_tiles(new_tiles : Array(Array(UInt64)))

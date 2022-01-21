@@ -30,24 +30,48 @@ module SDC
 		end
 
 		def load_from_file(filename)
-			# TODO: Read number of layers from file
+			full_filename = SDC::Script.path + "/" + filename
+
+			if !File.exists?(full_filename)
+        raise "File not found: #{full_filename}"
+      end
+
+			first_line = true
+			layer = 0
+
+			File.foreach(full_filename).each do |line|
+				split_values = line.split
+
+				if first_line
+					@number_of_layers = split_values[0].to_i
+
+					@width = split_values[1].to_i
+					@height = split_values[2].to_i
+
+					first_line = false
+				elsif split_values[0] == "L"
+					layer = split_values[1].to_i
+
+					new_layer = SDC::Map.new(@view_width, @view_height, @tile_width, @tile_height)
+					new_layer.background_tile = split_values[3].to_i if split_values[2] == "B"
+
+					new_layer.content.set_size(@width, @height)
+
+					new_layer.collision_active = (layer == 2)	# TODO
+
+					@map_layers.push(new_layer)
+				elsif split_values.empty?
+				else
+					@map_layers[layer].content.add_line_from_array(line.split.map{|x| x.to_i})
+				end
+			end
+
+			puts @map_layers.inspect
+
 			# TODO: Get tile width and height as arguments
-			
-			@number_of_layers = 3
 
 			# Can be used for more detailed collisions
 			@tile_shape = SDC::CollisionShapeBox.new(offset: SDC.xy(-@tile_width * 0.5, -@tile_height * 0.5), size: SDC.xy(@tile_width, @tile_height))
-
-			@number_of_layers.times do |i|
-				new_layer = SDC::Map.load_from_file("assets/maps/Test.sdcmap", @view_width, @view_height, @tile_height, @tile_width)
-
-				@width = new_layer.width
-				@height = new_layer.height
-
-				new_layer.collision_active = (i == 2)
-
-				@map_layers.push(new_layer)
-			end
 		end
 
 		def test_collision_with_entity(entity)
