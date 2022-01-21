@@ -227,7 +227,7 @@ class SceneTest < SDC::Scene
 			ImGui.text "Last key code: #{@last_key_code}"
 
 			ImGui.text "On solid tile: #{@test_map.test_collision_with_entity(@entities[0])}"
-			ImGui.button_block "Set dirt passable" {SDC::Data.tilesets[:Default].tiles[3].solid = false}
+			ImGui.button_block "Set rocks passable" {SDC::Data.tilesets[:Default].tiles[6].solid = false}
 
 			ImGui.text "Counter = #{@counter}"
 

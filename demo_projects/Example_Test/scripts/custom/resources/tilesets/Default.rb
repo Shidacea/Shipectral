@@ -6,6 +6,7 @@ SDC::Data.load_texture(:TilesetDefault, filename: "assets/graphics/maptest/Tiles
 tileset.tiles[3].solid = true
 tileset.tiles[4].solid = true
 tileset.tiles[5].solid = true
+tileset.tiles[6].solid = true
 
 tileset.link_texture(SDC::Data.textures[:TilesetDefault])
 
