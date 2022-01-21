@@ -4,6 +4,28 @@ require "./CompilationHelper.cr"
 require "anyolite"
 require "./Script.cr"
 
+module SPT
+  module Features
+    @@features : Set(String) = Set(String).new
+
+    def self.add(name : String)
+      @@features.add(name)
+    end
+
+    def self.check(name : String)
+      @@features.includes?(name)
+    end
+
+    def self.ensure(name : String)
+      if self.check_feature(name)
+        true
+      else
+        raise "Feature #{name} was not included!"
+      end
+    end
+  end
+end
+
 macro load_compiled_script(script)
   {% if script.ends_with? ".rb" %}
     Anyolite::Preloader::AtCompiletime.load_bytecode_array_from_file({{script}})
@@ -118,6 +140,8 @@ macro main_routine_with_config(filename)
 
   {% if use_collishi %}
     require "./CrystalCollishi/Collisions.cr"
+
+    SPT::Features.add("collishi")
   {% end %}
 
   {% if use_sfml %}

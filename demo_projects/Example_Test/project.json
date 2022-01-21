@@ -42,5 +42,14 @@
 		"scripts/custom/entities/",
 		"scripts/custom/Game.rb",
 		"scripts/custom/Main.rb"
+	],
+
+	"required_features": [
+		"sfml",
+		"collishi"
+	],
+
+	"optional_features": [
+		"imgui"
 	]
 }

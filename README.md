@@ -62,6 +62,7 @@ allowing for a solid Ruby-based game development experience.
 #### Todo
 
 * [ ] Rename SDC::Script and similar to SPT::Script
+* [ ] Add feature checks
 * [ ] Add remaining ImGui functions and classes
 * [ ] Replace Crystal errors with Ruby errors
 * [ ] Fix debug routines

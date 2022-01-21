@@ -44,4 +44,6 @@ def load_sfml_wrappers(rb)
   setup_ruby_event_class(rb)
 
   setup_ruby_socket_class(rb)
+
+  SPT::Features.add("sfml")
 end

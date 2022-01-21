@@ -43,5 +43,10 @@
 		"scripts/entities/",
 		"scripts/Game.rb",
 		"scripts/Main.rb"
+	],
+
+	"required_features": [
+		"sfml",
+		"collishi"
 	]
 }
