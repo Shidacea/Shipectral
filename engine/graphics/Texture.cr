@@ -15,7 +15,7 @@ module SF
   class Texture
     @[Anyolite::Rename("load_from_file")]
     def load_from_sdc_path(filename : String, texture_rect : SF::IntRect = SF::IntRect.new)
-      load_from_file(SDC::Script.path + "/" + filename, texture_rect)
+      load_from_file(SDC::Script.get_full_filename(filename), texture_rect)
     end
   end
 end

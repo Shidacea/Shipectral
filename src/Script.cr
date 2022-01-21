@@ -11,6 +11,10 @@ module SDC
       @@path = value
     end
 
+    def self.get_full_filename(filename : String)
+      File.join(@@path, filename)
+    end
+
     @[Anyolite::Exclude]
     def self.load_absolute_file(filename : String)
       rb = Anyolite::RbRefTable.get_current_interpreter
@@ -20,7 +24,7 @@ module SDC
     @[Anyolite::ReturnNil]
     def self.load(filename : String)
       puts "Loading #{filename}..."
-      Script.load_absolute_file(Script.path + "/" + filename)
+      Script.load_absolute_file(Script.get_full_filename(filename))
     end
 
     @[Anyolite::Exclude]

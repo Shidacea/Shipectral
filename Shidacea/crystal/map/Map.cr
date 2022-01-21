@@ -1,8 +1,4 @@
 module SDC
-  enum MapFormat
-    NUMBER_BASE_DEBUG # Numbers separated by spaces
-  end
-
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Map < SF::Transformable
     include SF::Drawable
@@ -144,5 +140,4 @@ end
 
 def setup_ruby_map_class(rb)
   Anyolite.wrap(rb, SDC::Map, under: SDC, verbose: true, connect_to_superclass: true)
-  Anyolite.wrap(rb, SDC::MapFormat, under: SDC, verbose: true)
 end

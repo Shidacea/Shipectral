@@ -29,8 +29,8 @@ module SDC
 			end
 		end
 
-		def load_from_file(filename)
-			full_filename = SDC::Script.path + "/" + filename
+		def load_from_raw_format_file(filename)
+			full_filename = SDC::Script.get_full_filename(filename)
 
 			if !File.exists?(full_filename)
         raise "File not found: #{full_filename}"

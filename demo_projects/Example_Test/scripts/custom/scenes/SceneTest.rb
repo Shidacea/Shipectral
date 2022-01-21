@@ -139,7 +139,7 @@ class SceneTest < SDC::Scene
 
 	def load_map
 		@test_map = SDC::LayeredMap.new(tile_width: 60, tile_height: 60, view_width: 30, view_height: 20)
-		@test_map.load_from_file("assets/maps/Test.sdcmap")
+		@test_map.load_from_raw_format_file("assets/maps/Test.sdcmap")
 		@test_map.set_config(:TestMap)
 	end
 
