@@ -54,7 +54,7 @@ allowing for a solid Ruby-based game development experience.
 * [X] Consistent syntax between Crystal and Ruby
 * [ ] Properly implement maps
 * * [X] Simple map format
-* * [ ] Map format parser
+* * [X] Map format parser
 * * [ ] Fully functional map functions
 * [X] ImGui support for debugging (some features are currently missing)
 * [ ] Add more SDC methods as alternative to directly using SFML methods
@@ -76,8 +76,8 @@ this version is not planned for the near future.
 * [ ] Port Shidacea to Crystal and bind with Anyolite
 * [ ] Find a way to load different shards on Linux
 * [ ] Make ImGui optional
-* [ ] Quadrangle shapes
 * [ ] More wrapped SF classes
+* [ ] Support for data marshalling (Crystal and Ruby)
 
 ### Future versions
 
@@ -86,6 +86,11 @@ this version is not planned for the near future.
 * [ ] Add virtual file system for executable and connect it with SFML
 * [ ] Ressource integration using macros
 * [ ] Add a way and flags to put frontend resources directly into executable
+* [ ] Particle system
+* [ ] Wrappers for vertex arrays
+* [ ] Optimized render queue (if possible)
+* [ ] Quadrangle shapes
+* [ ] Highly customizable text boxes (including sprites)
 
 ## Installation
 
