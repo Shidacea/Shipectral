@@ -66,8 +66,6 @@ module SDC
 				end
 			end
 
-			puts @map_layers.inspect
-
 			# TODO: Get tile width and height as arguments
 
 			# Can be used for more detailed collisions
