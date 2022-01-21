@@ -10,7 +10,9 @@ module SDC
 		# TODO: Remove this if unneeded
 		attr_accessor :map_layers, :config
 
-		def initialize(view_width: 20, view_height: 20)
+		def initialize(tile_width: 50, tile_height: 50, view_width: 20, view_height: 20)
+			@tile_width = tile_width
+			@tile_height = tile_height
 			@view_width = view_width
 			@view_height = view_height
 
@@ -32,9 +34,6 @@ module SDC
 			# TODO: Get tile width and height as arguments
 			
 			@number_of_layers = 3
-
-			@tile_width = 60
-			@tile_height = 60
 
 			# Can be used for more detailed collisions
 			@tile_shape = SDC::CollisionShapeBox.new(offset: SDC.xy(-@tile_width * 0.5, -@tile_height * 0.5), size: SDC.xy(@tile_width, @tile_height))

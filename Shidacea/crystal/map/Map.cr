@@ -7,16 +7,14 @@ module SDC
   class Map < SF::Transformable
     include SF::Drawable
 
-    property width : UInt64 = 0
-    property height : UInt64 = 0
-
     @view_width : UInt64 = 0
     @view_height : UInt64 = 0
 
     @tile_width : UInt64 = 0
     @tile_height : UInt64 = 0
 
-    @tiles : Array(Array(UInt64)) = [] of Array(UInt64)
+    property content : SDC::MapContent = SDC::MapContent.new
+
     @vertices : SF::VertexArray
 
     @tileset : Tileset?
@@ -26,7 +24,7 @@ module SDC
     property collision_active : Bool = true
     property background_tile : UInt64 = 0
 
-    def initialize(@width : UInt64, @height : UInt64, @view_width : UInt64, @view_height : UInt64, @tile_width : UInt64, @tile_height : UInt64)
+    def initialize(@view_width : UInt64, @view_height : UInt64, @tile_width : UInt64, @tile_height : UInt64)
       super()
       @vertices = SF::VertexArray.new(SF::Quads, @view_width * @view_height * 4)
     end
@@ -41,6 +39,14 @@ module SDC
       else
         puts "No tileset!"
       end
+    end
+
+    def width
+      @content.width
+    end
+
+    def height
+      @content.height
     end
 
     def reload(cam : SF::Vector2f)
@@ -63,7 +69,7 @@ module SDC
             actual_x = exact_actual_x.floor.to_i64
             actual_y = exact_actual_y.floor.to_i64
 
-            tile_id = (actual_x < 0 || actual_x.to_u64 >= @width || actual_y < 0 || actual_y.to_u64 >= @height) ? @background_tile : @tiles[actual_x][actual_y]
+            tile_id = (actual_x < 0 || actual_x.to_u64 >= @content.width || actual_y < 0 || actual_y.to_u64 >= @content.height) ? @background_tile : @content.tiles[actual_x][actual_y]
 
             actual_tile_id = tile_id
 
@@ -109,33 +115,26 @@ module SDC
         tiles.push(str_values.map {|str| str.to_u64})
       end
 
-      map_width = tiles.size.to_u64
-      map_height = tiles[0].size.to_u64
-
-      # TODO: Check parameters
-      # TODO: Read full map from file, not only layers
-      # TODO: Fix rotated map
-
-      map_layer = Map.new(map_width, map_height, view_width, view_height, tile_width, tile_height)
-      map_layer.replace_tiles(tiles)
+      map = Map.new(view_width, view_height, tile_width, tile_height)
+      map.content.load_from_array(tiles)
 
       # TODO: Get background tile from elsewhere
 
-      map_layer.background_tile = 4
+      map.background_tile = 4
 
-      map_layer
+      map
     end
 
     def set_tile(x : UInt64, y : UInt64, tile_id : UInt64)
-      @tiles[x][y] = tile_id
+      @content.tiles[x][y] = tile_id
     end
 
     def get_tile(x : UInt64, y : UInt64)
-      @tiles[x][y]
+      @content.tiles[x][y]
     end
 
     def replace_tiles(new_tiles : Array(Array(UInt64)))
-      @tiles = new_tiles
+      @content.tiles = new_tiles
     end
 
     def [](x : UInt64, y : UInt64)
@@ -155,17 +154,17 @@ module SDC
     end
 
     def dup
-      new_map_layer = SDC::Map.new(@width, @height, @view_width, @view_height, @tile_width, @tile_height)
+      new_map_layer = SDC::Map.new(@view_width, @view_height, @tile_width, @tile_height)
       if tileset = @tileset
         new_map_layer.link_tileset(tileset)
       end
-      new_map_layer.replace_tiles(@tiles)
+      new_map_layer.replace_tiles(@content.tiles)
       new_map_layer
     end
   end
 end
 
-def setup_ruby_map_layer_class(rb)
+def setup_ruby_map_class(rb)
   Anyolite.wrap(rb, SDC::Map, under: SDC, verbose: true, connect_to_superclass: true)
   Anyolite.wrap(rb, SDC::MapFormat, under: SDC, verbose: true)
 end

@@ -43,9 +43,5 @@ def load_sfml_wrappers(rb)
   setup_ruby_mouse_class(rb)
   setup_ruby_event_class(rb)
 
-  setup_ruby_tile_class(rb)
-  setup_ruby_tileset_class(rb)
-  setup_ruby_map_layer_class(rb)
-
   setup_ruby_socket_class(rb)
 end
