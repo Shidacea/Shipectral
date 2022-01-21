@@ -47,15 +47,17 @@ allowing for a solid Ruby-based game development experience.
 
 #### Features
 
-* [X] Basic functionality
+* [X] All features of previous Shidacea versions
 * [X] Working examples
-* [X] Updated Shidacea library to new standard
-* [X] Separated SDC and SF module
-* [X] Added additional layer between SFML and SDC
-* [X] Consistent syntax between Crystal and Ruby
-* [X] Add simple map format
-* [X] ImGui support for debugging (some features are currently missing)
+* [X] Shidacea library updated to new standard
+* [X] Separated SDC and SF modules
+* [X] Additional layer between SFML and Shidacea
+* [X] More consistent syntax between Crystal and Ruby
+* [X] Ability to compile frontend and engine library into executable
+* [X] Higher stability due to several bugfixes
+* [X] Simple map parser
 * [X] Ellipse shapes
+* [ ] Full ImGui support for debugging
 
 ### Version 0.4.0
 
