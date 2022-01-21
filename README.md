@@ -59,6 +59,13 @@ allowing for a solid Ruby-based game development experience.
 * [X] Ellipse shapes
 * [ ] Full ImGui support for debugging
 
+#### Todo
+
+* [ ] Rename SDC::Script and similar to SPT::Script
+* [ ] Add remaining ImGui functions and classes
+* [ ] Replace Crystal errors with Ruby errors
+* [ ] Fix debug routines
+
 ### Version 0.4.0
 
 This version will contain more updates which allow for better customization of
