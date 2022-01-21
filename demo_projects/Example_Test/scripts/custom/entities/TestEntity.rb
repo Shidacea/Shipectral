@@ -6,7 +6,7 @@ class TestEntity < SDC::Entity
 
 	SDC::Data.load_texture(:EntityChishi, filename: "assets/graphics/test/Chishi.png")
 
-	add_sprite(index: 0, texture_index: :EntityChishi, offset: SDC.xy(0.0, 0.0), rect: SF::IntRect.new(0, 0, 50, 50), origin: SDC.xy(25.0, 25.0))
+	add_sprite(index: 0, texture_index: :EntityChishi, offset: SDC.xy(0.0, 0.0), rect: SDC::IntRect.new(0, 0, 50, 50), origin: SDC.xy(25.0, 25.0))
 
 	set_hitshape(index: 7, shape_index: 0, damage: 3, attributes: {:test => 3})
 	set_hurtshape(index: 13, shape_index: 0)

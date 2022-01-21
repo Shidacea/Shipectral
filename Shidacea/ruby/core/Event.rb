@@ -5,7 +5,7 @@ module SF
 	class Event
 
 		def has_type?(event_type)
-			return self.type == SF::EventType.const_get(event_type)
+			return self.type == SDC::EventType.const_get(event_type)
 		end
 
 		def key_pressed?(key)
@@ -25,11 +25,11 @@ module SF
 		end
 
 		def mouse_scrolled_down?
-			return self.mouse_scroll_wheel == SF::EventMouse::VerticalWheel && self.mouse_scroll_delta < 0.0
+			return self.mouse_scroll_wheel == SDC::EventMouse::VerticalWheel && self.mouse_scroll_delta < 0.0
 		end
 
 		def mouse_scrolled_up?
-			return self.mouse_scroll_wheel == SF::EventMouse::VerticalWheel && self.mouse_scroll_delta > 0.0
+			return self.mouse_scroll_wheel == SDC::EventMouse::VerticalWheel && self.mouse_scroll_delta > 0.0
 		end
 
 		def mouse_coordinates

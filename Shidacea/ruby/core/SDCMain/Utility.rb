@@ -6,7 +6,7 @@ module SDC
 		texture = SDC::Data.load_texture(index, file_index: file_index, filename: filename)
 		puts "Warning: Texture index #{index} not loaded." if !texture
 
-		sprite = SF::Sprite.new
+		sprite = SDC::Graphics::Sprite.new
 		sprite.link_texture(texture)
 		sprite.color = color
 		sprite.scale = scale
@@ -24,7 +24,7 @@ module SDC
 	def self.play_sound(index: nil, file_index: nil, filename: nil, volume: 100.0, pitch: 1.0)
 		sound_buffer = SDC::Data.load_sound_buffer(index, file_index: file_index, filename: filename)
 
-		sound = SF::Sound.new
+		sound = SDC::Audio::Sound.new
 		sound.link_sound_buffer(sound_buffer)
 		sound.volume = volume
 		sound.pitch = pitch

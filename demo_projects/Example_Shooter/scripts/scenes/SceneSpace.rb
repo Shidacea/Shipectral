@@ -41,24 +41,24 @@ module ShooterTest
 			@asteroids[1].position = SDC.xy(500, 500)
 			@asteroids[1].velocity = SDC.xy(-1 * SDC.game.dt, -1 * SDC.game.dt)
 
-			@bar_heat = SF::RectangleShape.new
+			@bar_heat = SDC::Graphics::Shapes::Rectangle.new
 			@bar_heat.origin = SDC.xy(0, 200)
 			@bar_heat.size = SDC.xy(25, 200)
 
-			@bar_health = SF::RectangleShape.new
+			@bar_health = SDC::Graphics::Shapes::Rectangle.new
 			@bar_health.size = SDC.xy(310, 25)
 		end
 
 		def load_assets
 			0.upto(8) do |i|
-				texture = SF::Texture.new
-				texture.load_from_file("assets/graphics/DriveIcons.png", texture_rect: SF::IntRect.new(i * 20, 0, 20, 20))
+				texture = SDC::Graphics::Texture.new
+				texture.load_from_file("assets/graphics/DriveIcons.png", texture_rect: SDC::IntRect.new(i * 20, 0, 20, 20))
 				SDC::Data.add_texture(texture, index: "driveicon#{i}".to_sym)
 			end
 		end
 
 		def draw
-			view_player = SF::View.new(SF::FloatRect.new(@player_ship.position.x - SDC.draw_width * 0.5, @player_ship.position.y - SDC.draw_height * 0.5, SDC.draw_width, SDC.draw_height))
+			view_player = SDC::Graphics::View.new(SDC::FloatRect.new(@player_ship.position.x - SDC.draw_width * 0.5, @player_ship.position.y - SDC.draw_height * 0.5, SDC.draw_width, SDC.draw_height))
 
 			SDC.window.use_view(view_player) do
 				@space.draw SDC.window
@@ -89,21 +89,21 @@ module ShooterTest
 			@bar_health.fill_color = SDC.color(255 - 255 * health_percent, 255 * health_percent, 63 * health_percent)
 			SDC.window.draw_translated(@bar_health, z: Z_BAR, at: SDC.xy(75, 60))
 
-			minimap_shape = SF::RectangleShape.new
+			minimap_shape = SDC::Graphics::Shapes::Rectangle.new
 			minimap_shape.size = SDC.xy(SDC.draw_width * 0.2, SDC.draw_height * 0.2)
 			minimap_shape.fill_color = SDC.color(128, 128, 128, alpha: 128)
 			SDC.window.draw_translated(minimap_shape, z: Z_MINIMAP, at: SDC.xy(SDC.draw_width * 0.775, SDC.draw_height * 0.05))
 
-			view_minimap = SF::View.new(SF::FloatRect.new(0, 0, @space.width, @space.height))
-			view_minimap.set_viewport(SF::FloatRect.new(0.775, 0.05, 0.2, 0.2))
+			view_minimap = SDC::Graphics::View.new(SDC::FloatRect.new(0, 0, @space.width, @space.height))
+			view_minimap.set_viewport(SDC::FloatRect.new(0.775, 0.05, 0.2, 0.2))
 
 			SDC.window.use_view(view_minimap) do
-				player_indicator = SF::RectangleShape.new
+				player_indicator = SDC::Graphics::Shapes::Rectangle.new
 				player_indicator.size = SDC.xy(@space.width * 0.01, @space.height * 0.02)
 				player_indicator.fill_color = SDC.color(255, 0, 0, alpha: 255)
 				SDC.window.draw_translated(player_indicator, z: Z_MINIMAP, at: @player_ship.position)
 
-				asteroid_indicator = SF::RectangleShape.new
+				asteroid_indicator = SDC::Graphics::Shapes::Rectangle.new
 				asteroid_indicator.size = SDC.xy(@space.width * 0.01, @space.height * 0.02)
 				asteroid_indicator.fill_color = SDC.color(255, 0, 0, alpha: 255)
 				@asteroids.each do |asteroid|

@@ -12,7 +12,7 @@ module ShooterTest
 
 		def generate_particles(ship)
 			rand(5).times do
-				particle_shape = SF::RectangleShape.new
+				particle_shape = SDC::Graphics::Shapes::Rectangle.new
 				particle_shape.size = SDC.xy(2, 2)
 				particle_shape.origin = SDC.xy(1, 1)
 

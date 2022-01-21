@@ -16,10 +16,10 @@ module SDC
 		self.define_new_data_type(:map_config)
 		self.define_new_data_type(:filename)
 
-		self.create_loading_method(:texture, SF::Texture, :load_from_file)
-		self.create_loading_method(:sound_buffer, SF::SoundBuffer, :load_from_file)
-		self.create_loading_method(:music_track, SF::Music, :open_from_file)
-		self.create_loading_method(:font, SF::Font, :load_from_file)
+		self.create_loading_method(:texture, SDC::Graphics::Texture, :load_from_file)
+		self.create_loading_method(:sound_buffer, Audio::SoundBuffer, :load_from_file)
+		self.create_loading_method(:music_track, Audio::Music, :open_from_file)
+		self.create_loading_method(:font, Graphics::Font, :load_from_file)
 
 		def self.load_text(index = nil, content: nil, size: 10, font_index: nil, font: nil)
 			if font && font_index then
@@ -38,7 +38,7 @@ module SDC
 			end
 
 			if !self.texts[index] then
-				self.add_text(SF::Text.new(content, font, character_size: size), index: index)
+				self.add_text(Graphics::Text.new(content, font, character_size: size), index: index)
 			else
 				# TODO: Update font
 				self.texts[index].string = content

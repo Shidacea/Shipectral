@@ -49,15 +49,12 @@ allowing for a solid Ruby-based game development experience.
 
 * [X] Basic functionality
 * [X] Working examples
-* [X] Separated SDC and SF module
 * [X] Updated Shidacea library to new standard
+* [X] Separated SDC and SF module
+* [X] Added additional layer between SFML and SDC
 * [X] Consistent syntax between Crystal and Ruby
 * [X] Add simple map format
 * [X] ImGui support for debugging (some features are currently missing)
-* [ ] Add more SDC methods as alternative to directly using SFML methods
-* * [ ] Find better syntax for draw shapes
-* * [X] Find better syntax for collision shapes
-* * [X] Find short syntax for colors
 * [X] Ellipse shapes
 
 ### Version 0.4.0

@@ -81,10 +81,10 @@ class SceneTest < SDC::Scene
 
 		SDC::Data.load_sound_buffer(:Yeow, filename: "assets/sounds/Yeow.ogg")
 
-		@example_sound = SF::Sound.new
-		@example_sound_1 = SF::Sound.new
-		@example_sound_2 = SF::Sound.new
-		@example_sound_3 = SF::Sound.new
+		@example_sound = SDC::Audio::Sound.new
+		@example_sound_1 = SDC::Audio::Sound.new
+		@example_sound_2 = SDC::Audio::Sound.new
+		@example_sound_3 = SDC::Audio::Sound.new
 		@decrease = 0
 
 		@example_sound.link_sound_buffer(SDC::Data.sound_buffers[:Yeow])
@@ -100,7 +100,7 @@ class SceneTest < SDC::Scene
 
 		@test_font = SDC::Data.load_font(filename: "assets/fonts/arial.ttf")
 		SDC::Data.add_text("Hello,\nWorld", index: :helloworld_text)
-		@test_text = SF::Text.new(SDC::Data.texts[:helloworld_text], @test_font, character_size: 100)
+		@test_text = SDC::Graphics::Text.new(SDC::Data.texts[:helloworld_text], @test_font, character_size: 100)
 
 		load_map
 
@@ -145,30 +145,30 @@ class SceneTest < SDC::Scene
 
 	def draw
 		#SDC::Debug.log_time("Time = ") do
-		view_player = SF::View.new(SF::FloatRect.new(@entities[0].position.x - 1280 * 0.5, @entities[0].position.y - 720 * 0.5, 1280, 720))
+		view_player = SDC::Graphics::View.new(SDC::FloatRect.new(@entities[0].position.x - 1280 * 0.5, @entities[0].position.y - 720 * 0.5, 1280, 720))
 		SDC.window.set_view(view_player)
 		@test_map.reload(@entities[0].position)
 		@test_map.draw(SDC.window, SDC.xy(0, 0))
 		@entities.each {|entity| entity.draw(SDC.window)}
 
-		box_shape = SF::RectangleShape.new
+		box_shape = SDC::Graphics::Shapes::Rectangle.new
 		box_shape.get_from(@entities[0].boxes[0])
 		box_shape.fill_color = SDC.color(255, 0, 0, alpha: 128)
 		box_shape.outline_color = SDC.color(0, 0, 255, alpha: 128)
 		box_shape.outline_thickness = 2.0
 		SDC.window.draw_translated(box_shape, z: 1, at: @entities[0].position)
 
-		line_shape = SF::LineShape.new
+		line_shape = SDC::Graphics::Shapes::Line.new
 		line_shape.line = SDC.xy(200.0, 100.0)
 		SDC.window.draw(line_shape, z: 0)
 		
-		view_minimap = SF::View.new(SF::FloatRect.new(@entities[0].position.x - 1280 * 0.5, @entities[0].position.y - 720 * 0.5, 1280, 720))
-		view_minimap.set_viewport(SF::FloatRect.new(0.8, 0.0, 0.2, 0.2))
+		view_minimap = SDC::Graphics::View.new(SDC::FloatRect.new(@entities[0].position.x - 1280 * 0.5, @entities[0].position.y - 720 * 0.5, 1280, 720))
+		view_minimap.set_viewport(SDC::FloatRect.new(0.8, 0.0, 0.2, 0.2))
 		SDC.window.use_view(view_minimap) do
 			@test_map.draw(SDC.window, SDC.xy(0, 0))
 		end
 
-		view_ui = SF::View.new(SF::FloatRect.new(0, 0, 1280, 720))
+		view_ui = SDC::Graphics::View.new(SDC::FloatRect.new(0, 0, 1280, 720))
 		SDC.window.use_view(view_ui) do
 			SDC.window.draw(@test_text, z: 0)
 		end
@@ -231,7 +231,7 @@ class SceneTest < SDC::Scene
 
 			ImGui.text "Counter = #{@counter}"
 
-			ImGui.button_block "Reset mouse" {SF::EventMouse.set_position([300, 200], SDC.window)}
+			ImGui.button_block "Reset mouse" {SDC::EventMouse.set_position([300, 200], SDC.window)}
 			ImGui.text "Mouse pos = #{SDC.get_mouse_coords}"
 
 			ImGui.button_block "Set text input to #{!SDC.text_input}" {SDC.text_input = !SDC.text_input}
@@ -268,26 +268,26 @@ class SceneTest < SDC::Scene
 
 			ImGui.button_block "Test socket" do
 				puts "Socket"
-				@socket = SF::TcpSocket.new
-				puts @socket.connect(SF::IpAddress.new("127.0.0.1"), 293)
+				@socket = SDC::Network::TcpSocket.new
+				puts @socket.connect(SDC::Network::IpAddress.new("127.0.0.1"), 293)
 				puts @socket.remote_address
 				puts @socket.remote_port
 				puts @socket.local_port
-				message = SF::Packet.new
+				message = SDC::Network::Packet.new
 				message.write("Test")
 				puts @socket.send(message)
 			end
 
 			ImGui.button_block "Test listener" do
 				puts "Listener"
-				@listener = SF::TcpListener.new
-				@socket = SF::TcpSocket.new
+				@listener = SDC::Network::TcpListener.new
+				@socket = SDC::Network::TcpSocket.new
 				puts @listener.listen(293)
 				puts @listener.accept(@socket)
 				puts @socket.remote_address
 				puts @socket.remote_port
 				puts @socket.local_port
-				message = SF::Packet.new
+				message = SDC::Network::Packet.new
 				puts @socket.receive(message)
 				puts message.read_string
 			end

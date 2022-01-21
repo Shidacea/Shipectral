@@ -12,13 +12,13 @@ module SDC
 	@draw_width = nil
 	@draw_height = nil
 
-	# Short expression to create a new {SF::Vector2f} object
+	# Short expression to create a new {SDC::Vector2f} object
 	def self.xy(x = 0.0, y = 0.0)
-		return SF::Vector2f.new(x, y)
+		return SDC::Vector2f.new(x, y)
 	end
 
 	def self.color(r, g, b, alpha: 255)
-		return SF::Color.new(r, g, b, alpha: alpha)
+		return SDC::Graphics::Color.new(r, g, b, alpha: alpha)
 	end
 
 	def self.window

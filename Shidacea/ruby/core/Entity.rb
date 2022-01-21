@@ -169,7 +169,7 @@ module SDC
 
 				if element then
 					texture_index = element[0]
-					@sprites[i] = SF::Sprite.new
+					@sprites[i] = SDC::Graphics::Sprite.new
 					@sprites[i].position = element[1]
 					@sprites[i].origin = element[2]
 					@active_sprites[i] = element[3]

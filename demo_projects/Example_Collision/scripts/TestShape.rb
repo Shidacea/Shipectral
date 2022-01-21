@@ -26,25 +26,25 @@ class TestShape
 	end
 
 	def self.new_circle(pos: SDC.xy, offset: SDC.xy, radius: 0.0, z: 0, counter: counter)
-		draw_shape = SF::CircleShape.new
+		draw_shape = SDC::Graphics::Shapes::Circle.new
 		collision_shape = SDC::CollisionShapeCircle.new(offset: offset, radius: radius)
 		return self.new(draw_shape, collision_shape, pos, z, counter)
 	end
 
 	def self.new_box(pos: SDC.xy, offset: SDC.xy, size: SDC.xy, z: 0, counter: counter)
-		draw_shape = SF::RectangleShape.new
+		draw_shape = SDC::Graphics::Shapes::Rectangle.new
 		collision_shape = SDC::CollisionShapeBox.new(offset: offset, size: size)
 		return self.new(draw_shape, collision_shape, pos, z, counter)
 	end
 
 	def self.new_triangle(pos: SDC.xy, offset: SDC.xy, side_1: SDC.xy, side_2: SDC.xy, z: 0, counter: counter)
-		draw_shape = SF::TriangleShape.new
+		draw_shape = SDC::Graphics::Shapes::Triangle.new
 		collision_shape = SDC::CollisionShapeTriangle.new(offset: offset, side_1: side_1, side_2: side_2)
 		return self.new(draw_shape, collision_shape, pos, z, counter)
 	end
 
 	def self.new_ellipse(pos: SDC.xy, offset: SDC.xy, semiaxes: SDC.xy, z: 0, counter: counter)
-		draw_shape = SF::EllipseShape.new
+		draw_shape = SDC::Graphics::Shapes::Ellipse.new
 		collision_shape = SDC::CollisionShapeEllipse.new(offset: offset, semiaxes: semiaxes)
 		return self.new(draw_shape, collision_shape, pos, z, counter)
 	end

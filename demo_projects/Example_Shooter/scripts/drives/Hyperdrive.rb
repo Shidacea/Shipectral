@@ -11,7 +11,7 @@ module ShooterTest
 		self.cooldown_rate = 0.01
 
 		def generate_particles(ship)
-			particle_shape = SF::CircleShape.new
+			particle_shape = SDC::Graphics::Shapes::Circle.new
 			particle_shape.radius = 50
 			particle_shape.origin = SDC.xy(50, 50)
 

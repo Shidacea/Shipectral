@@ -12,7 +12,7 @@ module ShooterTest
 
 		def generate_particles(ship)
 			return if rand(3) != 0
-			particle_shape = SF::CircleShape.new
+			particle_shape = SDC::Graphics::Shapes::Circle.new
 			particle_shape.radius = 50
 			particle_shape.origin = SDC.xy(50, 50)
 

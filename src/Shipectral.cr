@@ -181,11 +181,7 @@ macro main_routine_with_config(filename)
           {% end %}
         {% end %}
       {% end %}
-      
-      {% if use_sfml %}
-        load_compiled_script("src/CompatibilityLayer.rb")
-      {% end %}
-
+    
       {% if compile_frontend %}
         {% if frontend_project.ends_with?(".json") %}
           {% frontend_scripts = run("./GetProjectScripts.cr", frontend, frontend_project) %}
