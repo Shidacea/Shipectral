@@ -90,7 +90,7 @@ module SDC
 	
 	module Network
 		TcpSocket = SF::TcpSocket
-    Socket = SF::Socker
+    Socket = SF::Socket
 		Packet = SF::Packet
 		TcpListener = SF::TcpListener
 		IpAddress = SF::IpAddress
