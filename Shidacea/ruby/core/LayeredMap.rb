@@ -53,11 +53,24 @@ module SDC
 					layer = split_values[1].to_i
 
 					new_layer = SDC::Map.new(@view_width, @view_height, @tile_width, @tile_height)
-					new_layer.background_tile = split_values[3].to_i if split_values[2] == "B"
+
+					other_options = split_values[2..-1]
+					if other_options.size > 0
+						0.upto(other_options.size / 2 - 1) do |i|
+							option = other_options[2 * i]
+							option_value = other_options[2 * i + 1]
+
+							if option == "B"
+								new_layer.background_tile = option_value.to_i
+							elsif option == "Z"
+								new_layer.z = option_value.to_f
+							end
+						end
+					end
 
 					new_layer.content.set_size(@width, @height)
 
-					new_layer.collision_active = (layer == 2)	# TODO
+					new_layer.collision_active = (layer == @number_of_layers - 1)	# TODO
 
 					@map_layers.push(new_layer)
 				elsif split_values.empty?

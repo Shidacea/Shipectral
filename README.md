@@ -52,10 +52,7 @@ allowing for a solid Ruby-based game development experience.
 * [X] Separated SDC and SF module
 * [X] Updated Shidacea library to new standard
 * [X] Consistent syntax between Crystal and Ruby
-* [ ] Properly implement maps
-* * [X] Simple map format
-* * [X] Map format parser
-* * [ ] Fully functional map functions
+* [X] Add simple map format
 * [X] ImGui support for debugging (some features are currently missing)
 * [ ] Add more SDC methods as alternative to directly using SFML methods
 * * [ ] Find better syntax for draw shapes
