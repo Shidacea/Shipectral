@@ -165,7 +165,7 @@ class SceneTest < SDC::Scene
 		view_minimap = SDC::Graphics::View.new(SDC::FloatRect.new(@entities[0].position.x - 1280 * 0.5, @entities[0].position.y - 720 * 0.5, 1280, 720))
 		view_minimap.set_viewport(SDC::FloatRect.new(0.8, 0.0, 0.2, 0.2))
 		SDC.window.use_view(view_minimap) do
-			@test_map.draw(SDC.window, SDC.xy(0, 0))
+			@test_map.draw(SDC.window, SDC.xy(0, 0), dz: 6)
 		end
 
 		view_ui = SDC::Graphics::View.new(SDC::FloatRect.new(0, 0, 1280, 720))

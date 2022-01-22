@@ -125,9 +125,9 @@ module SDC
 			@map_layers.each {|layer| layer.reload(position)}
 		end
 
-		def draw(window, offset)
+		def draw(window, offset, dz: 0)
 			@map_layers.each do |layer|
-				window.draw_translated(layer, z: (layer.z ? layer.z : 0), at: offset)
+				window.draw_translated(layer, z: (layer.z ? layer.z : 0) + dz, at: offset)
 			end
 		end
 
