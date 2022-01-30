@@ -1,0 +1,50 @@
+{
+	"title": "Bounce test",
+
+	"subtitle": "A test of performance using some bouncy circles",
+
+	"description": "Test how many circles can interact without dropping the FPS.",
+
+	"genres": [
+		"Demo" 
+	],
+
+	"project_version": "0.1.0",
+
+	"shidacea_version": "0.3.0",
+
+	"developers": [
+		"Hadeweka"
+	],
+
+	"year": 2022,
+
+	"keywords": [
+		"test",
+		"imgui",
+		"sfml",
+		"collisions"
+	],
+
+	"thumbnail": "assets/Thumbnail.png",
+
+	"screenshots": [
+	],
+
+	"jingle": "",
+
+	"scripts": [
+		"scripts/BouncingBall.rb",
+		"scripts/SceneBounce.rb",
+		"scripts/Main.rb"
+	],
+
+	"required_features": [
+		"sfml",
+		"collishi"
+	],
+
+	"optional_features": [
+		"imgui"
+	]
+}

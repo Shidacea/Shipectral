@@ -144,7 +144,6 @@ class SceneTest < SDC::Scene
 	end
 
 	def draw
-		#SDC::Debug.log_time("Time = ") do
 		view_player = SDC::Graphics::View.new(SDC::FloatRect.new(@entities[0].position.x - 1280 * 0.5, @entities[0].position.y - 720 * 0.5, 1280, 720))
 		SDC.window.set_view(view_player)
 		@test_map.reload(@entities[0].position)
@@ -172,7 +171,6 @@ class SceneTest < SDC::Scene
 		SDC.window.use_view(view_ui) do
 			SDC.window.draw(@test_text, z: 0)
 		end
-		#end
 	end
 
 	def draw_imgui

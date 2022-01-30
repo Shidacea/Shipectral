@@ -3,11 +3,11 @@ module SDC
   class Map < SF::Transformable
     include SF::Drawable
 
-    @view_width : UInt64 = 0
-    @view_height : UInt64 = 0
+    @view_width : UInt64
+    @view_height : UInt64
 
-    @tile_width : UInt64 = 0
-    @tile_height : UInt64 = 0
+    @tile_width : UInt64
+    @tile_height : UInt64
 
     property content : SDC::MapContent = SDC::MapContent.new
 
@@ -17,10 +17,16 @@ module SDC
 
     @frame_counter : UInt64 = 0
 
+    @previous_cam : SF::Vector2f? = nil
+
+    property needs_reload : Bool = true
+
     property collision_active : Bool = true
     property background_tile : UInt64 = 0
 
-    def initialize(@view_width : UInt64, @view_height : UInt64, @tile_width : UInt64, @tile_height : UInt64)
+    property animated : Bool = false
+
+    def initialize(@view_width : UInt64, @view_height : UInt64, @tile_width : UInt64, @tile_height : UInt64, @animated : Bool = false)
       super()
       @vertices = SF::VertexArray.new(SF::Quads, @view_width * @view_height * 4)
     end
@@ -46,54 +52,70 @@ module SDC
     end
 
     def reload(cam : SF::Vector2f)
-      if tileset = @tileset
-        exact_shift_x = cam.x - (@view_width - 1) * (@tile_width / 2) - 1
-        exact_shift_y = cam.y - (@view_height - 1) * (@tile_height / 2) - 1
+      # Reload only if this map is animated or the camera moved to a different tile than previously
+      # TODO: Predict animation changes
 
-        shift_x = exact_shift_x.floor.to_i64 // @tile_width
-        shift_y = exact_shift_y.floor.to_i64 // @tile_height
+      if !@animated && (prev_cam = @previous_cam)
+        @needs_reload = true if (cam.x / @tile_width).floor.to_i64 != (prev_cam.x / @tile_width).floor.to_i64
+        @needs_reload = true if (cam.y / @tile_height).floor.to_i64 != (prev_cam.y / @tile_height).floor.to_i64
+      else
+        @needs_reload = true
+      end
 
-        tileset_size = tileset.texture.size
-        n_tiles_x = tileset_size.x // @tile_width
-        n_tiles_y = tileset_size.y // @tile_height
+      if @needs_reload
+        if tileset = @tileset
+          exact_shift_x = cam.x - (@view_width - 1) * (@tile_width / 2) - 1
+          exact_shift_y = cam.y - (@view_height - 1) * (@tile_height / 2) - 1
 
-        0.upto(@view_width - 1) do |x|
-          0.upto(@view_height - 1) do |y|
-            exact_actual_x = x.to_f32 + exact_shift_x / @tile_width
-            exact_actual_y = y.to_f32 + exact_shift_y / @tile_height
+          shift_x = exact_shift_x.floor.to_i64 // @tile_width
+          shift_y = exact_shift_y.floor.to_i64 // @tile_height
 
-            actual_x = exact_actual_x.floor.to_i64
-            actual_y = exact_actual_y.floor.to_i64
+          tileset_size = tileset.texture.size
+          n_tiles_x = tileset_size.x // @tile_width
+          n_tiles_y = tileset_size.y // @tile_height
 
-            tile_id = (actual_x < 0 || actual_x.to_u64 >= @content.width || actual_y < 0 || actual_y.to_u64 >= @content.height) ? @background_tile : @content.tiles[actual_y][actual_x]
+          0.upto(@view_width - 1) do |x|
+            0.upto(@view_height - 1) do |y|
+              exact_actual_x = x.to_f32 + exact_shift_x / @tile_width
+              exact_actual_y = y.to_f32 + exact_shift_y / @tile_height
 
-            actual_tile_id = tile_id
+              actual_x = exact_actual_x.floor.to_i64
+              actual_y = exact_actual_y.floor.to_i64
 
-            tile_info = tileset.get_tile(tile_id)
+              tile_id = (actual_x < 0 || actual_x.to_u64 >= @content.width || actual_y < 0 || actual_y.to_u64 >= @content.height) ? @background_tile : @content.tiles[actual_y][actual_x]
 
-            actual_tile_id = tile_info.get_animation_frame(@frame_counter) if tile_info.is_animation_frame?
+              actual_tile_id = tile_id
 
-            tx = actual_tile_id % n_tiles_x
-            ty = actual_tile_id // n_tiles_x
+              tile_info = tileset.get_tile(tile_id)
 
-            0u64.upto(3) do |c|
-              dx = (c == 1 || c == 2) ? 1 : 0
-              dy = (c == 2 || c == 3) ? 1 : 0
+              actual_tile_id = tile_info.get_animation_frame(@frame_counter) if tile_info.is_animation_frame?
 
-              vx = ((actual_x + dx.to_i64) * @tile_width.to_i64).to_f32
-              vy = ((actual_y + dy.to_i64) * @tile_height.to_i64).to_f32
+              tx = actual_tile_id % n_tiles_x
+              ty = actual_tile_id // n_tiles_x
 
-              vtx = ((tx + dx) * @tile_width.to_i64).to_f32
-              vty = ((ty + dy) * @tile_height.to_i64).to_f32
+              0u64.upto(3) do |c|
+                dx = (c == 1 || c == 2) ? 1 : 0
+                dy = (c == 2 || c == 3) ? 1 : 0
 
-              @vertices[(x.to_u64 * @view_height + y.to_u64) * 4 + c] = SF::Vertex.new({vx, vy}, {vtx, vty})
+                vx = ((actual_x + dx.to_i64) * @tile_width.to_i64).to_f32
+                vy = ((actual_y + dy.to_i64) * @tile_height.to_i64).to_f32
+
+                vtx = ((tx + dx) * @tile_width.to_i64).to_f32
+                vty = ((ty + dy) * @tile_height.to_i64).to_f32
+
+                @vertices[(x.to_u64 * @view_height + y.to_u64) * 4 + c] = SF::Vertex.new({vx, vy}, {vtx, vty})
+              end
             end
           end
+
+          @frame_counter &+= 1
+        else
+          puts "No tileset"
         end
 
-        @frame_counter &+= 1
-      else
-        puts "No tileset"
+        @previous_cam = cam
+
+        @needs_reload = false
       end
     end
 

@@ -23,7 +23,7 @@ module SDC
 			t = self.measure_time do
 				yield
 			end
-			self.log(msg.to_s + t.to_s)
+			self.log(msg.to_s + (t * 1000.0).to_s + " ms")
 		end
 
 		def self.log(message)

@@ -64,6 +64,8 @@ module SDC
 								new_layer.background_tile = option_value.to_i
 							elsif option == "Z"
 								new_layer.z = option_value.to_f
+							elsif option == "A"
+								new_layer.animated = (option_value.to_i == 1 ? true : false)
 							end
 						end
 					end
@@ -78,8 +80,6 @@ module SDC
 					@map_layers[layer].content.add_line_from_array(line.split.map{|x| x.to_i})
 				end
 			end
-
-			# TODO: Get tile width and height as arguments
 
 			# Can be used for more detailed collisions
 			@tile_shape = SDC::CollisionShapeBox.new(offset: SDC.xy(-@tile_width * 0.5, -@tile_height * 0.5), size: SDC.xy(@tile_width, @tile_height))
