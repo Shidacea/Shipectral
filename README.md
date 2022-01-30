@@ -61,11 +61,13 @@ allowing for a solid Ruby-based game development experience.
 
 #### Todo
 
+* [ ] Check environment variables for Crystal path
 * [ ] Rename SDC::Script and similar to SPT::Script
 * [ ] Add feature checks
 * [ ] Add remaining ImGui functions and classes
 * [ ] Replace Crystal errors with Ruby errors
 * [ ] Fix debug routines
+* [ ] More optimization routines
 
 ### Version 0.4.0
 
