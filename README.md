@@ -61,7 +61,10 @@ allowing for a solid Ruby-based game development experience.
 
 #### Todo
 
-* [ ] Check environment variables for Crystal path
+* [ ] Update dependencies to newest versions
+* [ ] Test with newest Crystal version
+* [ ] Add CI
+* [ ] Remove obsolete Crystal submodule
 * [ ] Rename SDC::Script and similar to SPT::Script
 * [ ] Add feature checks
 * [ ] Add remaining ImGui functions and classes
@@ -110,6 +113,8 @@ this version is not planned for the near future.
 * SFML (only on Ubuntu - on Windows it will be installed automatically)
 
 All of these programs need to be in the path environment variable for Windows to work properly.
+
+Make also sure to set `CRYSTAL_PATH` to the appropriate crystal source path, especially on Windows.
 
 ### Building
 

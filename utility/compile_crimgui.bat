@@ -1,5 +1,5 @@
 @set INCLUDE=%INCLUDE%;%CD%\third_party\SFML\include
-@set LIB=%LIB%;%CD%\third_party\crystal\src;%CD%\%1\sfml\lib;%PATH%
+@set LIB=%LIB%;%2;%CD%\%1\sfml\lib;%PATH%
 
 @cd %1
 @cd imgui-sfml

@@ -1,5 +1,5 @@
-@set CRYSTAL_PATH=%CD%\third_party\crystal\src;%CD%\%1
-@set PATH=%PATH%;%CD%\third_party\crystal\src
-@set LIB=%LIB%;%CD%\third_party\crystal\src;%PATH%
+@set CRYSTAL_PATH=%5;%CD%\%1
+@set PATH=%PATH%;%5
+@set LIB=%LIB%;%5;%PATH%
 
 crystal build src\Shipectral.cr -o %1\%4\%2.exe %3 --error-trace > %1\log.txt

@@ -1,7 +1,11 @@
 require_relative "utility/rake_helper.rb"
 
 SHIPECTRAL_BUILD_PATH = get_value("SHIPECTRAL_BUILD_PATH", "build")
-CRYSTAL_PATH = get_value("CRYSTAL_PATH", "crystal")
+CRYSTAL_PATH = get_value("CRYSTAL_PATH", nil)
+
+if !CRYSTAL_PATH && SHIPECTRAL_COMPILER == :msvc
+    raise "CRYSTAL_PATH environment variable was not set."
+end
 
 SHIPECTRAL_COMPILER = determine_compiler
 
@@ -83,7 +87,7 @@ task :build_imgui => [:generate_build_dir, :build_sfml, :load_config] do
             FileUtils.cp_r "third_party/crystal-imgui-sfml/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/imgui-sfml", :verbose => true
             FileUtils.cp_r "third_party/crystal-imgui/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/imgui", :verbose => true
 
-            system "utility/compile_crimgui.bat #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}"
+            system "utility/compile_crimgui.bat #{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{CRYSTAL_PATH}"
         end
     end
 end
@@ -118,7 +122,7 @@ task :build_shipectral => [:generate_build_dir, :build_crsfml, :build_sfml, :bui
     if SHIPECTRAL_COMPILER == :msvc
         puts "Building Shipectral with MSVC..."
 
-        system "utility/#{script_name}.bat #{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{executable_name} #{build_type} bin"
+        system "utility/#{script_name}.bat #{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{executable_name} #{build_type} bin #{CRYSTAL_PATH}"
     elsif SHIPECTRAL_COMPILER == :gcc
         puts "Building Shipectral with #{SHIPECTRAL_COMPILER}..."
 
