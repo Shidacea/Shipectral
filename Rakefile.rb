@@ -156,7 +156,7 @@ task :recompile => [:load_config] do
     script_name = use_sfml ? "compile_Shipectral" : "compile_Shipectral_without_SFML"
 
     if SHIPECTRAL_COMPILER == :msvc
-        system "utility/#{script_name}.bat #{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{executable_name} #{build_type} bin"
+        system "utility/#{script_name}.bat #{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{executable_name} #{build_type} bin #{CRYSTAL_PATH}"
     elsif SHIPECTRAL_COMPILER == :gcc
         system "utility/#{script_name}.sh #{Dir.pwd}/#{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{executable_name} #{build_type} bin"
     end

@@ -1,5 +1,6 @@
 @[Anyolite::NoKeywordArgs]
 module Collishi
+	@[Anyolite::Exclude]
   def self.fraction_less_than_zero(nominator : Float, denominator : Float)
     if nominator == 0
       return false
@@ -10,6 +11,7 @@ module Collishi
     end
   end
 
+	@[Anyolite::Exclude]
   def self.fraction_between_zero_and_one(nominator : Float, denominator : Float)
     if fraction_less_than_zero(nominator, denominator)
       return false
@@ -20,6 +22,7 @@ module Collishi
     end
   end
 
+	@[Anyolite::Exclude]
   def self.between(value : Float, border_1 : Float, border_2 : Float)
     interval = {border_1, border_2}.minmax
     if value < interval[0]
@@ -31,6 +34,7 @@ module Collishi
     end
   end
 
+	@[Anyolite::Exclude]
   def self.overlap(tuple_1 : Tuple, tuple_2 : Tuple)
     minmax_1 = tuple_1.minmax
     minmax_2 = tuple_2.minmax
@@ -44,6 +48,7 @@ module Collishi
     end
   end
 
+	@[Anyolite::Exclude]
   def self.sign_square(x : Float)
     return (x < 0.0 ? -x * x : x * x)
   end
