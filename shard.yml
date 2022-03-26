@@ -10,7 +10,7 @@ dependencies:
     branch: master
   anyolite:
     github: Anyolite/anyolite
-    branch: master
+    branch: main
     version: 0.16.1
   imgui:
     github: oprypin/crystal-imgui
