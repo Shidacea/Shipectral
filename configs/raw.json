@@ -3,6 +3,7 @@
   "build_path_name": "raw",
   "anyolite_config_file": "utility/config_anyolite_raw.json",
   "use_sfml": false,
+  "use_sdl": false,
   "use_imgui": false,
   "use_collishi": false,
   "frontend": "test",

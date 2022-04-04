@@ -3,6 +3,7 @@
   "build_path_name": "launshi_debug",
   "anyolite_config_file": "utility/config_anyolite.json",
   "use_sfml": true,
+  "use_sdl": false,
   "use_imgui": true,
   "use_collishi": true,
   "frontend": "third_party/Launshi",

@@ -66,6 +66,7 @@ class ShipectralConfig
       :build_path_name => :required,
       :anyolite_config_file => :required,
       :use_sfml => :required,
+      :use_sdl => :required,
       :use_imgui => :required, # TODO: Make these useful
       :use_collishi => :required, # TODO: Make these useful
       :frontend => :required,
