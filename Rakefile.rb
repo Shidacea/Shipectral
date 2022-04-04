@@ -3,13 +3,12 @@ require_relative "utility/rake_helper.rb"
 SHIPECTRAL_BUILD_PATH = get_value("SHIPECTRAL_BUILD_PATH", "build")
 CRYSTAL_PATH = get_value("CRYSTAL_PATH", nil)
 
+SHIPECTRAL_COMPILER = determine_compiler
+puts "Compiler is: #{SHIPECTRAL_COMPILER}"
+
 if !CRYSTAL_PATH && SHIPECTRAL_COMPILER == :msvc
     raise "CRYSTAL_PATH environment variable was not set."
 end
-
-SHIPECTRAL_COMPILER = determine_compiler
-
-puts "Compiler is: #{SHIPECTRAL_COMPILER}"
 
 CONFIG_FILE = get_value("SHIPECTRAL_CONFIG_FILE", "configs/launshi.json")
 

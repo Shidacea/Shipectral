@@ -28,6 +28,7 @@ module SDC
     @max_z_used : UInt64 = 0
 
     property invalid : Bool = false
+    property sort_internal : Bool = true
 
     def initialize
       0.upto(MAX_Z_GROUP - 1) do |z_group|
@@ -81,7 +82,7 @@ module SDC
 
     def draw_to(window : SF::RenderWindow)
       0u64.upto(@max_z_used) do |z|
-        sort(z)
+        sort(z) if @sort_internal
 
         if @element_count[z] > 0
           0u64.upto(@element_count[z] - 1) do |i|
