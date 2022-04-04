@@ -19,3 +19,12 @@
 [submodule "third_party/crystal-imgui"]
 	path = third_party/crystal-imgui
 	url = https://github.com/oprypin/crystal-imgui
+[submodule "third_party/SDL"]
+	path = third_party/SDL
+	url = https://github.com/libsdl-org/SDL
+[submodule "third_party/SDL_mixer"]
+	path = third_party/SDL_mixer
+	url = https://github.com/libsdl-org/SDL_mixer
+[submodule "third_party/SDL_image"]
+	path = third_party/SDL_image
+	url = https://github.com/libsdl-org/SDL_image
