@@ -23,6 +23,8 @@ require "./sfml/internal/Event.cr"
 
 require "./sfml/networking/Socket.cr"
 
+SPT::Features.add("sfml")
+
 def load_sfml_wrappers(rb)
   setup_ruby_music_class(rb)
   setup_ruby_sound_buffer_class(rb)
@@ -44,6 +46,4 @@ def load_sfml_wrappers(rb)
   setup_ruby_event_class(rb)
 
   setup_ruby_socket_class(rb)
-
-  SPT::Features.add("sfml")
 end

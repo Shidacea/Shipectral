@@ -16,7 +16,7 @@ module SPT
       @@features.includes?(name)
     end
 
-    def self.ensure(name : String, debug_location : String? = "")
+    def self.ensure(name : String, debug_location : String? = nil)
       if self.check(name)
         true
       else
@@ -193,7 +193,7 @@ macro main_routine_with_config(filename)
         
         {% if compile_engine_library %}
           {% if engine_library_project.ends_with?(".json") %}
-            {% engine_library_scripts_and_features = run("./GetProjectScripts.cr", engine_library, engine_library_project) %}
+            {% engine_library_scripts_and_features = run("./GetProjectScripts.cr", engine_library, engine_library_project).chomp %}
             load_compiled_script_array({{engine_library_scripts_and_features}}, "engine library ({{engine_library}} - {{engine_library_project}})")
           {% else %}
             load_compiled_script("{{engine_library}}/{{engine_library_project}}")
@@ -224,7 +224,7 @@ macro main_routine_with_config(filename)
     
       {% if compile_frontend %}
         {% if frontend_project.ends_with?(".json") %}
-          {% frontend_scripts_and_features = run("./GetProjectScripts.cr", frontend, frontend_project) %}
+          {% frontend_scripts_and_features = run("./GetProjectScripts.cr", frontend, frontend_project).chomp %}
           
           load_compiled_script_array({{frontend_scripts_and_features}}, "frontend ({{frontend}} - {{frontend_project}})")
         {% else %}
