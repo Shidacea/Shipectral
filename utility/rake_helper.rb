@@ -18,6 +18,7 @@ end
 
 def install_helper
   use_sfml = $shipectral_config.get_option_value(:use_sfml)
+  use_sdl = $shipectral_config.get_option_value(:use_sdl)
   build_path_name = $shipectral_config.get_option_value(:build_path_name)
   frontend = $shipectral_config.get_option_value(:frontend)
   compile_frontend = $shipectral_config.get_option_value(:compile_frontend)
@@ -33,6 +34,16 @@ def install_helper
       FileUtils.cp_r "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sfml/bin/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
     else
       FileUtils.cp "#{Dir.pwd}/lib/imgui-sfml/libcimgui.so", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin/libcimgui.so", :verbose => true
+    end
+  end
+
+  if use_sdl
+    if SHIPECTRAL_COMPILER == :msvc
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-2.0.20/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-2.0.4/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_image-2.0.5/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+    else
+      # TODO?
     end
   end
 

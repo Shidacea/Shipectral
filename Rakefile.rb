@@ -74,7 +74,7 @@ task :build_sfml => [:generate_build_dir, :load_config] do
 end
 
 task :build_sdlcr => [:generate_build_dir, :build_sdl, :load_config] do
-    use_sdl = $shipectral_config.get_option_value(:use_sfml)
+    use_sdl = $shipectral_config.get_option_value(:use_sdl)
     build_path_name = $shipectral_config.get_option_value(:build_path_name)
 
     if use_sdl
