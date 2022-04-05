@@ -18,6 +18,9 @@ dependencies:
   imgui-sfml:
     github: oprypin/crystal-imgui-sfml
     branch: master
+  sdl:
+    github: ysbaddaden/sdl.cr
+    branch: master
 
 license: MIT
 

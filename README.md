@@ -122,7 +122,7 @@ Note that this current version is only guaranteed to run on Windows 64bit and Ub
 You need to run `rake` in either a terminal (Ubuntu) or the 64bit Visual Studio Command Prompt (Windows).
 
 If you want to use another config file, set the environment variable `SHIPECTRAL_CONFIG_FILE`
-to the path of the respective config file (default is `configs/launshi.json`).
+to the path of the respective config file (default is `configs/launshi_sfml.json`).
 
 The final program is under the `build` (can be changed using the environment variable `SHIPECTRAL_BUILD_PATH`)
 path, in the respective directory.

@@ -1,12 +1,12 @@
 {
-  "executable_name": "Example_Test",
-  "build_path_name": "test",
+  "executable_name": "Launshi",
+  "build_path_name": "launshi_sfml",
   "anyolite_config_file": "utility/config_anyolite.json",
   "use_sfml": true,
   "use_sdl": false,
   "use_imgui": true,
   "use_collishi": true,
-  "frontend": "demo_projects/Example_Test",
+  "frontend": "third_party/Launshi",
   "frontend_project": "project.json",
   "compile_frontend": true,
   "frontend_asset_directory": "assets",
@@ -15,7 +15,7 @@
   "engine_library_crystal": "Shidacea/sfml/crystal/Shidacea.cr",
   "engine_library_project": "scripts.json",
   "compile_engine_library": true,
-  "add_demos": false,
-  "add_project_directory": false,
-  "debug": true
+  "add_demos": true,
+  "add_project_directory": true,
+  "debug": false
 }

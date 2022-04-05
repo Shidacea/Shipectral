@@ -112,4 +112,19 @@ class ShipectralConfig
   def get_option_value(name)
     @options[name.to_sym]
   end
+
+  def get_shipectral_compile_script_name
+    use_sfml = $shipectral_config.get_option_value(:use_sfml)
+    use_sdl = $shipectral_config.get_option_value(:use_sdl)
+    
+    if use_sfml && use_sdl
+      raise "Using SFML and SDL in parallel is not supported."
+    elsif use_sdl
+      "compile_Shipectral_SDL"
+    elsif use_sfml
+      "compile_Shipectral_SFML"
+    else
+      "compile_Shipectral_raw"
+    end
+  end
 end

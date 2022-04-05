@@ -1,6 +1,6 @@
 {
   "executable_name": "LaunshiDebug",
-  "build_path_name": "launshi_debug",
+  "build_path_name": "launshi_sfml_debug",
   "anyolite_config_file": "utility/config_anyolite.json",
   "use_sfml": true,
   "use_sdl": false,
