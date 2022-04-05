@@ -2,5 +2,9 @@
   "scripts": [
     "include/",
     "core/"
+  ],
+
+  "required_features": [
+    "sfml"
   ]
 }

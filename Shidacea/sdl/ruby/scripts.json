@@ -1,5 +1,9 @@
 {
   "scripts": [
     "dummy.rb"
+  ],
+
+  "required_features": [
+    "sdl"
   ]
 }

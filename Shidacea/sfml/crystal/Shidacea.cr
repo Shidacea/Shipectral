@@ -1,3 +1,5 @@
+SPT::Features.ensure("sfml")
+
 require "./map/Tile.cr"
 require "./map/Tileset.cr"
 require "./map/Map.cr"

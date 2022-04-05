@@ -18,6 +18,24 @@ module CompilationHelper
     all_script_entries
   end
 
+  def self.get_all_features_from_project_file(directory, project_file)
+    content = File.open(File.join(directory, project_file)) do |file|
+      JSON.parse(file)
+    end
+
+    all_features = [] of String
+
+    if content["required_features"]?
+      required_features = content["required_features"].as_a
+
+      required_features.each do |feature|
+        all_features.push(feature.as_s)
+      end
+    end
+
+    all_features
+  end
+
   def self.get_all_specific_files_from_directory(directory)
     all_specific_scripts = [] of String
 

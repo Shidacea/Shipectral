@@ -1,5 +1,8 @@
 # TODO: For now, this is just a simple example based on https://github.com/ysbaddaden/sdl.cr/blob/master/samples/08_geometry.cr
 
+SPT::Features.add("sdl")  # TODO: Put in engine file
+SPT::Features.ensure("sdl")
+
 require "sdl"
 
 def load_engine_library(rb)

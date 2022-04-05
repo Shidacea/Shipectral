@@ -51,7 +51,7 @@ task :build_crsfml => [:generate_build_dir, :build_sfml, :load_config] do
 
             FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/crsfml")
             FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/crsfml/src")
-            FileUtils.cp_r "third_party/crsfml/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/crsfml", :verbose => true
+            FileUtils.cp_r "third_party/crsfml/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/crsfml", :verbose => false
 
             system "utility/compile_crSFML.bat #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}"
         end
@@ -82,7 +82,7 @@ task :build_sdlcr => [:generate_build_dir, :build_sdl, :load_config] do
             puts "Building SDL.cr..."
 
             FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdl")
-            FileUtils.cp_r "third_party/sdlcr/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdl", :verbose => true
+            FileUtils.cp_r "third_party/sdlcr/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdl", :verbose => false
         end
     end
 end
@@ -118,8 +118,8 @@ task :build_imgui => [:generate_build_dir, :build_sfml, :build_sdl, :load_config
 
             FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/imgui-sfml")
             FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/imgui")
-            FileUtils.cp_r "third_party/crystal-imgui-sfml/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/imgui-sfml", :verbose => true
-            FileUtils.cp_r "third_party/crystal-imgui/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/imgui", :verbose => true
+            FileUtils.cp_r "third_party/crystal-imgui-sfml/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/imgui-sfml", :verbose => false
+            FileUtils.cp_r "third_party/crystal-imgui/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/imgui", :verbose => false
 
             system "utility/compile_crimgui.bat #{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{CRYSTAL_PATH}"
         end
@@ -135,7 +135,7 @@ task :build_anyolite => [:generate_build_dir, :load_config] do
 
         FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/anyolite")
         unless File.exist?("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/anyolite/Rakefile.rb")
-            FileUtils.cp_r "third_party/anyolite/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/anyolite", :verbose => true
+            FileUtils.cp_r "third_party/anyolite/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/anyolite", :verbose => false
         end
 
         system "utility/compile_anyolite.bat #{SHIPECTRAL_BUILD_PATH}/#{build_path_name} #{Dir.pwd}/#{anyolite_config_file}"
