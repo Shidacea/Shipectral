@@ -28,3 +28,6 @@
 [submodule "third_party/SDL_image"]
 	path = third_party/SDL_image
 	url = https://github.com/libsdl-org/SDL_image
+[submodule "third_party/sdlcr"]
+	path = third_party/sdlcr
+	url = https://github.com/ysbaddaden/sdl.cr
