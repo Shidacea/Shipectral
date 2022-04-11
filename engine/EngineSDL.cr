@@ -1,5 +1,8 @@
 require "sdl"
-require "sdl/mixer"
+require "sdl/mix"
 require "sdl/image"
 
 SPT::Features.add("sdl")
+
+def load_sdl_wrappers(rb)
+end

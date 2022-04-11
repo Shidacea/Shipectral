@@ -56,6 +56,7 @@ end
 
 macro main_routine_with_config(filename)
   {% config_use_sfml = run("./GetConfigOption.cr", filename, "use_sfml").chomp %}
+  {% config_use_sdl = run("./GetConfigOption.cr", filename, "use_sdl").chomp %}
   {% config_use_collishi = run("./GetConfigOption.cr", filename, "use_collishi").chomp %}
   {% config_frontend = run("./GetConfigOption.cr", filename, "frontend").chomp %}
   {% config_frontend_project = run("./GetConfigOption.cr", filename, "frontend_project").chomp %}
@@ -73,6 +74,16 @@ macro main_routine_with_config(filename)
     {% end %}
   {% else %}
     {% raise "Option \"use_sfml\" is not a bool" %}
+  {% end %}
+
+  {% if config_use_sdl.starts_with?("B|") %}
+    {% if config_use_sdl[2..-1] == "true" %}
+      {% use_sdl = true %}
+    {% else %}
+      {% use_sdl = false %}
+    {% end %}
+  {% else %}
+    {% raise "Option \"use_sdl\" is not a bool" %}
   {% end %}
 
   {% if config_use_collishi.starts_with?("B|") %}
@@ -158,9 +169,10 @@ macro main_routine_with_config(filename)
   {% if use_sfml %}
     require "../engine/EngineSFML.cr"
     require "../engine/EngineImGui.cr"
-  {% else %}
-    module SF
-    end
+  {% end %}
+
+  {% if use_sdl %}
+    require "../engine/EngineSDL.cr"
   {% end %}
 
   module SDC
@@ -182,6 +194,12 @@ macro main_routine_with_config(filename)
         Anyolite.wrap_module(rb, SF, "SF")
         load_sfml_wrappers(rb)
         load_imgui_wrappers(rb)
+      {% end %}
+
+      {% if use_sdl %}
+        # Does currently not do anything, but could be used for custom bindings
+        Anyolite.wrap_module(rb, SDL, "SDL")
+        load_sdl_wrappers(rb)
       {% end %}
 
       Anyolite.wrap(rb, SDC::Script, under: SDC, verbose: true, connect_to_superclass: false)
@@ -259,6 +277,10 @@ macro main_routine_with_config(filename)
 
   {% if use_sfml %}
     ImGui::SFML.shutdown
+  {% end %}
+
+  {% if use_sdl %}
+    SDL.quit
   {% end %}
 end
 

@@ -11,6 +11,8 @@ require "./internal/Mouse.cr"
 require "./graphics/Shape.cr"
 require "./graphics/Window.cr"
 
+SPT::Features.add("shidacea")
+
 def load_engine_library(rb)
   setup_ruby_tile_class(rb)
   setup_ruby_tileset_class(rb)
