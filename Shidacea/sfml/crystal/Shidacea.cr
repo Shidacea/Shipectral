@@ -1,3 +1,5 @@
+SPT::Features.ensure("sfml")
+
 require "./map/Tile.cr"
 require "./map/Tileset.cr"
 require "./map/Map.cr"
@@ -8,6 +10,8 @@ require "./internal/Mouse.cr"
 
 require "./graphics/Shape.cr"
 require "./graphics/Window.cr"
+
+SPT::Features.add("shidacea")
 
 def load_engine_library(rb)
   setup_ruby_tile_class(rb)

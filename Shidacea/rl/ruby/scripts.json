@@ -1,0 +1,9 @@
+{
+  "scripts": [
+    "dummy.rb"
+  ],
+
+  "required_features": [
+    "rl"
+  ]
+}

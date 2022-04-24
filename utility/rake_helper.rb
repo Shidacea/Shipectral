@@ -18,6 +18,8 @@ end
 
 def install_helper
   use_sfml = $shipectral_config.get_option_value(:use_sfml)
+  use_sdl = $shipectral_config.get_option_value(:use_sdl)
+  use_rl = $shipectral_config.get_option_value(:use_rl)
   build_path_name = $shipectral_config.get_option_value(:build_path_name)
   frontend = $shipectral_config.get_option_value(:frontend)
   compile_frontend = $shipectral_config.get_option_value(:compile_frontend)
@@ -34,6 +36,20 @@ def install_helper
     else
       FileUtils.cp "#{Dir.pwd}/lib/imgui-sfml/libcimgui.so", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin/libcimgui.so", :verbose => true
     end
+  end
+
+  if use_sdl
+    if SHIPECTRAL_COMPILER == :msvc
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-2.0.20/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-2.0.4/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_image-2.0.5/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+    else
+      # TODO?
+    end
+  end
+
+  if use_rl
+    # TODO
   end
 
   if !compile_frontend
@@ -66,6 +82,8 @@ class ShipectralConfig
       :build_path_name => :required,
       :anyolite_config_file => :required,
       :use_sfml => :required,
+      :use_sdl => :required,
+      :use_rl => :required,
       :use_imgui => :required, # TODO: Make these useful
       :use_collishi => :required, # TODO: Make these useful
       :frontend => :required,
@@ -110,5 +128,23 @@ class ShipectralConfig
 
   def get_option_value(name)
     @options[name.to_sym]
+  end
+
+  def get_shipectral_compile_script_name
+    use_sfml = $shipectral_config.get_option_value(:use_sfml)
+    use_sdl = $shipectral_config.get_option_value(:use_sdl)
+    use_rl = $shipectral_config.get_option_value(:use_rl)
+    
+    if (use_sfml && use_sdl) || (use_sfml && use_rl) || (use_sdl && use_rl)
+      raise "Using more than one media library in parallel is not supported."
+    elsif use_sdl
+      "compile_Shipectral_SDL"
+    elsif use_sfml
+      "compile_Shipectral_SFML"
+    elsif use_rl
+      "compile_Shipectral_RL"
+    else
+      "compile_Shipectral_raw"
+    end
   end
 end

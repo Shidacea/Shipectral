@@ -11,12 +11,17 @@ dependencies:
   anyolite:
     github: Anyolite/anyolite
     branch: main
-    version: 0.16.1
   imgui:
     github: oprypin/crystal-imgui
     branch: master
   imgui-sfml:
     github: oprypin/crystal-imgui-sfml
+    branch: master
+  sdl:
+    github: ysbaddaden/sdl.cr
+    branch: master
+  raylib-cr:
+    github: sol-vin/raylib-cr
     branch: master
 
 license: MIT

@@ -2,26 +2,28 @@ require "crsfml"
 require "crsfml/audio"
 require "crsfml/network"
 
-require "./audio/Music.cr"
-require "./audio/SoundBuffer.cr"
-require "./audio/Sound.cr"
+require "./sfml/audio/Music.cr"
+require "./sfml/audio/SoundBuffer.cr"
+require "./sfml/audio/Sound.cr"
 
-require "./graphics/Color.cr"
-require "./graphics/Shape.cr"
-require "./graphics/Font.cr"
-require "./graphics/RenderStates.cr"
-require "./graphics/Sprite.cr"
-require "./graphics/Text.cr"
-require "./graphics/Texture.cr"
-require "./graphics/View.cr"
+require "./sfml/graphics/Color.cr"
+require "./sfml/graphics/Shape.cr"
+require "./sfml/graphics/Font.cr"
+require "./sfml/graphics/RenderStates.cr"
+require "./sfml/graphics/Sprite.cr"
+require "./sfml/graphics/Text.cr"
+require "./sfml/graphics/Texture.cr"
+require "./sfml/graphics/View.cr"
 
-require "./internal/Vector.cr"
-require "./internal/Rect.cr"
-require "./internal/Keyboard.cr"
-require "./internal/Mouse.cr"
-require "./internal/Event.cr"
+require "./sfml/internal/Vector.cr"
+require "./sfml/internal/Rect.cr"
+require "./sfml/internal/Keyboard.cr"
+require "./sfml/internal/Mouse.cr"
+require "./sfml/internal/Event.cr"
 
-require "./networking/Socket.cr"
+require "./sfml/networking/Socket.cr"
+
+SPT::Features.add("sfml")
 
 def load_sfml_wrappers(rb)
   setup_ruby_music_class(rb)
@@ -44,6 +46,4 @@ def load_sfml_wrappers(rb)
   setup_ruby_event_class(rb)
 
   setup_ruby_socket_class(rb)
-
-  SPT::Features.add("sfml")
 end
