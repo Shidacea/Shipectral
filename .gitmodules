@@ -19,3 +19,6 @@
 [submodule "third_party/sdlcr"]
 	path = third_party/sdlcr
 	url = https://github.com/ysbaddaden/sdl.cr
+[submodule "third_party/raylib-cr"]
+	path = third_party/raylib-cr
+	url = https://github.com/sol-vin/raylib-cr
