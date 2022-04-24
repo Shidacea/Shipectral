@@ -197,6 +197,7 @@ macro main_routine_with_config(filename)
   {% end %}
 
   {% if use_rl %}
+    require "../engine/EngineRL.cr"
   {% end %}
 
   {% if use_imgui %}
@@ -332,4 +333,8 @@ if test_run
   exit
 end
 
-main_routine_with_config({{env("SHIPECTRAL_CONFIG_FILE")}})
+{% if env("SHIPECTRAL_CONFIG_FILE") %}
+  main_routine_with_config({{env("SHIPECTRAL_CONFIG_FILE")}})
+{% else %}
+  main_routine_with_config("configs/launshi_sfml.json")
+{% end %}

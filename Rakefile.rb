@@ -10,7 +10,7 @@ if !CRYSTAL_PATH && SHIPECTRAL_COMPILER == :msvc
     raise "CRYSTAL_PATH environment variable was not set."
 end
 
-CONFIG_FILE = get_value("SHIPECTRAL_CONFIG_FILE", "configs/launshi_sfml.json")
+CONFIG_FILE = get_value("SHIPECTRAL_CONFIG_FILE", "configs/launshi_sfml.json")  # NOTE: This needs to change if the default in the main code changes, too
 
 $shipectral_config = nil
 
@@ -114,7 +114,8 @@ task :build_rl_cr => [:generate_build_dir, :build_rl, :load_config] do
     
     if use_rl
         if SHIPECTRAL_COMPILER == :msvc
-            # TODO
+            FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/raylib")
+            FileUtils.cp_r "third_party/raylib-cr/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/raylib-cr", :verbose => false
         end
     end
 end
@@ -127,7 +128,7 @@ task :build_rl => [:generate_build_dir, :load_config] do
         if SHIPECTRAL_COMPILER == :msvc
             FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/rl_lib")
 
-            system "curl https://github.com/raysan5/raylib/releases/download/4.0.0/raylib-4.0.0_win64_msvc16.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/rl_lib/raylib-4.0.0_win64_msvc16.zip"
+            system "curl -L https://github.com/raysan5/raylib/releases/download/4.0.0/raylib-4.0.0_win64_msvc16.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/rl_lib/raylib-4.0.0_win64_msvc16.zip"
             system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/rl_lib/raylib-4.0.0_win64_msvc16.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/rl_lib"
         end
     end
@@ -167,7 +168,7 @@ task :build_anyolite => [:generate_build_dir, :load_config] do
     end
 end
 
-task :build_shipectral => [:generate_build_dir, :build_crsfml, :build_sdlcr, :build_sfml, :build_sdl, :build_imgui, :build_anyolite, :build_shards, :load_config] do
+task :build_shipectral => [:generate_build_dir, :build_crsfml, :build_sdlcr, :build_rl_cr, :build_sfml, :build_sdl, :build_rl, :build_imgui, :build_anyolite, :build_shards, :load_config] do
     executable_name = $shipectral_config.get_option_value(:executable_name)
     debug = $shipectral_config.get_option_value(:debug)
     build_path_name = $shipectral_config.get_option_value(:build_path_name)
@@ -192,7 +193,7 @@ task :install_shipectral => [:build_shipectral, :load_config] do
     install_helper
 end
 
-task :build_shards => [:generate_build_dir, :build_sfml, :build_sdl, :load_config] do
+task :build_shards => [:generate_build_dir, :build_sfml, :build_sdl, :build_rl, :load_config] do
     anyolite_config_file = $shipectral_config.get_option_value(:anyolite_config_file)
 
     # TODO: Ignore SFML and ImGui shards if possible somehow

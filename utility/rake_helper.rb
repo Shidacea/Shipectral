@@ -133,6 +133,7 @@ class ShipectralConfig
   def get_shipectral_compile_script_name
     use_sfml = $shipectral_config.get_option_value(:use_sfml)
     use_sdl = $shipectral_config.get_option_value(:use_sdl)
+    use_rl = $shipectral_config.get_option_value(:use_rl)
     
     if (use_sfml && use_sdl) || (use_sfml && use_rl) || (use_sdl && use_rl)
       raise "Using more than one media library in parallel is not supported."
