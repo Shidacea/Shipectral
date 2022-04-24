@@ -7,9 +7,6 @@
 [submodule "third_party/crSFML"]
 	path = third_party/crSFML
 	url = https://github.com/oprypin/crSFML
-[submodule "third_party/crystal"]
-	path = third_party/crystal
-	url = https://github.com/crystal-lang/crystal
 [submodule "third_party/Launshi"]
 	path = third_party/Launshi
 	url = https://github.com/Shidacea/Launshi
@@ -19,15 +16,6 @@
 [submodule "third_party/crystal-imgui"]
 	path = third_party/crystal-imgui
 	url = https://github.com/oprypin/crystal-imgui
-[submodule "third_party/SDL"]
-	path = third_party/SDL
-	url = https://github.com/libsdl-org/SDL
-[submodule "third_party/SDL_mixer"]
-	path = third_party/SDL_mixer
-	url = https://github.com/libsdl-org/SDL_mixer
-[submodule "third_party/SDL_image"]
-	path = third_party/SDL_image
-	url = https://github.com/libsdl-org/SDL_image
 [submodule "third_party/sdlcr"]
 	path = third_party/sdlcr
 	url = https://github.com/ysbaddaden/sdl.cr
