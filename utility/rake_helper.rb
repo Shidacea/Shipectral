@@ -19,6 +19,7 @@ end
 def install_helper
   use_sfml = $shipectral_config.get_option_value(:use_sfml)
   use_sdl = $shipectral_config.get_option_value(:use_sdl)
+  use_rl = $shipectral_config.get_option_value(:use_rl)
   build_path_name = $shipectral_config.get_option_value(:build_path_name)
   frontend = $shipectral_config.get_option_value(:frontend)
   compile_frontend = $shipectral_config.get_option_value(:compile_frontend)
@@ -45,6 +46,10 @@ def install_helper
     else
       # TODO?
     end
+  end
+
+  if use_rl
+    # TODO
   end
 
   if !compile_frontend
@@ -78,6 +83,7 @@ class ShipectralConfig
       :anyolite_config_file => :required,
       :use_sfml => :required,
       :use_sdl => :required,
+      :use_rl => :required,
       :use_imgui => :required, # TODO: Make these useful
       :use_collishi => :required, # TODO: Make these useful
       :frontend => :required,
@@ -128,12 +134,14 @@ class ShipectralConfig
     use_sfml = $shipectral_config.get_option_value(:use_sfml)
     use_sdl = $shipectral_config.get_option_value(:use_sdl)
     
-    if use_sfml && use_sdl
-      raise "Using SFML and SDL in parallel is not supported."
+    if (use_sfml && use_sdl) || (use_sfml && use_rl) || (use_sdl && use_rl)
+      raise "Using more than one media library in parallel is not supported."
     elsif use_sdl
       "compile_Shipectral_SDL"
     elsif use_sfml
       "compile_Shipectral_SFML"
+    elsif use_rl
+      "compile_Shipectral_RL"
     else
       "compile_Shipectral_raw"
     end

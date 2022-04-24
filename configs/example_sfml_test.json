@@ -4,6 +4,7 @@
   "anyolite_config_file": "utility/config_anyolite.json",
   "use_sfml": true,
   "use_sdl": false,
+  "use_rl": false,
   "use_imgui": true,
   "use_collishi": true,
   "frontend": "demo_projects/Example_Test",

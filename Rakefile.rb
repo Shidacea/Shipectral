@@ -108,6 +108,31 @@ task :build_sdl => [:generate_build_dir, :load_config] do
     end
 end
 
+task :build_rl_cr => [:generate_build_dir, :build_rl, :load_config] do
+    use_rl = $shipectral_config.get_option_value(:use_rl)
+    build_path_name = $shipectral_config.get_option_value(:build_path_name)
+    
+    if use_rl
+        if SHIPECTRAL_COMPILER == :msvc
+            # TODO
+        end
+    end
+end
+
+task :build_rl => [:generate_build_dir, :load_config] do
+    use_rl = $shipectral_config.get_option_value(:use_rl)
+    build_path_name = $shipectral_config.get_option_value(:build_path_name)
+
+    if use_rl
+        if SHIPECTRAL_COMPILER == :msvc
+            FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/rl_lib")
+
+            system "curl https://github.com/raysan5/raylib/releases/download/4.0.0/raylib-4.0.0_win64_msvc16.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/rl_lib/raylib-4.0.0_win64_msvc16.zip"
+            system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/rl_lib/raylib-4.0.0_win64_msvc16.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/rl_lib"
+        end
+    end
+end
+
 task :build_imgui => [:generate_build_dir, :build_sfml, :build_sdl, :load_config] do
     use_sfml = $shipectral_config.get_option_value(:use_sfml)
     build_path_name = $shipectral_config.get_option_value(:build_path_name)
