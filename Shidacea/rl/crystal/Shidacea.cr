@@ -5,6 +5,7 @@ alias Rl = LibRaylib
 require "./wrappers/Color.cr"
 require "./wrappers/Font.cr"
 require "./wrappers/Rectangle.cr"
+require "./wrappers/ShapeBox.cr"
 require "./wrappers/Text.cr"
 require "./wrappers/Vector2.cr"
 require "./wrappers/Window.cr"
