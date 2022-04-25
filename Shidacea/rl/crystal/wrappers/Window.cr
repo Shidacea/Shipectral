@@ -28,12 +28,15 @@ module SDC
     def demo_run
       LibRaylib.begin_drawing
       LibRaylib.clear_background(LibRaylib::RAYWHITE)
-      LibRaylib.draw_text("Basic Shapes", 20, 20, 20, LibRaylib::DARKGRAY)
+
+      text = SDC::Text.new(content: "Basic Shapes", position: SDC::Vector2.new(20, 20), font_size: 20, color: LibRaylib::DARKGRAY)
+      text.draw
+
       LibRaylib.draw_circle(@width/5, 120, 35, LibRaylib::DARKBLUE);
       LibRaylib.draw_circle_gradient(@width/5, 220, 60, LibRaylib::GREEN, LibRaylib::SKYBLUE);
       LibRaylib.draw_circle_lines(@width/5, 340, 80, LibRaylib::DARKBLUE);
 
-      SDC::Rectangle.new(width: 120, height: 60, origin: SDC::Vector2.new(@width/4*2 - 60, 100)).draw(Rl::RED)
+      SDC::Rectangle.new(width: 120, height: 60, origin: SDC::Vector2.new(@width/4*2 - 60, 100)).draw(LibRaylib::RED)
 
       LibRaylib.draw_rectangle_gradient_h(@width/4*2 - 90, 170, 180, 130, LibRaylib::MAROON, LibRaylib::GOLD);
       LibRaylib.draw_rectangle_lines(@width/4*2 - 40, 320, 80, 60, LibRaylib::ORANGE); 
