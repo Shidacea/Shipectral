@@ -27,25 +27,25 @@ module SDC
 
     def demo_run
       LibRaylib.begin_drawing
-      LibRaylib.clear_background(LibRaylib::RAYWHITE)
+      LibRaylib.clear_background(SDC::Color::RAYWHITE)
 
-      text = SDC::Text.new(content: "Basic Shapes", position: SDC::Vector2.new(20, 20), font_size: 20, color: LibRaylib::DARKGRAY)
+      text = SDC::Text.new(content: "Basic Shapes", position: SDC::Vector2.new(20, 20), font_size: 20, color: SDC::Color::DARKGRAY)
       text.draw
 
-      LibRaylib.draw_circle(@width/5, 120, 35, LibRaylib::DARKBLUE);
-      LibRaylib.draw_circle_gradient(@width/5, 220, 60, LibRaylib::GREEN, LibRaylib::SKYBLUE);
-      LibRaylib.draw_circle_lines(@width/5, 340, 80, LibRaylib::DARKBLUE);
+      LibRaylib.draw_circle(@width/5, 120, 35, SDC::Color::DARKBLUE);
+      LibRaylib.draw_circle_gradient(@width/5, 220, 60, SDC::Color::GREEN, SDC::Color::SKYBLUE);
+      LibRaylib.draw_circle_lines(@width/5, 340, 80, SDC::Color::DARKBLUE);
 
-      SDC::Rectangle.new(width: 120, height: 60, origin: SDC::Vector2.new(@width/4*2 - 60, 100)).draw(LibRaylib::RED)
+      SDC::Rectangle.new(width: 120, height: 60, origin: SDC::Vector2.new(@width/4*2 - 60, 100)).draw(SDC::Color::RED)
 
-      LibRaylib.draw_rectangle_gradient_h(@width/4*2 - 90, 170, 180, 130, LibRaylib::MAROON, LibRaylib::GOLD);
-      LibRaylib.draw_rectangle_lines(@width/4*2 - 40, 320, 80, 60, LibRaylib::ORANGE); 
+      LibRaylib.draw_rectangle_gradient_h(@width/4*2 - 90, 170, 180, 130, SDC::Color::MAROON, SDC::Color::GOLD);
+      LibRaylib.draw_rectangle_lines(@width/4*2 - 40, 320, 80, 60, SDC::Color::ORANGE); 
 
       a = SDC::Vector2.new(@width / 4.0 * 3.0, 80.0)
       b = SDC::Vector2.new(@width / 4.0 * 3.0 - 60.0, 150.0)
       c = SDC::Vector2.new(@width / 4.0 * 3.0 + 60.0, 150.0)
 
-      LibRaylib.draw_triangle(a, b, c, LibRaylib::VIOLET);
+      LibRaylib.draw_triangle(a, b, c, SDC::Color::VIOLET);
 
       a.x = @width / 4.0 * 3.0
       a.y = 160.0
@@ -56,15 +56,15 @@ module SDC
       c.x = @width / 4.0 * 3.0 + 20.0
       c.y = 230.0
 
-      LibRaylib.draw_triangle_lines(a, b, c, LibRaylib::DARKBLUE)
+      LibRaylib.draw_triangle_lines(a, b, c, SDC::Color::DARKBLUE)
 
       a.x = @width / 4.0 * 3.0
       a.y = 320.0
 
-      LibRaylib.draw_poly(a, 6, 80, 0, LibRaylib::BROWN)
-      LibRaylib.draw_poly_lines_ex(a, 6, 80, 0, 6, LibRaylib::BEIGE)
+      LibRaylib.draw_poly(a, 6, 80, 0, SDC::Color::BROWN)
+      LibRaylib.draw_poly_lines_ex(a, 6, 80, 0, 6, SDC::Color::BEIGE)
 
-      LibRaylib.draw_line(17, 42, @width - 18, 42, LibRaylib::BLACK)
+      LibRaylib.draw_line(17, 42, @width - 18, 42, SDC::Color::BLACK)
       LibRaylib.end_drawing
     end
 

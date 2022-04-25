@@ -18,7 +18,7 @@ rect_2 = SDC::Rectangle.new(100, 200, origin: SDC::Vector2.new(100, 200))
 window = SDC::Window.new("Shipectral from Ruby", 800, 450)
 window.target_fps = 60
 
-test_text = SDC::Text.new(content: "Hello there!")
+test_text = SDC::Text.new(content: "Hello there!", color: SDC::Color::RED)
 
 until window.close?
   window.demo_run

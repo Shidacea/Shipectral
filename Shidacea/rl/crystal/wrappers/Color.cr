@@ -12,4 +12,15 @@ struct Rl::Color
     self.b = b
     self.a = a
   end
+
+  {% for color_name in ["LIGHTGRAY", "GRAY", "DARKGRAY", "YELLOW", 
+                        "GOLD", "ORANGE", "PINK", "RED", "MAROON", 
+                        "GREEN", "LIME", "DARKGREEN", "SKYBLUE",
+                        "BLUE", "DARKBLUE", "PURPLE", "VIOLET",
+                        "DARKPURPLE", "BEIGE", "BROWN", "DARKBROWN",
+                        "WHITE", "BLACK", "BLANK", "MAGENTA",
+                        "RAYWHITE"] %}
+    {{color_name.id}} = Rl::{{color_name.id}}
+  {% end %}
+
 end
