@@ -204,9 +204,6 @@ macro main_routine_with_config(filename)
     require "../engine/EngineImGui.cr"
   {% end %}
 
-  module SDC
-  end
-
   {% if engine_library_crystal %}
     require "../{{engine_library_crystal}}"
   {% end %}
@@ -217,8 +214,6 @@ macro main_routine_with_config(filename)
 
   begin
     Anyolite::RbInterpreter.create do |rb|
-      Anyolite.wrap_module(rb, SDC, "SDC")
-
       {% if use_sfml %}
         Anyolite.wrap_module(rb, SF, "SF")  # TODO: Separate this from this file
         load_sfml_wrappers(rb)
@@ -237,8 +232,6 @@ macro main_routine_with_config(filename)
       {% if use_imgui %}
         load_imgui_wrappers(rb)
       {% end %}
-
-      Anyolite.wrap(rb, SDC::Script, under: SDC, verbose: true, connect_to_superclass: false)
 
       {% if engine_library %}
         {% if engine_library_crystal %}
@@ -265,13 +258,13 @@ macro main_routine_with_config(filename)
               full_script_path = File.join("{{engine_library}}", script)
 
               if File.directory?(full_script_path)
-                SDC::Script.load_recursively(full_script_path)
+                SPT::Script.load_recursively(full_script_path)
               else
-                SDC::Script.load(full_script_path)
+                SPT::Script.load(full_script_path)
               end
             end
           {% else %}
-            SDC::Script.load("{{engine_library}}/{{engine_library_project}}")
+          SPT::Script.load("{{engine_library}}/{{engine_library_project}}")
           {% end %}
         {% end %}
       {% end %}
@@ -286,8 +279,8 @@ macro main_routine_with_config(filename)
         {% end %}
       {% else %}
         {% if frontend_project.ends_with?(".json") %}
-          scripts = CompilationHelper.get_all_scripts_from_project_file(SDC::Script.path, "{{frontend_project}}")
-          features = CompilationHelper.get_all_features_from_project_file(SDC::Script.path, "{{frontend_project}}")
+          scripts = CompilationHelper.get_all_scripts_from_project_file(SPT::Script.path, "{{frontend_project}}")
+          features = CompilationHelper.get_all_features_from_project_file(SPT::Script.path, "{{frontend_project}}")
 
           features.each do |feature|
             SPT::Features.ensure(feature, "frontend ({{frontend}} - {{frontend_project}})")
@@ -295,13 +288,13 @@ macro main_routine_with_config(filename)
 
           scripts.each do |script|
             if File.directory?(script)
-              SDC::Script.load_recursively(script)
+              SPT::Script.load_recursively(script)
             else
-              SDC::Script.load(script)
+              SPT::Script.load(script)
             end
           end
         {% else %}
-          SDC::Script.load("{{frontend_project}}")
+        SPT::Script.load("{{frontend_project}}")
         {% end %}
       {% end %}
 

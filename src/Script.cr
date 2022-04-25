@@ -1,4 +1,4 @@
-module SDC
+module SPT
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   module Script
     @@path : String = ((exec_path = Process.executable_path) ? File.dirname(exec_path) : ".")

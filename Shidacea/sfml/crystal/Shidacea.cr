@@ -13,7 +13,14 @@ require "./graphics/Window.cr"
 
 SPT::Features.add("shidacea")
 
+module SDC
+  alias Script = SPT::Script
+end
+
 def load_engine_library(rb)
+  Anyolite.wrap_module(rb, SDC, "SDC")
+  Anyolite.wrap(rb, SDC::Script, under: SDC, verbose: true, connect_to_superclass: false)
+
   setup_ruby_tile_class(rb)
   setup_ruby_tileset_class(rb)
   setup_ruby_map_class(rb)
