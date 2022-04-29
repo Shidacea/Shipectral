@@ -40,23 +40,26 @@ module SDC
       draw_routine do
         clear(SDC::Color::RAYWHITE)
 
-        text = SDC::Text.new(content: "Basic Shapes", position: SDC::Vector2.new(20, 20), font_size: 20, color: SDC::Color::DARKGRAY)
+        text = SDC::Text.new(content: "Basic Shapes", position: SDC.xy(20, 20), font_size: 20, color: SDC::Color::DARKGRAY)
         text.draw
 
-        LibRaylib.draw_circle(@width/5, 120, 35, SDC::Color::DARKBLUE)
+        test_circle = SDC::ShapeCircle.new(35, origin: SDC.xy(@width/5, 120))
+        test_circle.color = SDC::Color::DARKBLUE
+        test_circle.draw
+
         LibRaylib.draw_circle_gradient(@width/5, 220, 60, SDC::Color::GREEN, SDC::Color::SKYBLUE)
         LibRaylib.draw_circle_lines(@width/5, 340, 80, SDC::Color::DARKBLUE)
 
-        test_rectangle = SDC::ShapeBox.new(SDC::Vector2.new(120, 60), origin: SDC::Vector2.new(@width/4*2 - 60, 100))
+        test_rectangle = SDC::ShapeBox.new(SDC.xy(120, 60), origin: SDC.xy(@width/4*2 - 60, 100))
         test_rectangle.color = SDC::Color::RED
         test_rectangle.draw
 
         LibRaylib.draw_rectangle_gradient_h(@width/4*2 - 90, 170, 180, 130, SDC::Color::MAROON, SDC::Color::GOLD)
         LibRaylib.draw_rectangle_lines(@width/4*2 - 40, 320, 80, 60, SDC::Color::ORANGE);
 
-        a = SDC::Vector2.new(@width / 4.0 * 3.0, 80.0)
-        b = SDC::Vector2.new(@width / 4.0 * 3.0 - 60.0, 150.0)
-        c = SDC::Vector2.new(@width / 4.0 * 3.0 + 60.0, 150.0)
+        a = SDC.xy(@width / 4.0 * 3.0, 80.0)
+        b = SDC.xy(@width / 4.0 * 3.0 - 60.0, 150.0)
+        c = SDC.xy(@width / 4.0 * 3.0 + 60.0, 150.0)
 
         LibRaylib.draw_triangle(a, b, c, SDC::Color::VIOLET)
 

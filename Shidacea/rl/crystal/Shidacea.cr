@@ -5,7 +5,7 @@ alias Rl = LibRaylib
 require "./wrappers/Color.cr"
 require "./wrappers/Font.cr"
 require "./wrappers/Rectangle.cr"
-require "./wrappers/ShapeBox.cr"
+require "./wrappers/Shapes.cr"
 require "./wrappers/Text.cr"
 require "./wrappers/Vector2.cr"
 require "./wrappers/Window.cr"
@@ -18,6 +18,11 @@ require "./wrappers/Window.cr"
 @[Anyolite::ExcludeConstant("Rectangle")]
 @[Anyolite::ExcludeConstant("Vector2")]
 module SDC
+  @[Anyolite::WrapWithoutKeywords]
+  def self.xy(x : Number = 0, y : Number = 0)
+    Vector2.new(x: x, y: y)
+  end
+
   alias Vector2 = Rl::Vector2
   alias Color = Rl::Color
   alias Font = Rl::Font
