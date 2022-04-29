@@ -39,6 +39,60 @@ module SDC
     property side_1 : Rl::Vector2
     property side_2 : Rl::Vector2
 
+    def self.from_vertices(vertex_0 : Rl::Vector2, vertex_1 : Rl::Vector2, vertex_2 : Rl::Vector2)
+      self.new(vertex_1 - vertex_0, vertex_2 - vertex_0, origin: vertex_0)
+    end
+
+    def get_vertex(number : Int)
+      case number
+      when 0
+        @origin
+      when 1
+        @origin + @side_1
+      when 2
+        @origin + @side_2
+      else
+        raise("Invalid index for vertices: #{number}")
+      end
+    end
+
+    def set_vertex(number : Int, value : Rl::Vector2)
+      case number
+      when 0
+        @origin = value
+      when 1
+        @side_1 = value - @origin
+      when 2
+        @side_2 = value - @origin
+      else
+        raise("Invalid index for vertices: #{number}")
+      end
+    end
+
+    def vertex_0
+      @origin
+    end
+
+    def vertex_1
+      @origin + @side_1
+    end
+
+    def vertex_2
+      @origin + @side_2
+    end
+
+    def vertex_0=(value : Rl::Vector2)
+      @origin = value
+    end
+
+    def vertex_1=(value : Rl::Vector2)
+      @side_1 = value - @origin
+    end
+
+    def vertex_2=(value : Rl::Vector2)
+      @side_2 = value - @origin
+    end
+
     @[Anyolite::Specialize]
     def initialize(side_1 : Rl::Vector2, side_2 : Rl::Vector2, origin : Rl::Vector2 = Rl::Vector2.new)
       @side_1 = side_1
