@@ -15,6 +15,9 @@ triangle_side_2 = SDC.xy(60.0, 70.0)
 test_triangle = SDC::ShapeTriangle.new(triangle_side_1, triangle_side_2, origin: triangle_pos)
 test_triangle.color = SDC::Color::VIOLET
 
+test_line = SDC::ShapeLine.new(SDC.xy(window.width - 18, 42), origin: SDC.xy(17, 42))
+test_line.color = SDC::Color::BLACK
+
 until window.close?
   window.draw_routine do
     window.clear(color: SDC::Color::RAYWHITE)
@@ -24,6 +27,8 @@ until window.close?
     test_circle.draw
 
     test_triangle.draw
+
+    test_line.draw
 
     SDC::ShapeEllipse.new(SDC.xy(60, 80), origin: SDC.xy(280, 260)).draw
   end

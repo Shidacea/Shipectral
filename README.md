@@ -73,6 +73,7 @@ allowing for a solid Ruby-based game development experience.
 
 ##### Shidacea/RL
 
+* [X] Shapes
 * [ ] Full raylib support on Windows and Linux
 * [ ] Wrappers for raylib
 * [ ] Anyolite bindings for the wrappers

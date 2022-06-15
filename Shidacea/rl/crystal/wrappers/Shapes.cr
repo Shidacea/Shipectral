@@ -5,6 +5,33 @@ module SDC
   end
 
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
+  struct ShapePoint < Shape
+    @[Anyolite::Specialize]
+    def initialize(origin : Rl::Vector2 = Rl::Vector2.new)
+      @origin = origin
+    end
+
+    def draw
+      Rl.draw_pixel(@origin.x, @origin.y, @color)
+    end
+  end
+
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
+  struct ShapeLine < Shape
+    property direction : Rl::Vector2
+
+    @[Anyolite::Specialize]
+    def initialize(direction : Rl::Vector2, origin : Rl::Vector2 = Rl::Vector2.new)
+      @direction = direction
+      @origin = origin
+    end
+
+    def draw
+      Rl.draw_line(@origin.x, @origin.y, @direction.x, @direction.y, @color)
+    end
+  end
+
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   struct ShapeBox < Shape
     property size : Rl::Vector2
 
