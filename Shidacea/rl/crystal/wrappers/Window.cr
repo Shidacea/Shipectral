@@ -2,11 +2,13 @@ module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Window
     def initialize(@title : String, @width : Int32, @height : Int32)
+      Rl.init_audio_device
       Rl.init_window(width, height, title)
     end
 
     def close
       Rl.close_window
+      Rl.close_audio_device
     end
 
     def target_fps=(fps : Int32)

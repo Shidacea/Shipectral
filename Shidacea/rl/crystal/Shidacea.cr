@@ -6,6 +6,7 @@ require "./wrappers/Color.cr"
 require "./wrappers/Font.cr"
 require "./wrappers/Rectangle.cr"
 require "./wrappers/Shapes.cr"
+require "./wrappers/Sound.cr"
 require "./wrappers/Text.cr"
 require "./wrappers/Vector2.cr"
 require "./wrappers/Window.cr"
@@ -23,10 +24,10 @@ module SDC
     Vector2.new(x: x, y: y)
   end
 
-  alias Vector2 = Rl::Vector2
   alias Color = Rl::Color
   alias Font = Rl::Font
   alias Rectangle = Rl::Rectangle
+  alias Vector2 = Rl::Vector2
 end
 
 def load_engine_library(rb)
