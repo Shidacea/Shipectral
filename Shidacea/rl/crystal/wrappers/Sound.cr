@@ -2,6 +2,8 @@ module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Sound
     @sound : Rl::Sound?
+    @volume : Float32 = 1.0
+    @pitch : Float32 = 1.0
 
     @[Anyolite::Specialize]
     def initialize
@@ -36,11 +38,21 @@ module SDC
     end
 
     def volume=(value : Number)
+      @volume = value.to_f32
       Rl.set_sound_volume(@sound.not_nil!, value)
     end
 
+    def volume
+      @volume
+    end
+
     def pitch=(value : Number)
+      @pitch = value.to_f32
       Rl.set_sound_pitch(@sound.not_nil!, value)
+    end
+
+    def pitch
+      @pitch
     end
   end
 end

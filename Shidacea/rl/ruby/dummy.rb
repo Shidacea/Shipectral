@@ -19,6 +19,7 @@ test_line = SDC::ShapeLine.new(SDC.xy(window.width - 18, 42), origin: SDC.xy(17,
 test_line.color = SDC::Color::BLACK
 
 sound = SDC::Sound.load_from_file("demo_projects/Example_Test/assets/sounds/Yeow.ogg")
+sound.pitch *= 0.5
 once = true
 
 until window.close?
