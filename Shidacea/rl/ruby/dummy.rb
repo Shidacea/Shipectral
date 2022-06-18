@@ -19,7 +19,7 @@ test_line = SDC::ShapeLine.new(SDC.xy(window.width - 18, 42), origin: SDC.xy(17,
 test_line.color = SDC::Color::BLACK
 
 sound = SDC::Sound.load_from_file("demo_projects/Example_Test/assets/sounds/Yeow.ogg")
-once = 0
+once = true
 
 until window.close?
   window.draw_routine do
@@ -33,16 +33,10 @@ until window.close?
 
     test_line.draw
 
-    if once == 100
-      sound.volume = 1.0
+    if once == true
       sound.play 
-      sound.play
-      puts "!!!!!!!!!"
+      once = false
     end
-
-    puts sound.playing? if sound.playing?
-
-    once += 1
 
     SDC::ShapeEllipse.new(SDC.xy(60, 80), origin: SDC.xy(280, 260)).draw
   end

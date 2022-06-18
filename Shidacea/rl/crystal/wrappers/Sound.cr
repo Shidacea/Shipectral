@@ -16,8 +16,7 @@ module SDC
     end
     
     def play
-      # TODO: This should be play_sound, but PlaySound from raylib has the same name as a Windows function, leading to linker problems
-      Rl.play_sound_multi(@sound.not_nil!)
+      Rl.play_sound(@sound.not_nil!)
     end
 
     def stop

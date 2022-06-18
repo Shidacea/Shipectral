@@ -49,7 +49,11 @@ def install_helper
   end
 
   if use_rl
-    # TODO
+    if SHIPECTRAL_COMPILER == :msvc
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/raylib-cr/rsrc/native/windows/raylib/lib/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+    else
+      # TODO
+    end
   end
 
   if !compile_frontend
