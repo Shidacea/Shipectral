@@ -4,6 +4,7 @@ alias Rl = LibRaylib
 
 require "./wrappers/Color.cr"
 require "./wrappers/Font.cr"
+require "./wrappers/Image.cr"
 require "./wrappers/Music.cr"
 require "./wrappers/Rectangle.cr"
 require "./wrappers/Shapes.cr"
@@ -17,6 +18,7 @@ require "./wrappers/Window.cr"
 
 @[Anyolite::ExcludeConstant("Color")]
 @[Anyolite::ExcludeConstant("Font")]
+@[Anyolite::ExcludeConstant("Image")]
 @[Anyolite::ExcludeConstant("Rectangle")]
 @[Anyolite::ExcludeConstant("Vector2")]
 module SDC
@@ -27,6 +29,7 @@ module SDC
 
   alias Color = Rl::Color
   alias Font = Rl::Font
+  alias Image = Rl::Image
   alias Rectangle = Rl::Rectangle
   alias Vector2 = Rl::Vector2
 end
@@ -35,6 +38,7 @@ def load_engine_library(rb)
   Anyolite.wrap(rb, SDC, verbose: true)
   Anyolite.wrap(rb, Rl::Color, under: SDC, verbose: true)
   Anyolite.wrap(rb, Rl::Font, under: SDC, verbose: true)
+  Anyolite.wrap(rb, Rl::Image, under: SDC, verbose: true)
   Anyolite.wrap(rb, Rl::Rectangle, under: SDC, verbose: true)
   Anyolite.wrap(rb, Rl::Vector2, under: SDC, verbose: true)
 end
