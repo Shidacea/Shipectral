@@ -23,5 +23,9 @@ module SDC
     def self.load_from_file(filename : String)
       Image.new(Rl.load_image(filename))
     end
+
+    def to_texture
+      Texture.new(Rl.load_texture_from_image(data))
+    end
   end
 end

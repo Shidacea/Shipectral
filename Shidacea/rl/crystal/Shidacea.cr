@@ -10,6 +10,7 @@ require "./wrappers/Rectangle.cr"
 require "./wrappers/Shapes.cr"
 require "./wrappers/Sound.cr"
 require "./wrappers/Text.cr"
+require "./wrappers/Texture.cr"
 require "./wrappers/Vector2.cr"
 require "./wrappers/Window.cr"
 

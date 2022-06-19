@@ -3,8 +3,8 @@ module SDC
     property content : String
     property font_size : Int32
     property font : SDC::Font
-    property position : Rl::Vector2
-    property color : Rl::Color
+    property position : SDC::Vector2
+    property color : SDC::Color
 
     def initialize(@content : String = "", @font_size : Int32 = 20, @font : SDC::Font = SDC::Font.default, @position : SDC::Vector2 = SDC::Vector2.new, @color : SDC::Color = SDC::Color::BLACK)
     end
