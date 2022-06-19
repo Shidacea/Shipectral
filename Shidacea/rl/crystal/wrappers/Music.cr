@@ -1,7 +1,7 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Music
-    @music : Rl::Music?
+    @data : Rl::Music?
     @volume : Float32 = 1.0
     @pitch : Float32 = 1.0
 
@@ -10,11 +10,16 @@ module SDC
     end
 
     def initialize(rl_music : Rl::Music)
-      @music = rl_music
+      @data = rl_music
+    end
+
+    @[Anyolite::Exclude]
+    def data
+      @data.not_nil!
     end
 
     def finalize
-      Rl.unload_music_stream(@music.not_nil!)
+      Rl.unload_music_stream(data)
     end
 
     def self.load_from_file(filename : String)
@@ -22,32 +27,32 @@ module SDC
     end
     
     def play
-      Rl.play_music_stream(@music.not_nil!)
+      Rl.play_music_stream(data)
     end
 
     def stop
-      Rl.stop_music_stream(@music.not_nil!)
+      Rl.stop_music_stream(data)
     end
 
     def pause
-      Rl.pause_music_stream(@music.not_nil!)
+      Rl.pause_music_stream(data)
     end
 
     def resume
-      Rl.resume_music_stream(@music.not_nil!)
+      Rl.resume_music_stream(data)
     end
 
     def update
-      Rl.update_music_stream(@music.not_nil!)
+      Rl.update_music_stream(data)
     end
 
     def playing?
-      Rl.music_stream_playing?(@music.not_nil!)
+      Rl.music_stream_playing?(data)
     end
 
     def volume=(value : Number)
       @volume = value.to_f32
-      Rl.set_music_volume(@music.not_nil!, value)
+      Rl.set_music_volume(data, value)
     end
 
     def volume
@@ -56,7 +61,7 @@ module SDC
 
     def pitch=(value : Number)
       @pitch = value.to_f32
-      Rl.set_music_pitch(@music.not_nil!, value)
+      Rl.set_music_pitch(data, value)
     end
 
     def pitch
@@ -64,11 +69,11 @@ module SDC
     end
 
     def looping=(value : Bool)
-      @music.not_nil!.looping = value
+      data.looping = value
     end
 
     def looping
-      @music.not_nil!.looping
+      data.looping
     end
   end
 end

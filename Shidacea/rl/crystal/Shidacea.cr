@@ -17,8 +17,6 @@ require "./wrappers/Window.cr"
 # Essentially, this allows for an equivalent syntax, while avoiding path resolution problems with Anyolite
 
 @[Anyolite::ExcludeConstant("Color")]
-@[Anyolite::ExcludeConstant("Font")]
-@[Anyolite::ExcludeConstant("Image")]
 @[Anyolite::ExcludeConstant("Rectangle")]
 @[Anyolite::ExcludeConstant("Vector2")]
 module SDC
@@ -28,8 +26,6 @@ module SDC
   end
 
   alias Color = Rl::Color
-  alias Font = Rl::Font
-  alias Image = Rl::Image
   alias Rectangle = Rl::Rectangle
   alias Vector2 = Rl::Vector2
 end
@@ -37,8 +33,6 @@ end
 def load_engine_library(rb)
   Anyolite.wrap(rb, SDC, verbose: true)
   Anyolite.wrap(rb, Rl::Color, under: SDC, verbose: true)
-  Anyolite.wrap(rb, Rl::Font, under: SDC, verbose: true)
-  Anyolite.wrap(rb, Rl::Image, under: SDC, verbose: true)
   Anyolite.wrap(rb, Rl::Rectangle, under: SDC, verbose: true)
   Anyolite.wrap(rb, Rl::Vector2, under: SDC, verbose: true)
 end
