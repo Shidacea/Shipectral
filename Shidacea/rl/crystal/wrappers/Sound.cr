@@ -13,6 +13,12 @@ module SDC
       @sound = rl_sound
     end
 
+    def finalize
+      Rl.unload_sound(@sound.not_nil!)
+    end
+
+    # TODO: Catch nil sounds with mruby errors
+
     def self.load_from_file(filename : String)
       Sound.new(Rl.load_sound(filename))
     end

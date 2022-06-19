@@ -1,4 +1,3 @@
-
 require "raylib-cr"
 
 SPT::Features.add("rl")
