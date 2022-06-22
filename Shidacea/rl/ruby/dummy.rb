@@ -1,6 +1,8 @@
 window = SDC::Window.new("Shipectral from Ruby", 800, 450)
 window.target_fps = 60
 
+audio_device = SDC::AudioDevice.new
+
 test_text = SDC::Text.new(content: "Let's see what Shipectral can do so far...", position: SDC.xy(20, 20), font_size: 20, color: SDC::Color::DARKGRAY)
 
 test_rectangle = SDC::ShapeBox.new(SDC.xy(120, 60), origin: SDC.xy(window.width/4*2 - 60, 100))
@@ -18,11 +20,14 @@ test_triangle.color = SDC::Color::VIOLET
 test_line = SDC::ShapeLine.new(SDC.xy(window.width - 18, 42), origin: SDC.xy(17, 42))
 test_line.color = SDC::Color::BLACK
 
-test_texture = SDC::Image.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png").to_texture
+test_image = SDC::Image.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
+test_texture = test_image.to_texture
 
 sound = SDC::Sound.load_from_file("demo_projects/Example_Test/assets/sounds/Yeow.ogg")
 sound.pitch *= 0.5
 once = true
+
+window.icon = test_image
 
 until window.close?
   window.draw_routine do
@@ -50,3 +55,4 @@ until window.close?
 end
 
 window.close
+audio_device.close

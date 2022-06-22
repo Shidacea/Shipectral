@@ -2,6 +2,7 @@ SPT::Features.ensure("rl")
 
 alias Rl = LibRaylib
 
+require "./wrappers/AudioDevice.cr"
 require "./wrappers/Color.cr"
 require "./wrappers/Font.cr"
 require "./wrappers/Image.cr"

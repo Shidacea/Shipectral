@@ -2,13 +2,15 @@ module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Window
     def initialize(@title : String, @width : Int32, @height : Int32)
-      Rl.init_audio_device
       Rl.init_window(width, height, title)
     end
 
     def close
       Rl.close_window
-      Rl.close_audio_device
+    end
+
+    def finalize
+      close
     end
 
     def target_fps=(fps : Int32)
@@ -50,59 +52,104 @@ module SDC
       Rl.end_drawing
     end
 
-    def demo_run
-      draw_routine do
-        clear(SDC::Color::RAYWHITE)
-
-        text = SDC::Text.new(content: "Basic Shapes", position: SDC.xy(20, 20), font_size: 20, color: SDC::Color::DARKGRAY)
-        text.draw
-
-        test_circle = SDC::ShapeCircle.new(35, origin: SDC.xy(@width/5, 120))
-        test_circle.color = SDC::Color::DARKBLUE
-        test_circle.draw
-
-        Rl.draw_circle_gradient(@width/5, 220, 60, SDC::Color::GREEN, SDC::Color::SKYBLUE)
-        Rl.draw_circle_lines(@width/5, 340, 80, SDC::Color::DARKBLUE)
-
-        test_rectangle = SDC::ShapeBox.new(SDC.xy(120, 60), origin: SDC.xy(@width/4*2 - 60, 100))
-        test_rectangle.color = SDC::Color::RED
-        test_rectangle.draw
-
-        Rl.draw_rectangle_gradient_h(@width/4*2 - 90, 170, 180, 130, SDC::Color::MAROON, SDC::Color::GOLD)
-        Rl.draw_rectangle_lines(@width/4*2 - 40, 320, 80, 60, SDC::Color::ORANGE);
-
-        a = SDC.xy(@width / 4.0 * 3.0, 80.0)
-        b = SDC.xy(@width / 4.0 * 3.0 - 60.0, 150.0)
-        c = SDC.xy(@width / 4.0 * 3.0 + 60.0, 150.0)
-
-        Rl.draw_triangle(a, b, c, SDC::Color::VIOLET)
-
-        a.x = @width / 4.0 * 3.0
-        a.y = 160.0
-
-        b.x = @width / 4.0 * 3.0 - 20.0
-        b.y = 230.0
-
-        c.x = @width / 4.0 * 3.0 + 20.0
-        c.y = 230.0
-
-        Rl.draw_triangle_lines(a, b, c, SDC::Color::DARKBLUE)
-
-        a.x = @width / 4.0 * 3.0
-        a.y = 320.0
-
-        Rl.draw_poly(a, 6, 80, 0, SDC::Color::BROWN)
-        Rl.draw_poly_lines_ex(a, 6, 80, 0, 6, SDC::Color::BEIGE)
-
-        Rl.draw_line(17, 42, @width - 18, 42, SDC::Color::BLACK)
-      end
-    end
-
     def resize(new_width : Int32, new_height : Int32)
       @width = new_width
       @height = new_height
 
       Rl.set_window_size(@width, @height)
+    end
+
+    def cursor_on_screen?
+      Rl.cursor_on_screen?
+    end
+
+    def ready?
+      Rl.window_ready?
+    end
+
+    def fullscreen?
+      Rl.window_fullscreen?
+    end
+
+    def hidden?
+      Rl.window_hidden?
+    end
+
+    def minimized?
+      Rl.window_minimized?
+    end
+
+    def maximized?
+      Rl.window_maximized?
+    end
+
+    def focused?
+      Rl.window_focused?
+    end
+
+    def resized?
+      Rl.window_resized?
+    end
+
+    def state?(flag : Int)
+      Rl.window_state?(flag)
+    end
+
+    def state=(flag : Int)
+      Rl.set_window_state(flag)
+    end
+
+    def clear_state(flag : Int)
+      Rl.clear_window_state(flag)
+    end
+
+    def fullscreen=(value : Bool)
+      if value != fullscreen?
+        toggle_fullscreen
+      end
+    end
+
+    def toggle_fullscreen
+      Rl.toggle_fullscreen
+    end
+
+    def maximize
+      Rl.maximize_window
+    end
+
+    def minimize
+      Rl.minimize_window
+    end
+
+    def restore
+      Rl.restore_window
+    end
+
+    def icon=(image : SDC::Image)
+      Rl.set_window_icon(image.data)
+    end
+
+    def title
+      @title
+    end
+
+    def title=(value : String)
+      @title = value
+      Rl.set_window_title(value)
+    end
+
+    def width=(value : Int)
+      @width = value.to_i32
+      Rl.set_window_size(value, @height)
+    end
+
+    def height=(value : Int)
+      @height = value.to_i32
+      Rl.set_window_size(@width, value)
+    end
+
+    def monitor=(value : Int)
+      Rl.set_window_monitor(value)
     end
   end
 end

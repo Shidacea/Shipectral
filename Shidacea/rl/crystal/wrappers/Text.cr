@@ -1,4 +1,5 @@
 module SDC
+  @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Text
     property content : String
     property font_size : Int32
