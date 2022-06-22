@@ -37,10 +37,6 @@ module SDC
       Rl.get_frame_time
     end
 
-    def target_fps=(value : Int)
-      Rl.set_target_fps(value)
-    end
-
     def fps
       Rl.get_fps
     end
