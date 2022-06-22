@@ -50,7 +50,7 @@ until window.close?
       once = false
     end
 
-    SDC::ShapeEllipse.new(SDC.xy(60, 80), origin: SDC.xy(280, 260)).draw
+    SDC::ShapeEllipse.new(SDC.xy(60, 80), origin: SDC.xy(280, 260)).draw if SDC::Keyboard.key_up?(SDC::Keyboard::Key::Space)
   end
 end
 
