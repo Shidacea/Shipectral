@@ -14,6 +14,7 @@ require "./wrappers/Sound.cr"
 require "./wrappers/Text.cr"
 require "./wrappers/Texture.cr"
 require "./wrappers/Vector2.cr"
+require "./wrappers/Vector3.cr"
 require "./wrappers/Window.cr"
 
 # NOTE: The raylib structs are wrapped separately in Ruby, but still included as alias in the SDC module in Crystal
@@ -22,6 +23,7 @@ require "./wrappers/Window.cr"
 @[Anyolite::ExcludeConstant("Color")]
 @[Anyolite::ExcludeConstant("Rectangle")]
 @[Anyolite::ExcludeConstant("Vector2")]
+@[Anyolite::ExcludeConstant("Vector3")]
 module SDC
   @[Anyolite::WrapWithoutKeywords]
   def self.xy(x : Number = 0, y : Number = 0)
@@ -38,4 +40,5 @@ def load_engine_library(rb)
   Anyolite.wrap(rb, Rl::Color, under: SDC, verbose: true)
   Anyolite.wrap(rb, Rl::Rectangle, under: SDC, verbose: true)
   Anyolite.wrap(rb, Rl::Vector2, under: SDC, verbose: true)
+  Anyolite.wrap(rb, Rl::Vector3, under: SDC, verbose: true)
 end
