@@ -29,6 +29,8 @@ once = true
 
 window.icon = test_image
 
+render_queue = SDC::RenderQueue.new
+
 until window.close?
   window.draw_routine do
     window.clear(color: SDC::Color::RAYWHITE)
@@ -39,9 +41,10 @@ until window.close?
 
     test_text.content += "." if rand < 0.01
 
-    test_texture.draw(SDC.xy(400, 250))
+    test_texture.draw(at: SDC.xy(400, 250))
 
-    test_triangle.draw
+    render_queue.add(test_triangle)
+    render_queue.draw
 
     test_line.draw
 

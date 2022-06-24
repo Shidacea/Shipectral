@@ -1,11 +1,11 @@
 module SDC
-  abstract struct Shape
+  abstract class Shape < Drawable
     property origin : Rl::Vector2 = Rl::Vector2.new
     property color : Rl::Color = Rl::Color::BLACK
   end
 
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  struct ShapePoint < Shape
+  class ShapePoint < Shape
     @[Anyolite::Specialize]
     def initialize(origin : Rl::Vector2 = Rl::Vector2.new)
       @origin = origin
@@ -17,7 +17,7 @@ module SDC
   end
 
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  struct ShapeLine < Shape
+  class ShapeLine < Shape
     property direction : Rl::Vector2
 
     @[Anyolite::Specialize]
@@ -32,7 +32,7 @@ module SDC
   end
 
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  struct ShapeBox < Shape
+  class ShapeBox < Shape
     property size : Rl::Vector2
 
     @[Anyolite::Specialize]
@@ -47,7 +47,7 @@ module SDC
   end
 
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  struct ShapeCircle < Shape
+  class ShapeCircle < Shape
     property radius : Float32
 
     @[Anyolite::Specialize]
@@ -62,7 +62,7 @@ module SDC
   end
 
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  struct ShapeTriangle < Shape
+  class ShapeTriangle < Shape
     property side_1 : Rl::Vector2
     property side_2 : Rl::Vector2
 
@@ -133,7 +133,7 @@ module SDC
   end
 
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  struct ShapeEllipse < Shape
+  class ShapeEllipse < Shape
     property semiaxes : Rl::Vector2
 
     @[Anyolite::Specialize]

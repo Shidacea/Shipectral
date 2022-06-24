@@ -1,6 +1,6 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  class Text
+  class Text < SDC::Drawable
     property content : String
     property font_size : Int32
     property font : SDC::Font

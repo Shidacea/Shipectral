@@ -1,6 +1,6 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  class Texture
+  class Texture < SDC::Drawable
     @data : Rl::Texture?
 
     @[Anyolite::Specialize]
@@ -24,7 +24,7 @@ module SDC
       Texture.new(Rl.load_texture(filename))
     end
 
-    def draw(at : SDC::Vector2, color : SDC::Color = SDC::Color::WHITE)
+    def draw(at : SDC::Vector2 = Rl::Vector2.new, color : SDC::Color = SDC::Color::WHITE)
       Rl.draw_texture_v(data, at, color)
     end
   end
