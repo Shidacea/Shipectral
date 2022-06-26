@@ -2,9 +2,13 @@ module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Texture < SDC::Drawable
     @data : Rl::Texture?
+    property origin : Rl::Vector2 = Rl::Vector2.new
+
+    # TODO: Maybe add a sprite class?
 
     @[Anyolite::Specialize]
-    def initialize
+    def initialize(origin : Rl::Vector2 = Rl::Vector2.new)
+      @origin = origin
     end
 
     def initialize(rl_texture : Rl::Texture)
@@ -24,8 +28,8 @@ module SDC
       Texture.new(Rl.load_texture(filename))
     end
 
-    def draw(at : SDC::Vector2 = Rl::Vector2.new, color : SDC::Color = SDC::Color::WHITE)
-      Rl.draw_texture_v(data, at, color)
+    def draw_directly(at : SDC::Vector2 = Rl::Vector2.new, color : SDC::Color = SDC::Color::WHITE)
+      Rl.draw_texture_v(data, @origin + at, color)
     end
   end
 end

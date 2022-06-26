@@ -22,6 +22,7 @@ test_line.color = SDC::Color::BLACK
 
 test_image = SDC::Image.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
 test_texture = test_image.to_texture
+test_texture.origin = SDC.xy(400, 250)
 
 sound = SDC::Sound.load_from_file("demo_projects/Example_Test/assets/sounds/Yeow.ogg")
 sound.pitch *= 0.5
@@ -35,25 +36,21 @@ until window.close?
   window.draw_routine do
     window.clear(color: SDC::Color::RAYWHITE)
     
-    test_text.draw
-    test_rectangle.draw
-    test_circle.draw
+    window.draw test_text
+    window.draw test_rectangle
+    window.draw test_circle
 
     test_text.content += "." if rand < 0.01
 
-    test_texture.draw(at: SDC.xy(400, 250))
-
-    render_queue.add(test_triangle)
-    render_queue.draw
-
-    test_line.draw
+    window.draw test_texture
+    window.draw test_line
 
     if once == true
       sound.play 
       once = false
     end
 
-    SDC::ShapeEllipse.new(SDC.xy(60, 80), origin: SDC.xy(280, 260)).draw if SDC::Keyboard.key_up?(SDC::Keyboard::Key::Space)
+    window.draw(SDC::ShapeEllipse.new(SDC.xy(60, 80), origin: SDC.xy(280, 260))) if SDC::Keyboard.key_up?(SDC::Keyboard::Key::Space)
   end
 end
 

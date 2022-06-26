@@ -1,8 +1,15 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Window
+    getter render_queue : SDC::RenderQueue = SDC::RenderQueue.new
+
     def initialize(@title : String, @width : Int32, @height : Int32)
       Rl.init_window(width, height, title)
+    end
+
+    @[Anyolite::ReturnNil]
+    def draw(obj : SDC::Drawable)
+      @render_queue.add(obj)
     end
 
     def close
@@ -45,6 +52,7 @@ module SDC
     def draw_routine
       Rl.begin_drawing
       yield nil
+      @render_queue.draw
       Rl.end_drawing
     end
 

@@ -17,7 +17,7 @@ module SDC
     @[Anyolite::ReturnNil]
     def draw
       @content.reject! do |element|
-        element.draw
+        element.draw_directly
         true
       end
     end

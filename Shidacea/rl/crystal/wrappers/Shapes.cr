@@ -11,7 +11,7 @@ module SDC
       @origin = origin
     end
 
-    def draw
+    def draw_directly
       Rl.draw_pixel(@origin.x, @origin.y, @color)
     end
   end
@@ -26,7 +26,7 @@ module SDC
       @origin = origin
     end
 
-    def draw
+    def draw_directly
       Rl.draw_line(@origin.x, @origin.y, @direction.x, @direction.y, @color)
     end
   end
@@ -41,7 +41,7 @@ module SDC
       @origin = origin
     end
 
-    def draw
+    def draw_directly
       Rl.draw_rectangle(@origin.x, @origin.y, @size.x, @size.y, @color)
     end
   end
@@ -56,7 +56,7 @@ module SDC
       @origin = origin
     end
 
-    def draw
+    def draw_directly
       Rl.draw_circle(@origin.x, @origin.y, @radius, @color)
     end
   end
@@ -127,7 +127,7 @@ module SDC
       @origin = origin
     end
 
-    def draw
+    def draw_directly
       Rl.draw_triangle(@origin, @origin + @side_1, @origin + @side_2, @color)
     end
   end
@@ -142,7 +142,7 @@ module SDC
       @origin = origin
     end
 
-    def draw
+    def draw_directly
       Rl.draw_ellipse(@origin.x, @origin.y, @semiaxes.x, @semiaxes.y, @color)
     end
   end
