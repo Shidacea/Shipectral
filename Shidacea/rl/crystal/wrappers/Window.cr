@@ -12,6 +12,19 @@ module SDC
       @render_queue.add(obj, z)
     end
 
+    @[Anyolite::ReturnNil]
+    def add_static(obj : SDC::Drawable, z : UInt8 = 0u8)
+      @render_queue.add_static(obj, z)
+    end
+
+    def delete_static(obj : SDC::Drawable, z : UInt8 = 0u8, all_duplicates : Bool = false)
+      @render_queue.delete_static(obj, z, all_duplicates)
+    end
+
+    def delete_static_content
+      @render_queue.delete_static_content
+    end
+
     def close
       Rl.close_window
     end

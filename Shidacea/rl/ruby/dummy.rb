@@ -30,21 +30,20 @@ once = true
 
 window.icon = test_image
 
-render_queue = SDC::RenderQueue.new
+window.add_static test_text
+window.add_static test_line
+window.add_static test_rectangle, z: 2
 
 until window.close?
   window.draw_routine do
     window.clear(color: SDC::Color::RAYWHITE)
     
-    window.draw test_text
-    window.draw test_rectangle, z: 1
-    window.draw test_circle
-
-    test_text.content += "." if rand < 0.01
-
+    window.draw test_circle, z: 1
     window.draw test_texture, z: 3
-    window.draw test_line
 
+    # Since the static table has pointers, this does work perfectly
+    test_text.content += "." if rand < 0.01
+    
     window.title = "FPS: #{window.fps}"
 
     if once == true
@@ -54,7 +53,9 @@ until window.close?
 
     draw_high = SDC::Keyboard.key_up?(SDC::Keyboard::Key::Space)
 
-    window.draw SDC::ShapeEllipse.new(SDC.xy(60, 80), origin: SDC.xy(280, 260)), z: draw_high ? 2 : 0
+    window.draw SDC::ShapeEllipse.new(SDC.xy(60, 80), origin: SDC.xy(280, 260)), z: draw_high ? 3 : 0
+
+    window.delete_static(test_rectangle, z: 2) if SDC::Keyboard.key_pressed?(SDC::Keyboard::Key::D)
   end
 end
 
