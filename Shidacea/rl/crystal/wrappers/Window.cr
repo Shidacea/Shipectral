@@ -8,8 +8,8 @@ module SDC
     end
 
     @[Anyolite::ReturnNil]
-    def draw(obj : SDC::Drawable)
-      @render_queue.add(obj)
+    def draw(obj : SDC::Drawable, z : UInt8 = 0u8)
+      @render_queue.add(obj, z)
     end
 
     def close

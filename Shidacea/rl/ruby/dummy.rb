@@ -5,7 +5,7 @@ audio_device = SDC::AudioDevice.new
 
 test_text = SDC::Text.new(content: "Let's see what Shipectral can do so far...", position: SDC.xy(20, 20), font_size: 20, color: SDC::Color::DARKGRAY)
 
-test_rectangle = SDC::ShapeBox.new(SDC.xy(120, 60), origin: SDC.xy(window.width/4*2 - 60, 100))
+test_rectangle = SDC::ShapeBox.new(SDC.xy(360, 120), origin: SDC.xy(200, 100))
 test_rectangle.color = SDC::Color::RED
 
 test_circle = SDC::ShapeCircle.new(35, origin: SDC.xy(window.width/5, 120))
@@ -37,13 +37,17 @@ until window.close?
     window.clear(color: SDC::Color::RAYWHITE)
     
     window.draw test_text
-    window.draw test_rectangle
+    window.draw test_rectangle, z: 1
     window.draw test_circle
 
     test_text.content += "." if rand < 0.01
 
-    window.draw test_texture
+    10000.times do |i|
+    window.draw test_texture, z: (i % 10)
+    end
     window.draw test_line
+
+    window.title = "FPS: #{window.fps}"
 
     if once == true
       sound.play 
