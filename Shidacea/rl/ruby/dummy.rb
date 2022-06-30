@@ -1,3 +1,8 @@
+# Demo for SDC/Rl
+# This will be removed, once SDC/Rl is tested enough
+
+# Did you know that this code is also valid Crystal code and works exactly the same then?
+
 window = SDC::Window.new("Shipectral from Ruby", 800, 450)
 window.target_fps = 60
 

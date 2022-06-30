@@ -8,17 +8,17 @@ module SDC
     end
 
     @[Anyolite::ReturnNil]
-    def draw(obj : SDC::Drawable, z : UInt8 = 0u8)
-      @render_queue.add(obj, z)
+    def draw(obj : SDC::Drawable, z : Int = 0)
+      @render_queue.add(obj, z.to_u8)
     end
 
     @[Anyolite::ReturnNil]
-    def add_static(obj : SDC::Drawable, z : UInt8 = 0u8)
-      @render_queue.add_static(obj, z)
+    def add_static(obj : SDC::Drawable, z : Int = 0)
+      @render_queue.add_static(obj, z.to_u8)
     end
 
-    def delete_static(obj : SDC::Drawable, z : UInt8 = 0u8, all_duplicates : Bool = false)
-      @render_queue.delete_static(obj, z, all_duplicates)
+    def delete_static(obj : SDC::Drawable, z : Int = 0, all_duplicates : Bool = false)
+      @render_queue.delete_static(obj, z.to_u8, all_duplicates)
     end
 
     def delete_static_content
@@ -33,8 +33,8 @@ module SDC
       close
     end
 
-    def target_fps=(fps : Int32)
-      Rl.set_target_fps(fps)
+    def target_fps=(fps : Int)
+      Rl.set_target_fps(fps.to_i32)
     end
 
     def width
@@ -69,9 +69,9 @@ module SDC
       Rl.end_drawing
     end
 
-    def resize(new_width : Int32, new_height : Int32)
-      @width = new_width
-      @height = new_height
+    def resize(new_width : Int, new_height : Int)
+      @width = new_width.to_i32
+      @height = new_height.to_i32
 
       Rl.set_window_size(@width, @height)
     end
