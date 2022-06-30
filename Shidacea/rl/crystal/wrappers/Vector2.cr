@@ -13,4 +13,12 @@ struct Rl::Vector2
     self.x = x
     self.y = y
   end
+
+  def inspect
+    "(#{self.x} | #{self.y})"
+  end
+
+  def to_s
+    "#{self.x} | #{self.y}"
+  end
 end

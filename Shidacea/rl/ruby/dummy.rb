@@ -5,6 +5,8 @@ audio_device = SDC::AudioDevice.new
 
 test_text = SDC::Text.new(content: "Let's see what Shipectral can do so far...", position: SDC.xy(20, 20), font_size: 20, color: SDC::Color::DARKGRAY)
 
+mouse_pos_text = SDC::Text.new(content: "  Mouse position: ---", position: SDC::Mouse.position, font_size: 20, color: SDC::Color::DARKGRAY)
+
 test_rectangle = SDC::ShapeBox.new(SDC.xy(360, 120), origin: SDC.xy(200, 100))
 test_rectangle.color = SDC::Color::RED
 
@@ -33,6 +35,7 @@ window.icon = test_image
 window.add_static test_text
 window.add_static test_line
 window.add_static test_rectangle, z: 2
+window.add_static mouse_pos_text, z: 4
 
 until window.close?
   window.draw_routine do
@@ -43,6 +46,9 @@ until window.close?
 
     # Since the static table has pointers, this does work perfectly
     test_text.content += "." if rand < 0.01
+
+    mouse_pos_text.content = "  Mouse position: #{SDC::Mouse.position}"
+    mouse_pos_text.position = SDC::Mouse.position
     
     window.title = "FPS: #{window.fps}"
 
