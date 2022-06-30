@@ -69,46 +69,36 @@ allowing for a solid Ruby-based game development experience.
 * [X] Shidacea library updated to new standard
 * [X] Simple map parser
 * [X] Ellipse shapes
-* [ ] Full ImGui support for debugging
 
 ##### Shidacea/RL
 
 * [X] Shapes
+* [X] Keyboard support
+* [X] Render queue with z-order
+* [X] Sound support
+* [X] Textures and images
+* [X] Fonts and texts
+* [ ] Mouse support
+* [ ] Shader support
+* [ ] Implementation of SDC/RL library in Crystal (as far as possible)
+* [ ] Dedicated map class
 * [ ] Full raylib support on Windows and Linux
-* [ ] Wrappers for raylib
-* [ ] Anyolite bindings for the wrappers
 
 #### Todo
 
-* [ ] Update dependencies to newest versions
-* [ ] Test with newest Crystal version
-* [ ] Remove obsolete Crystal and SDL submodules
 * [ ] Rename SDC::Script and similar to SPT::Script
 * [ ] Add remaining ImGui functions and classes
 * [ ] Replace Crystal errors with Ruby errors
 * [ ] Fix debug routines
 * [ ] More optimization routines
 
-### Version 0.4.0
-
-This version will contain more updates which allow for better customization of
-Shipectral, including a complete port of the SDC/RL library to Crystal.
-Support for SDC/SFML will still be maintained, but SDC/RL will be prioritized.
-
-Since some Crystal features like fibers are not yet fully functional on Windows,
-this version is not planned for the near future.
-
-#### Features
-
-* [ ] Port SDC/RL to Crystal and bind with Anyolite
-* [ ] Find a way to load different shards on Linux
-* [ ] Make ImGui optional
-* [ ] Support for data marshalling (Crystal and Ruby)
-
 ### Future versions
 
 #### Features
 
+* [ ] Find a way to load different shards
+* [ ] Make ImGui optional
+* [ ] Support for data marshalling (Crystal and Ruby)
 * [ ] Add virtual file system for executable and connect it with SFML
 * [ ] Ressource integration using macros
 * [ ] Add a way and flags to put frontend resources directly into executable
