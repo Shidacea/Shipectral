@@ -50,7 +50,7 @@ This version number was chosen in order to avoid confusion with legacy versions.
 It will be the first proper release since the legacy versions. Most of the work
 is already done, but many features are still missing or not functioning.
 
-The major goal is to support Launshi and own raylib- or SFML-based frontends fully,
+The major goal is to support Launshi and custom raylib- or SFML-based frontends fully,
 allowing for a solid Ruby-based game development experience.
 
 #### Features
@@ -79,14 +79,13 @@ allowing for a solid Ruby-based game development experience.
 * [X] Textures and images
 * [X] Fonts and texts
 * [X] Mouse support
-* [ ] Shader support
 * [ ] Implementation of SDC/RL library in Crystal (as far as possible)
 * [ ] Dedicated map class
 * [ ] Full raylib support on Windows and Linux
+* [ ] ImGui support
 
 #### Todo
 
-* [ ] Rename SDC::Script and similar to SPT::Script
 * [ ] Add remaining ImGui functions and classes
 * [ ] Replace Crystal errors with Ruby errors
 * [ ] Fix debug routines
@@ -104,6 +103,7 @@ allowing for a solid Ruby-based game development experience.
 * [ ] Add a way and flags to put frontend resources directly into executable
 * [ ] Particle system
 * [ ] Wrappers for vertex arrays
+* [ ] Shader support
 * [ ] Optimized render queue (if possible)
 * [ ] Quadrangle shapes
 * [ ] Highly customizable text boxes (including sprites)

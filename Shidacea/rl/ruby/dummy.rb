@@ -18,7 +18,7 @@ test_rectangle.color = SDC::Color::RED
 test_circle = SDC::ShapeCircle.new(200, origin: SDC.xy(window.width/5, 300))
 test_circle.color = SDC::Color::ORANGE
 
-triangle_pos = SDC.xy(window.width / 4.0 * 3.0, 80.0)
+triangle_pos = SDC.xy(window.width / 4.0 * 3.0, 300.0)
 triangle_side_1 = SDC.xy(-60.0, 70.0)
 triangle_side_2 = SDC.xy(60.0, 70.0)
 test_triangle = SDC::ShapeTriangle.new(triangle_side_1, triangle_side_2, origin: triangle_pos)
@@ -39,6 +39,7 @@ window.icon = test_image
 
 window.add_static test_text
 window.add_static test_line
+window.add_static test_triangle
 window.add_static test_rectangle, z: 2
 window.add_static mouse_pos_text, z: 4
 
