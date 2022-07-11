@@ -79,6 +79,7 @@ allowing for a solid Ruby-based game development experience.
 * [X] Textures and images
 * [X] Fonts and texts
 * [X] Mouse support
+* [ ] Loop points for music
 * [ ] Implementation of SDC/RL library in Crystal (as far as possible)
 * [ ] Dedicated map class
 * [ ] Full raylib support on Windows and Linux

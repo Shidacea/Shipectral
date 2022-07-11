@@ -35,6 +35,11 @@ sound = SDC::Sound.load_from_file("demo_projects/Example_Test/assets/sounds/Yeow
 sound.pitch *= 0.5
 once = true
 
+music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/Example.ogg")
+music.volume *= 0.5
+music.play
+music.pause
+
 window.icon = test_image
 
 window.add_static test_text
@@ -61,6 +66,16 @@ until window.close?
     if once == true
       sound.play 
       once = false
+    end
+
+    music.update
+
+    if SDC::Keyboard.key_pressed?(SDC::Keyboard::Key::M)
+      if music.playing?
+        music.pause
+      else
+        music.resume
+      end
     end
 
     draw_high = SDC::Keyboard.key_up?(SDC::Keyboard::Key::Space)
