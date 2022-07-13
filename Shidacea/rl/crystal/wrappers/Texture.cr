@@ -28,8 +28,8 @@ module SDC
       Texture.new(Rl.load_texture(filename))
     end
 
-    def draw_directly(at : SDC::Vector2 = Rl::Vector2.new, color : SDC::Color = SDC::Color::WHITE)
-      Rl.draw_texture_v(data, @origin + at, color)
+    def draw_directly
+      Rl.draw_texture_v(data, @origin, SDC::Color::WHITE)
     end
   end
 end

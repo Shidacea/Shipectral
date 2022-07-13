@@ -2,11 +2,14 @@ SPT::Features.ensure("rl")
 
 alias Rl = LibRaylib
 
+require "./wrappers/Drawable.cr"
+
 require "./wrappers/AudioDevice.cr"
 require "./wrappers/Color.cr"
 require "./wrappers/Font.cr"
 require "./wrappers/Image.cr"
 require "./wrappers/Keyboard.cr"
+require "./wrappers/Map.cr"
 require "./wrappers/Mouse.cr"
 require "./wrappers/Music.cr"
 require "./wrappers/Rectangle.cr"
@@ -15,6 +18,7 @@ require "./wrappers/Shapes.cr"
 require "./wrappers/Sound.cr"
 require "./wrappers/Text.cr"
 require "./wrappers/Texture.cr"
+require "./wrappers/Tileset.cr"
 require "./wrappers/Vector2.cr"
 require "./wrappers/Vector3.cr"
 require "./wrappers/Window.cr"

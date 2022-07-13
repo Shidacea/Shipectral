@@ -1,7 +1,4 @@
 module SDC
-  abstract class Drawable
-  end
-
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class RenderQueue
     NUMBER_OF_LAYERS = 256

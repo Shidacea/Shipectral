@@ -40,8 +40,11 @@ music.volume *= 0.5
 music.play
 music.pause
 
+test_map = SDC::Map.new
+
 window.icon = test_image
 
+window.add_static test_map
 window.add_static test_text
 window.add_static test_line
 window.add_static test_triangle
