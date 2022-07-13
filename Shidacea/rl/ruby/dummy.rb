@@ -55,6 +55,9 @@ window.icon = test_image
 window.add_static test_view, z: 0
 window.add_static test_map
 
+# Make sure to optimize map drawing
+test_map.range = SDC::Rectangle.new(0, 0, 4, 4)
+
 # If a new view is applied, it will replace all earlier views with the same z.
 # However, views with lower or higher z will still be valid.
 #
