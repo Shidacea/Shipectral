@@ -2,6 +2,7 @@ module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Window
     getter render_queue : SDC::RenderQueue = SDC::RenderQueue.new
+    property z_offset : UInt8 = 0
 
     def initialize(@title : String, @width : Int32, @height : Int32)
       Rl.init_window(width, height, title)
@@ -9,16 +10,16 @@ module SDC
 
     @[Anyolite::ReturnNil]
     def draw(obj : SDC::Drawable, z : Int = 0)
-      @render_queue.add(obj, z.to_u8)
+      @render_queue.add(obj, @z_offset + z.to_u8)
     end
 
     @[Anyolite::ReturnNil]
     def add_static(obj : SDC::Drawable, z : Int = 0)
-      @render_queue.add_static(obj, z.to_u8)
+      @render_queue.add_static(obj, @z_offset + z.to_u8)
     end
 
     def delete_static(obj : SDC::Drawable, z : Int = 0, all_duplicates : Bool = false)
-      @render_queue.delete_static(obj, z.to_u8, all_duplicates)
+      @render_queue.delete_static(obj, @z_offset + z.to_u8, all_duplicates)
     end
 
     def delete_static_content
@@ -68,6 +69,29 @@ module SDC
       @render_queue.draw
       Rl.end_mode_2d
       Rl.end_drawing
+    end
+
+    @[Anyolite::AddBlockArg(1, Nil)]
+    def with_z_offset(z_offset : UInt8)
+      @z_offset += z_offset
+      yield nil
+      @z_offset -= z_offset
+    end
+
+    @[Anyolite::AddBlockArg(1, Nil)]
+    def with_view(view : SDC::View, z_offset : UInt8 = 0u8)
+      with_z_offset(z_offset) do
+        draw view
+        yield nil
+      end
+    end
+
+    @[Anyolite::AddBlockArg(1, Nil)]
+    def with_view_static(view : SDC::View, z_offset : UInt8 = 0u8)
+      with_z_offset(z_offset) do
+        add_static view
+        yield nil
+      end
     end
 
     def resize(new_width : Int, new_height : Int)

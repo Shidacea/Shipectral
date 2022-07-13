@@ -3,7 +3,7 @@
 
 # Did you know that this code is also valid Crystal code and works exactly the same then?
 
-window = SDC::Window.new("Shipectral from Ruby", 800, 450)
+window = SDC::Window.new "Shipectral from Ruby", 800, 450
 window.target_fps = 60
 
 audio_device = SDC::AudioDevice.new
@@ -27,15 +27,15 @@ test_triangle.color = SDC::Color::VIOLET
 test_line = SDC::ShapeLine.new(SDC.xy(window.width - 18, 42), origin: SDC.xy(17, 42))
 test_line.color = SDC::Color::BLACK
 
-test_image = SDC::Image.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
+test_image = SDC::Image.load_from_file "demo_projects/Example_Test/assets/graphics/test/Chishi.png"
 test_texture = test_image.to_texture
 test_texture.origin = SDC.xy(200, 350)
 
-sound = SDC::Sound.load_from_file("demo_projects/Example_Test/assets/sounds/Yeow.ogg")
+sound = SDC::Sound.load_from_file "demo_projects/Example_Test/assets/sounds/Yeow.ogg"
 sound.pitch *= 0.5
 once = true
 
-music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/Example.ogg")
+music = SDC::Music.load_from_file "demo_projects/Example_Test/assets/music/Example.ogg"
 music.volume *= 0.5
 music.play
 music.pause
@@ -51,20 +51,31 @@ basic_view = SDC::View.new
 
 window.icon = test_image
 
-window.add_static test_view
+# Views are valid for their z coordinate and higher
+window.add_static test_view, z: 0
 window.add_static test_map
-window.add_static basic_view
-window.add_static test_text
-window.add_static test_line
-window.add_static test_triangle
-window.add_static test_rectangle, z: 2
-window.add_static mouse_pos_text, z: 4
+
+# If a new view is applied, it will replace all earlier views with the same z.
+# However, views with lower or higher z will still be valid.
+#
+# Best practice is to dedicate views to a specific range of z coordinates.
+# For the rare case in which you need disjunct z ranges, just activate the view again.
+window.with_view_static basic_view, z_offset: 0 do
+  window.add_static test_text
+  window.add_static test_line
+  window.add_static test_triangle
+  window.add_static test_rectangle, z: 2
+  window.add_static mouse_pos_text, z: 4
+end
 
 until window.close?
   window.draw_routine do
-    window.clear(color: SDC::Color::RAYWHITE)
+    window.clear color: SDC::Color::RAYWHITE
     
-    window.draw test_circle, z: 1
+    window.with_z_offset 1 do
+      window.draw test_circle, z: 0
+    end
+
     window.draw test_texture, z: 3
 
     # Since the static table has pointers, this does work perfectly
