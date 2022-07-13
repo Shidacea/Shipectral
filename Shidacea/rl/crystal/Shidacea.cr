@@ -21,6 +21,7 @@ require "./wrappers/Texture.cr"
 require "./wrappers/Tileset.cr"
 require "./wrappers/Vector2.cr"
 require "./wrappers/Vector3.cr"
+require "./wrappers/View.cr"
 require "./wrappers/Window.cr"
 
 # NOTE: The raylib structs are wrapped separately in Ruby, but still included as alias in the SDC module in Crystal

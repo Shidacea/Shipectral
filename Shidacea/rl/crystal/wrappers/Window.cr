@@ -66,6 +66,7 @@ module SDC
       Rl.begin_drawing
       yield nil
       @render_queue.draw
+      Rl.end_mode_2d
       Rl.end_drawing
     end
 

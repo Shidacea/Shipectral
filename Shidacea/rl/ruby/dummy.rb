@@ -42,9 +42,18 @@ music.pause
 
 test_map = SDC::Map.new
 
+test_view = SDC::View.new
+test_view.zoom = 2.0
+test_view.target = SDC.xy(100, 100)
+test_view.offset = SDC.xy(200, 200)
+
+basic_view = SDC::View.new
+
 window.icon = test_image
 
+window.add_static test_view
 window.add_static test_map
+window.add_static basic_view
 window.add_static test_text
 window.add_static test_line
 window.add_static test_triangle
@@ -86,6 +95,8 @@ until window.close?
     window.draw SDC::ShapeEllipse.new(SDC.xy(60, 80), origin: SDC.xy(280, 260)), z: draw_high ? 3 : 0
 
     window.delete_static(test_rectangle, z: 2) if SDC::Keyboard.key_pressed?(SDC::Keyboard::Key::D)
+
+    test_view.rotation += 1.0 if SDC::Keyboard.key_down?(SDC::Keyboard::Key::R)
   end
 end
 
