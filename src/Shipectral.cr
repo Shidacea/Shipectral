@@ -237,6 +237,10 @@ macro main_routine_with_config(filename)
         {% if engine_library_crystal %}
           load_engine_library(rb)
         {% end %}
+
+        {% if use_sdl %}
+          SDC.init
+        {% end %}
         
         {% if compile_engine_library %}
           {% if engine_library_project.ends_with?(".json") %}
@@ -306,6 +310,10 @@ macro main_routine_with_config(filename)
 
   {% if use_sfml %}
     ImGui::SFML.shutdown
+  {% end %}
+
+  {% if use_sdl && engine_library %}
+    SDC.quit
   {% end %}
 end
 
