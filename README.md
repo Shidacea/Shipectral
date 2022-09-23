@@ -98,6 +98,7 @@ allowing for a solid Ruby-based game development experience.
 #### Features
 
 * [ ] Find a way to load different shards
+* [ ] Better way to update to newer SDL versions
 * [ ] Make ImGui optional
 * [ ] Support for data marshalling (Crystal and Ruby)
 * [ ] Add virtual file system for executable and connect it with SFML
@@ -130,6 +131,8 @@ All of these programs need to be in the path environment variable for Windows to
 Make also sure to set `CRYSTAL_PATH` to the appropriate crystal source path, especially on Windows.
 
 ### Building
+
+WARNING: Linux builds will most like not work currently.
 
 Note that this current version is only guaranteed to run on Windows 64bit and Ubuntu.
 You need to run `rake` in either a terminal (Ubuntu) or the 64bit Visual Studio Command Prompt (Windows).

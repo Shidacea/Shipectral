@@ -40,9 +40,10 @@ def install_helper
 
   if use_sdl
     if SHIPECTRAL_COMPILER == :msvc
-      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-2.0.20/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
-      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-2.0.4/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
-      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_image-2.0.5/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-2.24.0/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-2.6.2/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_image-2.6.2/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
+      FileUtils.cp Dir.glob("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_ttf-2.20.1/lib/x64/*.dll"), "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
     else
       # TODO?
     end

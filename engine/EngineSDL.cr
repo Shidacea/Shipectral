@@ -8,5 +8,13 @@ SPT::Features.add("sdl-mixer")
 SPT::Features.add("sdl-image")
 SPT::Features.add("sdl-ttf")
 
+# TODO: Remove this
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
+module SDL
+  def self.quit
+  end
+end
+
 def load_sdl_wrappers(rb)
 end

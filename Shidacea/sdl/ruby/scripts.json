@@ -4,6 +4,9 @@
   ],
 
   "required_features": [
-    "sdl"
+    "sdl",
+    "sdl-image",
+    "sdl-mixer",
+    "sdl-ttf"
   ]
 }

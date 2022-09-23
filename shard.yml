@@ -26,4 +26,4 @@ dependencies:
 
 license: MIT
 
-crystal: '>= 1.1.0'
+crystal: '>= 1.5.2'

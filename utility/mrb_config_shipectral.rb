@@ -2,11 +2,7 @@ MRuby::Build.new do |conf|
 
   if ENV['VisualStudioVersion'] || ENV['VSINSTALLDIR']
     toolchain :visualcpp
-    
-    conf.yacc do |yacc|
-      yacc.command = ENV['YACC'] || 'bison.exe'
-      yacc.compile_options = %q[-o "%{outfile}" "%{infile}"]
-    end
+    conf.cc.flags = ["/nologo", "/W3", "/MT", "/O2", "/D_CRT_SECURE_NO_WARNINGS"]
   else
     toolchain :gcc
   end
@@ -15,7 +11,6 @@ MRuby::Build.new do |conf|
 
   conf.gem :mgem => 'json'
   conf.gem :mgem => 'dir'
-  conf.gem :mgem => 'regexp-pcre'
   conf.gem :mgem => 'erb'
 
   conf.cc.flags << '-DMRB_UTF8_STRING -DMRB_INT64'

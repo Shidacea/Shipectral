@@ -4,6 +4,8 @@ require "./CompilationHelper.cr"
 require "anyolite"
 require "./Script.cr"
 
+puts "Starting Shipectral..."
+
 module SPT
   module Features
     @@features : Set(String) = Set(String).new

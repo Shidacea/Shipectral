@@ -81,8 +81,8 @@ task :build_sdl_cr_bindings => [:generate_build_dir, :build_sdl, :load_config] d
         if SHIPECTRAL_COMPILER == :msvc
             puts "Building SDL Crystal bindings..."
 
-            FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdl")
-            FileUtils.cp_r "third_party/sdl-crystal-bindings/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdl", :verbose => false
+            FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdl-crystal-bindings")
+            FileUtils.cp_r "third_party/sdl-crystal-bindings/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdl-crystal-bindings", :verbose => false
         end
     end
 end
@@ -97,10 +97,10 @@ task :build_sdl => [:generate_build_dir, :load_config] do
 
             FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib")
 
-            system "curl https://github.com/libsdl-org/SDL/releases/download/release-2.24.0/SDL2-devel-2.24.0-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-devel-2.24.0-VC.zip"
-            system "curl https://github.com/libsdl-org/SDL_mixer/releases/download/release-2.6.2/SDL2_mixer-devel-2.6.2-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-devel-2.6.2-VC.zip"
-            system "curl https://github.com/libsdl-org/SDL_image/releases/download/release-2.6.2/SDL2_image-devel-2.6.2-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_image-devel-2.6.2-VC.zip"
-            system "curl https://github.com/libsdl-org/SDL_ttf/releases/download/release-2.20.1/SDL2_ttf-devel-2.20.1-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_ttf-devel-2.20.1-VC.zip"
+            system "curl -L https://github.com/libsdl-org/SDL/releases/download/release-2.24.0/SDL2-devel-2.24.0-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-devel-2.24.0-VC.zip"
+            system "curl -L https://github.com/libsdl-org/SDL_mixer/releases/download/release-2.6.2/SDL2_mixer-devel-2.6.2-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-devel-2.6.2-VC.zip"
+            system "curl -L https://github.com/libsdl-org/SDL_image/releases/download/release-2.6.2/SDL2_image-devel-2.6.2-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_image-devel-2.6.2-VC.zip"
+            system "curl -L https://github.com/libsdl-org/SDL_ttf/releases/download/release-2.20.1/SDL2_ttf-devel-2.20.1-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_ttf-devel-2.20.1-VC.zip"
 
             system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-devel-2.24.0-VC.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib"
             system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-devel-2.6.2-VC.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib"
