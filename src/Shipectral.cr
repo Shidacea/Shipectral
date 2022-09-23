@@ -222,8 +222,6 @@ macro main_routine_with_config(filename)
       {% end %}
 
       {% if use_sdl %}
-        # Does currently not do anything, but could be used for custom bindings
-        Anyolite.wrap_module(rb, SDL, "SDL")
         load_sdl_wrappers(rb)
       {% end %}
 
@@ -266,7 +264,7 @@ macro main_routine_with_config(filename)
               end
             end
           {% else %}
-          SPT::Script.load("{{engine_library}}/{{engine_library_project}}")
+            SPT::Script.load("{{engine_library}}/{{engine_library_project}}")
           {% end %}
         {% end %}
       {% end %}
@@ -296,7 +294,7 @@ macro main_routine_with_config(filename)
             end
           end
         {% else %}
-        SPT::Script.load("{{frontend_project}}")
+          SPT::Script.load("{{frontend_project}}")
         {% end %}
       {% end %}
 
@@ -308,10 +306,6 @@ macro main_routine_with_config(filename)
 
   {% if use_sfml %}
     ImGui::SFML.shutdown
-  {% end %}
-
-  {% if use_sdl %}
-    SDL.quit
   {% end %}
 end
 
