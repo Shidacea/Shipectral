@@ -17,9 +17,9 @@ dependencies:
   imgui-sfml:
     github: oprypin/crystal-imgui-sfml
     branch: master
-  sdl:
-    github: ysbaddaden/sdl.cr
-    branch: master
+  sdl-crystal-bindings:
+    github: Hadeweka/SDL-Crystal-Bindings
+    branch: main
   raylib-cr:
     github: sol-vin/raylib-cr
     branch: master

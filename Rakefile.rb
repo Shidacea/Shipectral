@@ -73,16 +73,16 @@ task :build_sfml => [:generate_build_dir, :load_config] do
     end
 end
 
-task :build_sdlcr => [:generate_build_dir, :build_sdl, :load_config] do
+task :build_sdl_cr_bindings => [:generate_build_dir, :build_sdl, :load_config] do
     use_sdl = $shipectral_config.get_option_value(:use_sdl)
     build_path_name = $shipectral_config.get_option_value(:build_path_name)
 
     if use_sdl
         if SHIPECTRAL_COMPILER == :msvc
-            puts "Building SDL.cr..."
+            puts "Building SDL Crystal bindings..."
 
             FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdl")
-            FileUtils.cp_r "third_party/sdlcr/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdl", :verbose => false
+            FileUtils.cp_r "third_party/sdl-crystal-bindings/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdl", :verbose => false
         end
     end
 end
@@ -97,13 +97,15 @@ task :build_sdl => [:generate_build_dir, :load_config] do
 
             FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib")
 
-            system "curl https://www.libsdl.org/release/SDL2-devel-2.0.20-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-devel-2.0.20-VC.zip"
-            system "curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.4-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-devel-2.0.4-VC.zip"
-            system "curl https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.5-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_image-devel-2.0.5-VC.zip"
+            system "curl https://github.com/libsdl-org/SDL/releases/download/release-2.24.0/SDL2-devel-2.24.0-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-devel-2.24.0-VC.zip"
+            system "curl https://github.com/libsdl-org/SDL_mixer/releases/download/release-2.6.2/SDL2_mixer-devel-2.6.2-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-devel-2.6.2-VC.zip"
+            system "curl https://github.com/libsdl-org/SDL_image/releases/download/release-2.6.2/SDL2_image-devel-2.6.2-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_image-devel-2.6.2-VC.zip"
+            system "curl https://github.com/libsdl-org/SDL_ttf/releases/download/release-2.20.1/SDL2_ttf-devel-2.20.1-VC.zip --output #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_ttf-devel-2.20.1-VC.zip"
 
-            system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-devel-2.0.20-VC.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib"
-            system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-devel-2.0.4-VC.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib"
-            system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_image-devel-2.0.5-VC.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib" 
+            system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2-devel-2.24.0-VC.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib"
+            system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_mixer-devel-2.6.2-VC.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib"
+            system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_image-devel-2.6.2-VC.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib" 
+            system "powershell.exe -nologo -noprofile -command \"Expand-Archive #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib/SDL2_ttf-devel-2.20.1-VC.zip\" -DestinationPath #{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/sdllib"
         end
     end
 end
@@ -163,7 +165,7 @@ task :build_anyolite => [:generate_build_dir, :load_config] do
     end
 end
 
-task :build_shipectral => [:generate_build_dir, :build_crsfml, :build_sdlcr, :build_rl_cr, :build_sfml, :build_sdl, :build_rl, :build_imgui, :build_anyolite, :build_shards, :load_config] do
+task :build_shipectral => [:generate_build_dir, :build_crsfml, :build_sdl_cr_bindings, :build_rl_cr, :build_sfml, :build_sdl, :build_rl, :build_imgui, :build_anyolite, :build_shards, :load_config] do
     executable_name = $shipectral_config.get_option_value(:executable_name)
     debug = $shipectral_config.get_option_value(:debug)
     build_path_name = $shipectral_config.get_option_value(:build_path_name)

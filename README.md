@@ -8,7 +8,7 @@ can also be used for more complicated ideas.
 ## Features
 
 * Powerful scripting using mruby and Anyolite
-* Fast Crystal core using raylib (or SFML)
+* Fast Crystal core using SDL (other libraries are also possible)
 * Support for Dear ImGUI
 * ERB methods for text substitution
 * Support for project structures
@@ -17,8 +17,8 @@ can also be used for more complicated ideas.
 
 ## Structure
 
-The very core of Shipectral is a compound of raylib, Dear ImGUI and Anyolite,
-allowing for the direct usage of raylib and ImGUI functions in Ruby scripts.
+The very core of Shipectral is a compound of SDL, Dear ImGUI and Anyolite,
+allowing for the direct usage of SDL and ImGUI functions in Ruby scripts.
 
 On top of this, the Shidacea library is available,
 which provides more advanced game functions and support
@@ -34,12 +34,12 @@ Crystal programming using the basic features up to simple script
 usage, allowing for fast prototyping.
 
 Currently, SFML is the main media library used for Shidacea.
-However, raylib is planned to serve as the new main library for
+However, SDL is planned to serve as the new main library for
 version 0.3.0 and higher, with SFML support remaining as an option.
 
 As a consequence, the Shidacea library will have two different
-variants, SDC/SFML and SDC/RL, which are incompatible to each other.
-In the future, Shidacea will mainly refer to SDC/RL.
+variants, SDC/SFML and SDC/SDL, which are incompatible to each other.
+In the future, Shidacea will mainly refer to SDC/SDL.
 
 ## Roadmap
 
@@ -50,7 +50,7 @@ This version number was chosen in order to avoid confusion with legacy versions.
 It will be the first proper release since the legacy versions. Most of the work
 is already done, but many features are still missing or not functioning.
 
-The major goal is to support Launshi and custom raylib- or SFML-based frontends fully,
+The major goal is to support Launshi and custom SDL- or SFML-based frontends fully,
 allowing for a solid Ruby-based game development experience.
 
 #### Features
@@ -70,20 +70,20 @@ allowing for a solid Ruby-based game development experience.
 * [X] Simple map parser
 * [X] Ellipse shapes
 
-##### Shidacea/RL
+##### Shidacea/SDL
 
-* [X] Shapes
-* [X] Keyboard support
-* [X] Render queue with z-order
-* [X] Sound support
-* [X] Textures and images
-* [X] Fonts and texts
-* [X] Mouse support
-* [X] Views
+* [ ] Shapes
+* [ ] Keyboard support
+* [ ] Render queue with z-order
+* [ ] Sound support
+* [ ] Textures and images
+* [ ] Fonts and texts
+* [ ] Mouse support
+* [ ] Views
 * [ ] Loop points for music
-* [ ] Implementation of SDC/RL library in Crystal (as far as possible)
+* [ ] Implementation of SDC/SDL library in Crystal (as far as possible)
 * [ ] Dedicated map class
-* [ ] Full raylib support on Windows and Linux
+* [ ] Full SDL support on Windows and Linux
 * [ ] ImGui support
 
 #### Todo
@@ -112,7 +112,6 @@ allowing for a solid Ruby-based game development experience.
 
 #### Wishlist
 
-* [ ] Support for other libraries like SDL
 * [ ] Other targets like MacOS, WASM, Mobile, Console, ...
 
 ## Installation
@@ -124,7 +123,7 @@ allowing for a solid Ruby-based game development experience.
 * Rake
 * Bison
 * Git
-* SFML or raylib (only on Ubuntu - on Windows they will be installed automatically)
+* SFML or SDL (only on Ubuntu - on Windows they will be installed automatically)
 
 All of these programs need to be in the path environment variable for Windows to work properly.
 
