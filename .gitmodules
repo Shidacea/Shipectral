@@ -19,3 +19,6 @@
 [submodule "third_party/raylib-cr"]
 	path = third_party/raylib-cr
 	url = https://github.com/sol-vin/raylib-cr
+[submodule "third_party/sdl-crystal-bindings"]
+	path = third_party/sdl-crystal-bindings
+	url = https://github.com/Hadeweka/SDL-Crystal-Bindings
