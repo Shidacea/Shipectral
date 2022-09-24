@@ -4,6 +4,7 @@ SPT::Features.ensure("sdl-mixer")
 SPT::Features.ensure("sdl-ttf")
 
 require "./wrappers/Main.cr"
+require "./wrappers/Texture.cr"
 require "./wrappers/Window.cr"
 
 def load_engine_library(rb)
