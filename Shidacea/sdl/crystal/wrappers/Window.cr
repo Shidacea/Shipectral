@@ -24,6 +24,11 @@ module SDC
       @renderer
     end
 
+    def draw(obj : SDC::Drawable)
+      # TODO: Replace this with a render queue
+      obj.draw_directly
+    end
+
     @[Anyolite::AddBlockArg(1, Nil)]
     def draw_routine
       LibSDL.set_render_draw_color(renderer, 0xFF, 0xFF, 0xFF, 0xFF)

@@ -1,6 +1,6 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  class Texture
+  class Texture < SDC::Drawable
     @data : LibSDL::Texture*?
     @window : SDC::Window
 
@@ -33,8 +33,9 @@ module SDC
       LibSDL.free_surface(loaded_surface)
     end
 
-    def render(x : Int, y : Int)
-      render_quad = LibSDL::Rect.new(x: x, y: y, w: @width, h: @height)
+    def draw_directly
+      # TODO: Add more attributes here
+      render_quad = LibSDL::Rect.new(x: 0, y: 0, w: @width, h: @height)
 
       LibSDL.render_copy_ex(@window.renderer, data, nil, pointerof(render_quad), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
     end
