@@ -9,6 +9,7 @@ lib
 log.txt
 utility/*.rb.lock
 projects
+custom_engines
 custom_frontends
 custom_settings
 *.exe
