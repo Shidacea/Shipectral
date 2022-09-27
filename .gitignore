@@ -9,9 +9,9 @@ lib
 log.txt
 utility/*.rb.lock
 projects
+custom_configs
 custom_engines
 custom_frontends
-custom_settings
 *.exe
 *.dll
 imgui.ini
