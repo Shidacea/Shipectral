@@ -20,6 +20,3 @@ while(window.open? || window2.open?)
   window.close if close_win
   window2.close if close_win_2
 end
-
-
-window.close
