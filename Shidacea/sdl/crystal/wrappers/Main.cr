@@ -29,4 +29,21 @@ module SDC
   def self.warning(message : String)
     puts "WARNING: #{message}"
   end
+
+  # TODO: This is just to test event polling with multiple windows
+  def self.poll_event_test
+    close_window, close_window_2 = false, false
+
+    while LibSDL.poll_event(out e) != 0
+      if e.type == LibSDL::EventType::WINDOWEVENT.to_i
+        win_id = e.window.window_id
+        if e.window.event == LibSDL::WindowEventID::WINDOWEVENT_CLOSE.to_i
+          close_window = true if win_id == 1
+          close_window_2 = true if win_id == 2
+        end
+      end
+    end
+
+    [close_window, close_window_2]
+  end
 end

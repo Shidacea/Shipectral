@@ -8,6 +8,7 @@
   "use_imgui": false,
   "use_collishi": false,
   "frontend": "test",
+  "frontend_crystal": "RawTestCrystal.cr",
   "frontend_project": "RawTest.rb",
   "compile_frontend": true,
   "frontend_asset_directory": ".",

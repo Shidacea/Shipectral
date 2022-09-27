@@ -19,6 +19,10 @@ module SDC
       @data.not_nil!
     end
 
+    def open?
+      !!@data
+    end
+
     @[Anyolite::Exclude]
     def renderer
       @renderer

@@ -63,6 +63,7 @@ macro main_routine_with_config(filename)
   {% config_use_imgui = run("./GetConfigOption.cr", filename, "use_imgui").chomp %}
   {% config_use_collishi = run("./GetConfigOption.cr", filename, "use_collishi").chomp %}
   {% config_frontend = run("./GetConfigOption.cr", filename, "frontend").chomp %}
+  {% config_frontend_crystal = run("./GetConfigOption.cr", filename, "frontend_crystal").chomp %}
   {% config_frontend_project = run("./GetConfigOption.cr", filename, "frontend_project").chomp %}
   {% config_compile_frontend = run("./GetConfigOption.cr", filename, "compile_frontend").chomp %}
   {% config_engine_library = run("./GetConfigOption.cr", filename, "engine_library").chomp %}
@@ -132,6 +133,18 @@ macro main_routine_with_config(filename)
     {% frontend_project = config_frontend_project[2..-1] %}
   {% else %}
     {% raise "Option \"frontend_project\" is not a string" %}
+  {% end %}
+
+  {% if config_frontend_crystal.starts_with?("S|") %}
+    {% frontend_crystal = config_frontend_crystal[2..-1] %}
+  {% elsif config_frontend_crystal.starts_with?("B|") %}
+    {% if config_frontend_crystal[2..-1] == "true" %}
+      {% raise "Option \"frontend_crystal\" is neither a string nor false" %}
+    {% else %}
+      {% frontend_crystal = false %}
+    {% end %}
+  {% else %}
+    {% raise "Option \"frontend_crystal\" is neither a string nor false" %}
   {% end %}
 
   {% if config_compile_frontend.starts_with?("B|") %}
@@ -208,6 +221,10 @@ macro main_routine_with_config(filename)
 
   {% if engine_library_crystal %}
     require "../{{engine_library_crystal}}"
+  {% end %}
+
+  {% if frontend_crystal %}
+    require "../{{frontend}}/{{frontend_crystal}}"
   {% end %}
 
   {% if use_collishi %}

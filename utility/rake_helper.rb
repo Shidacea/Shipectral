@@ -61,7 +61,7 @@ def install_helper
     FileUtils.cp_r "#{Dir.pwd}/#{frontend}/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin", :verbose => true
   end
 
-  if !compile_engine_library
+  if !compile_engine_library && engine_library
     FileUtils.mkdir_p("#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin/#{engine_library}")
     FileUtils.cp_r "#{Dir.pwd}/#{engine_library}/.", "#{SHIPECTRAL_BUILD_PATH}/#{build_path_name}/bin/#{engine_library}", :verbose => true
   end
@@ -92,6 +92,7 @@ class ShipectralConfig
       :use_imgui => :required, # TODO: Make these useful
       :use_collishi => :required, # TODO: Make these useful
       :frontend => :required,
+      :frontend_crystal => :required,
       :frontend_project => :required,
       :compile_frontend => :required,
       :frontend_asset_directory => :required,
