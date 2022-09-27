@@ -89,7 +89,6 @@ allowing for a solid Ruby-based game development experience.
 #### Todo
 
 * [ ] Add remaining ImGui functions and classes
-* [ ] Replace Crystal errors with Ruby errors
 * [ ] Fix debug routines
 * [ ] More optimization routines
 
