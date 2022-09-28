@@ -1,3 +1,4 @@
+@[Anyolite::DefaultOptionalArgsToKeywordArgs]
 module SDC
   def self.init
     if LibSDL.init(LibSDL::INIT_EVERYTHING) != 0
