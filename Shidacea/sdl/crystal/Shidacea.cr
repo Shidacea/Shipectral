@@ -3,10 +3,13 @@ SPT::Features.ensure("sdl-image")
 SPT::Features.ensure("sdl-mixer")
 SPT::Features.ensure("sdl-ttf")
 
+require "./wrappers/Helper.cr"
+
 require "./wrappers/Main.cr"
 
 require "./wrappers/Drawable.cr"
 require "./wrappers/Music.cr"
+require "./wrappers/Renderer.cr"
 require "./wrappers/Texture.cr"
 require "./wrappers/Window.cr"
 

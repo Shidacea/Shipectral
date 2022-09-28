@@ -1,7 +1,8 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Texture < SDC::Drawable
-    @data : LibSDL::Texture*?
+    SDCHelper.wrap_type(LibSDL::Texture)
+
     @window : SDC::Window
 
     getter width : Int32 = 0
@@ -24,7 +25,7 @@ module SDC
       loaded_surface = LibSDL.img_load(filename)
       SDC.error "Could not load image from file #{filename}" unless loaded_surface
 
-      @data = LibSDL.create_texture_from_surface(@window.renderer, loaded_surface)
+      @data = LibSDL.create_texture_from_surface(@window.renderer.data, loaded_surface)
       SDC.error "Could not create texture from file #{filename}" unless @data
 
       @width = loaded_surface.value.w
@@ -37,12 +38,7 @@ module SDC
       # TODO: Add more attributes here
       render_quad = LibSDL::Rect.new(x: 0, y: 0, w: @width, h: @height)
 
-      LibSDL.render_copy_ex(@window.renderer, data, nil, pointerof(render_quad), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
-    end
-
-    @[Anyolite::Exclude]
-    def data
-      @data.not_nil! 
+      LibSDL.render_copy_ex(@window.renderer.data, data, nil, pointerof(render_quad), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
     end
 
     def free

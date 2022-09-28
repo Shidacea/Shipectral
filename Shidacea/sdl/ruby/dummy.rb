@@ -11,13 +11,9 @@ music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/Examp
 music.play
 
 while(window.open? || window2.open?)
-  window.draw_routine {
-    window.draw(texture)
-  }
-
-  window2.draw_routine {
-    window2.draw(texture2)
-  }
+  
+  window.draw_routine {window.draw(texture)} if window.open?
+  window2.draw_routine {window2.draw(texture2)} if window2.open?
 
   close_win, close_win_2 = SDC.poll_event_test
 

@@ -1,6 +1,6 @@
 module SDC
   def self.init
-    if LibSDL.init(LibSDL::INIT_VIDEO | LibSDL::INIT_AUDIO) != 0
+    if LibSDL.init(LibSDL::INIT_EVERYTHING) != 0
       SDC.error "Could not initialize SDL"
     end
     

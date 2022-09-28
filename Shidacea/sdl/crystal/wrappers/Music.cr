@@ -1,7 +1,7 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Music
-    @data : LibSDL::MixMusic*?
+    SDCHelper.wrap_type(LibSDL::MixMusic)
 
     def initialize
 
@@ -34,11 +34,6 @@ module SDC
 
       @data = LibSDL.mix_load_mus(filename)
       SDC.error "Could not load music from file #{filename}" unless @data
-    end
-
-    @[Anyolite::Exclude]
-    def data
-      @data.not_nil! 
     end
   end
 end

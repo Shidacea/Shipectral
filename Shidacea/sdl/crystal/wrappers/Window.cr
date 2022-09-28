@@ -1,8 +1,9 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Window
-    @data : LibSDL::Window*?
-    @renderer : LibSDL::Renderer*
+    SDCHelper.wrap_type(LibSDL::Window)
+
+    getter renderer : SDC::Renderer = SDC::Renderer.new
 
     def initialize(title : String, w : Int, h : Int, x : Int = LibSDL::WINDOWPOS_UNDEFINED, y : Int = LibSDL::WINDOWPOS_UNDEFINED, fullscreen : Bool = false)
       window_flags = fullscreen ? LibSDL::WindowFlags::WINDOW_SHOWN | LibSDL::WindowFlags::WINDOW_FULLSCREEN : LibSDL::WindowFlags::WINDOW_SHOWN
@@ -10,22 +11,12 @@ module SDC
       SDC.error "Could not create window with title \"#{title}\"" unless @data
 
       renderer_flags = LibSDL::RendererFlags::RENDERER_ACCELERATED | LibSDL::RendererFlags::RENDERER_PRESENTVSYNC
-      @renderer = LibSDL.create_renderer(data, -1, renderer_flags)
-      SDC.error "Could not create renderer" unless @renderer
-    end
-
-    @[Anyolite::Exclude]
-    def data
-      @data.not_nil!
+      @renderer.create!(self, renderer_flags)
+      SDC.error "Could not create renderer" unless @renderer.data?
     end
 
     def open?
-      !!@data
-    end
-
-    @[Anyolite::Exclude]
-    def renderer
-      @renderer
+      data?
     end
 
     def draw(obj : SDC::Drawable)
@@ -35,14 +26,14 @@ module SDC
 
     @[Anyolite::AddBlockArg(1, Nil)]
     def draw_routine
-      LibSDL.set_render_draw_color(renderer, 0xFF, 0xFF, 0xFF, 0xFF)
-      LibSDL.render_clear(renderer)
+      LibSDL.set_render_draw_color(@renderer.data, 0xFF, 0xFF, 0xFF, 0xFF)
+      LibSDL.render_clear(@renderer.data)
       yield nil
-      LibSDL.render_present(renderer)
+      LibSDL.render_present(@renderer.data)
     end
 
     def close
-      LibSDL.destroy_renderer(renderer)
+      @renderer.free
       LibSDL.destroy_window(data)
       @data = nil
     end
