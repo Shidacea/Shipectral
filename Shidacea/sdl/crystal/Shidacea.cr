@@ -4,7 +4,9 @@ SPT::Features.ensure("sdl-mixer")
 SPT::Features.ensure("sdl-ttf")
 
 require "./wrappers/Main.cr"
+
 require "./wrappers/Drawable.cr"
+require "./wrappers/Music.cr"
 require "./wrappers/Texture.cr"
 require "./wrappers/Window.cr"
 

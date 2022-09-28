@@ -1,15 +1,26 @@
 module SDC
   def self.init
-    if LibSDL.init(LibSDL::INIT_VIDEO) != 0
+    if LibSDL.init(LibSDL::INIT_VIDEO | LibSDL::INIT_AUDIO) != 0
       SDC.error "Could not initialize SDL"
     end
     
     if LibSDL.set_hint(LibSDL::HINT_RENDER_SCALE_QUALITY, "1") == 0
       SDC.warning "Linear texture filtering not enabled!"
     end
+
+    img_flags = LibSDL::IMGInitFlags::IMG_INIT_PNG
+    if (LibSDL.img_init(img_flags) | img_flags.to_i) == 0
+      SDC.error "Could not initialize SDL_image"
+    end
+
+    if LibSDL.mix_open_audio(44100, LibSDL::MIX_DEFAULT_FORMAT, 2, 2048) < 0
+      SDC.error "Could not initialize SDL_mixer"
+    end
   end
 
   def self.quit
+    LibSDL.mix_quit
+    LibSDL.img_quit
     LibSDL.quit
   end
 

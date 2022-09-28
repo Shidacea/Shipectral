@@ -121,7 +121,6 @@ allowing for a solid Ruby-based game development experience.
 * Crystal
 * Ruby
 * Rake
-* Bison
 * Git
 * SFML or SDL (only on Ubuntu - on Windows they will be installed automatically)
 

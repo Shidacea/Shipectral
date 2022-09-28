@@ -6,6 +6,10 @@ window2 = SDC::Window.new("Also Hi", 400, 400)
 texture = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png", window)
 texture2 = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png", window2)
 
+music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
+
+music.play
+
 while(window.open? || window2.open?)
   window.draw_routine {
     window.draw(texture)
