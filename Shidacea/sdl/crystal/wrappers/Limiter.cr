@@ -83,7 +83,7 @@ module SDC
 				call_block(@update_block)
 			end
 
-			#return false if !SDC.scene
+			return false if !SDC.scene
 
 			if is_draw_frame
 				call_block(@draw_block)

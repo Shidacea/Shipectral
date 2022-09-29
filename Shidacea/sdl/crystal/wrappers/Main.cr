@@ -1,6 +1,39 @@
 @[Anyolite::DefaultOptionalArgsToKeywordArgs]
 module SDC
+  class_property scene : SDC::Scene?
+  class_property next_scene : SDC::Scene | Bool | Nil
+
   @@current_window : SDC::Window?
+
+  def self.main_routine(scene : SDC::Scene)
+    limiter = SDC::Limiter.new
+
+    limiter.set_update_routine do
+      SDC.scene.not_nil!.main_update 
+
+      if !SDC.next_scene
+        SDC.scene.not_nil!.at_exit
+        SDC.scene = nil
+      elsif SDC.next_scene != true
+        SDC.scene.not_nil!.at_exit
+        SDC.scene = SDC.next_scene.as?(SDC::Scene).not_nil!
+        SDC.next_scene = nil
+        SDC.scene.not_nil!.init
+      end
+    end
+
+    limiter.set_draw_routine do
+      SDC.scene.not_nil!.main_draw
+    end
+
+    SDC.scene = scene
+    SDC.scene.not_nil!.init
+    SDC.next_scene = true
+
+    while SDC.next_scene
+      break if !limiter.tick
+    end
+  end
 
   def self.init
     if LibSDL.init(LibSDL::INIT_EVERYTHING) != 0

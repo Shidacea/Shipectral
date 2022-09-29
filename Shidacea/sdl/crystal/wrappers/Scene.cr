@@ -1,6 +1,8 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Scene
+    property use_own_draw_implementation = false
+    
     def initialize
     end
 
@@ -21,15 +23,21 @@ module SDC
     end
 
     def main_draw
-      SDC.current_window.clear
+      if @use_own_draw_implementation
+        call_inner_draw_block
+      else
+        SDC.current_window.clear
+        call_inner_draw_block
+        SDC.current_window.render_and_display
+      end
+    end
 
+    def call_inner_draw_block
       if Anyolite.referenced_in_ruby?(self)
         Anyolite.call_rb_method(:draw)
       else
         draw
       end
-
-      SDC.current_window.render_and_display
     end
 
     def at_init
