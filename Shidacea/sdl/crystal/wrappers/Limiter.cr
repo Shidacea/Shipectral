@@ -17,6 +17,8 @@ module SDC
     @draw_block : Proc(Nil) | Anyolite::RbRef | Nil = nil
     @gc_block : Proc(Nil) | Anyolite::RbRef | Nil = nil
 
+    @timer : Time? = nil
+
     def initialize(@max : UInt32 = 720u32, @renders_per_second : UInt32 = 60u32, @ticks_per_second : UInt32 = 60u32, @gc_per_second : UInt32 = 60u32)
 			@render_interval = (@max / @renders_per_second).to_u32
 			@tick_interval = (@max / @ticks_per_second).to_u32
@@ -69,9 +71,44 @@ module SDC
 		end
 
     def tick
-      # TODO
-      call_block(@update_block)
-      call_block(@draw_block)
+      @timer = Time.utc unless @timer
+
+      is_update_frame = (@counter % @tick_interval == 0)
+			is_draw_frame = (@counter % @render_interval == 0)
+			is_gc_frame = (@counter % @gc_interval == 0)
+
+      scheduled_frame = is_update_frame || is_draw_frame || is_gc_frame
+
+      if is_update_frame
+				call_block(@update_block)
+			end
+
+			#return false if !SDC.scene
+
+			if is_draw_frame
+				call_block(@draw_block)
+			end
+
+			if is_gc_frame
+				call_block(@gc_block)
+			end
+
+			@counter += 1
+
+			if @counter == @max
+				@counter = 0
+			end
+
+			if scheduled_frame
+				while (Time.utc - @timer.not_nil!).total_milliseconds < (@temp_counter + 1) / @max.to_f
+				end
+				@temp_counter = 0
+				@timer = Time.utc
+			else
+				@temp_counter += 1
+			end
+
+			return true
     end
   end
 end
