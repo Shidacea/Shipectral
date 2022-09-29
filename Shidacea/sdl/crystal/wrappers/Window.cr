@@ -21,6 +21,11 @@ module SDC
       data?
     end
 
+    def clear
+      LibSDL.set_render_draw_color(@renderer.data, 0xFF, 0xFF, 0xFF, 0xFF)
+      LibSDL.render_clear(@renderer.data)
+    end
+
     def draw_obj(obj : SDC::Drawable)
       # TODO: Replace this with a render queue
       obj.draw_directly
@@ -28,10 +33,13 @@ module SDC
 
     @[Anyolite::AddBlockArg(1, Nil)]
     def draw_routine
-      LibSDL.set_render_draw_color(@renderer.data, 0xFF, 0xFF, 0xFF, 0xFF)
-      LibSDL.render_clear(@renderer.data)
+      clear
       yield nil
       LibSDL.render_present(@renderer.data)
+    end
+
+    def render_and_display
+      # TODO
     end
 
     def close

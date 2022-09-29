@@ -10,6 +10,7 @@ require "./wrappers/Main.cr"
 require "./wrappers/Drawable.cr"
 require "./wrappers/Music.cr"
 require "./wrappers/Renderer.cr"
+require "./wrappers/Scene.cr"
 require "./wrappers/Texture.cr"
 require "./wrappers/Window.cr"
 

@@ -40,6 +40,11 @@ module SDC
     end
   end
 
+  @[Anyolite::AddBlockArg(1, Nil)]
+  def self.update_routine
+    yield nil
+  end
+
   def self.quit
     LibSDL.mix_quit
     LibSDL.img_quit
