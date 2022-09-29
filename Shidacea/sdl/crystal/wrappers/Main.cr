@@ -1,5 +1,7 @@
 @[Anyolite::DefaultOptionalArgsToKeywordArgs]
 module SDC
+  @@current_window : SDC::Window?
+
   def self.init
     if LibSDL.init(LibSDL::INIT_EVERYTHING) != 0
       SDC.error "Could not initialize SDL"
@@ -16,6 +18,25 @@ module SDC
 
     if LibSDL.mix_open_audio(44100, LibSDL::MIX_DEFAULT_FORMAT, 2, 2048) < 0
       SDC.error "Could not initialize SDL_mixer"
+    end
+  end
+
+  def self.current_window
+    if window = @@current_window
+      window
+    else
+      SDC.error "No current window available"
+    end
+  end
+
+  def self.current_window=(window : SDC::Window?)
+    @@current_window = window
+  end
+
+  @[Anyolite::AddBlockArg(1, Nil)]
+  def self.draw_routine
+    SDC.current_window.draw_routine do
+      yield nil
     end
   end
 

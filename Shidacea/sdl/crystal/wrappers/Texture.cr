@@ -3,16 +3,16 @@ module SDC
   class Texture < SDC::Drawable
     SDCHelper.wrap_type(LibSDL::Texture)
 
-    @window : SDC::Window
+    @renderer : SDC::Renderer
 
     getter width : Int32 = 0
     getter height : Int32 = 0
 
-    def initialize(@window : SDC::Window)
+    def initialize(@renderer : SDC::Renderer = SDC.current_window.renderer)
     end
 
-    def self.load_from_file(filename : String, window : SDC::Window)
-      texture = SDC::Texture.new(window)
+    def self.load_from_file(filename : String, renderer : SDC::Renderer = SDC.current_window.renderer)
+      texture = SDC::Texture.new(renderer)
       texture.load_from_file!(filename)
 
       return texture
@@ -25,7 +25,7 @@ module SDC
       loaded_surface = LibSDL.img_load(filename)
       SDC.error "Could not load image from file #{filename}" unless loaded_surface
 
-      @data = LibSDL.create_texture_from_surface(@window.renderer.data, loaded_surface)
+      @data = LibSDL.create_texture_from_surface(@renderer.data, loaded_surface)
       SDC.error "Could not create texture from file #{filename}" unless @data
 
       @width = loaded_surface.value.w
@@ -38,7 +38,7 @@ module SDC
       # TODO: Add more attributes here
       render_quad = LibSDL::Rect.new(x: 0, y: 0, w: @width, h: @height)
 
-      LibSDL.render_copy_ex(@window.renderer.data, data, nil, pointerof(render_quad), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
+      LibSDL.render_copy_ex(@renderer.data, data, nil, pointerof(render_quad), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
     end
 
     def free
