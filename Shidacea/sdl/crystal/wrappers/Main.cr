@@ -2,36 +2,37 @@
 module SDC
   class_property scene : SDC::Scene?
   class_property next_scene : SDC::Scene | Bool | Nil
+  class_property limiter : SDC::Limiter?
 
   @@current_window : SDC::Window?
 
   def self.main_routine(scene : SDC::Scene)
-    limiter = SDC::Limiter.new
+    @@limiter = SDC::Limiter.new
 
-    limiter.set_update_routine do
-      SDC.scene.not_nil!.main_update 
+    @@limiter.not_nil!.set_update_routine do
+      @@scene.not_nil!.main_update 
 
-      if !SDC.next_scene
-        SDC.scene.not_nil!.at_exit
-        SDC.scene = nil
-      elsif SDC.next_scene != true
-        SDC.scene.not_nil!.at_exit
-        SDC.scene = SDC.next_scene.as?(SDC::Scene).not_nil!
-        SDC.next_scene = nil
-        SDC.scene.not_nil!.init
+      if !@@next_scene
+        @@scene.not_nil!.at_exit
+        @@scene = nil
+      elsif @@next_scene != true
+        @@scene.not_nil!.at_exit
+        @@scene = @@next_scene.as?(SDC::Scene).not_nil!
+        @@next_scene = nil
+        @@scene.not_nil!.init
       end
     end
 
-    limiter.set_draw_routine do
-      SDC.scene.not_nil!.main_draw
+    @@limiter.not_nil!.set_draw_routine do
+      @@scene.not_nil!.main_draw
     end
 
-    SDC.scene = scene
-    SDC.scene.not_nil!.init
-    SDC.next_scene = true
+    @@scene = scene
+    @@scene.not_nil!.init
+    @@next_scene = true
 
-    while SDC.next_scene
-      break if !limiter.tick
+    while @@next_scene
+      break if !@@limiter.not_nil!.tick
     end
   end
 
