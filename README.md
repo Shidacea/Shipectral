@@ -118,11 +118,11 @@ allowing for a solid Ruby-based game development experience.
 
 ### Prerequisites
 
-* Crystal
+* Crystal (Version 1.6.0 or higher)
 * Ruby
 * Rake
 * Git
-* SFML or SDL (only on Ubuntu - on Windows they will be installed automatically)
+* SDL or SFML (only on Ubuntu - on Windows they will be installed automatically)
 
 All of these programs need to be in the path environment variable for Windows to work properly.
 
