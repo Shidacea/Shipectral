@@ -10,6 +10,7 @@ module SDC
     @@limiter = SDC::Limiter.new
 
     @@limiter.not_nil!.set_update_routine do
+      #@@scene.not_nil!.process_events
       @@scene.not_nil!.main_update 
 
       if !@@next_scene

@@ -4,11 +4,15 @@ module SDC
     property use_own_draw_implementation = false
     getter in_ruby = false
 
-    macro call_method(name)
+    macro call_method(name, *args)
       if @in_ruby
-        Anyolite.call_rb_method({{name}})
+        {% if args.empty? %}
+          Anyolite.call_rb_method({{name}})
+        {% else %}
+          Anyolite.call_rb_method({{name}}, args: [{{*args}}])
+        {% end %}
       else
-        {{name.id}}
+        {{name.id}}({{*args}})
       end
     end
     
@@ -42,7 +46,9 @@ module SDC
     end
 
     def process_events
-      # TODO
+      SDC.poll_events do |event|
+        call_method(:handle_event, event)
+      end
     end
 
     def at_init
