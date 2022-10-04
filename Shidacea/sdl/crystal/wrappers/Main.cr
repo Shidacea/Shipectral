@@ -67,18 +67,6 @@ module SDC
     @@current_window = window
   end
 
-  @[Anyolite::AddBlockArg(1, Nil)]
-  def self.draw_routine
-    SDC.current_window.draw_routine do
-      yield nil
-    end
-  end
-
-  @[Anyolite::AddBlockArg(1, Nil)]
-  def self.update_routine
-    yield nil
-  end
-
   def self.quit
     LibSDL.mix_quit
     LibSDL.img_quit
@@ -102,11 +90,17 @@ module SDC
     puts "WARNING: #{message}"
   end
 
+  @[Anyolite::AddBlockArg(1, Pointer(LibSDL::Event))]
+  def self.poll_events
+    while LibSDL.poll_event(out e) != 0
+      yield e
+    end
+  end
+
   # TODO: This is just to test event polling with multiple windows
   def self.poll_event_test
     close_window, close_window_2 = false, false
-
-    while LibSDL.poll_event(out e) != 0
+    SDC.poll_events do |e|
       if e.type == LibSDL::EventType::WINDOWEVENT.to_i
         win_id = e.window.window_id
         if e.window.event == LibSDL::WindowEventID::WINDOWEVENT_CLOSE.to_i

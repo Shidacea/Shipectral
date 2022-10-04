@@ -2,24 +2,29 @@ module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Scene
     property use_own_draw_implementation = false
+    getter in_ruby = false
+
+    macro call_method(name)
+      if @in_ruby
+        Anyolite.call_rb_method({{name}})
+      else
+        {{name.id}}
+      end
+    end
     
     def initialize
     end
 
+    def rb_initialize(rb)
+      @in_ruby = true
+    end
+
     def init
-      if Anyolite.referenced_in_ruby?(self)
-        Anyolite.call_rb_method(:at_init)
-      else
-        at_init
-      end
+      call_method(:at_init)
     end
 
     def main_update
-      if Anyolite.referenced_in_ruby?(self)
-        Anyolite.call_rb_method(:update)
-      else
-        update
-      end
+      call_method(:update)
     end
 
     def main_draw
@@ -33,11 +38,11 @@ module SDC
     end
 
     def call_inner_draw_block
-      if Anyolite.referenced_in_ruby?(self)
-        Anyolite.call_rb_method(:draw)
-      else
-        draw
-      end
+      call_method(:draw)
+    end
+
+    def process_events
+      # TODO
     end
 
     def at_init
@@ -51,5 +56,8 @@ module SDC
 
     def draw
     end
+
+    def handle_event(event : LibSDL::Event)
+		end
   end
 end

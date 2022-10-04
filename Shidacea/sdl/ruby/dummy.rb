@@ -26,18 +26,24 @@ class SceneTest < SDC::Scene
     if @window.open?
       SDC.current_window = @window
       SDC.current_window.clear
-      SDC.draw_routine do
-        @texture.draw
-      end
+
+      @texture.draw
+
+      SDC.current_window.render_and_display
     end
   
     if @window2.open?
       SDC.current_window = @window2
       SDC.current_window.clear
-      SDC.draw_routine do
-        @texture2.draw
-      end
+
+      @texture2.draw
+      
+      SDC.current_window.render_and_display
     end
+  end
+
+  def handle_event(event)
+    
   end
 end
 

@@ -27,19 +27,12 @@ module SDC
     end
 
     def draw_obj(obj : SDC::Drawable)
-      # TODO: Replace this with a render queue
+      # TODO: Replace this with a proper render queue
       obj.draw_directly
     end
 
-    @[Anyolite::AddBlockArg(1, Nil)]
-    def draw_routine
-      clear
-      yield nil
-      LibSDL.render_present(@renderer.data)
-    end
-
     def render_and_display
-      # TODO
+      LibSDL.render_present(@renderer.data)
     end
 
     def close
