@@ -15,10 +15,6 @@ class SceneTest < SDC::Scene
   end
 
   def update
-    close_win, close_win_2 = SDC.poll_event_test
-    @window.close if close_win
-    @window2.close if close_win_2
-
     SDC.next_scene = nil unless @window.open? || @window2.open?
   end
 
@@ -43,7 +39,16 @@ class SceneTest < SDC::Scene
   end
 
   def handle_event(event)
-    
+    if event.window_event?
+      win_id = event.window_id
+      if event.window_close_event?
+        close_window = true if win_id == 1
+        close_window_2 = true if win_id == 2
+      end
+    end
+
+    @window.close if close_window
+    @window2.close if close_window_2
   end
 end
 

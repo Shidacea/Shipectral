@@ -10,7 +10,7 @@ module SDC
     @@limiter = SDC::Limiter.new
 
     @@limiter.not_nil!.set_update_routine do
-      #@@scene.not_nil!.process_events
+      @@scene.not_nil!.process_events
       @@scene.not_nil!.main_update 
 
       if !@@next_scene
@@ -91,26 +91,10 @@ module SDC
     puts "WARNING: #{message}"
   end
 
-  @[Anyolite::AddBlockArg(1, Pointer(LibSDL::Event))]
+  @[Anyolite::AddBlockArg(1, SDC::Event)]
   def self.poll_events
-    while LibSDL.poll_event(out e) != 0
-      yield e
+    while LibSDL.poll_event(out raw_event) != 0
+      yield SDC::Event.new(raw_event)
     end
-  end
-
-  # TODO: This is just to test event polling with multiple windows
-  def self.poll_event_test
-    close_window, close_window_2 = false, false
-    SDC.poll_events do |e|
-      if e.type == LibSDL::EventType::WINDOWEVENT.to_i
-        win_id = e.window.window_id
-        if e.window.event == LibSDL::WindowEventID::WINDOWEVENT_CLOSE.to_i
-          close_window = true if win_id == 1
-          close_window_2 = true if win_id == 2
-        end
-      end
-    end
-
-    [close_window, close_window_2]
   end
 end

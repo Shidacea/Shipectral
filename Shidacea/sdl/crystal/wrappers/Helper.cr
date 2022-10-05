@@ -1,6 +1,6 @@
 module SDCHelper
   macro wrap_type(x)
-    @data : {{x}}*?
+    @data : {{x}}?
     
     @[Anyolite::Exclude]
     def data

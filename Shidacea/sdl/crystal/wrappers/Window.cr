@@ -1,7 +1,7 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Window
-    SDCHelper.wrap_type(LibSDL::Window)
+    SDCHelper.wrap_type(Pointer(LibSDL::Window))
 
     getter renderer : SDC::Renderer = SDC::Renderer.new
 

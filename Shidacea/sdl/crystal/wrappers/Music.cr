@@ -1,7 +1,7 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Music
-    SDCHelper.wrap_type(LibSDL::MixMusic)
+    SDCHelper.wrap_type(Pointer(LibSDL::MixMusic))
 
     def initialize
 

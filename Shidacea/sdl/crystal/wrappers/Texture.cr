@@ -1,7 +1,7 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Texture < SDC::Drawable
-    SDCHelper.wrap_type(LibSDL::Texture)
+    SDCHelper.wrap_type(Pointer(LibSDL::Texture))
 
     @renderer : SDC::Renderer
 

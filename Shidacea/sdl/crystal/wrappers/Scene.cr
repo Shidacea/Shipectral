@@ -63,7 +63,7 @@ module SDC
     def draw
     end
 
-    def handle_event(event : LibSDL::Event)
+    def handle_event(event : SDC::Event)
 		end
   end
 end

@@ -1,7 +1,7 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Renderer
-    SDCHelper.wrap_type(LibSDL::Renderer)
+    SDCHelper.wrap_type(Pointer(LibSDL::Renderer))
 
     def initialize
     end
