@@ -25,6 +25,7 @@ module SDC
 			@gc_interval = (@max / @gc_per_second).to_u32
     end
 
+    @[Anyolite::Exclude]
     def call_block(block : Proc(Nil) | Anyolite::RbRef | Nil)
       if !block
         nil

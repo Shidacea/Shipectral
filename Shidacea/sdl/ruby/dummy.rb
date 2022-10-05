@@ -39,9 +39,9 @@ class SceneTest < SDC::Scene
   end
 
   def handle_event(event)
-    if event.window_event?
-      win_id = event.window_id
-      if event.window_close_event?
+    if event.type == SDC::Event::WINDOW
+      win_id = event.as_window_event.window_id
+      if event.as_window_event.event == SDC::WindowEvent::CLOSE
         close_window = true if win_id == 1
         close_window_2 = true if win_id == 2
       end
