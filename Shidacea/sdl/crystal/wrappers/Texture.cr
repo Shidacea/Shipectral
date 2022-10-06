@@ -8,6 +8,8 @@ module SDC
     getter width : Int32 = 0
     getter height : Int32 = 0
 
+    property position : SDC::Coords = SDC.xy
+
     def initialize(@renderer : SDC::Renderer = SDC.current_window.renderer)
     end
 
@@ -36,7 +38,7 @@ module SDC
 
     def draw_directly
       # TODO: Add more attributes here
-      render_quad = LibSDL::Rect.new(x: 0, y: 0, w: @width, h: @height)
+      render_quad = LibSDL::Rect.new(x: @position.x, y: @position.y, w: @width, h: @height)
 
       LibSDL.render_copy_ex(@renderer.data, data, nil, pointerof(render_quad), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
     end

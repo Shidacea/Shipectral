@@ -68,6 +68,10 @@ module SDC
     @@current_window = window
   end
 
+  def unpin_all
+    @@current_window.not_nil!.unpin_all
+  end
+
   def self.quit
     LibSDL.mix_quit
     LibSDL.img_quit

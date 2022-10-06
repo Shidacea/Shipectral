@@ -72,15 +72,15 @@ allowing for a solid Ruby-based game development experience.
 
 ##### Shidacea/SDL
 
-* [ ] Shapes
 * [X] Keyboard support
 * [X] Render queue with z-order
-* [ ] Sound support
-* [ ] Textures and images
+* [ ] Sprites
+* [ ] Shapes
+* [ ] Sounds
 * [ ] Fonts and texts
 * [ ] Mouse support
 * [ ] Views
-* [X] Loop points for music
+* [ ] Music tracks
 * [ ] Implementation of SDC/SDL library in Crystal (as far as possible)
 * [ ] Dedicated map class
 * [ ] Full SDL support on Windows and Linux

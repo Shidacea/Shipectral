@@ -5,17 +5,26 @@ class SceneTest < SDC::Scene
     self.use_own_draw_implementation = true
 
     @window = SDC::Window.new("Hello World", 800, 600)
+
     @texture = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
     
     @window2 = SDC::Window.new("Also Hi", 400, 400)
+
     @texture2 = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
     @texture2.pin
+
+    @texture3 = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
+    @texture3.pin
+    @texture3.z = 1
 
     @music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
   end
 
   def update
-    puts "Y is down" if SDC::Keyboard.key_down?(SDC::Keyboard::K_Y)
+    @texture2.position.y += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_DOWN)
+    @texture2.position.y -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_UP)
+    @texture2.position.x += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_RIGHT)
+    @texture2.position.x -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_LEFT)
 
     SDC.next_scene = nil unless @window.open? || @window2.open?
   end
@@ -47,7 +56,6 @@ class SceneTest < SDC::Scene
       end
     elsif event.type == SDC::Event::KEYDOWN
       puts "Key pressed: #{event.as_key_event.key_name}"
-      puts "Up!" if event.as_key_event.key == SDC::Keyboard::K_UP
       @music.play if event.as_key_event.key == SDC::Keyboard::K_M
     end
 
