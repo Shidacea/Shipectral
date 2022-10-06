@@ -8,7 +8,7 @@ module SDC
 
   struct WindowEvent
     {% for window_event_type in LibSDL::WindowEventID.constants %}
-      {{window_event_type.stringify.gsub(/WINDOWEVENT_/, "").id}} = {{LibSDL::WindowEventID.constant(window_event_type)}}.to_i
+      {{window_event_type.stringify.gsub(/WINDOWEVENT_/, "").id}} = {{LibSDL::WindowEventID.constant(window_event_type)}}
     {% end %}
   end
 
@@ -17,7 +17,7 @@ module SDC
     @data : LibSDL::Event
 
     {% for event_type in LibSDL::EventType.constants %}
-      {{event_type.stringify.gsub(/EVENT/, "").id}} = {{LibSDL::EventType.constant(event_type)}}.to_i
+      {{event_type.stringify.gsub(/EVENT/, "").id}} = {{LibSDL::EventType.constant(event_type)}}
     {% end %}
 
     @[Anyolite::Exclude]
@@ -38,122 +38,56 @@ module SDC
       @data.type
     end
 
-    # TODO: There HAS to be an easier way (e.g. extracting this form LibSDL::Event, but HOW?)
-
-    def as_display_event
-      @data.display
+    macro obtain_event_type_names
+      {
+        {% for event_type in LibSDL::EventType.constants %}
+          {{LibSDL::EventType.constant(event_type)}} => {{event_type.stringify}},
+        {% end %}
+      }
     end
 
-    def as_window_event
-      @data.window
+    TYPE_NAMES = obtain_event_type_names
+
+    # TODO: If this can be simplified, that would be really helpful...
+
+    macro generate_event_wrapper(name, union_part, constants)
+      def as_{{name.id}}_event
+        if {{constants.map{|const| "LibSDL::EventType::#{const}.to_i".id}}}.includes?(type) 
+          @data.{{union_part.id}}
+        else
+          SDC.error "Could not cast event with ID #{TYPE_NAMES[type]} to {{name.id}} event"
+        end
+      end
     end
 
-    def as_key_event
-      @data.key
-    end
-
-    def as_text_edit_event
-      @data.edit
-    end
-
-    def as_text_edit_ext_event
-      @data.edit_ext
-    end
-
-    def as_text_input_event
-      @data.text
-    end
-
-    def as_mouse_motion_event
-      @data.motion
-    end
-
-    def as_mouse_button_event
-      @data.button
-    end
-
-    def as_mouse_wheel_event
-      @data.wheel
-    end
-
-    def as_joy_axis_event
-      @data.jaxis
-    end
-
-    def as_joy_ball_event
-      @data.jball
-    end
-
-    def as_joy_hat_event
-      @data.jhat
-    end
-
-    def as_joy_button_event
-      @data.jbutton
-    end
-
-    def as_joy_device_event
-      @data.jdevice
-    end
-
-    def as_joy_battery_event
-      @data.jbattery
-    end
-
-    def as_controller_axis_event
-      @data.caxis
-    end
-
-    def as_controller_button_event
-      @data.cbutton
-    end
-
-    def as_controller_device_event
-      @data.cdevice
-    end
-
-    def as_controller_touchpad_event
-      @data.ctouchpad
-    end
-
-    def as_controller_sensor_event
-      @data.csensor
-    end
-
-    def as_audio_device_event
-      @data.adevice
-    end
-
-    def as_sensor_event
-      @data.sensor
-    end
-
-    def as_quit_event
-      @data.quit
-    end
-
-    def as_user_event
-      @data.user
-    end
-
-    def as_syswm_event
-      @data.syswm
-    end
-
-    def as_touch_finger_event
-      @data.tfinger
-    end
-
-    def as_multi_gesture_event
-      @data.mgesture
-    end
-
-    def as_dollar_gesture_event
-      @data.dgesture
-    end
-
-    def as_drop_event
-      @data.drop
-    end
+    generate_event_wrapper(:display, :display, {DISPLAYEVENT})
+    generate_event_wrapper(:window, :window, {WINDOWEVENT})
+    generate_event_wrapper(:key, :key, {KEYDOWN, KEYUP})
+    generate_event_wrapper(:text_edit, :edit, {TEXTEDITING})
+    generate_event_wrapper(:text_edit_ext, :edit_ext, {TEXTEDITING_EXT})
+    generate_event_wrapper(:text_input, :text, {TEXTINPUT})
+    generate_event_wrapper(:mouse_motion, :motion, {MOUSEMOTION})
+    generate_event_wrapper(:mouse_button, :button, {MOUSEBUTTONDOWN, MOUSEBUTTONUP})
+    generate_event_wrapper(:mouse_wheel, :wheel, {MOUSEWHEEL})
+    generate_event_wrapper(:joy_axis, :jaxis, {JOYAXISMOTION})
+    generate_event_wrapper(:joy_ball, :jball, {JOYBALLMOTION})
+    generate_event_wrapper(:joy_hat, :jhat, {JOYHATMOTION})
+    generate_event_wrapper(:joy_button, :jbutton, {JOYBUTTONDOWN, JOYBUTTONUP})
+    generate_event_wrapper(:joy_device, :jdevice, {JOYDEVICEADDED, JOYDEVICEREMOVED})
+    generate_event_wrapper(:joy_battery, :jbattery, {JOYBATTERYUPDATED})
+    generate_event_wrapper(:controller_axis, :caxis, {CONTROLLERAXISMOTION})
+    generate_event_wrapper(:controller_button, :cbutton, {CONTROLLERBUTTONDOWN, CONTROLLERBUTTONUP})
+    generate_event_wrapper(:controller_device, :cdevice, {CONTROLLERDEVICEADDED, CONTROLLERDEVICEREMOVED, CONTROLLERDEVICEREMAPPED})
+    generate_event_wrapper(:controller_touchpad, :ctouchpad, {CONTROLLERTOUCHPADDOWN, CONTROLLERTOUCHPADMOTION, CONTROLLERTOUCHPADUP})
+    generate_event_wrapper(:controller_sensor, :csensor, {CONTROLLERSENSORUPDATE})
+    generate_event_wrapper(:audio_device, :adevice, {AUDIODEVICEADDED, AUDIODEVICEREMOVED})
+    generate_event_wrapper(:sensor, :sensor, {SENSORUPDATE})
+    generate_event_wrapper(:quit, :quit, {QUIT})
+    generate_event_wrapper(:user, :user, {USEREVENT})
+    generate_event_wrapper(:syswm, :syswm, {SYSWMEVENT})
+    generate_event_wrapper(:touch_finger, :tfinger, {FINGERDOWN, FINGERUP, FINGERMOTION})
+    generate_event_wrapper(:multi_gesture, :mgesture, {MULTIGESTURE})
+    generate_event_wrapper(:dollar_gesture, :dgesture, {DOLLARGESTURE, DOLLARRECORD})
+    generate_event_wrapper(:drop, :drop, {DROPFILE, DROPTEXT, DROPBEGIN, DROPCOMPLETE})
   end
 end
