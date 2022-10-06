@@ -9,11 +9,9 @@ class SceneTest < SDC::Scene
     
     @window2 = SDC::Window.new("Also Hi", 400, 400)
     @texture2 = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
+    @texture2.static = true
 
-    @window2.add_static(@texture2)
-
-    music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
-    #music.play
+    @music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
   end
 
   def update
@@ -50,10 +48,15 @@ class SceneTest < SDC::Scene
     elsif event.type == SDC::Event::KEYDOWN
       puts "Key pressed: #{event.as_key_event.key_name}"
       puts "Up!" if event.as_key_event.key == SDC::Keyboard::K_UP
+      @music.play if event.as_key_event.key == SDC::Keyboard::K_M
     end
 
     @window.close if close_window
     @window2.close if close_window_2
+  end
+
+  def at_exit
+    @window2.delete_static_content
   end
 end
 

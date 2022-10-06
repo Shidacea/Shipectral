@@ -30,17 +30,17 @@ module SDC
     end
 
     @[Anyolite::ReturnNil]
-    def draw(obj : SDC::Drawable, z : Int = 0)
-      @render_queue.add(obj, @z_offset + z.to_u8)
+    def draw(obj : SDC::Drawable)
+      @render_queue.add(obj, @z_offset + obj.z)
     end
 
     @[Anyolite::ReturnNil]
-    def add_static(obj : SDC::Drawable, z : Int = 0)
-      @render_queue.add_static(obj, @z_offset + z.to_u8)
+    def add_static(obj : SDC::Drawable)
+      @render_queue.add_static(obj, @z_offset + obj.z)
     end
 
-    def delete_static(obj : SDC::Drawable, z : Int = 0, all_duplicates : Bool = false)
-      @render_queue.delete_static(obj, @z_offset + z.to_u8, all_duplicates)
+    def delete_static(obj : SDC::Drawable, all_duplicates : Bool = false)
+      @render_queue.delete_static(obj, @z_offset + obj.z, all_duplicates)
     end
 
     def delete_static_content
