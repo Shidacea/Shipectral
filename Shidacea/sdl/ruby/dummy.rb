@@ -11,7 +11,7 @@ class SceneTest < SDC::Scene
     @texture2 = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
 
     music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
-    music.play
+    #music.play
   end
 
   def update
@@ -45,6 +45,9 @@ class SceneTest < SDC::Scene
         close_window = true if win_id == 1
         close_window_2 = true if win_id == 2
       end
+    elsif event.type == SDC::Event::KEYDOWN
+      puts event.as_key_event.key_name
+      puts "Up!" if event.as_key_event.key == SDC::KeyboardEvent::K_UP
     end
 
     @window.close if close_window

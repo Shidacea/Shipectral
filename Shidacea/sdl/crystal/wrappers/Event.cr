@@ -12,6 +12,20 @@ module SDC
     {% end %}
   end
 
+  struct KeyboardEvent
+    def key
+      self.keysym.sym.to_i
+    end
+
+    def key_name
+      String.new(LibSDL.get_key_name(self.keysym.sym))
+    end
+
+    {% for key in LibSDL::KeyCode.constants %}
+      {{key.id}} = {{LibSDL::KeyCode.constant(key)}}
+    {% end %}
+  end
+
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Event
     @data : LibSDL::Event
@@ -47,8 +61,6 @@ module SDC
     end
 
     TYPE_NAMES = obtain_event_type_names
-
-    # TODO: If this can be simplified, that would be really helpful...
 
     macro generate_event_wrapper(name, union_part, constants)
       def as_{{name.id}}_event
