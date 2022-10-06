@@ -74,13 +74,13 @@ allowing for a solid Ruby-based game development experience.
 
 * [ ] Shapes
 * [ ] Keyboard support
-* [ ] Render queue with z-order
+* [X] Render queue with z-order
 * [ ] Sound support
 * [ ] Textures and images
 * [ ] Fonts and texts
 * [ ] Mouse support
 * [ ] Views
-* [ ] Loop points for music
+* [X] Loop points for music
 * [ ] Implementation of SDC/SDL library in Crystal (as far as possible)
 * [ ] Dedicated map class
 * [ ] Full SDL support on Windows and Linux

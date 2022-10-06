@@ -1,7 +1,7 @@
 module SDC
   abstract class Drawable
-    def draw
-      SDC.current_window.draw_obj(self)
+    def draw(z : Int = 0)
+      SDC.current_window.draw(self, z)
     end
 
     abstract def draw_directly
