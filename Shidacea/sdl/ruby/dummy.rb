@@ -15,6 +15,8 @@ class SceneTest < SDC::Scene
   end
 
   def update
+    puts "Y is down" if SDC::Keyboard.key_down?(SDC::Keyboard::K_Y)
+
     SDC.next_scene = nil unless @window.open? || @window2.open?
   end
 
@@ -46,8 +48,8 @@ class SceneTest < SDC::Scene
         close_window_2 = true if win_id == 2
       end
     elsif event.type == SDC::Event::KEYDOWN
-      puts event.as_key_event.key_name
-      puts "Up!" if event.as_key_event.key == SDC::KeyboardEvent::K_UP
+      puts "Key pressed: #{event.as_key_event.key_name}"
+      puts "Up!" if event.as_key_event.key == SDC::Keyboard::K_UP
     end
 
     @window.close if close_window

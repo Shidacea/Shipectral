@@ -20,10 +20,6 @@ module SDC
     def key_name
       String.new(LibSDL.get_key_name(self.keysym.sym))
     end
-
-    {% for key in LibSDL::KeyCode.constants %}
-      {{key.id}} = {{LibSDL::KeyCode.constant(key)}}
-    {% end %}
   end
 
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]

@@ -73,7 +73,7 @@ allowing for a solid Ruby-based game development experience.
 ##### Shidacea/SDL
 
 * [ ] Shapes
-* [ ] Keyboard support
+* [X] Keyboard support
 * [X] Render queue with z-order
 * [ ] Sound support
 * [ ] Textures and images
