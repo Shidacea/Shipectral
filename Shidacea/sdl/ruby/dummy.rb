@@ -10,6 +10,8 @@ class SceneTest < SDC::Scene
     @window2 = SDC::Window.new("Also Hi", 400, 400)
     @texture2 = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
 
+    @window2.add_static(@texture2)
+
     music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
     #music.play
   end
@@ -33,8 +35,6 @@ class SceneTest < SDC::Scene
     if @window2.open?
       SDC.current_window = @window2
       SDC.current_window.clear
-
-      @texture2.draw
       
       SDC.current_window.render_and_display
     end
