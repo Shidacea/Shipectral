@@ -9,7 +9,7 @@ class SceneTest < SDC::Scene
     
     @window2 = SDC::Window.new("Also Hi", 400, 400)
     @texture2 = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
-    @texture2.static = true
+    @texture2.pin
 
     @music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
   end
@@ -56,7 +56,7 @@ class SceneTest < SDC::Scene
   end
 
   def at_exit
-    @window2.delete_static_content
+    @window2.unpin_all
   end
 end
 

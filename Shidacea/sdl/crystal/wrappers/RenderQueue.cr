@@ -35,12 +35,8 @@ module SDC
     end
 
     @[Anyolite::ReturnNil]
-    def delete_static(obj : Drawable, z : UInt8 = 0u8, all_duplicates : Bool = false)
-      if all_duplicates
-        @static_content[z].delete(obj)
-      elsif result = @static_content[z].index(obj)
-        @static_content[z].delete_at(result)
-      end
+    def delete_static(obj : Drawable, z : UInt8 = 0u8)
+      @static_content[z].delete(obj)
       # TODO: Maybe update @highest_static_z
     end
 

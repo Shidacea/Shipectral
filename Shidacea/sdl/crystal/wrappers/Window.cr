@@ -35,15 +35,15 @@ module SDC
     end
 
     @[Anyolite::ReturnNil]
-    def add_static(obj : SDC::Drawable)
+    def pin(obj : SDC::Drawable)
       @render_queue.add_static(obj, @z_offset + obj.z)
     end
 
-    def delete_static(obj : SDC::Drawable, all_duplicates : Bool = false)
-      @render_queue.delete_static(obj, @z_offset + obj.z, all_duplicates)
+    def unpin(obj : SDC::Drawable)
+      @render_queue.delete_static(obj, @z_offset + obj.z)
     end
 
-    def delete_static_content
+    def unpin_all
       @render_queue.delete_static_content
     end
 
@@ -67,6 +67,7 @@ module SDC
     end
 
     def finalize
+      unpin_all
       close
     end
   end

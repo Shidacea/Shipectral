@@ -51,6 +51,7 @@ module SDC
     end
 
     def finalize 
+      super
       free
     end
   end
