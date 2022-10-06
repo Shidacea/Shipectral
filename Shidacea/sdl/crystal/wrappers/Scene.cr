@@ -27,6 +27,10 @@ module SDC
       call_method(:at_init)
     end
 
+    def exit
+      call_method(:at_exit)
+    end
+
     def main_update
       call_method(:update)
     end

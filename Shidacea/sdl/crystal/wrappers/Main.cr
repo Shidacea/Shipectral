@@ -14,10 +14,10 @@ module SDC
       @@scene.not_nil!.main_update 
 
       if !@@next_scene
-        @@scene.not_nil!.at_exit
+        @@scene.not_nil!.exit
         @@scene = nil
       elsif @@next_scene != true
-        @@scene.not_nil!.at_exit
+        @@scene.not_nil!.exit
         @@scene = @@next_scene.as?(SDC::Scene).not_nil!
         @@next_scene = nil
         @@scene.not_nil!.init
