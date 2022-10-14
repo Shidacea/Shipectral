@@ -8,9 +8,10 @@ module SDC
     getter width : Int32 = 0
     getter height : Int32 = 0
 
-    property position : SDC::Coords = SDC.xy
+    property offset : SDC::Coords = SDC.xy
 
     def initialize(@renderer : SDC::Renderer = SDC.current_window.renderer)
+      super()
     end
 
     def self.load_from_file(filename : String, renderer : SDC::Renderer = SDC.current_window.renderer)
@@ -37,10 +38,15 @@ module SDC
     end
 
     def draw_directly
-      # TODO: Add more attributes here
-      render_quad = LibSDL::Rect.new(x: @position.x, y: @position.y, w: @width, h: @height)
+      render_rect = LibSDL::Rect.new(x: @offset.x, y: @offset.y, w: @width, h: @height)
+      LibSDL.render_copy_ex(@renderer.data, data, nil, pointerof(render_rect), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
+    end
 
-      LibSDL.render_copy_ex(@renderer.data, data, nil, pointerof(render_quad), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
+    # TODO: This could potentially be optimized
+    def draw_extended(source_rect : SDC::Rect? = nil, render_rect : SDC::Rect? = nil, angle : Number = 0.0, position : SDC::Coords = SDC.xy)
+      final_source_rect = source_rect ? source_rect.data : LibSDL::Rect.new(x: @offset.x, y: @offset.y, w: @width, h: @height)
+      final_render_rect = render_rect ? (render_rect + position).data : LibSDL::Rect.new(x: @offset.x + position.x, y: @offset.y + position.y, w: @width, h: @height)
+      LibSDL.render_copy_ex(@renderer.data, data, pointerof(final_source_rect), pointerof(final_render_rect), angle, nil, LibSDL::RendererFlip::FLIP_NONE)
     end
 
     def free

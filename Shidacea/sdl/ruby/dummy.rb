@@ -7,6 +7,11 @@ class SceneTest < SDC::Scene
     @window = SDC::Window.new("Hello World", 800, 600)
 
     @texture = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
+    @sprite = SDC::Sprite.new(from_texture: @texture)
+    @sprite.source_rect = SDC::Rect.new(width: 50, height: 50)
+    @sprite.render_rect = SDC::Rect.new(width: 50, height: 50)
+    @sprite.position += SDC.xy(100.0, 50.0)
+    @sprite.angle = 45.0
     
     @window2 = SDC::Window.new("Also Hi", 400, 400)
 
@@ -21,10 +26,12 @@ class SceneTest < SDC::Scene
   end
 
   def update
-    @texture2.position.y += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_DOWN)
-    @texture2.position.y -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_UP)
-    @texture2.position.x += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_RIGHT)
-    @texture2.position.x -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_LEFT)
+    @texture2.offset.y += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_DOWN)
+    @texture2.offset.y -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_UP)
+    @texture2.offset.x += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_RIGHT)
+    @texture2.offset.x -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_LEFT)
+
+    @sprite.angle += 2.0
 
     SDC.next_scene = nil unless @window.open? || @window2.open?
   end
@@ -34,7 +41,7 @@ class SceneTest < SDC::Scene
       SDC.current_window = @window
       SDC.current_window.clear
 
-      @texture.draw
+      @sprite.draw
 
       SDC.current_window.render_and_display
     end

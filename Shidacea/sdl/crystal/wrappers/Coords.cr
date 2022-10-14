@@ -60,6 +60,7 @@ module SDC
     end
   end
 
+  @[Anyolite::WrapWithoutKeywords]
   def self.xy(x : Number = 0.0, y : Number = 0.0)
     SDC::Coords.new(x, y)
   end
