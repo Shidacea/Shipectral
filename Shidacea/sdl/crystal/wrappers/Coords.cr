@@ -58,6 +58,11 @@ module SDC
     def to_s
       "(#{@x} | #{@y})"
     end
+
+    @[Anyolite::Exclude]
+    def to_raw_point
+      LibSDL::Point.new(x: @x, y: @y)
+    end
   end
 
   @[Anyolite::WrapWithoutKeywords]

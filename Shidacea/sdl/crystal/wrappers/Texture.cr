@@ -37,16 +37,19 @@ module SDC
       LibSDL.free_surface(loaded_surface)
     end
 
-    def draw_directly
-      render_rect = LibSDL::Rect.new(x: @offset.x, y: @offset.y, w: @width, h: @height)
-      LibSDL.render_copy_ex(@renderer.data, data, nil, pointerof(render_rect), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
+    @[Anyolite::Exclude]
+    def raw_boundary_rect(shifted_by : SDC::Coords = SDC.xy)
+      LibSDL::Rect.new(x: @offset.x + shifted_by.x, y: @offset.y + shifted_by.y, w: @width, h: @height)
     end
 
-    # TODO: This could potentially be optimized
-    def draw_extended(source_rect : SDC::Rect? = nil, render_rect : SDC::Rect? = nil, angle : Number = 0.0, position : SDC::Coords = SDC.xy)
-      final_source_rect = source_rect ? source_rect.data : LibSDL::Rect.new(x: @offset.x, y: @offset.y, w: @width, h: @height)
-      final_render_rect = render_rect ? (render_rect + position).data : LibSDL::Rect.new(x: @offset.x + position.x, y: @offset.y + position.y, w: @width, h: @height)
-      LibSDL.render_copy_ex(@renderer.data, data, pointerof(final_source_rect), pointerof(final_render_rect), angle, nil, LibSDL::RendererFlip::FLIP_NONE)
+    @[Anyolite::Exclude]
+    def renderer_data
+      @renderer.data
+    end
+
+    def draw_directly
+      render_rect = raw_boundary_rect
+      LibSDL.render_copy_ex(@renderer.data, data, nil, pointerof(render_rect), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
     end
 
     def free

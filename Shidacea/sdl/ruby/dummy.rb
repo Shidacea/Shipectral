@@ -7,10 +7,10 @@ class SceneTest < SDC::Scene
     @window = SDC::Window.new("Hello World", 800, 600)
 
     @texture = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
-    @sprite = SDC::Sprite.new(from_texture: @texture)
-    @sprite.source_rect = SDC::Rect.new(width: 50, height: 50)
+    @sprite = SDC::Sprite.new(from_texture: @texture, source_rect: SDC::Rect.new(width: 50, height: 50))
     @sprite.render_rect = SDC::Rect.new(width: 50, height: 50)
     @sprite.position += SDC.xy(100.0, 50.0)
+    @sprite.center = SDC.xy(100.0, 10.0)
     @sprite.angle = 45.0
     
     @window2 = SDC::Window.new("Also Hi", 400, 400)

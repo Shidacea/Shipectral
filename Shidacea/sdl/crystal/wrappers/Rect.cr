@@ -11,6 +11,10 @@ module SDC
       SDC::Rect.new(x: self.x + vector.x, y: self.y + vector.y, width: self.width, height: self.height)
     end
 
+    def *(value : Number)
+      SDC::Rect.new(x: x, y: y, width: self.width * value, height: self.height * value)
+    end
+
     def x
       @data.x
     end
