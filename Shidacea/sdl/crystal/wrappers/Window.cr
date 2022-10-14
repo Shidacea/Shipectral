@@ -24,6 +24,15 @@ module SDC
       data?
     end
 
+    def position
+      LibSDL.get_window_position(data, out x, out y)
+      SDC::Coords.new(x, y)
+    end
+
+    def position=(coords : SDC::Coords)
+      LibSDL.set_window_position(data, coords.x, coords.y)
+    end
+
     def clear
       LibSDL.set_render_draw_color(@renderer.data, 0xFF, 0xFF, 0xFF, 0xFF)
       LibSDL.render_clear(@renderer.data)

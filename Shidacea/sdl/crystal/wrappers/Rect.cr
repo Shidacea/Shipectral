@@ -1,10 +1,11 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
+  @[Anyolite::ExcludeInstanceMethod("data")]
   class Rect
-    getter data : LibSDL::Rect
+    getter data : LibSDL::FRect
 
     def initialize(x : Number = 0.0, y : Number = 0.0, width : Number = 0.0, height : Number = 0.0)
-      @data = LibSDL::Rect.new(x: x, y: y, w: width, h: height)
+      @data = LibSDL::FRect.new(x: x, y: y, w: width, h: height)
     end
 
     def +(vector : SDC::Coords)
@@ -45,6 +46,11 @@ module SDC
 
     def height=(value : Number)
       @data.h = value
+    end
+
+    @[Anyolite::Exclude]
+    def int_data
+      LibSDL::Rect.new(x: self.x, y: self.y, w: self.width, h: self.height)
     end
   end
 end

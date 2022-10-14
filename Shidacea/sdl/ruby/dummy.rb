@@ -10,7 +10,7 @@ class SceneTest < SDC::Scene
     @sprite = SDC::Sprite.new(from_texture: @texture, source_rect: SDC::Rect.new(width: 50, height: 50))
     @sprite.render_rect = SDC::Rect.new(width: 50, height: 50)
     @sprite.position += SDC.xy(100.0, 50.0)
-    @sprite.center = SDC.xy(100.0, 10.0)
+    @sprite.center = SDC.xy(0.0, 0.0)
     @sprite.angle = 45.0
     
     @window2 = SDC::Window.new("Also Hi", 400, 400)
@@ -32,6 +32,7 @@ class SceneTest < SDC::Scene
     @texture2.offset.x -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_LEFT)
 
     @sprite.angle += 2.0
+    @sprite.position = (@window2.open? && @window.open?) ? (@window2.position - @window.position) : SDC.xy(100.0, 50.0)
 
     SDC.next_scene = nil unless @window.open? || @window2.open?
   end

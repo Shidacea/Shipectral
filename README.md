@@ -74,7 +74,7 @@ allowing for a solid Ruby-based game development experience.
 
 * [X] Keyboard support
 * [X] Render queue with z-order
-* [ ] Sprites
+* [X] Sprites
 * [ ] Shapes
 * [ ] Sounds
 * [ ] Fonts and texts

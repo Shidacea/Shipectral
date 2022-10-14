@@ -39,6 +39,11 @@ module SDC
 
     @[Anyolite::Exclude]
     def raw_boundary_rect(shifted_by : SDC::Coords = SDC.xy)
+      LibSDL::FRect.new(x: @offset.x + shifted_by.x, y: @offset.y + shifted_by.y, w: @width, h: @height)
+    end
+
+    @[Anyolite::Exclude]
+    def raw_int_boundary_rect(shifted_by : SDC::Coords = SDC.xy)
       LibSDL::Rect.new(x: @offset.x + shifted_by.x, y: @offset.y + shifted_by.y, w: @width, h: @height)
     end
 
@@ -49,7 +54,7 @@ module SDC
 
     def draw_directly
       render_rect = raw_boundary_rect
-      LibSDL.render_copy_ex(@renderer.data, data, nil, pointerof(render_rect), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
+      LibSDL.render_copy_ex_f(@renderer.data, data, nil, pointerof(render_rect), 0.0, nil, LibSDL::RendererFlip::FLIP_NONE)
     end
 
     def free

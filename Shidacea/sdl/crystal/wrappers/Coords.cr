@@ -1,32 +1,47 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
+  @[Anyolite::ExcludeInstanceMethod("data")]
   class Coords
-    property x : Float32 = 0.0
-    property y : Float32 = 0.0
+    getter data : LibSDL::FPoint
     
     def initialize(x : Number = 0.0, y : Number = 0.0)
-      @x = x.to_f32
-      @y = y.to_f32
+      @data = LibSDL::FPoint.new(x: x, y: y)
+    end
+
+    def x
+      @data.x
+    end
+
+    def x=(value : Number)
+      @data.x = value
+    end
+
+    def y
+      @data.y
+    end
+
+    def y=(value : Number)
+      @data.y = value
     end
 
     def +(other : SDC::Coords)
-      SDC::Coords.new(@x + other.x, @y + other.y)
+      SDC::Coords.new(self.x + other.x, self.y + other.y)
     end
 
     def -(other : SDC::Coords)
-      SDC::Coords.new(@x - other.x, @y - other.y)
+      SDC::Coords.new(self.x - other.x, self.y - other.y)
     end
 
     def *(scalar : Number)
-      SDC::Coords.new(@x * scalar, @y * scalar)
+      SDC::Coords.new(self.x * scalar, self.y * scalar)
     end
 
     def /(scalar : Number)
-      SDC::Coords.new(@x / scalar, @y / scalar)
+      SDC::Coords.new(self.x / scalar, self.y / scalar)
     end
 
     def dot(other : SDC::Coords)
-      @x * other.x + @y * other.y
+      self.x * other.x + self.y * other.y
     end
 
     def squared_norm
@@ -52,16 +67,16 @@ module SDC
     end
 
     def angle
-      Math.atan2(@y, @x)
+      Math.atan2(self.y, self.x)
     end
 
     def to_s
-      "(#{@x} | #{@y})"
+      "(#{self.x} | #{self.y})"
     end
 
     @[Anyolite::Exclude]
-    def to_raw_point
-      LibSDL::Point.new(x: @x, y: @y)
+    def int_data
+      LibSDL::Point.new(x: self.x, y: self.y)
     end
   end
 
