@@ -22,8 +22,9 @@ class SceneTest < SDC::Scene
     @texture3.pin
     @texture3.z = 1
 
-    SDC::Music.volume = 32
     @music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
+    @music.volume = 32
+
     @sound = SDC::Sound.load_from_file("demo_projects/Example_Test/assets/sounds/Yeow.ogg")
   end
 
@@ -67,7 +68,17 @@ class SceneTest < SDC::Scene
     elsif event.type == SDC::Event::KEYDOWN
       puts "Key pressed: #{event.as_key_event.key_name}"
 
-      @music.play if event.as_key_event.key == SDC::Keyboard::K_M
+      if event.as_key_event.key == SDC::Keyboard::K_M
+        if @music.current_music?
+          if @music.playing?
+            @music.pause
+          else
+            @music.resume
+          end
+        else
+          @music.play
+        end
+      end
 
       if event.as_key_event.key == SDC::Keyboard::K_S
         @sound.volume = rand(128 + 1)

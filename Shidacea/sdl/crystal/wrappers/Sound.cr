@@ -12,11 +12,12 @@ module SDC
     end
 
     def volume
-      data.value.volume
+      LibSDL.mix_volume_chunk(data, -1)
     end
 
     def volume=(value : Number)
-      data.value.volume = value
+      LibSDL.mix_volume_chunk(data, value)
+      volume
     end
 
     def free

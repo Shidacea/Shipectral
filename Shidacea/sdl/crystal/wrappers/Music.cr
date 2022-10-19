@@ -3,22 +3,60 @@ module SDC
   class Music
     SDCHelper.wrap_type(Pointer(LibSDL::MixMusic))
 
+    class_getter current_music : SDC::Music?
+
+    property volume : Int32 = LibSDL::MIX_MAX_VOLUME
+    
+    @playing : Bool = false
+
     def initialize
 
     end
 
+    def current_music?
+      @@current_music == self
+    end
+
     def play
+      LibSDL.mix_volume_music(@volume)
       LibSDL.mix_play_music(data, -1)
+      @playing = true
+      @@current_music = self
     end
 
-    def self.volume
-      LibSDL.mix_volume_music(-1)
+    def rewind
+      LibSDL.mix_rewind_music if current_music?
     end
 
-    def self.volume=(value : Number)
-      LibSDL.mix_volume_music(value)
-      # NOTE: The function above returns the previous value, but we want the current one
-      LibSDL.mix_volume_music(-1)
+    def stop
+      if current_music?
+        LibSDL.mix_halt_music
+        @playing = false
+        @@current_music = nil
+      end
+    end
+
+    def playing?
+      unless current_music?
+        @playing = false
+      end
+      
+      @playing
+    end
+
+    def pause
+      if current_music?
+        LibSDL.mix_pause_music
+        @playing = false
+      end
+    end
+
+    def resume
+      if current_music?
+        LibSDL.mix_volume_music(@volume)
+        LibSDL.mix_resume_music
+        @playing = true
+      end
     end
 
     def free
