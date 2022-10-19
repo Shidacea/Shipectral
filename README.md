@@ -76,11 +76,10 @@ allowing for a solid Ruby-based game development experience.
 * [X] Render queue with z-order
 * [X] Sprites
 * [X] Sounds and music
-* [ ] Shapes
 * [ ] Fonts and texts
 * [ ] Mouse support
 * [ ] Views
-* [ ] Music tracks
+* [ ] Shapes
 * [ ] Implementation of SDC/SDL library in Crystal (as far as possible)
 * [ ] Dedicated map class
 * [ ] Full SDL support on Windows and Linux
