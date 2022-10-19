@@ -80,6 +80,8 @@ class SceneTest < SDC::Scene
         end
       end
 
+      @music.volume += 10 if event.as_key_event.key == SDC::Keyboard::K_L
+
       if event.as_key_event.key == SDC::Keyboard::K_S
         @sound.volume = rand(128 + 1)
         @sound.play

@@ -20,6 +20,15 @@ module SDC
       volume
     end
 
+    def self.master_volume
+      LibSDL.mix_master_volume(-1)
+    end
+  
+    def self.master_volume=(value : Number)
+      LibSDL.mix_master_volume(value)
+      self.master_volume
+    end
+
     def free
       if @data
         LibSDL.mix_free_chunk(data)

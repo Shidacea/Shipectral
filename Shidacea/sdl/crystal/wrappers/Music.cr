@@ -5,7 +5,7 @@ module SDC
 
     class_getter current_music : SDC::Music?
 
-    property volume : Int32 = LibSDL::MIX_MAX_VOLUME
+    getter volume : Int32 = SDC::MAX_VOLUME
     
     @playing : Bool = false
 
@@ -15,6 +15,11 @@ module SDC
 
     def current_music?
       @@current_music == self
+    end
+
+    def volume=(value : Number)
+      @volume = value.to_i32
+      LibSDL.mix_volume_music(@volume) if current_music?
     end
 
     def play

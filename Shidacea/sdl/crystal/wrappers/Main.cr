@@ -1,5 +1,7 @@
 @[Anyolite::DefaultOptionalArgsToKeywordArgs]
 module SDC
+  MAX_VOLUME = LibSDL::MIX_MAX_VOLUME
+
   class_property scene : SDC::Scene?
   class_property next_scene : SDC::Scene | Bool | Nil
   class_property limiter : SDC::Limiter?
