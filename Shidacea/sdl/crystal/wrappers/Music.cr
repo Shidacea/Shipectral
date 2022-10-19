@@ -11,6 +11,16 @@ module SDC
       LibSDL.mix_play_music(data, -1)
     end
 
+    def self.volume
+      LibSDL.mix_volume_music(-1)
+    end
+
+    def self.volume=(value : Number)
+      LibSDL.mix_volume_music(value)
+      # NOTE: The function above returns the previous value, but we want the current one
+      LibSDL.mix_volume_music(-1)
+    end
+
     def free
       if @data
         LibSDL.mix_free_music(data)
