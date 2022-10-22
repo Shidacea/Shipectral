@@ -29,13 +29,17 @@ class SceneTest < SDC::Scene
   end
 
   def update
-    @texture2.offset.y += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_DOWN)
-    @texture2.offset.y -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_UP)
-    @texture2.offset.x += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_RIGHT)
-    @texture2.offset.x -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_LEFT)
+    if @window2.open?
+      @texture2.offset.y += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_DOWN)
+      @texture2.offset.y -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_UP)
+      @texture2.offset.x += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_RIGHT)
+      @texture2.offset.x -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_LEFT)
+    end
 
-    @sprite.angle += 2.0
-    @sprite.position = (@window2.open? && @window.open?) ? (@window2.position - @window.position) : SDC.xy(100.0, 50.0)
+    if @window.open?
+      @sprite.angle += 2.0
+      @sprite.position = SDC::Mouse.position if SDC::Mouse.focused_window == @window
+    end
 
     SDC.next_scene = nil unless @window.open? || @window2.open?
   end

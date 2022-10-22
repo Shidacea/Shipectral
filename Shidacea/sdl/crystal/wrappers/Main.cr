@@ -5,6 +5,7 @@ module SDC
   class_property scene : SDC::Scene?
   class_property next_scene : SDC::Scene | Bool | Nil
   class_property limiter : SDC::Limiter?
+  class_getter windows : Array(SDC::Window) = [] of SDC::Window
 
   @@current_window : SDC::Window?
 
@@ -68,6 +69,26 @@ module SDC
 
   def self.current_window=(window : SDC::Window?)
     @@current_window = window
+  end
+
+  def self.register_window(window : SDC::Window)
+    @@windows.push(window) unless @@windows.includes?(window)
+  end
+
+  def self.unregister_window(window : SDC::Window)
+    @@windows.delete(window)
+  end
+
+  def self.get_mouse_focused_window
+    raw_window = LibSDL.get_mouse_focus
+
+    @@windows.each do |window|
+      if window.data == raw_window
+        return window
+      end
+    end
+
+    return nil
   end
 
   def unpin_all

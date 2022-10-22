@@ -18,6 +18,7 @@ module SDC
       SDC.error "Could not create renderer" unless @renderer.data?
 
       SDC.current_window = self if set_as_current
+      SDC.register_window(self)
     end
 
     def open?
@@ -70,6 +71,7 @@ module SDC
 
     def close
       SDC.current_window = nil if SDC.current_window == self
+      SDC.unregister_window(self)
       @renderer.free
       LibSDL.destroy_window(data)
       @data = nil
