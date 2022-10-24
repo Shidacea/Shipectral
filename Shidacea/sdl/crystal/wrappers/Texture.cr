@@ -37,6 +37,21 @@ module SDC
       LibSDL.free_surface(loaded_surface)
     end
 
+    def load_text_from_font!(text : String, font : SDC::Font, color : SDC::Color = SDC::Color.new)
+      free
+
+      text_surface = LibSDL.ttf_render_text_solid(font.data, text, color.data)
+      SDC.error "Could not create texture from rendered text" unless text_surface
+
+      @data = LibSDL.create_texture_from_surface(@renderer.data, text_surface)
+      raise "Could not create texture from rendered text surface" unless @data
+
+      @width = text_surface.value.w
+      @height = text_surface.value.h
+
+      LibSDL.free_surface(text_surface)
+    end
+
     @[Anyolite::Exclude]
     def raw_boundary_rect(shifted_by : SDC::Coords = SDC.xy)
       LibSDL::FRect.new(x: @offset.x + shifted_by.x, y: @offset.y + shifted_by.y, w: @width, h: @height)

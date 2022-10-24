@@ -54,6 +54,10 @@ module SDC
       SDC.error "Could not initialize SDL_image"
     end
 
+    if LibSDL.ttf_init == -1
+      SDC.error "Could not initialize SDL_ttf"
+    end
+
     if LibSDL.mix_open_audio(44100, LibSDL::MIX_DEFAULT_FORMAT, 2, 2048) < 0
       SDC.error "Could not initialize SDL_mixer"
     end
@@ -109,6 +113,7 @@ module SDC
 
   def self.quit
     LibSDL.mix_quit
+    LibSDL.ttf_quit
     LibSDL.img_quit
     LibSDL.quit
   end

@@ -22,6 +22,11 @@ class SceneTest < SDC::Scene
     @texture3.pin
     @texture3.z = 1
 
+    @font = SDC::Font.load_from_file("demo_projects/Example_Test/assets/fonts/arial.ttf")
+    @text = SDC::Text.new("Hello, World!", @font)
+    @text.position = SDC.xy(200, 300)
+    @text.color = SDC::Color.new(r: 255)
+
     @music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
     @music.volume = 32
 
@@ -55,6 +60,8 @@ class SceneTest < SDC::Scene
   
     SDC.for_window(@window2) do
       SDC.current_window.clear
+
+      @text.draw
       
       SDC.current_window.render_and_display
     end
