@@ -10,11 +10,11 @@ module SDC
 
     property offset : SDC::Coords = SDC.xy
 
-    def initialize(@renderer : SDC::Renderer = SDC.current_window.renderer)
+    def initialize(@renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
       super()
     end
 
-    def self.load_from_file(filename : String, renderer : SDC::Renderer = SDC.current_window.renderer)
+    def self.load_from_file(filename : String, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
       texture = SDC::Texture.new(renderer)
       texture.load_from_file!(filename)
 

@@ -29,14 +29,14 @@ class SceneTest < SDC::Scene
   end
 
   def update
-    if @window2.open?
+    SDC.for_window(@window2) do
       @texture2.offset.y += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_DOWN)
       @texture2.offset.y -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_UP)
       @texture2.offset.x += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_RIGHT)
       @texture2.offset.x -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_LEFT)
     end
 
-    if @window.open?
+    SDC.for_window(@window) do
       @sprite.angle += 2.0
       @sprite.position = SDC::Mouse.position if SDC::Mouse.focused_window == @window
     end
@@ -45,8 +45,7 @@ class SceneTest < SDC::Scene
   end
 
   def draw
-    if @window.open?
-      SDC.current_window = @window
+    SDC.for_window(@window) do
       SDC.current_window.clear
 
       @sprite.draw
@@ -54,8 +53,7 @@ class SceneTest < SDC::Scene
       SDC.current_window.render_and_display
     end
   
-    if @window2.open?
-      SDC.current_window = @window2
+    SDC.for_window(@window2) do
       SDC.current_window.clear
       
       SDC.current_window.render_and_display

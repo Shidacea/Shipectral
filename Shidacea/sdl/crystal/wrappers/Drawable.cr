@@ -4,7 +4,7 @@ module SDC
     getter pinned : Bool = false
 
     def draw
-      SDC.current_window.draw(self)
+      SDC.current_window.not_nil!.draw(self)
     end
 
     def finalize
@@ -23,12 +23,12 @@ module SDC
 
     def pin
       @pinned = true
-      SDC.current_window.pin(self)
+      SDC.current_window.not_nil!.pin(self)
     end
 
     def unpin
       @pinned = false
-      SDC.current_window.unpin(self)
+      SDC.current_window.not_nil!.unpin(self)
     end
 
     abstract def draw_directly

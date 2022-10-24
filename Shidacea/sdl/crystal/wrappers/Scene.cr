@@ -38,10 +38,10 @@ module SDC
     def main_draw
       if @use_own_draw_implementation
         call_inner_draw_block
-      else
-        SDC.current_window.clear
+      elsif win = SDC.current_window
+        win.clear
         call_inner_draw_block
-        SDC.current_window.render_and_display
+        win.render_and_display
       end
     end
 

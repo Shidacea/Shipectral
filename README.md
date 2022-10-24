@@ -76,8 +76,8 @@ allowing for a solid Ruby-based game development experience.
 * [X] Render queue with z-order
 * [X] Sprites
 * [X] Sounds and music
+* [X] Mouse support
 * [ ] Fonts and texts
-* [ ] Mouse support
 * [ ] Views
 * [ ] Shapes
 * [ ] Implementation of SDC/SDL library in Crystal (as far as possible)

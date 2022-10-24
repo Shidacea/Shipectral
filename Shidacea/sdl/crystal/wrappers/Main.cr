@@ -63,7 +63,7 @@ module SDC
     if window = @@current_window
       window
     else
-      SDC.error "No current window available"
+      nil
     end
   end
 
@@ -77,6 +77,18 @@ module SDC
 
   def self.unregister_window(window : SDC::Window)
     @@windows.delete(window)
+  end
+
+  @[Anyolite::AddBlockArg(1, Nil)]
+  def self.for_window(window : SDC::Window)
+    previous_window = @@current_window
+    @@current_window = window
+    if win = @@current_window
+      if win.open? 
+        yield nil
+      end
+    end
+    @@current_window = previous_window
   end
 
   def self.get_mouse_focused_window
