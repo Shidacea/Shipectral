@@ -15,6 +15,8 @@ class SceneTest < SDC::Scene
     
     @window2 = SDC::Window.new("Also Hi", 400, 400)
 
+    @view = SDC::View.new(SDC::Rect.new(x: 100, y: 100, width: 200, height: 200))
+
     @texture2 = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
     @texture2.pin
 
@@ -61,7 +63,9 @@ class SceneTest < SDC::Scene
     SDC.for_window(@window2) do
       SDC.current_window.clear
 
-      @text.draw
+      SDC.with_view(@view) do
+        @text.draw
+      end
       
       SDC.current_window.render_and_display
     end
@@ -90,6 +94,8 @@ class SceneTest < SDC::Scene
       end
 
       @music.volume += 10 if event.as_key_event.key == SDC::Keyboard::K_L
+
+      @view.x += 1 if event.as_key_event.key == SDC::Keyboard::K_V
 
       if event.as_key_event.key == SDC::Keyboard::K_S
         @sound.volume = 64 + rand(64 + 1)

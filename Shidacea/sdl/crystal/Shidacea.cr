@@ -24,6 +24,7 @@ require "./wrappers/Sound.cr"
 require "./wrappers/Sprite.cr"
 require "./wrappers/Text.cr"
 require "./wrappers/Texture.cr"
+require "./wrappers/View.cr"
 require "./wrappers/Window.cr"
 
 def load_engine_library(rb)

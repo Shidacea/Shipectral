@@ -57,14 +57,8 @@ module SDC
       @render_queue.delete_static_content
     end
 
-    @[Anyolite::AddBlockArg(1, Nil)]
-    def with_z_offset(z_offset : UInt8)
-      @z_offset += z_offset
-      yield nil
-      @z_offset -= z_offset
-    end
-
     def render_and_display
+      @renderer.reset_view
       @render_queue.draw
       LibSDL.render_present(@renderer.data)
     end

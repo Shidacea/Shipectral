@@ -95,6 +95,35 @@ module SDC
     @@current_window = previous_window
   end
 
+  @[Anyolite::AddBlockArg(1, Nil)]
+  def self.with_z_offset(z_offset : Number)
+    if win = @@current_window
+      win.z_offset += z_offset.to_u8
+      yield nil
+      win.z_offset -= z_offset.to_u8
+    end
+  end
+
+  @[Anyolite::AddBlockArg(1, Nil)]
+  def self.with_view(view : SDC::View, z_offset : Number = 0u8)
+    if win = @@current_window
+      self.with_z_offset(z_offset) do
+        win.draw view
+        yield nil
+      end
+    end
+  end
+
+  @[Anyolite::AddBlockArg(1, Nil)]
+  def self.with_pinned_view(view : SDC::View, z_offset : Number = 0u8)
+    if win = @@current_window
+      self.with_z_offset(z_offset) do
+        win.pin view
+        yield nil
+      end
+    end
+  end
+
   def self.get_mouse_focused_window
     raw_window = LibSDL.get_mouse_focus
 

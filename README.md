@@ -78,7 +78,7 @@ allowing for a solid Ruby-based game development experience.
 * [X] Sounds and music
 * [X] Mouse support
 * [X] Fonts and texts
-* [ ] Views
+* [X] Views
 * [ ] Shapes
 * [ ] Implementation of SDC/SDL library in Crystal (as far as possible)
 * [ ] Dedicated map class
