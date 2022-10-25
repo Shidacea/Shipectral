@@ -12,7 +12,7 @@ module SDC
     property angle : Float32 = 0.0f32
     property center : SDC::Coords?
 
-    def initialize(@text : String, @font : SDC::Font, @color : SDC::Color = SDC::Color.new)
+    def initialize(@text : String, @font : SDC::Font, @color : SDC::Color = SDC::Color::BLACK)
       super()
       @texture = SDC::Texture.new
       update!

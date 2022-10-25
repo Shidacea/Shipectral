@@ -37,7 +37,7 @@ module SDC
       LibSDL.free_surface(loaded_surface)
     end
 
-    def load_text_from_font!(text : String, font : SDC::Font, color : SDC::Color = SDC::Color.new)
+    def load_text_from_font!(text : String, font : SDC::Font, color : SDC::Color = SDC::Color::BLACK)
       free
 
       text_surface = LibSDL.ttf_render_text_solid(font.data, text, color.data)

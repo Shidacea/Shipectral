@@ -12,6 +12,11 @@ class SceneTest < SDC::Scene
     @sprite.position += SDC.xy(100.0, 50.0)
     @sprite.center = SDC.xy(0.0, 0.0)
     @sprite.angle = 45.0
+
+    @box = SDC::ShapeBox.new(SDC.xy(200, 200), origin: SDC.xy(150, 150))
+    @box.color = SDC::Color::GREEN
+    @box.z = 10
+    @box.pin
     
     @window2 = SDC::Window.new("Also Hi", 400, 400)
 
@@ -27,7 +32,7 @@ class SceneTest < SDC::Scene
     @font = SDC::Font.load_from_file("demo_projects/Example_Test/assets/fonts/arial.ttf")
     @text = SDC::Text.new("Hello, World!", @font)
     @text.position = SDC.xy(200, 300)
-    @text.color = SDC::Color.new(r: 255)
+    @text.color = SDC::Color::RED
 
     @music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
     @music.volume = 32
