@@ -7,6 +7,7 @@ require "./wrappers/Helper.cr"
 
 require "./wrappers/Main.cr"
 
+require "./wrappers/CollisionShapes.cr"
 require "./wrappers/Color.cr"
 require "./wrappers/Coords.cr"
 require "./wrappers/Drawable.cr"

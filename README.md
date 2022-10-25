@@ -80,6 +80,7 @@ allowing for a solid Ruby-based game development experience.
 * [X] Fonts and texts
 * [X] Views
 * [ ] Shapes
+* [ ] Collision Shapes
 * [ ] Implementation of SDC/SDL library in Crystal (as far as possible)
 * [ ] Dedicated map class
 * [ ] Full SDL support on Windows and Linux
