@@ -15,6 +15,7 @@ class SceneTest < SDC::Scene
 
     @box = SDC::ShapeBox.new(SDC.xy(200, 200), origin: SDC.xy(150, 150))
     @box.color = SDC::Color::GREEN
+    @box.filled = true
     @box.z = 10
     @box.pin
     

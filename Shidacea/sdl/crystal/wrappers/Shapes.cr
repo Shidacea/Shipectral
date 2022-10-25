@@ -44,6 +44,7 @@ module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class ShapeBox < Shape
     property size : SDC::Coords
+    property filled : Bool = false
 
     @[Anyolite::Specialize]
     def initialize(size : SDC::Coords, origin : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
@@ -56,7 +57,11 @@ module SDC
       LibSDL.set_render_draw_color(@renderer.data, @color.r, @color.g, @color.b, @color.a)
       rect = LibSDL::FRect.new(x: @origin.x, y: @origin.y, w: @size.x, h: @size.y)
       # NOTE: A pointer is passed, but since its contents will be copied immediately, there should be no issues
-      LibSDL.render_draw_rect_f(@renderer.data, pointerof(rect))
+      if @filled
+        LibSDL.render_fill_rect_f(@renderer.data, pointerof(rect))
+      else
+        LibSDL.render_draw_rect_f(@renderer.data, pointerof(rect))
+      end
     end
   end
 
