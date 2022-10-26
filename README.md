@@ -72,8 +72,13 @@ allowing for a solid Ruby-based game development experience.
 
 ##### Shidacea/SDL
 
+* [X] Coordinates and colors
+* [X] Window class
+* [X] Textures
 * [X] Keyboard support
 * [X] Render queue with z-order
+* [X] Framerate limiter
+* [X] Scenes
 * [X] Sprites
 * [X] Sounds and music
 * [X] Mouse support
@@ -81,8 +86,15 @@ allowing for a solid Ruby-based game development experience.
 * [X] Views
 * [ ] Shapes
 * [ ] Collision Shapes
-* [ ] Implementation of SDC/SDL library in Crystal (as far as possible)
-* [ ] Dedicated map class
+* [ ] Entity class
+* [ ] Scripting utility for entities
+* [ ] Consistent property system
+* [ ] Resource manager
+* [ ] Marshalling support
+* [ ] Game state class
+* [ ] Game controller state
+* [ ] Full event support
+* [ ] Dedicated tile and map classes
 * [ ] Full SDL support on Windows and Linux
 * [ ] ImGui support
 
