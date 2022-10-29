@@ -184,8 +184,8 @@ module SDC
 
       x2 = pos_2.x
       y2 = pos_2.y
-      dx2 = shape_2.line.x
-      dy2 = shape_2.line.y
+      dx2 = shape_2.line.x * shape_2.scale.x
+      dy2 = shape_2.line.y * shape_2.scale.y
 
       Collishi.collision_point_line(x1, y1, x2, y2, dx2, dy2)
     end
@@ -248,13 +248,13 @@ module SDC
     def self.check_collision(shape_1 : SDC::CollisionShapeLine, shape_2 : SDC::CollisionShapeLine, pos_1 : SDC::Coords, pos_2 : SDC::Coords)
       x1 = pos_1.x
       y1 = pos_1.y
-      dx1 = shape_1.line.x
-      dy1 = shape_1.line.y
+      dx1 = shape_1.line.x * shape_1.scale.x
+      dy1 = shape_1.line.y * shape_1.scale.y
 
       x2 = pos_2.x
       y2 = pos_2.y
-      dx2 = shape_2.line.x
-      dy2 = shape_2.line.y
+      dx2 = shape_2.line.x * shape_2.scale.x
+      dy2 = shape_2.line.y * shape_2.scale.y
 
       Collishi.collision_line_line(x1, y1, dx1, dy1, x2, y2, dx2, dy2)
     end
@@ -262,8 +262,8 @@ module SDC
     def self.check_collision(shape_1 : SDC::CollisionShapeLine, shape_2 : SDC::CollisionShapeCircle, pos_1 : SDC::Coords, pos_2 : SDC::Coords)
       x1 = pos_1.x
       y1 = pos_1.y
-      dx1 = shape_1.line.x
-      dy1 = shape_1.line.y
+      dx1 = shape_1.line.x * shape_1.scale.x
+      dy1 = shape_1.line.y * shape_1.scale.y
 
       x2 = pos_2.x
       y2 = pos_2.y
@@ -275,8 +275,8 @@ module SDC
     def self.check_collision(shape_1 : SDC::CollisionShapeLine, shape_2 : SDC::CollisionShapeBox, pos_1 : SDC::Coords, pos_2 : SDC::Coords)
       x1 = pos_1.x
       y1 = pos_1.y
-      dx1 = shape_1.line.x
-      dy1 = shape_1.line.y
+      dx1 = shape_1.line.x * shape_1.scale.x
+      dy1 = shape_1.line.y * shape_1.scale.y
 
       x2 = pos_2.x
       y2 = pos_2.y
@@ -289,8 +289,8 @@ module SDC
     def self.check_collision(shape_1 : SDC::CollisionShapeLine, shape_2 : SDC::CollisionShapeTriangle, pos_1 : SDC::Coords, pos_2 : SDC::Coords)
       x1 = pos_1.x
       y1 = pos_1.y
-      dx1 = shape_1.line.x
-      dy1 = shape_1.line.y
+      dx1 = shape_1.line.x * shape_1.scale.x
+      dy1 = shape_1.line.y * shape_1.scale.y
 
       x2 = pos_2.x
       y2 = pos_2.y
@@ -305,8 +305,8 @@ module SDC
     def self.check_collision(shape_1 : SDC::CollisionShapeLine, shape_2 : SDC::CollisionShapeEllipse, pos_1 : SDC::Coords, pos_2 : SDC::Coords)
       x1 = pos_1.x
       y1 = pos_1.y
-      dx1 = shape_1.line.x
-      dy1 = shape_1.line.y
+      dx1 = shape_1.line.x * shape_1.scale.x
+      dy1 = shape_1.line.y * shape_1.scale.y
 
       x2 = pos_2.x
       y2 = pos_2.y

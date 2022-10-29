@@ -1,6 +1,6 @@
 module SDC
   abstract class Shape < SDC::Drawable
-    property origin : SDC::Coords = SDC.xy
+    property position : SDC::Coords = SDC.xy
     property color : SDC::Color = SDC::Color::BLACK
 
     @renderer : SDC::Renderer
@@ -13,14 +13,14 @@ module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class ShapePoint < Shape
     @[Anyolite::Specialize]
-    def initialize(origin : SDC::Coords = SDC.xy, @renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
+    def initialize(position : SDC::Coords = SDC.xy, @renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
       super(renderer)
-      @origin = origin
+      @position = position
     end
 
     def draw_directly
       LibSDL.set_render_draw_color(@renderer.data, @color.r, @color.g, @color.b, @color.a)
-      LibSDL.render_draw_point_f(@renderer.data, @origin.x, @origin.y)
+      LibSDL.render_draw_point_f(@renderer.data, @position.x, @position.y)
     end
   end
 
@@ -29,15 +29,15 @@ module SDC
     property direction : SDC::Coords
 
     @[Anyolite::Specialize]
-    def initialize(direction : SDC::Coords, origin : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
+    def initialize(direction : SDC::Coords, position : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
       super(renderer)
       @direction = direction
-      @origin = origin
+      @position = position
     end
 
     def draw_directly
       LibSDL.set_render_draw_color(@renderer.data, @color.r, @color.g, @color.b, @color.a)
-      LibSDL.render_draw_line_f(@renderer.data, @origin.x, @origin.y, @origin.x + @direction.x, @origin.y + @direction.y)
+      LibSDL.render_draw_line_f(@renderer.data, @position.x, @position.y, @position.x + @direction.x, @position.y + @direction.y)
     end
   end
 
@@ -47,15 +47,15 @@ module SDC
     property filled : Bool = false
 
     @[Anyolite::Specialize]
-    def initialize(size : SDC::Coords, origin : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
+    def initialize(size : SDC::Coords, position : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
       super(renderer)
       @size = size
-      @origin = origin
+      @position = position
     end
 
     def draw_directly
       LibSDL.set_render_draw_color(@renderer.data, @color.r, @color.g, @color.b, @color.a)
-      rect = LibSDL::FRect.new(x: @origin.x, y: @origin.y, w: @size.x, h: @size.y)
+      rect = LibSDL::FRect.new(x: @position.x, y: @position.y, w: @size.x, h: @size.y)
       # NOTE: A pointer is passed, but since its contents will be copied immediately, there should be no issues
       if @filled
         LibSDL.render_fill_rect_f(@renderer.data, pointerof(rect))
@@ -70,10 +70,10 @@ module SDC
     property radius : Float32
 
     @[Anyolite::Specialize]
-    def initialize(radius : Float32, origin : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
+    def initialize(radius : Float32, position : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
       super(renderer)
       @radius = radius
-      @origin = origin
+      @position = position
     end
 
     def draw_directly
@@ -87,17 +87,17 @@ module SDC
     property side_2 : SDC::Coords
 
     def self.from_vertices(vertex_0 : SDC::Coords, vertex_1 : SDC::Coords, vertex_2 : SDC::Coords, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
-      self.new(vertex_1 - vertex_0, vertex_2 - vertex_0, origin: vertex_0, renderer: renderer)
+      self.new(vertex_1 - vertex_0, vertex_2 - vertex_0, position: vertex_0, renderer: renderer)
     end
 
     def get_vertex(number : Int)
       case number
       when 0
-        @origin
+        @position
       when 1
-        @origin + @side_1
+        @position + @side_1
       when 2
-        @origin + @side_2
+        @position + @side_2
       else
         raise("Invalid index for vertices: #{number}")
       end
@@ -106,46 +106,46 @@ module SDC
     def set_vertex(number : Int, value : SDC::Coords)
       case number
       when 0
-        @origin = value
+        @position = value
       when 1
-        @side_1 = value - @origin
+        @side_1 = value - @position
       when 2
-        @side_2 = value - @origin
+        @side_2 = value - @position
       else
         raise("Invalid index for vertices: #{number}")
       end
     end
 
     def vertex_0
-      @origin
+      @position
     end
 
     def vertex_1
-      @origin + @side_1
+      @position + @side_1
     end
 
     def vertex_2
-      @origin + @side_2
+      @position + @side_2
     end
 
     def vertex_0=(value : SDC::Coords)
-      @origin = value
+      @position = value
     end
 
     def vertex_1=(value : SDC::Coords)
-      @side_1 = value - @origin
+      @side_1 = value - @position
     end
 
     def vertex_2=(value : SDC::Coords)
-      @side_2 = value - @origin
+      @side_2 = value - @position
     end
 
     @[Anyolite::Specialize]
-    def initialize(side_1 : SDC::Coords, side_2 : SDC::Coords, origin : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
+    def initialize(side_1 : SDC::Coords, side_2 : SDC::Coords, position : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
       super(renderer)
       @side_1 = side_1
       @side_2 = side_2
-      @origin = origin
+      @position = position
     end
 
     def draw_directly
@@ -158,10 +158,10 @@ module SDC
     property semiaxes : SDC::Coords
 
     @[Anyolite::Specialize]
-    def initialize(semiaxes : SDC::Coords, origin : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
+    def initialize(semiaxes : SDC::Coords, position : SDC::Coords = SDC.xy, renderer : SDC::Renderer = SDC.current_window.not_nil!.renderer)
       super(renderer)
       @semiaxes = semiaxes
-      @origin = origin
+      @position = position
     end
 
     def draw_directly

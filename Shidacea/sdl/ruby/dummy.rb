@@ -13,7 +13,7 @@ class SceneTest < SDC::Scene
     @sprite.center = SDC.xy(0.0, 0.0)
     @sprite.angle = 45.0
 
-    @box = SDC::ShapeBox.new(SDC.xy(200, 200), origin: SDC.xy(150, 150))
+    @box = SDC::ShapeBox.new(SDC.xy(200, 200), position: SDC.xy(150, 150))
     @box.color = SDC::Color::GREEN
     @box.filled = true
     @box.z = 10

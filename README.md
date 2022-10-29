@@ -84,8 +84,8 @@ allowing for a solid Ruby-based game development experience.
 * [X] Mouse support
 * [X] Fonts and texts
 * [X] Views
+* [X] Collision Shapes
 * [ ] Shapes
-* [ ] Collision Shapes
 * [ ] Entity class
 * [ ] Scripting utility for entities
 * [ ] Consistent property system
