@@ -1,7 +1,6 @@
 module SDC
   class CollisionShape
     property position : SDC::Coords = SDC.xy
-    property origin : SDC::Coords = SDC.xy
     property scale : SDC::Coords = SDC.xy
 
     def dup
@@ -22,7 +21,6 @@ module SDC
   
     def dup
       return_shape = CollisionShapePoint.new(position: self.position)
-      return_shape.origin = self.origin
       return_shape.scale = self.scale
       return_shape
     end
@@ -44,7 +42,6 @@ module SDC
   
     def dup
       return_shape = CollisionShapeLine.new(position: self.position, line: @line)
-      return_shape.origin = self.origin
       return_shape.scale = self.scale
       return_shape
     end
@@ -67,7 +64,6 @@ module SDC
   
     def dup
       return_shape = CollisionShapeCircle.new(position: self.position, radius: @radius)
-      return_shape.origin = self.origin
       return_shape.scale = self.scale
       return_shape
     end
@@ -99,7 +95,6 @@ module SDC
   
     def dup
       return_shape = CollisionShapeBox.new(position: self.position, size: @size)
-      return_shape.origin = self.origin
       return_shape.scale = self.scale
       return_shape
     end
@@ -123,7 +118,6 @@ module SDC
   
     def dup
       return_shape = CollisionShapeTriangle.new(position: self.position, side_1: @side_1, side_2: @side_2)
-      return_shape.origin = self.origin
       return_shape.scale = self.scale
       return_shape
     end
@@ -148,7 +142,6 @@ module SDC
   
     def dup
       return_shape = CollisionShapeEllipse.new(position: self.position, semiaxes: @semiaxes)
-      return_shape.origin = self.origin
       return_shape.scale = self.scale
       return_shape
     end
@@ -170,9 +163,7 @@ module SDC
     # General test method
 
     def self.test(shape_1 : SDC::CollisionShape, pos_1 : SDC::Coords, shape_2 : SDC::CollisionShape, pos_2 : SDC::Coords)
-      position_1 = shape_1.position - shape_1.origin
-      position_2 = shape_2.position - shape_2.origin
-      self.check_collision(shape_1, shape_2, pos_1 + position_1, pos_2 + position_2)
+      self.check_collision(shape_1, shape_2, pos_1 + shape_1.position, pos_2 + shape_2.position)
     end
 
     # Point vs ...
