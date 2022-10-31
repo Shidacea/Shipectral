@@ -86,8 +86,8 @@ allowing for a solid Ruby-based game development experience.
 * [X] Views
 * [X] Collision Shapes
 * [X] Entity class
-* [ ] Entity parameters
 * [ ] Scripting utility for entities
+* [ ] Entity parameters
 * [ ] Consistent property system
 * [ ] Resource manager
 * [ ] Marshalling support

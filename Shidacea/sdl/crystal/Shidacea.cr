@@ -29,6 +29,7 @@ require "./wrappers/input/Event.cr"
 require "./wrappers/input/Keyboard.cr"
 require "./wrappers/input/Mouse.cr"
 
+require "./wrappers/user/AI.cr"
 require "./wrappers/user/Entity.cr"
 require "./wrappers/user/Limiter.cr"
 require "./wrappers/user/Param.cr"

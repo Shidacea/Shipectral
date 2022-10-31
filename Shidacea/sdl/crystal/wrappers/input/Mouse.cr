@@ -54,7 +54,5 @@ module SDC
     def self.middle_button_down?
       LibSDLMacro.button(LibSDL.get_mouse_state(nil, nil).to_i) == LibSDL::BUTTON_MIDDLE
     end
-
-    # TODO: Buttons
   end
 end

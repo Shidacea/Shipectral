@@ -27,6 +27,16 @@ module SDC
     @[Anyolite::WrapWithoutKeywords]
     def initialize(@param : SDC::Param = SDC::Param.new(nil))
       initialization_procedure
+
+      # TODO: Remove this and replace this with an actual example
+
+      test = SDC::AI::RubyScript.create do
+        puts "Hello"
+        Fiber.yield
+        puts "World"
+      end
+
+      test.tick
     end
 
     def update
