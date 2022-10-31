@@ -16,7 +16,7 @@ class DummyEntity < SDC::Entity
     elsif @text.position.x > 250
       @text_direction = -1
     end
-    
+
     @text.position += SDC.xy(@text_direction, 0)
   end
 

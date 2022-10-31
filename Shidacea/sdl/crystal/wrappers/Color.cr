@@ -44,15 +44,15 @@ module SDC
       @data.r = value
     end
 
-    def g(value : Number)
+    def g=(value : Number)
       @data.g = value
     end
     
-    def b(value : Number)
+    def b=(value : Number)
       @data.b = value
     end
 
-    def a(value : Number)
+    def a=(value : Number)
       @data.a = value
     end
   end
