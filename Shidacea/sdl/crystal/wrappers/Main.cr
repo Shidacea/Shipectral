@@ -13,14 +13,29 @@ module SDC
     @@limiter = SDC::Limiter.new
 
     @@limiter.not_nil!.set_update_routine do
-      @@scene.not_nil!.process_events
-      @@scene.not_nil!.main_update 
+      if currend_scene = @@scene
+        currend_scene.process_events
+        # TODO: This might require another check for the scene value
+        currend_scene.main_update 
+      else
+        SDC.error "Could not update without a scene"
+      end
 
       if !@@next_scene
-        @@scene.not_nil!.exit
+        if currend_scene = @@scene
+          currend_scene.exit
+        else
+          SDC.error "Could not exit empty scene properly"
+        end
+
         @@scene = nil
       elsif @@next_scene != true
-        @@scene.not_nil!.exit
+        if currend_scene = @@scene
+          currend_scene.exit
+        else
+          SDC.error "Could not exit empty scene properly"
+        end
+
         @@scene = @@next_scene.as?(SDC::Scene).not_nil!
         @@next_scene = nil
         @@scene.not_nil!.init
@@ -28,7 +43,11 @@ module SDC
     end
 
     @@limiter.not_nil!.set_draw_routine do
-      @@scene.not_nil!.main_draw
+      if currend_scene = @@scene
+        currend_scene.main_draw
+      else
+        SDC.error "Could not draw without a scene"
+      end
     end
 
     @@scene = scene
@@ -137,7 +156,11 @@ module SDC
   end
 
   def unpin_all
-    @@current_window.not_nil!.unpin_all
+    if window = @@current_window
+      window.unpin_all
+    else
+      SDC.error "Could not unpin from closed or invalid window"
+    end
   end
 
   def self.quit
@@ -149,7 +172,16 @@ module SDC
 
   def self.error(message : String)
     sdl_error = String.new(LibSDL.get_error)
-    raise "#{message}" + (sdl_error.empty? ? "" : "(SDL Error: #{sdl_error})")
+    raise "#{message}" + (sdl_error.empty? ? "" : " (SDL Error: #{sdl_error})")
+  end
+
+  def self.check_for_internal_errors
+    sdl_error = String.new(LibSDL.get_error)
+    if sdl_error.empty?
+      nil
+    else
+      sdl_error
+    end
   end
 
   def self.debug_log(message : String)

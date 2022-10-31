@@ -4,7 +4,11 @@ module SDC
     getter pinned : Bool = false
 
     def draw
-      SDC.current_window.not_nil!.draw(self)
+      if window = SDC.current_window
+        window.draw(self)
+      else
+        SDC.error "Could not draw to closed or invalid window"
+      end
     end
 
     def finalize
@@ -23,12 +27,20 @@ module SDC
 
     def pin
       @pinned = true
-      SDC.current_window.not_nil!.pin(self)
+      if window = SDC.current_window
+        window.pin(self)
+      else
+        SDC.error "Could not pin to closed or invalid window"
+      end
     end
 
     def unpin
       @pinned = false
-      SDC.current_window.not_nil!.unpin(self)
+      if window = SDC.current_window
+        window.unpin(self)
+      else
+        SDC.error "Could not unpin from closed or invalid window"
+      end
     end
 
     abstract def draw_directly

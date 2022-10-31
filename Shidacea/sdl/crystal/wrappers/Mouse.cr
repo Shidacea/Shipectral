@@ -23,7 +23,11 @@ module SDC
     end
 
     def self.position=(pos : SDC::Coords)
-      LibSDL.warp_mouse_in_window(SDC.current_window.not_nil!.data, pos.x, pos.y)
+      if window = SDC.current_window.not_nil!
+        LibSDL.warp_mouse_in_window(window.data, pos.x, pos.y)
+      else
+        SDC.error "Could not set position in closed or invalid window"
+      end
     end
 
     def self.global_position=(pos : SDC::Coords)

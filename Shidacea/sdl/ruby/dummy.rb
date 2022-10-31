@@ -17,6 +17,9 @@ class DummyEntity < SDC::Entity
       @text_direction = -1
     end
 
+    @text.color.g += 1
+    @text.update!
+
     @text.position += SDC.xy(@text_direction, 0)
   end
 
@@ -69,6 +72,8 @@ class SceneTest < SDC::Scene
       @texture2.offset.y -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_UP)
       @texture2.offset.x += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_RIGHT)
       @texture2.offset.x -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_LEFT)
+
+      @entity.update
     end
 
     SDC.for_window(@window) do
@@ -76,9 +81,10 @@ class SceneTest < SDC::Scene
       @sprite.position = SDC::Mouse.position if SDC::Mouse.focused_window == @window
     end
 
-    @entity.update
-
     SDC.next_scene = nil unless @window.open? || @window2.open?
+
+    errors = SDC.check_for_internal_errors
+    puts "SDL error: #{errors}" if errors
   end
 
   def draw

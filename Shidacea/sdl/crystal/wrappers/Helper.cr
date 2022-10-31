@@ -4,7 +4,11 @@ module SDCHelper
     
     @[Anyolite::Exclude]
     def data
-      @data.not_nil!
+      if data = @data
+        data.not_nil!
+      else
+        SDC.error "Internal data of type {{x}} was used after being reset"
+      end
     end
 
     def data?

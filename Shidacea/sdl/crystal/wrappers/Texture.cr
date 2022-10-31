@@ -44,7 +44,7 @@ module SDC
       SDC.error "Could not create texture from rendered text" unless text_surface
 
       @data = LibSDL.create_texture_from_surface(@renderer.data, text_surface)
-      raise "Could not create texture from rendered text surface" unless @data
+      SDC.error "Could not create texture from rendered text surface" unless @data
 
       @width = text_surface.value.w
       @height = text_surface.value.h
