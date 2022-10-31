@@ -184,8 +184,12 @@ module SDC
     end
   end
 
+  def self.debug?
+    SPT::Script.debug?
+  end
+
   def self.debug_log(message : String)
-    puts "DEBUG: #{message}" if SPT::Script.debug?
+    puts "DEBUG: #{message}" if SDC.debug?
   end
 
   def self.log(message : String)

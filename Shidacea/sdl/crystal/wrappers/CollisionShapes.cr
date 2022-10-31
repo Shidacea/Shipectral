@@ -529,7 +529,7 @@ module SDC
 
     @[Anyolite::Specialize]
     def self.check_collision(shape_1 : SDC::CollisionShape, shape_2 : SDC::CollisionShape, pos_1 : SDC::Coords, pos_2 : SDC::Coords)
-      raise "Unknown shapes: #{shape_1.class} and #{shape_2.class}"
+      SDC.error "Unknown shapes: #{shape_1.class} and #{shape_2.class}"
       false
     end
   end

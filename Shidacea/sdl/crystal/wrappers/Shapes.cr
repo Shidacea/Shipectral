@@ -99,7 +99,7 @@ module SDC
       when 2
         @position + @side_2
       else
-        raise("Invalid index for vertices: #{number}")
+        SDC.error "Invalid index for triangle vertices: #{number}"
       end
     end
 
@@ -112,7 +112,7 @@ module SDC
       when 2
         @side_2 = value - @position
       else
-        raise("Invalid index for vertices: #{number}")
+        SDC.error "Invalid index for triangle vertices: #{number}"
       end
     end
 
