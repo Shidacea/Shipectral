@@ -1,5 +1,30 @@
 puts "Dummy file"
 
+class DummyEntity < SDC::Entity
+  def initialize(param)
+    super(param)
+    @font = SDC::Font.load_from_file("demo_projects/Example_Test/assets/fonts/arial.ttf")
+    @text = SDC::Text.new(param.as_string, @font)
+    @text.position = SDC.xy(200, 300)
+    @text.color = SDC::Color::RED
+    @text_direction = 1
+  end
+
+  def custom_update
+    if @text.position.x < 50
+      @text_direction = 1
+    elsif @text.position.x > 250
+      @text_direction = -1
+    end
+    
+    @text.position += SDC.xy(@text_direction, 0)
+  end
+
+  def custom_draw
+    @text.draw
+  end
+end
+
 class SceneTest < SDC::Scene
   def at_init
     self.use_own_draw_implementation = true
@@ -21,7 +46,7 @@ class SceneTest < SDC::Scene
     
     @window2 = SDC::Window.new("Also Hi", 400, 400)
 
-    @view = SDC::View.new(SDC::Rect.new(x: 100, y: 100, width: 200, height: 200))
+    @view = SDC::View.new(SDC::Rect.new(x: 100, y: 0, width: 400, height: 400))
 
     @texture2 = SDC::Texture.load_from_file("demo_projects/Example_Test/assets/graphics/test/Chishi.png")
     @texture2.pin
@@ -30,10 +55,7 @@ class SceneTest < SDC::Scene
     @texture3.pin
     @texture3.z = 1
 
-    @font = SDC::Font.load_from_file("demo_projects/Example_Test/assets/fonts/arial.ttf")
-    @text = SDC::Text.new("Hello, World!", @font)
-    @text.position = SDC.xy(200, 300)
-    @text.color = SDC::Color::RED
+    @entity = DummyEntity.new(SDC::Param.new("Hello World!"))
 
     @music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
     @music.volume = 32
@@ -54,14 +76,14 @@ class SceneTest < SDC::Scene
       @sprite.position = SDC::Mouse.position if SDC::Mouse.focused_window == @window
     end
 
+    @entity.update
+
     SDC.next_scene = nil unless @window.open? || @window2.open?
   end
 
   def draw
     SDC.for_window(@window) do
       SDC.current_window.clear
-
-      @sprite.draw
 
       SDC.current_window.render_and_display
     end
@@ -70,7 +92,7 @@ class SceneTest < SDC::Scene
       SDC.current_window.clear
 
       SDC.with_view(@view) do
-        @text.draw
+        @entity.draw
       end
       
       SDC.current_window.render_and_display

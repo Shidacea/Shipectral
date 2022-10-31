@@ -1,5 +1,6 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
+  @[Anyolite::ExcludeConstant("PassedData")]
   class Sound
     SDCHelper.wrap_type(Pointer(LibSDL::MixChunk))
     
@@ -9,7 +10,6 @@ module SDC
     @passed_data : Pointer(PassedData) = Pointer(PassedData).null
     @original_length : UInt32 = 0
 
-    @[Anyolite::ExcludeConstant]
     class PassedData
       property chunk_ptr : LibSDL::MixChunk*
       property pitch : Float32

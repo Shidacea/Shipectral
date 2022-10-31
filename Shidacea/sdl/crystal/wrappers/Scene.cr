@@ -1,8 +1,8 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class Scene
-    property use_own_draw_implementation = false
-    getter in_ruby = false
+    property use_own_draw_implementation : Bool = false
+    getter in_ruby : Bool = false
 
     macro call_method(name, *args)
       if @in_ruby

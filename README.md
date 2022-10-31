@@ -85,8 +85,8 @@ allowing for a solid Ruby-based game development experience.
 * [X] Fonts and texts
 * [X] Views
 * [X] Collision Shapes
-* [ ] Shapes
-* [ ] Entity class
+* [X] Entity class
+* [ ] Entity parameters
 * [ ] Scripting utility for entities
 * [ ] Consistent property system
 * [ ] Resource manager
@@ -94,6 +94,7 @@ allowing for a solid Ruby-based game development experience.
 * [ ] Game state class
 * [ ] Game controller state
 * [ ] Full event support
+* [ ] Shapes
 * [ ] Dedicated tile and map classes
 * [ ] Full SDL support on Windows and Linux
 * [ ] ImGui support
