@@ -27,9 +27,7 @@ module SDC
       end
 
       def running?
-        # TODO: This is some weird Anyolite problem
-        sym = "alive?"
-        Anyolite.call_rb_method_of_object(@ruby_fiber.to_unsafe, sym, nil, cast_to: Bool)
+        Anyolite.call_rb_method_of_object(@ruby_fiber.to_unsafe, :"alive?", cast_to: Bool)
       end
     end
   end
