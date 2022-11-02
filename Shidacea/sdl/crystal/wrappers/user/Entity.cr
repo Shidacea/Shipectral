@@ -32,8 +32,9 @@ module SDC
 
       add_ai_script do |entity|
         puts "Hello"
-        Fiber.yield
+        SDC::AI.wait(180)
         puts entity.magic_number
+        SDC::AI.done
       end
     end
 
@@ -51,7 +52,6 @@ module SDC
     def update
        # TODO: Remove this and replace this with an actual example
 
-      ai_tick
       ai_tick
       call_method(:custom_update)
     end

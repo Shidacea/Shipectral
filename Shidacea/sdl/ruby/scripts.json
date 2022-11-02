@@ -1,5 +1,6 @@
 {
   "scripts": [
+    "AI.rb",
     "dummy.rb"
   ],
 
