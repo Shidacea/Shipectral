@@ -8,6 +8,8 @@ module SDC
     getter in_ruby : Bool = false
     getter magic_number : UInt64 = 0
 
+    getter ai_script : SDC::AI::RubyScript?
+
     property position : SDC::Coords = SDC.xy
     property velocity : SDC::Coords = SDC.xy
     property acceleration : SDC::Coords = SDC.xy
@@ -28,18 +30,29 @@ module SDC
     def initialize(@param : SDC::Param = SDC::Param.new(nil))
       initialization_procedure
 
-      # TODO: Remove this and replace this with an actual example
-
-      test = SDC::AI::RubyScript.create do
+      add_ai_script do |entity|
         puts "Hello"
         Fiber.yield
-        puts "World"
+        puts entity.magic_number
       end
+    end
 
-      test.tick
+    # TODO: Similar method for Ruby
+    macro add_ai_script(&block)
+      @ai_script = SDC::AI::RubyScript.create {{block.id}}
+    end
+
+    def ai_tick
+      if script = @ai_script
+        script.tick(self)
+      end
     end
 
     def update
+       # TODO: Remove this and replace this with an actual example
+
+      ai_tick
+      ai_tick
       call_method(:custom_update)
     end
 
@@ -51,8 +64,12 @@ module SDC
       @in_ruby = true
     end
 
+    def setup_ai
+
+    end
+
     def initialization_procedure
-			# setup_ai
+		  setup_ai
 
 			# Set a magic number to identify parent-child-structures
 			@magic_number = self.object_id

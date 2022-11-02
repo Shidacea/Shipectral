@@ -15,15 +15,21 @@ module SDC
       
       def initialize(content : String, with_do_end : Bool = true)
         if with_do_end
-          @ruby_fiber = Anyolite.eval("Fiber.new do\n#{content}\nend")
+          # TODO: Can this be generalized?
+          @ruby_fiber = Anyolite.eval("Fiber.new do |entity|\n#{content}\nend")
         else
           @ruby_fiber = Anyolite.eval("Fiber.new #{content}")
         end
       end
 
-      def tick
+      def tick(entity : SDC::Entity)
+        Anyolite.call_rb_method_of_object(@ruby_fiber.to_unsafe, :resume, [entity]) if running?
+      end
+
+      def running?
         # TODO: This is some weird Anyolite problem
-        Anyolite.call_rb_method_of_object(@ruby_fiber.to_unsafe, :resume, nil)
+        sym = "alive?"
+        Anyolite.call_rb_method_of_object(@ruby_fiber.to_unsafe, sym, nil, cast_to: Bool)
       end
     end
   end
