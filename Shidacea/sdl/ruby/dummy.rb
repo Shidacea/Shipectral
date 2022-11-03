@@ -61,7 +61,7 @@ class SceneTest < SDC::Scene
 
     @entities = SDC::EntityGroup.new
 
-    100.times do |i|
+    50.times do |i|
       @entities.add DummyEntity.new(SDC::Param.new([SDC::Param.new("Hello World"), SDC::Param.new(i)]))
     end
 

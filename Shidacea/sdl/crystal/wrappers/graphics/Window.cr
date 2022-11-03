@@ -13,7 +13,7 @@ module SDC
       @data = LibSDL.create_window(title, x, y, w, h, window_flags)
       SDC.error "Could not create window with title \"#{title}\"" unless @data
 
-      renderer_flags = LibSDL::RendererFlags::RENDERER_ACCELERATED | LibSDL::RendererFlags::RENDERER_PRESENTVSYNC
+      renderer_flags = LibSDL::RendererFlags::RENDERER_ACCELERATED
       @renderer.create!(self, renderer_flags)
       SDC.error "Could not create renderer" unless @renderer.data?
 

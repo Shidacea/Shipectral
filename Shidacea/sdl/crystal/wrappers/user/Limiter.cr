@@ -17,7 +17,7 @@ module SDC
     @draw_block : Proc(Nil) | Anyolite::RbRef | Nil = nil
     @gc_block : Proc(Nil) | Anyolite::RbRef | Nil = nil
 
-    @timer : Time? = nil
+    @timer : Time::Span? = nil
 
     def initialize(@max : UInt32 = 720u32, @renders_per_second : UInt32 = 60u32, @ticks_per_second : UInt32 = 60u32, @gc_per_second : UInt32 = 60u32)
 			@render_interval = (@max / @renders_per_second).to_u32
@@ -72,7 +72,7 @@ module SDC
 		end
 
     def tick
-      @timer = Time.utc unless @timer
+      @timer = Time.monotonic unless @timer
 
       is_update_frame = (@counter % @tick_interval == 0)
 			is_draw_frame = (@counter % @render_interval == 0)
@@ -101,10 +101,10 @@ module SDC
 			end
 
 			if scheduled_frame
-				while (Time.utc - @timer.not_nil!).total_milliseconds < (@temp_counter + 1) / @max.to_f
+				while (Time.monotonic - @timer.not_nil!).total_seconds < (@temp_counter + 1) / @max.to_f
 				end
 				@temp_counter = 0
-				@timer = Time.utc
+				@timer = Time.monotonic
 			else
 				@temp_counter += 1
 			end
