@@ -31,6 +31,7 @@ require "./wrappers/input/Mouse.cr"
 
 require "./wrappers/user/AI.cr"
 require "./wrappers/user/Entity.cr"
+require "./wrappers/user/EntityGroup.cr"
 require "./wrappers/user/Limiter.cr"
 require "./wrappers/user/Param.cr"
 require "./wrappers/user/Scene.cr"

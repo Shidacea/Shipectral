@@ -31,9 +31,9 @@ module SDC
       initialization_procedure
 
       add_ai_script do |entity|
-        puts "Hello"
-        SDC::AI.wait(180)
-        puts entity.magic_number
+        #puts "Hello"
+        SDC::AI.wait(300)
+        #puts entity.magic_number
         SDC::AI.done
       end
     end

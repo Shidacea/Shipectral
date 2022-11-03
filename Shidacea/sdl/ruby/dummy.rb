@@ -58,7 +58,11 @@ class SceneTest < SDC::Scene
     @texture3.pin
     @texture3.z = 1
 
-    @entity = DummyEntity.new(SDC::Param.new("Hello World!"))
+    @entities = SDC::EntityGroup.new
+
+    100.times do
+      @entities.add DummyEntity.new(SDC::Param.new("Hello World!"))
+    end
 
     @music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
     @music.volume = 32
@@ -73,7 +77,7 @@ class SceneTest < SDC::Scene
       @texture2.offset.x += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_RIGHT)
       @texture2.offset.x -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_LEFT)
 
-      @entity.update
+      @entities.update
     end
 
     SDC.for_window(@window) do
@@ -98,7 +102,7 @@ class SceneTest < SDC::Scene
       SDC.current_window.clear
 
       SDC.with_view(@view) do
-        @entity.draw
+        @entities.draw
       end
       
       SDC.current_window.render_and_display
