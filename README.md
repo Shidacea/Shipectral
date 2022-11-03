@@ -91,13 +91,15 @@ allowing for a solid Ruby-based game development experience.
 * [ ] Consistent property system
 * [ ] Resource manager
 * [ ] Marshalling support
+* [ ] Option to use VSync instead of limiter
 * [ ] Game state class
 * [ ] Game controller state
 * [ ] Full event support
 * [ ] Shapes
 * [ ] Dedicated tile and map classes
-* [ ] Full SDL support on Windows and Linux
+* [ ] Linux support
 * [ ] ImGui support
+* [ ] Optimizations
 
 #### Todo
 
