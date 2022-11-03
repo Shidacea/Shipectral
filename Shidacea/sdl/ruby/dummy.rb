@@ -4,9 +4,10 @@ class DummyEntity < SDC::Entity
   def initialize(param)
     super(param)
     @font = SDC::Font.load_from_file("demo_projects/Example_Test/assets/fonts/arial.ttf")
-    @text = SDC::Text.new(param.as_string, @font)
-    @text.position = SDC.xy(200, 300)
-    @text.color = SDC::Color::RED
+    @text = SDC::Text.new(param[0].value, @font)
+    # Both value and as_int work here, albeit as_int is definitely the better style for clarity
+    @text.position = SDC.xy(100 + param[1].value * 5, 100 + param[1].as_int * 5)
+    @text.color = SDC::Color.red
     @text_direction = 1
   end
 
@@ -42,7 +43,7 @@ class SceneTest < SDC::Scene
     @sprite.angle = 45.0
 
     @box = SDC::ShapeBox.new(SDC.xy(200, 200), position: SDC.xy(150, 150))
-    @box.color = SDC::Color::GREEN
+    @box.color = SDC::Color.green
     @box.filled = true
     @box.z = 10
     @box.pin
@@ -60,8 +61,8 @@ class SceneTest < SDC::Scene
 
     @entities = SDC::EntityGroup.new
 
-    100.times do
-      @entities.add DummyEntity.new(SDC::Param.new("Hello World!"))
+    100.times do |i|
+      @entities.add DummyEntity.new(SDC::Param.new([SDC::Param.new("Hello World"), SDC::Param.new(i)]))
     end
 
     @music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")

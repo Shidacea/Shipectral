@@ -1,7 +1,7 @@
 module SDC
   abstract class Shape < SDC::Drawable
     property position : SDC::Coords = SDC.xy
-    property color : SDC::Color = SDC::Color::BLACK
+    property color : SDC::Color = SDC::Color.black
 
     @renderer : SDC::Renderer
   
