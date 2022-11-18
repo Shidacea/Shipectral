@@ -8,7 +8,10 @@ module SDC
     getter in_ruby : Bool = false
     getter magic_number : UInt64 = 0
 
-    getter ai_script : SDC::AI::RubyScript?
+    getter data : SDC::EntityData
+    getter hooks : Hash(String, SDC::AI::RubyScript) = {} of String => SDC::AI::RubyScript
+
+    property state : SDC::EntityState = SDC::EntityState.new
 
     property position : SDC::Coords = SDC.xy
     property velocity : SDC::Coords = SDC.xy
@@ -26,51 +29,44 @@ module SDC
       end
     end
 
+    def self.spawn(data : SDC::EntityData, param : SDC::Param = SDC::Param.new(nil))
+      new_entity = self.new(data, param)
+      new_entity.init
+      new_entity
+    end
+
     @[Anyolite::WrapWithoutKeywords]
-    def initialize(@param : SDC::Param = SDC::Param.new(nil))
+    def initialize(@data : SDC::EntityData, @param : SDC::Param = SDC::Param.new(nil))
+      @hooks = @data.copy_hooks
+
       initialization_procedure
-
-      add_ai_script do |entity|
-        #puts "Hello"
-        SDC::AI.wait(300)
-        #puts entity.magic_number
-        SDC::AI.done
-      end
     end
 
-    # TODO: Similar method for Ruby
-    macro add_ai_script(&block)
-      @ai_script = SDC::AI::RubyScript.create {{block.id}}
+    def init
+      trigger_hook("spawn")
     end
 
-    def ai_tick
-      if script = @ai_script
-        script.tick(self)
+    def trigger_hook(name : String)
+      if @hooks[name]?
+        @hooks[name].tick(self)
       end
     end
 
     def update
-       # TODO: Remove this and replace this with an actual example
-
-      ai_tick
       call_method(:custom_update)
+      trigger_hook("update")
     end
 
     def draw
       call_method(:custom_draw)
+      trigger_hook("draw")
     end
 
     def rb_initialize(rb)
       @in_ruby = true
     end
 
-    def setup_ai
-
-    end
-
     def initialization_procedure
-		  setup_ai
-
 			# Set a magic number to identify parent-child-structures
 			@magic_number = self.object_id
 

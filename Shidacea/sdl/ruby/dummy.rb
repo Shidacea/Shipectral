@@ -1,31 +1,22 @@
 puts "Dummy file"
 
+# NOTE: This will likely still be possible in the final release, but entity data will make it less relevant
 class DummyEntity < SDC::Entity
-  def initialize(param)
-    super(param)
-    @font = SDC::Font.load_from_file("demo_projects/Example_Test/assets/fonts/arial.ttf")
-    @text = SDC::Text.new(param[0].value, @font)
-    # Both value and as_int work here, albeit as_int is definitely the better style for clarity
-    @text.position = SDC.xy(100 + param[1].value * 5, 100 + param[1].as_int * 5)
-    @text.color = SDC::Color.red
-    @text_direction = 1
+  def initialize(data, param)
+    super(data, param)
   end
 
   def custom_update
-    if @text.position.x < 50
-      @text_direction = 1
-    elsif @text.position.x > 250
-      @text_direction = -1
-    end
+    # if @text.position.x < 50
+    #   @text_direction = 1
+    # elsif @text.position.x > 250
+    #   @text_direction = -1
+    # end
 
-    @text.color.g += 1
-    @text.update!
+    # @text.color.g += 1
+    # @text.update!
 
-    @text.position += SDC.xy(@text_direction, 0)
-  end
-
-  def custom_draw
-    @text.draw
+    # @text.position += SDC.xy(@text_direction, 0)
   end
 end
 
@@ -59,10 +50,58 @@ class SceneTest < SDC::Scene
     @texture3.pin
     @texture3.z = 1
 
+    @dummy_entity_data = SDC::EntityData.new
+    @dummy_entity_data.set_property("Test", SDC::Param.new(15))
+
+    update_script = SDC::AI::RubyScriptTemplate.create do |entity|
+      SDC::AI.wait(60)
+      puts "Hello, I am still #{entity.state["test_value"]}."
+    end
+    @dummy_entity_data.add_hook("update", update_script)
+
+    init_script = SDC::AI::RubyScriptTemplate.create do |entity|
+      puts "Hello, my name is #{entity.magic_number}."
+      entity.state["test_value"] = entity.magic_number
+
+      font = SDC::Font.load_from_file("demo_projects/Example_Test/assets/fonts/arial.ttf")
+      entity.state["font"] = font
+
+      text = SDC::Text.new(entity.param[0].value, font)
+      text.position = SDC.xy(100 + entity.param[1].value * 5, 100 + entity.param[1].as_int * 5)
+      text.color = SDC::Color.red
+      entity.state["text"] = text
+
+      entity.state["text_direction"] = 1
+    end 
+    @dummy_entity_data.add_hook("spawn", init_script)
+
+    draw_script = SDC::AI::RubyScriptTemplate.create do |entity|
+      text = entity.state["text"]
+      
+      SDC::AI.forever do
+        text_direction = entity.state["text_direction"]
+
+        if text.position.x < 50
+          entity.state["text_direction"] = 1
+        elsif text.position.x > 250
+          entity.state["text_direction"] = -1
+        end
+
+        text.position += SDC.xy(text_direction, 0)
+        
+        text.color.g += 1
+        text.update!
+        text.draw
+      end
+    end
+    @dummy_entity_data.add_hook("draw", draw_script)
+
     @entities = SDC::EntityGroup.new
 
-    50.times do |i|
-      @entities.add DummyEntity.new(SDC::Param.new([SDC::Param.new("Hello World"), SDC::Param.new(i)]))
+    5.times do |i|
+      new_entity = DummyEntity.new(@dummy_entity_data, SDC::Param.new([SDC::Param.new("Hello World"), SDC::Param.new(i)]))
+      new_entity.init
+      @entities.add(new_entity)
     end
 
     @music = SDC::Music.load_from_file("demo_projects/Example_Test/assets/music/ExampleLoop.ogg")
