@@ -40,13 +40,13 @@ class SceneTest < SDC::Scene
     @dummy_entity_data = SDC::EntityData.new
     @dummy_entity_data.set_property("Test", SDC::Param.new(15))
 
-    behavior_script = SDC::AI::RubyScriptTemplate.create do |entity|
+    behavior_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
       SDC::AI.wait(60)
       puts "Hello, I am still #{entity.state["test_value"]}."
     end
     @dummy_entity_data.add_hook("behavior", behavior_script)
 
-    init_script = SDC::AI::RubyScriptTemplate.create do |entity|
+    init_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
       puts "Hello, my name is #{entity.magic_number}."
       entity.state["test_value"] = entity.magic_number
 
@@ -62,12 +62,12 @@ class SceneTest < SDC::Scene
     end 
     @dummy_entity_data.add_hook("spawn", init_script)
 
-    example_script = SDC::AI::RubyScriptTemplate.create do |entity|
+    example_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
       puts "This is a custom hook"
     end
     @dummy_entity_data.add_hook("example", example_script)
 
-    update_script = SDC::AI::RubyScriptTemplate.create do |entity|
+    update_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
       text = entity.state["text"]
 
       entity.trigger_hook("example")
@@ -89,7 +89,7 @@ class SceneTest < SDC::Scene
     end
     @dummy_entity_data.add_hook("update", update_script)
 
-    draw_script = SDC::AI::RubyScriptTemplate.create do |entity|
+    draw_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
       text = entity.state["text"]
       
       SDC::AI.forever do

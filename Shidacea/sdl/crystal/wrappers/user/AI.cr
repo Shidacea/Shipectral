@@ -1,6 +1,6 @@
 module SDC
   module AI
-    class RubyScriptTemplate
+    class RubyScriptTemplatePage
       @proc : Anyolite::RbRef
 
       # NOTE: This might be one of the most evil codes I've ever written.
@@ -10,7 +10,7 @@ module SDC
       # After I wrote this I gave two wisdom teeth as penance.
       macro create(&block)
         %new_proc = Anyolite.eval("Proc.new #{{{block.stringify}}}")
-        SDC::AI::RubyScriptTemplate.new(%new_proc)
+        SDC::AI::RubyScriptTemplatePage.new(%new_proc)
       end
 
       @[Anyolite::Specialize]
@@ -38,7 +38,7 @@ module SDC
     class RubyScript
       @ruby_fiber : Anyolite::RbRef
 
-      def initialize(template : SDC::AI::RubyScriptTemplate)
+      def initialize(template : SDC::AI::RubyScriptTemplatePage)
         @ruby_fiber = template.generate_fiber
       end
 
