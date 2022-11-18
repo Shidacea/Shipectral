@@ -62,8 +62,15 @@ class SceneTest < SDC::Scene
     end 
     @dummy_entity_data.add_hook("spawn", init_script)
 
+    example_script = SDC::AI::RubyScriptTemplate.create do |entity|
+      puts "This is a custom hook"
+    end
+    @dummy_entity_data.add_hook("example", example_script)
+
     update_script = SDC::AI::RubyScriptTemplate.create do |entity|
       text = entity.state["text"]
+
+      entity.trigger_hook("example")
 
       SDC::AI.forever do
         text_direction = entity.state["text_direction"]
