@@ -41,6 +41,7 @@ class SceneTest < SDC::Scene
     @dummy_entity_data.set_property("Test", SDC::Param.new(15))
 
     behavior_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
+      puts "Behavior called"
       SDC::AI.wait(60)
       puts "Hello, I am still #{entity.state["test_value"]}."
     end
@@ -62,15 +63,8 @@ class SceneTest < SDC::Scene
     end 
     @dummy_entity_data.add_hook("spawn", init_script)
 
-    example_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
-      puts "This is a custom hook"
-    end
-    @dummy_entity_data.add_hook("example", example_script)
-
     update_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
       text = entity.state["text"]
-
-      entity.trigger_hook("example")
 
       SDC::AI.forever do
         text_direction = entity.state["text_direction"]
@@ -85,6 +79,9 @@ class SceneTest < SDC::Scene
         
         text.color.g += 1
         text.update!
+
+        # TODO: Maybe create a dedicated AI class or something?
+        SDC::AI.switch_entity_to_hook(entity, "behavior")
       end
     end
     @dummy_entity_data.add_hook("update", update_script)

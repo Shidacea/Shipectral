@@ -10,7 +10,9 @@ module SDC
 
     getter data : SDC::EntityData
     getter hooks : Hash(String, SDC::AI::RubyScript) = {} of String => SDC::AI::RubyScript
-
+    getter current_hook : String? = nil
+  
+    property next_hook : String? = nil
     property state : SDC::EntityState = SDC::EntityState.new
 
     property position : SDC::Coords = SDC.xy
@@ -47,15 +49,24 @@ module SDC
     end
 
     def trigger_hook(name : String)
+      SDC.error "Hook #{@current_hook} is already active. Use \"switch_to_hook\" instead of \"trigger_hook\"." if @current_hook
+      @next_hook = nil
+
       if @hooks[name]?
+        @current_hook = name
         @hooks[name].tick(self)
+        @current_hook = nil
       end
+
+      next_hook_name = @next_hook
+      @next_hook = nil
+
+      trigger_hook(next_hook_name.not_nil!) if next_hook_name
     end
 
     def update
       call_method(:custom_update)
       trigger_hook("update")
-      trigger_hook("behavior")
     end
 
     def draw
