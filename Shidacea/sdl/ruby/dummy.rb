@@ -53,11 +53,11 @@ class SceneTest < SDC::Scene
     @dummy_entity_data = SDC::EntityData.new
     @dummy_entity_data.set_property("Test", SDC::Param.new(15))
 
-    update_script = SDC::AI::RubyScriptTemplate.create do |entity|
+    behavior_script = SDC::AI::RubyScriptTemplate.create do |entity|
       SDC::AI.wait(60)
       puts "Hello, I am still #{entity.state["test_value"]}."
     end
-    @dummy_entity_data.add_hook("update", update_script)
+    @dummy_entity_data.add_hook("behavior", behavior_script)
 
     init_script = SDC::AI::RubyScriptTemplate.create do |entity|
       puts "Hello, my name is #{entity.magic_number}."
@@ -75,9 +75,9 @@ class SceneTest < SDC::Scene
     end 
     @dummy_entity_data.add_hook("spawn", init_script)
 
-    draw_script = SDC::AI::RubyScriptTemplate.create do |entity|
+    update_script = SDC::AI::RubyScriptTemplate.create do |entity|
       text = entity.state["text"]
-      
+
       SDC::AI.forever do
         text_direction = entity.state["text_direction"]
 
@@ -91,6 +91,14 @@ class SceneTest < SDC::Scene
         
         text.color.g += 1
         text.update!
+      end
+    end
+    @dummy_entity_data.add_hook("update", update_script)
+
+    draw_script = SDC::AI::RubyScriptTemplate.create do |entity|
+      text = entity.state["text"]
+      
+      SDC::AI.forever do
         text.draw
       end
     end

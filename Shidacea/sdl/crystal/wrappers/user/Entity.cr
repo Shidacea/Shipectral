@@ -55,6 +55,7 @@ module SDC
     def update
       call_method(:custom_update)
       trigger_hook("update")
+      trigger_hook("behavior")
     end
 
     def draw
