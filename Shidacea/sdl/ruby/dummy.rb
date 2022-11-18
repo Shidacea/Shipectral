@@ -5,19 +5,6 @@ class DummyEntity < SDC::Entity
   def initialize(data, param)
     super(data, param)
   end
-
-  def custom_update
-    # if @text.position.x < 50
-    #   @text_direction = 1
-    # elsif @text.position.x > 250
-    #   @text_direction = -1
-    # end
-
-    # @text.color.g += 1
-    # @text.update!
-
-    # @text.position += SDC.xy(@text_direction, 0)
-  end
 end
 
 class SceneTest < SDC::Scene
