@@ -5,24 +5,12 @@ authors:
   - Hadeweka
 
 dependencies:
-  crsfml:
-    github: oprypin/crsfml
-    branch: master
   anyolite:
     github: Anyolite/anyolite
     branch: main
-  imgui:
-    github: oprypin/crystal-imgui
-    branch: master
-  imgui-sfml:
-    github: oprypin/crystal-imgui-sfml
-    branch: master
   sdl-crystal-bindings:
     github: Hadeweka/SDL-Crystal-Bindings
     branch: main
-  raylib-cr:
-    github: sol-vin/raylib-cr
-    branch: master
 
 license: MIT
 

@@ -8,7 +8,7 @@ can also be used for more complicated ideas.
 ## Features
 
 * Powerful scripting using mruby and Anyolite
-* Fast Crystal core using SDL (other libraries are also possible)
+* Fast Crystal core using SDL (other libraries are also technically possible)
 * Support for Dear ImGUI
 * ERB methods for text substitution
 * Support for project structures
@@ -33,14 +33,6 @@ Overall, this engine allows different usage modes, ranging from fast
 Crystal programming using the basic features up to simple script
 usage, allowing for fast prototyping.
 
-Currently, SFML is the main media library used for Shidacea.
-However, SDL is planned to serve as the new main library for
-version 0.3.0 and higher, with SFML support remaining as an option.
-
-As a consequence, the Shidacea library will have two different
-variants, SDC/SFML and SDC/SDL, which are incompatible to each other.
-In the future, Shidacea will mainly refer to SDC/SDL.
-
 ## Roadmap
 
 ### Version 0.3.0
@@ -50,7 +42,7 @@ This version number was chosen in order to avoid confusion with legacy versions.
 It will be the first proper release since the legacy versions. Most of the work
 is already done, but many features are still missing or not functioning.
 
-The major goal is to support Launshi and custom SDL- or SFML-based frontends fully,
+The major goal is to support Launshi and custom SDL-based frontends fully,
 allowing for a solid Ruby-based game development experience.
 
 #### Features
@@ -61,14 +53,6 @@ allowing for a solid Ruby-based game development experience.
 * [X] Higher stability due to several bugfixes
 * [X] Feature checks
 * [ ] CI scripts and automatic builds
-
-##### Shidacea/SFML
-
-* [X] All features of previous Shidacea versions
-* [X] Working examples
-* [X] Shidacea library updated to new standard
-* [X] Simple map parser
-* [X] Ellipse shapes
 
 ##### Shidacea/SDL
 
@@ -115,7 +99,7 @@ allowing for a solid Ruby-based game development experience.
 * [ ] Better way to update to newer SDL versions
 * [ ] Make ImGui optional
 * [ ] Support for data marshalling (Crystal and Ruby)
-* [ ] Add virtual file system for executable and connect it with SFML
+* [ ] Add virtual file system for executable
 * [ ] Ressource integration using macros
 * [ ] Add a way and flags to put frontend resources directly into executable
 * [ ] Particle system
@@ -137,7 +121,7 @@ allowing for a solid Ruby-based game development experience.
 * Ruby
 * Rake
 * Git
-* SDL or SFML (only on Ubuntu - on Windows they will be installed automatically)
+* SDL (only on Ubuntu - on Windows they will be installed automatically)
 
 All of these programs need to be in the path environment variable for Windows to work properly.
 

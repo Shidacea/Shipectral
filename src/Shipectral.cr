@@ -57,9 +57,7 @@ macro load_compiled_script_array(scripts_and_features, debug_location)
 end
 
 macro main_routine_with_config(filename)
-  {% config_use_sfml = run("./GetConfigOption.cr", filename, "use_sfml").chomp %}
   {% config_use_sdl = run("./GetConfigOption.cr", filename, "use_sdl").chomp %}
-  {% config_use_rl = run("./GetConfigOption.cr", filename, "use_rl").chomp %}
   {% config_use_imgui = run("./GetConfigOption.cr", filename, "use_imgui").chomp %}
   {% config_use_collishi = run("./GetConfigOption.cr", filename, "use_collishi").chomp %}
   {% config_frontend = run("./GetConfigOption.cr", filename, "frontend").chomp %}
@@ -70,16 +68,6 @@ macro main_routine_with_config(filename)
   {% config_engine_library_crystal = run("./GetConfigOption.cr", filename, "engine_library_crystal").chomp %}
   {% config_engine_library_project = run("./GetConfigOption.cr", filename, "engine_library_project").chomp %}
   {% config_compile_engine_library = run("./GetConfigOption.cr", filename, "compile_engine_library").chomp %}
-  
-  {% if config_use_sfml.starts_with?("B|") %}
-    {% if config_use_sfml[2..-1] == "true" %}
-      {% use_sfml = true %}
-    {% else %}
-      {% use_sfml = false %}
-    {% end %}
-  {% else %}
-    {% raise "Option \"use_sfml\" is not a bool" %}
-  {% end %}
 
   {% if config_use_sdl.starts_with?("B|") %}
     {% if config_use_sdl[2..-1] == "true" %}
@@ -89,16 +77,6 @@ macro main_routine_with_config(filename)
     {% end %}
   {% else %}
     {% raise "Option \"use_sdl\" is not a bool" %}
-  {% end %}
-
-  {% if config_use_rl.starts_with?("B|") %}
-    {% if config_use_rl[2..-1] == "true" %}
-      {% use_rl = true %}
-    {% else %}
-      {% use_rl = false %}
-    {% end %}
-  {% else %}
-    {% raise "Option \"use_rl\" is not a bool" %}
   {% end %}
 
   {% if config_use_imgui.starts_with?("B|") %}
@@ -203,20 +181,13 @@ macro main_routine_with_config(filename)
     SPT::Features.add("collishi")
   {% end %}
 
-  {% if use_sfml %}
-    require "../engine/EngineSFML.cr"
-  {% end %}
-
   {% if use_sdl %}
     require "../engine/EngineSDL.cr"
   {% end %}
 
-  {% if use_rl %}
-    require "../engine/EngineRL.cr"
-  {% end %}
-
   {% if use_imgui %}
-    require "../engine/EngineImGui.cr"
+    # TODO: Implement Imgui  
+    # require "../engine/EngineImGui.cr"
   {% end %}
 
   {% if engine_library_crystal %}
@@ -233,21 +204,13 @@ macro main_routine_with_config(filename)
 
   begin
     Anyolite::RbInterpreter.create do |rb|
-      {% if use_sfml %}
-        Anyolite.wrap_module(rb, SF, "SF")  # TODO: Separate this from this file
-        load_sfml_wrappers(rb)
-      {% end %}
-
       {% if use_sdl %}
         load_sdl_wrappers(rb)
       {% end %}
 
-      {% if use_rl %}
-        load_rl_wrappers(rb)
-      {% end %}
-
       {% if use_imgui %}
-        load_imgui_wrappers(rb)
+        # TODO: Implement Imgui
+        # load_imgui_wrappers(rb)
       {% end %}
 
       {% if engine_library %}
@@ -325,10 +288,6 @@ macro main_routine_with_config(filename)
     puts "An exception occured in Shipectral: #{ex.inspect_with_backtrace}"
   end
 
-  {% if use_sfml %}
-    ImGui::SFML.shutdown
-  {% end %}
-
   {% if use_sdl && engine_library %}
     SDC.quit
   {% end %}
@@ -350,5 +309,6 @@ end
 {% if env("SHIPECTRAL_CONFIG_FILE") %}
   main_routine_with_config({{env("SHIPECTRAL_CONFIG_FILE")}})
 {% else %}
-  main_routine_with_config("configs/launshi_sfml.json")
+  # TODO
+  main_routine_with_config("configs/launshi_sdl_debug.json")
 {% end %}

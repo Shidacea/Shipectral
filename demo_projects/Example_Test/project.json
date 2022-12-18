@@ -21,8 +21,7 @@
 
 	"keywords": [
 		"test",
-		"imgui",
-		"sfml"
+		"imgui"
 	],
 
 	"thumbnail": "assets/graphics/project/Thumbnail.png",
@@ -45,7 +44,6 @@
 	],
 
 	"required_features": [
-		"sfml",
 		"collishi"
 	],
 

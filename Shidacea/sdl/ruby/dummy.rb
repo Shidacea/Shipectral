@@ -1,5 +1,16 @@
 puts "Dummy file"
 
+# A possible workaround to avoid usage of system commands
+class IO
+  def self._popen(command, mode, **opts)
+    puts "No system commands allowed!"
+  end
+
+  def self.popen(command, mode = 'r', **opts, &block)
+    puts "No system commands allowed!"
+  end
+end
+
 # NOTE: This will likely still be possible in the final release, but entity data will make it less relevant
 class DummyEntity < SDC::Entity
   def initialize(data, param)
