@@ -56,6 +56,8 @@ macro load_compiled_script_array(scripts_and_features, debug_location)
   {% end %}
 end
 
+# TODO: Simplify configs!
+
 macro main_routine_with_config(filename)
   {% config_use_sdl = run("./GetConfigOption.cr", filename, "use_sdl").chomp %}
   {% config_use_imgui = run("./GetConfigOption.cr", filename, "use_imgui").chomp %}
@@ -204,6 +206,10 @@ macro main_routine_with_config(filename)
 
   begin
     Anyolite::RbInterpreter.create do |rb|
+      # We do NOT want any execution of external programs from Ruby due to safety reasons
+      # If you still want to do it, you have to implement such a function by yourself
+      Anyolite.disable_program_execution
+      
       {% if use_sdl %}
         load_sdl_wrappers(rb)
       {% end %}

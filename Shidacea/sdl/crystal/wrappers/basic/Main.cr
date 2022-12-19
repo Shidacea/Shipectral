@@ -13,25 +13,25 @@ module SDC
     @@limiter = SDC::Limiter.new
 
     @@limiter.not_nil!.set_update_routine do
-      if currend_scene = @@scene
-        currend_scene.process_events
+      if current_scene = @@scene
+        current_scene.process_events
         # TODO: This might require another check for the scene value
-        currend_scene.main_update 
+        current_scene.main_update 
       else
         SDC.error "Could not update without a scene"
       end
 
       if !@@next_scene
-        if currend_scene = @@scene
-          currend_scene.exit
+        if current_scene = @@scene
+          current_scene.exit
         else
           SDC.error "Could not exit empty scene properly"
         end
 
         @@scene = nil
       elsif @@next_scene != true
-        if currend_scene = @@scene
-          currend_scene.exit
+        if current_scene = @@scene
+          current_scene.exit
         else
           SDC.error "Could not exit empty scene properly"
         end
@@ -43,8 +43,8 @@ module SDC
     end
 
     @@limiter.not_nil!.set_draw_routine do
-      if currend_scene = @@scene
-        currend_scene.main_draw
+      if current_scene = @@scene
+        current_scene.main_draw
       else
         SDC.error "Could not draw without a scene"
       end
