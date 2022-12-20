@@ -273,19 +273,23 @@ macro main_routine_with_config(filename)
           features = CompilationHelper.get_all_features_from_project_file(SPT::Script.path, "{{frontend_project}}")
 
           features.each do |feature|
-            SPT::Features.ensure(feature, "frontend ({{frontend}} - {{frontend_project}})")
+            #SPT::Features.ensure(feature, "frontend ({{frontend}} - {{frontend_project}})")
           end
 
           scripts.each do |script|
             if File.directory?(script)
-              SPT::Script.load_recursively(script)
+              #SPT::Script.load_recursively(script)
             else
-              SPT::Script.load(script)
+              #SPT::Script.load(script)
             end
           end
         {% else %}
           SPT::Script.load("{{frontend_project}}")
         {% end %}
+      {% end %}
+
+      {% if use_sdl %}
+        SDC.main_routine if SDC.scene
       {% end %}
 
       Anyolite::RbCore.rb_print_error(rb)

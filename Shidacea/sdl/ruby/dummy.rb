@@ -1,12 +1,5 @@
 puts "Dummy file"
 
-# NOTE: This will likely still be possible in the final release, but entity data will make it less relevant
-class DummyEntity < SDC::Entity
-  def initialize(data, param)
-    super(data, param)
-  end
-end
-
 class SceneTest < SDC::Scene
   def at_init
     self.use_own_draw_implementation = true
@@ -98,7 +91,7 @@ class SceneTest < SDC::Scene
     @entities = SDC::EntityGroup.new
 
     5.times do |i|
-      new_entity = DummyEntity.new(@dummy_entity_data, SDC::Param.new([SDC::Param.new("Hello World"), SDC::Param.new(i)]))
+      new_entity = SDC::Entity.new(@dummy_entity_data, SDC::Param.new([SDC::Param.new("Hello World"), SDC::Param.new(i)]))
       new_entity.init
       @entities.add(new_entity)
     end
@@ -190,4 +183,4 @@ class SceneTest < SDC::Scene
   end
 end
 
-SDC.main_routine(SceneTest.new)
+SDC.scene = SceneTest.new

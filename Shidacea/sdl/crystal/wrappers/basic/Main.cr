@@ -1,29 +1,41 @@
 @[Anyolite::DefaultOptionalArgsToKeywordArgs]
+@[Anyolite::SpecializeClassMethod("scene=", [scene : Anyolite::RbRef | SDC::Scene | Nil], [scene : Anyolite::RbRef | Nil])]
+@[Anyolite::SpecializeClassMethod("next_scene=", [next_scene : Anyolite::RbRef | SDC::Scene | Bool | Nil], [next_scene : Anyolite::RbRef | Bool | Nil])]
 module SDC
   MAX_VOLUME = LibSDL::MIX_MAX_VOLUME
 
-  class_property scene : SDC::Scene?
-  class_property next_scene : SDC::Scene | Bool | Nil
+  class_property scene : Anyolite::RbRef | SDC::Scene | Nil
+  class_property next_scene : Anyolite::RbRef | SDC::Scene | Bool | Nil
   class_property limiter : SDC::Limiter?
   class_getter windows : Array(SDC::Window) = [] of SDC::Window
 
   @@current_window : SDC::Window?
 
-  def self.main_routine(scene : SDC::Scene)
+  macro call_scene_routine(scene, name)
+    %scene_temp = {{scene}}
+    if %scene_temp.is_a?(Anyolite::RbRef)
+      Anyolite.call_rb_method_of_object(%scene_temp, {{name}})
+    elsif %scene_temp.is_a?(SDC::Scene)
+      %scene_temp.{{name.id}}
+    else
+      puts "WARNING: Scene variable {{scene}} is set to #{%scene_temp}"
+    end
+  end
+
+  def self.main_routine
     @@limiter = SDC::Limiter.new
 
     @@limiter.not_nil!.set_update_routine do
       if current_scene = @@scene
-        current_scene.process_events
-        # TODO: This might require another check for the scene value
-        current_scene.main_update 
+        SDC.call_scene_routine(current_scene, :process_events)
+        SDC.call_scene_routine(current_scene, :main_update)
       else
         SDC.error "Could not update without a scene"
       end
 
       if !@@next_scene
         if current_scene = @@scene
-          current_scene.exit
+          SDC.call_scene_routine(current_scene, :exit)
         else
           SDC.error "Could not exit empty scene properly"
         end
@@ -31,27 +43,26 @@ module SDC
         @@scene = nil
       elsif @@next_scene != true
         if current_scene = @@scene
-          current_scene.exit
+          SDC.call_scene_routine(current_scene, :exit)
         else
           SDC.error "Could not exit empty scene properly"
         end
 
         @@scene = @@next_scene.as?(SDC::Scene).not_nil!
         @@next_scene = nil
-        @@scene.not_nil!.init
+        SDC.call_scene_routine(@@scene, :init)
       end
     end
 
     @@limiter.not_nil!.set_draw_routine do
       if current_scene = @@scene
-        current_scene.main_draw
+        SDC.call_scene_routine(current_scene, :main_draw)
       else
         SDC.error "Could not draw without a scene"
       end
     end
 
-    @@scene = scene
-    @@scene.not_nil!.init
+    SDC.call_scene_routine(@@scene, :init)
     @@next_scene = true
 
     while @@next_scene
