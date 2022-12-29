@@ -1,6 +1,6 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  class EntityState
+  class ObjectState
     @content : Hash(String, Anyolite::RbRef) = {} of String => Anyolite::RbRef
 
     def initialize

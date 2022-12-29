@@ -35,16 +35,17 @@ module SDC
     end
 
     # TODO: Add multiple pages
-    class RubyScript
+    @[Anyolite::SpecifyGenericTypes([T])]
+    class RubyScript(T)
       @ruby_fiber : Anyolite::RbRef
 
       def initialize(template : SDC::AI::RubyScriptTemplatePage)
         @ruby_fiber = template.generate_fiber
       end
 
-      def tick(entity : SDC::Entity)
+      def tick(obj : T)
         rb = Anyolite::RbRefTable.get_current_interpreter
-        arg = Anyolite::RbCast.return_value(rb.to_unsafe, entity)
+        arg = Anyolite::RbCast.return_value(rb.to_unsafe, obj)
         Anyolite::RbCore.rb_fiber_resume(rb, @ruby_fiber.to_unsafe, 1, pointerof(arg)) if running?
         nil
       end
@@ -53,5 +54,8 @@ module SDC
         Anyolite.call_rb_method_of_object(@ruby_fiber.to_unsafe, :"alive?", cast_to: Bool)
       end
     end
+
+    alias RubyScriptEntity = RubyScript(SDC::Entity)
+    alias RubyScriptScene = RubyScript(SDC::Scene)
   end
 end

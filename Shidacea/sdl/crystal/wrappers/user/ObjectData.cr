@@ -1,6 +1,7 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-  class EntityData
+  @[Anyolite::SpecifyGenericTypes([T])]
+  class ObjectData(T)
     getter hooks : Hash(String, SDC::AI::RubyScriptTemplatePage) = {} of String => SDC::AI::RubyScriptTemplatePage
     getter properties : Hash(String, SDC::Param) = {} of String => SDC::Param
   
@@ -14,8 +15,11 @@ module SDC
 
     def copy_hooks
       @hooks.transform_values do |value|
-        SDC::AI::RubyScript.new(value)
+        SDC::AI::RubyScript(T).new(value)
       end
     end
   end
+
+  alias ObjectDataEntity = ObjectData(SDC::Entity)
+  alias ObjectDataScene = ObjectData(SDC::Scene)
 end
