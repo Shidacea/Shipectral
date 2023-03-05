@@ -2,7 +2,6 @@ puts "Dummy file"
 
 init_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
   scene.use_own_draw_implementation = true
-  scene.interpreter_test("Scene")
   
   scene.state["window"] = SDC::Window.new("Hello World", 800, 600)
 
@@ -45,17 +44,14 @@ init_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
 
   behavior_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
     puts "Behavior called"
-    interpreter_test("Behavior")
     SDC::AI.wait(60)
     puts "Hello, I am still #{entity.state["test_value"]}."
   end
   dummy_entity_data.add_hook("behavior", behavior_script)
 
-  init_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
+  update_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
     puts "Hello, my name is #{entity.magic_number}."
     entity.state["test_value"] = entity.magic_number
-
-    scene.interpreter_test("Entity")
 
     font = SDC::Font.load_from_file("demo_projects/Example_Test/assets/fonts/arial.ttf")
     entity.state["font"] = font
@@ -66,10 +62,11 @@ init_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
     entity.state["text"] = text
 
     entity.state["text_direction"] = 1
-  end 
-  dummy_entity_data.add_hook("spawn", init_script)
 
-  update_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
+    Fiber.yield
+
+    ###
+
     text = entity.state["text"]
 
     SDC::AI.forever do
@@ -94,9 +91,6 @@ init_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
 
   draw_script = SDC::AI::RubyScriptTemplatePage.create do |entity|
     text = entity.state["text"]
-
-    # TODO: This mustn't run at layer 2!
-    scene.interpreter_test("Entity Draw")
     
     SDC::AI.forever do
       text.draw
@@ -104,13 +98,16 @@ init_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
   end
   dummy_entity_data.add_hook("draw", draw_script)
 
-  scene.state["entities"] = SDC::EntityGroup.new
+  entities = SDC::EntityGroup.new
 
   5.times do |i|
     new_entity = SDC::Entity.new(dummy_entity_data, SDC::Param.new([SDC::Param.new("Hello World"), SDC::Param.new(i)]))
-    new_entity.init
-    scene.state["entities"].add(new_entity)
+    entities.add(new_entity)
   end
+
+  scene.add_entity_group("main", entities)
+
+  puts "Done"
 end
 
 update_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
@@ -122,8 +119,7 @@ update_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
       texture2.offset.x += 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_RIGHT)
       texture2.offset.x -= 1 if SDC::Keyboard.key_down?(SDC::Keyboard::K_LEFT)
 
-      # TODO: This will currently crash, likely due to being on the second layer
-      #scene.state["entities"].update
+      scene.update_entity_group("main")
     end
 
     SDC.for_window(scene.state["window"]) do
@@ -150,7 +146,7 @@ draw_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
       SDC.current_window.clear
 
       SDC.with_view(scene.state["view"]) do
-        scene.state["entities"].draw
+        scene.draw_entity_group("main")
       end
       
       SDC.current_window.render_and_display
@@ -203,13 +199,15 @@ exit_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
   scene.state["window2"].unpin_all
 end
 
+test_update_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
+  SDC::AI.forever do
+  end
+end
+
 dummy_scene_data = SDC::ObjectDataScene.new
 dummy_scene_data.add_hook("init", init_procedure)
 dummy_scene_data.add_hook("update", update_procedure)
 dummy_scene_data.add_hook("draw", draw_procedure)
 dummy_scene_data.add_hook("handle_event", event_procedure)
 
-class SceneTest < SDC::Scene
-end
-
-SDC.scene = SceneTest.new(dummy_scene_data)
+SDC.scene = SDC::Scene.new(dummy_scene_data)

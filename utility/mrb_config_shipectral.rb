@@ -10,7 +10,6 @@ MRuby::Build.new do |conf|
   conf.gembox 'default'
 
   conf.gem :mgem => 'json'
-  conf.gem :mgem => 'dir'
   conf.gem :mgem => 'erb'
 
   conf.cc.flags << '-DMRB_UTF8_STRING -DMRB_INT64'

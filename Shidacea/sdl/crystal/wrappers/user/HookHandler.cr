@@ -13,7 +13,7 @@ module SDC
 
       if @hooks[name]?
         @current_hook = name
-        @hooks[name].tick(obj)
+        running = @hooks[name].tick(obj)
         @current_hook = nil
       end
 

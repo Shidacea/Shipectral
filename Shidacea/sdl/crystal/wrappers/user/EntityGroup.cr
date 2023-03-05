@@ -1,7 +1,9 @@
 module SDC
   @[Anyolite::DefaultOptionalArgsToKeywordArgs]
   class EntityGroup
-    @content : Array(SDC::Entity | Anyolite::RbRef) = [] of SDC::Entity | Anyolite::RbRef
+    @content : Array(SDC::Entity) = [] of SDC::Entity
+    property needs_update : Bool = false
+    property needs_draw : Bool = false
     
     def initialize
     end
@@ -11,30 +13,20 @@ module SDC
       @content.size - 1
     end
 
-    @[Anyolite::Specialize]
-    def add(value : Anyolite::RbRef)
-      @content.push value
-      @content.size - 1
-    end
-
     def update
+      return if !@needs_update
       @content.each do |entity|
-        if entity.is_a?(SDC::Entity)
-          entity.update
-        else
-          Anyolite.call_rb_method_of_object(entity.to_unsafe, :update)
-        end
+        entity.update
       end
+      @needs_update = false
     end
 
     def draw
+      return if !@needs_draw
       @content.each do |entity|
-        if entity.is_a?(SDC::Entity)
-          entity.draw
-        else
-          Anyolite.call_rb_method_of_object(entity.to_unsafe, :draw)
-        end
+        entity.draw
       end
+      @needs_draw = false
     end
 
     def clear

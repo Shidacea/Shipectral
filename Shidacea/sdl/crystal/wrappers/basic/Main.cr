@@ -1,11 +1,9 @@
 @[Anyolite::DefaultOptionalArgsToKeywordArgs]
-@[Anyolite::SpecializeClassMethod("scene=", [scene : Anyolite::RbRef | SDC::Scene | Nil], [scene : Anyolite::RbRef | Nil])]
-@[Anyolite::SpecializeClassMethod("next_scene=", [next_scene : Anyolite::RbRef | SDC::Scene | Bool | Nil], [next_scene : Anyolite::RbRef | Bool | Nil])]
 module SDC
   MAX_VOLUME = LibSDL::MIX_MAX_VOLUME
 
-  class_property scene : Anyolite::RbRef | SDC::Scene | Nil
-  class_property next_scene : Anyolite::RbRef | SDC::Scene | Bool | Nil
+  class_property scene : SDC::Scene | Nil
+  class_property next_scene : SDC::Scene | Bool | Nil
   class_property limiter : SDC::Limiter?
   class_getter windows : Array(SDC::Window) = [] of SDC::Window
 
@@ -13,9 +11,7 @@ module SDC
 
   macro call_scene_routine(scene, name)
     %scene_temp = {{scene}}
-    if %scene_temp.is_a?(Anyolite::RbRef)
-      Anyolite.call_rb_method_of_object(%scene_temp, {{name}})
-    elsif %scene_temp.is_a?(SDC::Scene)
+    if %scene_temp.is_a?(SDC::Scene)
       %scene_temp.{{name.id}}
     else
       puts "WARNING: Scene variable {{scene}} is set to #{%scene_temp}"
@@ -52,6 +48,9 @@ module SDC
         @@next_scene = nil
         SDC.call_scene_routine(@@scene, :init)
       end
+
+      GC.collect
+      Anyolite.eval("GC.start")
     end
 
     @@limiter.not_nil!.set_draw_routine do

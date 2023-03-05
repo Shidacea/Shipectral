@@ -44,10 +44,17 @@ module SDC
       end
 
       def tick(obj : T)
+        raise "Too deep: #{Anyolite.get_interpreter_depth}" if Anyolite.get_interpreter_depth >= 1
         rb = Anyolite::RbRefTable.get_current_interpreter
         arg = Anyolite::RbCast.return_value(rb.to_unsafe, obj)
+        # TODO: Integrate this functionality into Anyolite
+        idx = Anyolite::RbCore.rb_gc_arena_save(rb)
         Anyolite::RbCore.rb_fiber_resume(rb, @ruby_fiber.to_unsafe, 1, pointerof(arg)) if running?
-        nil
+        err = Anyolite::RbCore.get_last_rb_error(rb)
+        converted_err = Anyolite.call_rb_method_of_object(err, "to_s", cast_to: String)
+        raise "Error at ticking #{T}: #{converted_err}" if converted_err != ""
+        Anyolite::RbCore.rb_gc_arena_restore(rb, idx)
+        running?
       end
 
       def running?
