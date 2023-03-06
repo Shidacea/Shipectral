@@ -63,7 +63,7 @@ init_procedure = SDC::AI::RubyScriptTemplatePage.create do |scene|
 
     entity.state["text_direction"] = 1
 
-    Fiber.yield
+    SDC::AI.done
 
     ###
 

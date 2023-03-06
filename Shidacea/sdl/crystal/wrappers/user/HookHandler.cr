@@ -6,6 +6,8 @@ module SDC
     getter current_hook : String? = nil
     property next_hook : String? = nil
 
+    @stack : Deque(String) = Deque(String).new(initial_capacity: 5)
+
     @[Anyolite::Exclude]
     def trigger_hook(obj : T, name : String)
       SDC.error "Hook #{@current_hook} is already active. Use \"switch_to_hook\" instead of \"trigger_hook\"." if @current_hook
@@ -20,7 +22,14 @@ module SDC
       next_hook_name = @next_hook
       @next_hook = nil
 
-      trigger_hook(obj, next_hook_name.not_nil!) if next_hook_name
+      if next_hook_name
+        @stack.push name
+        trigger_hook(obj, next_hook_name.not_nil!)
+      end
+
+      unless @stack.empty?
+        trigger_hook(obj, @stack.pop)
+      end
     end
 
     @[Anyolite::Exclude]

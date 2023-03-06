@@ -1,5 +1,5 @@
 module SDC
-  	module AI
+  module AI
 		module Helper
 			# TODO: Rather implement this with Anyolite as soon as possible
 			def self.create_fiber_from_proc(proc)
@@ -7,7 +7,7 @@ module SDC
 			end
 		end
 
-    	def self.done
+    def self.done
 			Fiber.yield
 		end
 
@@ -38,7 +38,7 @@ module SDC
 			entity.next_hook = name
 			done
 		end
-  	end
+  end
 end
 
 puts "AI module loaded"
